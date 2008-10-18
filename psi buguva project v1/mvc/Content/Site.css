@@ -1,0 +1,240 @@
+﻿/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+body
+{
+    background-color: #2B87B0;
+    font-family: Calibri, "Lucida Sans Unicode", Verdana, Helvetica, Sans-Serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color: #696969;
+}
+
+p, ul
+{
+    margin-bottom: 20px;
+    line-height: 1.6em;
+}
+
+/* HEADINGS   
+----------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6
+{
+    font-size: 1.5em;
+    color: #000;
+    font-family: Calibri, Arial, Helvetica, sans-serif;
+}
+
+h1
+{
+    font-size: 2em;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+h2
+{
+    padding: 0 0 10px 0;
+}
+h3
+{
+    font-size: 1.2em;
+}
+h4
+{
+    font-size: 1.1em;
+}
+h5, h6
+{
+    font-size: 1em;
+}
+
+/* this rule styles <h2> tags that are the 
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
+{
+    margin-top: 0;
+}
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+/* you can specify a greater or lesser percentage for the 
+page width. Or, you can specify an exact pixel width. */
+
+#left_meniu
+{
+	background-color: #FFFFFF;
+	border-top: 1px #D3ECFF solid;
+	border-right: 2px #D3ECFF solid;
+	border-bottom: 2px #D3ECFF solid;
+	border-left: 1px #D3ECFF solid;
+	margin: 10px;	
+	padding: 15px 5px 5px 5px;
+	width: 200px;
+	float: left;	
+}
+
+#left_meniu h1
+{
+	color: #111111;
+	margin: 0px 10px 0px 10px;
+	padding: 0px;
+	font-size: 18px;
+	border-bottom: 1px #D3ECFF solid;
+}
+
+#left_meniu ul
+{
+	margin: 10px 10px 10px 15px;	
+	padding: 0px;
+}
+
+#left_meniu ul li
+{
+	margin: 0px 0px 0px 0px;
+	list-style: none;
+}
+
+#left_meniu ul li a
+{
+	text-decoration: none;
+	margin-left: 5px;
+	font-size: 16px;
+	color: #191919;
+}
+
+#left_meniu ul li a:hover
+{
+	font-weight: bold;
+	color: #000;	
+}
+
+#main
+{
+	background-color: #FFFFFF;
+	border-top: 1px #D3ECFF solid;
+	border-right: 2px #D3ECFF solid;
+	border-bottom: 2px #D3ECFF solid;
+	border-left: 1px #D3ECFF solid;
+    width: auto;
+    margin-left: 230px;
+    padding-top: 200px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#middle
+{
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	float: left;
+	min-height: 400px;	
+	background-color: #F4F5F6;
+	border-bottom: 1px #D3ECFF solid;
+}
+
+#footer
+{
+    color: #E6EDEF;
+    padding: 5px 0 0 0;
+    text-align: center;
+    line-height: normal;
+    background-color: #0CB3DF;
+    width: 500px;
+    float: right;
+}
+
+#footer p
+{
+    padding: 5px 0;
+    margin: 0;
+    font-size: 12px;
+}
+
+/* TAB MENU   
+----------------------------------------------------------*/
+
+#header
+{
+    margin: 0px;
+    color: #000;
+    padding: 0px;
+    background-color: #2B87B0;
+    height: 100px;
+    width: 100%;
+    position: relative;
+}
+
+#header ul#menu
+{
+	padding: 0px 0px 0px 10px;
+    margin: 0;
+    text-align: left;
+}
+
+#header ul#menu li
+{
+    display: inline;
+    list-style: none;
+}
+
+#header ul#menu li.simple a
+{
+    padding: 11px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 15px;
+    background-color: #0CB3DF;
+    color: #E6EDEF;
+    border-right: 2px #3198C4 solid;
+}
+
+#header ul#menu li.simple a:hover
+{
+    color: #FFF;
+    text-decoration: none;
+}
+
+#header ul#menu li.selected a
+{
+    padding: 11px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 15px;
+    background-color: #F4F5F6;
+    color: #111111;
+    border-right: 2px #3198C4 solid;
+}
+
+#header p#logo
+{
+   text-align: right;
+   font-weight: bold;
+   font-size: 24px !important;
+   padding: 10px 10px;
+   margin: 0;
+   color: #FFF;
+   border: none;
+   font-family: Calibri, Arial, Helvetica, sans-serif;
+   height: 50px;
+}
+
+#header #logo a
+{
+    color: #E6EDEF;
+    text-decoration: none;
+    font-size: 32px !important;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+.clear
+{
+    clear: both;
+}
