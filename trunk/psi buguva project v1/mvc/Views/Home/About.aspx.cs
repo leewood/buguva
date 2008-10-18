@@ -12,5 +12,10 @@ namespace mvc.Views.Home
         {
 
         }
+
+        protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
