@@ -8,5 +8,16 @@ namespace mvc.Views.Home
 {
     public partial class Index : ViewPage
     {
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+
     }
 }
