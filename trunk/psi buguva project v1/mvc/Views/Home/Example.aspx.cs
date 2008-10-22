@@ -20,7 +20,7 @@ namespace mvc.Views.Home
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FormView1.SelectedValue = GridView1.SelectedDataKey;
+            FormView1.PageIndex = GridView1.SelectedIndex;
         }
     }
 }
