@@ -18,27 +18,10 @@
         ) ON [PRIMARY] GO SET ANSI_PADDING OFF&quot;</p>
 <p>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-            ConnectionString="<%$ ConnectionStrings:HRTest5ConnectionString %>" 
+            ConnectionString="<%$ ConnectionStrings:testConnectionString %>" 
             
-            SelectCommand="SELECT [col1], [col2] FROM [example1]" 
-            ConflictDetection="CompareAllValues" 
-            DeleteCommand="DELETE FROM [example1] WHERE [col1] = @original_col1 AND [col2] = @original_col2" 
-            InsertCommand="INSERT INTO [example1] ([col1], [col2]) VALUES (@col1, @col2)" 
-            OldValuesParameterFormatString="original_{0}" 
-            UpdateCommand="UPDATE [example1] SET [col2] = @col2 WHERE [col1] = @original_col1 AND [col2] = @original_col2">
-            <DeleteParameters>
-                <asp:Parameter Name="original_col1" Type="String" />
-                <asp:Parameter Name="original_col2" Type="String" />
-            </DeleteParameters>
-            <UpdateParameters>
-                <asp:Parameter Name="col2" Type="String" />
-                <asp:Parameter Name="original_col1" Type="String" />
-                <asp:Parameter Name="original_col2" Type="String" />
-            </UpdateParameters>
-            <InsertParameters>
-                <asp:Parameter Name="col1" Type="String" />
-                <asp:Parameter Name="col2" Type="String" />
-            </InsertParameters>
+            SelectCommand="SELECT [col1], [col2], [col3] FROM [example]" 
+            OldValuesParameterFormatString="original_{0}">
         </asp:SqlDataSource>
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" 
             AutoGenerateColumns="False" DataSourceID="SqlDataSource1" 
@@ -52,8 +35,8 @@
     </asp:GridView>
         
     </p>
-<p>
-        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSource1">
+        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSource1" 
+            Width="144px">
             <EditItemTemplate>
                 COL1:
                 <asp:TextBox ID="COL1TextBox" runat="server" Text='<%# Bind("COL1") %>' />
@@ -89,6 +72,6 @@
                 <br />
             </ItemTemplate>
         </asp:FormView>
-    </p>
+    <asp:Button ID="Button2" runat="server" Text="Button" onclick="Button2_Click" />
 </form>
 </asp:Content>

@@ -6,24 +6,17 @@ using System.Web.Mvc;
 
 namespace mvc.Controllers
 {
-    public class HomeController : Controller
+    public class ExampleController : Controller
     {
         public ActionResult Index()
         {
-            ViewData["Title"] = "Home Page";
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
+            ViewData["Title"] = "Example page";
+            ViewData["Message"] = "Hi";
 
             return View();
         }
 
         public ActionResult About()
-        {
-            ViewData["Title"] = "About Page";
-
-            return View();
-        }
-
-        public ActionResult Example()
         {
             ViewData["Title"] = "About Page";
 
