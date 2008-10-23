@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="ProjectDatabase" Class="WorkersDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\ProjectDatabase.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ProjectDatabaseConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Workers" Member="Workers">
+    <Type Name="Worker">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="login_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="surname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="department_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="is_leader" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="is_department_headmaster" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Worker_Task" Member="Tasks" ThisKey="id" OtherKey="worker_id" Type="Task" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Projects" Member="Projects">
+    <Type Name="Project">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="department_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="caption" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Project_Task" Member="Tasks" ThisKey="id" OtherKey="project_id" Type="Task" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tasks" Member="Tasks">
+    <Type Name="Task">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="worker_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Worker_Task" Member="Worker" ThisKey="worker_id" OtherKey="id" Type="Worker" IsForeignKey="true" />
+      <Association Name="Project_Task" Member="Project" ThisKey="project_id" OtherKey="id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
