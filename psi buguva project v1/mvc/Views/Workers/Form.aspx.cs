@@ -11,7 +11,7 @@ namespace mvc.Views.Workers
 
         protected void FormView1_ItemInserted(object sender, System.Web.UI.WebControls.FormViewInsertedEventArgs e)
         {
-             form1.Action = "/Workers/Index/";
+            this.Page.Response.Redirect("../Workers/Index");
              
         }
     }
