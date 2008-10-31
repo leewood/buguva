@@ -33,9 +33,15 @@ namespace mvc.Controllers
         public ActionResult Insert(NameValueCollection formParams)
         {
             mvc.Models.POADataModelsDataContext data = new POADataModelsDataContext();
-            data.Save<Worker>(formParams, null);
+            data.Insert<Worker>(this.Request.Params);
             //data.AddWorker((Worker)ViewData.Model);
             return RedirectToAction("Index");
-        }  
+        }
+
+        public ActionResult IndexRedirect()
+        {
+            return RedirectToAction("Index");
+        }
+
     }
 }
