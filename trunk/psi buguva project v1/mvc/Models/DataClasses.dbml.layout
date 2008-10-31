@@ -27,7 +27,7 @@
         <classShapeMoniker Id="4f4cbc3a-416a-4a9d-afd4-007851954029" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4 : 1.92484781901042); (4 : 2.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4 : 1.92484781901042); (4 : 2.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/WorkersDataClassesDataContext/Project/Project_Task" />
       <nodes>
         <classShapeMoniker Id="6b3c611e-dffa-4dd1-a58e-cd1b550c3698" />

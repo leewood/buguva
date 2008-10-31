@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="POADataModels">
+  <DataContextMoniker Name="/POADataModelsDataContext" />
+  <nestedChildShapes>
+    <classShape Id="3ad2bd79-a5b1-49aa-af42-a521aa06c053" absoluteBounds="0.5, 0.5, 2, 1.9178898111979166">
+      <DataClassMoniker Name="/POADataModelsDataContext/Worker" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0cde56d3-98b8-4a33-b723-f5cc41db7745" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
