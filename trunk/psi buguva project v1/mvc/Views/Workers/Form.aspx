@@ -20,14 +20,6 @@
             <asp:Textbox ID="department_idTextBox" runat="server" 
                 Text='<%# Bind("department_id") %>' />
             <br /><br />
-            Is Leader:<br />
-            <asp:TextBox ID="is_leaderTextBox" runat="server" 
-                Text='<%# Bind("is_leader") %>' />
-            <br /><br />
-            Is Department Headmaster:<br />
-            <asp:TextBox ID="is_department_headmasterTextBox" runat="server" 
-                Text='<%# Bind("is_department_headmaster") %>' />
-            <br /><br />
             <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" 
                 CommandName="Insert" Text="Insert" />
             &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" 
@@ -55,14 +47,6 @@
             Department ID:<br />            
             <asp:Textbox ID="department_idTextBox" runat="server" 
                 Text='<%# Bind("department_id") %>' />
-            <br /><br />
-            Is Leader:<br />
-            <asp:TextBox ID="is_leaderTextBox" runat="server" 
-                Text='<%# Bind("is_leader") %>' />
-            <br /><br />
-            Is Department Headmaster:<br />
-            <asp:TextBox ID="is_department_headmasterTextBox" runat="server" 
-                Text='<%# Bind("is_department_headmaster") %>' />
             <br /><br />
             <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" 
                 CommandName="Insert" Text="Insert" />
@@ -102,18 +86,6 @@
     <%= Html.TextBox("department_id") %>
     
     <br /><br />
-    <label for="director">Is Leader:</label>
-    <br />
-    <%= Html.TextBox("is_leader")%>
-    
-    <br /><br />
-    <label for="director">Is Department Headmaster:</label>
-    <br />
-    <%= Html.TextBox("is_department_headmaster") %>
-    
-    <br /><br />
-    
-    
     <input type="submit" value="Insert" />
     
     </form>

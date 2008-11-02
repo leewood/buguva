@@ -5,26 +5,30 @@
     <h1>Method1: </h1>
     <table class="grid">
       <tr>
-        <th>id</th>
-        <th>Login</th>
+        <th>id</th>      
         <th>Name</th>
         <th>Surname</th>      
+        <th>Department</th>
       </tr>    
       <% foreach (mvc.Models.Worker worker in ViewData.Model) %>
       <% { %>
       <tr>
         <td>
-          <%= worker.id  %>
+          
+          <%= Html.ActionLink(worker.id.ToString(), "View", new {id = worker.id } )%>         
         </td>
-        <td>
-          <%= worker.login_name  %>
-        </td>    
         <td>
           <%= worker.name  %>
         </td>
         <td>
           <%= worker.surname  %>
         </td>        
+        <td>
+          <% if (worker.department_id != null)
+             { %>
+          <%= Html.ActionLink(worker.department_id.ToString(), "View", "Departments", new { id = worker.department_id })%>
+          <% } %>
+        </td>
       </tr>
     <% } %>    
     </table>
@@ -38,8 +42,6 @@
             AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" >
         <Columns>
             <asp:BoundField DataField="id" HeaderText="id" SortExpression="id" />
-            <asp:BoundField DataField="login_name" HeaderText="login_name" 
-                SortExpression="login_name" />
             <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
             <asp:BoundField DataField="surname" HeaderText="surname" 
                 SortExpression="surname" />
@@ -52,8 +54,6 @@
         <Columns>
             <asp:BoundField DataField="id" HeaderText="id" ReadOnly="True" 
                 SortExpression="id" />
-            <asp:BoundField DataField="login_name" HeaderText="login_name" 
-                SortExpression="login_name" ReadOnly="True" />
             <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" 
                 ReadOnly="True" />
             <asp:BoundField DataField="surname" HeaderText="surname" 
@@ -63,7 +63,7 @@
 
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
         ContextTypeName="mvc.Models.POADataModelsDataContext" TableName="Workers" 
-        Select="new (id, login_name, name, surname)">
+        Select="new (id, name, surname)">
     </asp:LinqDataSource>
     </form>
     <a href="/Workers/Form/">Prid&#279;ti</a>
