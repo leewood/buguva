@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\WorkersController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -107,6 +108,20 @@
     <Compile Include="Views\Home\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Login\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Login\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Blank.Master.cs">
+      <DependentUpon>Blank.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Shared\Blank.Master.designer.cs">
+      <DependentUpon>Blank.Master</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -138,6 +153,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Views\Home\Example.aspx" />
+    <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Workers\Form.aspx" />
     <Content Include="Views\Workers\Index.aspx" />
     <Content Include="Web.config" />
@@ -169,6 +185,7 @@
     <None Include="Models\POADataModels.dbml.layout">
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </None>
+    <Content Include="Views\Shared\Blank.Master" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
