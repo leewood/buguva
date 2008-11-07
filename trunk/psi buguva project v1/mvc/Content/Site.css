@@ -157,6 +157,78 @@ page width. Or, you can specify an exact pixel width. */
     font-size: 12px;
 }
 
+div #login
+{
+	margin-top: 50px;
+	width: 450px; 
+	margin-left: auto; 
+	margin-right: auto;
+	height: 200px;
+	background-color: #FFFFFF;
+	border-top: 1px #D3ECFF solid;
+	border-right: 2px #D3ECFF solid;
+	border-bottom: 2px #D3ECFF solid;
+	border-left: 1px #D3ECFF solid;
+}
+
+div #login .header
+{
+	width: 100%;
+	height: 59px;
+	text-align: left;
+	font-size: 20px;
+	color: #FFFFFF;
+	padding: 10px 10px 10px 80px;
+	background-image: url("../Content/Images/login-header.gif");
+	background-repeat: no-repeat;
+}
+
+div #login form span
+{
+	width: 200px;
+	display: block;
+	text-align: right;
+	position: relative;
+
+	float: left;
+	padding-top: 2px;
+	padding-right: 8px;
+	
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+
+div #login form input
+{
+	margin-bottom: 3px;
+	margin-top: 3px;
+
+	
+	color: #212121;
+	background-color: #FFF;
+	border: 1px solid #AFC4D3;
+}
+
+div #login form input[type=submit]
+{
+	margin-bottom: 3px;
+	margin-top: 3px;
+	
+	color: #212121;
+	font-weight: bold;
+	
+	width: 80px;
+	
+	background-color: #FFF;
+	border: 1px solid #AFC4D3;
+}
+
+div #login form input:hover[type=submit]
+{
+	border: 1px solid #0CB3DF;
+}
+
+
 /* TAB MENU   
 ----------------------------------------------------------*/
 
