@@ -14,6 +14,15 @@ namespace mvc.Views.Login {
     public partial class Index {
         
         /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
         /// loginform control.
         /// </summary>
         /// <remarks>
@@ -32,13 +41,13 @@ namespace mvc.Views.Login {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// loginname control.
+        /// input_loginname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox loginname;
+        protected global::System.Web.UI.WebControls.TextBox input_loginname;
         
         /// <summary>
         /// Label2 control.
@@ -50,13 +59,13 @@ namespace mvc.Views.Login {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// password control.
+        /// input_password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox password;
+        protected global::System.Web.UI.WebControls.TextBox input_password;
         
         /// <summary>
         /// Label3 control.
@@ -68,13 +77,13 @@ namespace mvc.Views.Login {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// rememberme control.
+        /// input_rememberme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rememberme;
+        protected global::System.Web.UI.WebControls.CheckBox input_rememberme;
         
         /// <summary>
         /// loginbutton control.
