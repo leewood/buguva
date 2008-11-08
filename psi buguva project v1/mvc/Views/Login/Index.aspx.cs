@@ -11,7 +11,21 @@ namespace mvc.Views.Login
     {
         protected void loginbutton_Click(object sender, EventArgs e)
         {
-            loginbutton.Text = "laba";
+            Label4.Text = "Jungiamasi...";
+
+
+            mvc.Models.Authentication auth = mvc.Models.Authentication.instance();
+
+            string name = input_loginname.Text;
+            string password = input_password.Text;
+
+            bool remember = (input_rememberme.Text != "")? true : false;
+
+            if (auth.login(name, password, remember))
+                Label4.Text = "Prisijungta";
+            else
+                Label4.Text = "Blogas slaptažodsi arba vardas";
+
         }
     }
 }
