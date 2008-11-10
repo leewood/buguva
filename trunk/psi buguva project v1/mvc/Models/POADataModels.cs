@@ -7,8 +7,7 @@ namespace mvc.Models
     partial class POADataModelsDataContext
     {
         public void get()
-        {
-            
+        {            
         }
         public List<Worker> GetWorkers()
         {
