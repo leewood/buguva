@@ -19,18 +19,20 @@ namespace mvc.Common
                 }
                 else
                 {
-                    return 0;
+                    //return 0;
+                    return 1; //<--- Cia tik meginimo tikslais, kai normaliai veiks loginas, sito neturetu but
                 }
             }
             set
             {
                 HttpContext.Session["myWorkerID"] = value;
+                
             }
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         { 
-            filterContext.Controller.ViewData["MyWorkerID"] = MyWorkerID;
+            filterContext.Controller.ViewData["MyWorkerID"] = MyWorkerID;            
             base.OnActionExecuting(filterContext);
         }
     }

@@ -19,11 +19,11 @@
 	      <th>Baigta dalyvauti</th>
 	      <th>Išdirbta(val.)</th>
 	      <th>Peržiūra</th>
-	   </tr>
+	   </tr>	  
 	   <% foreach (Project project in ViewData.Model) %>
        <% { %>
             <tr class=''>
-             <td><%= project.title %></td>
+             <td><%= Html.ActionLink(project.title, "ListMyTasksInProject", new {project_id = project.id}) %></td>
              <td>#<%= project.id %></td>
              <td><%= project.Worker.name + " " + project.Worker.surname %></td>
              <% Task task = project.Tasks.OrderBy(t => (t.year * 12 + t.month)).First(); %>
@@ -35,7 +35,7 @@
                <%= Html.ActionImageLink("~/Content/ico1.png", "Ataskaita", "Report", new {}) %>
                <% if (project.project_manager_id == (int)ViewData["MyWorkerID"]) %>
                <% { %>
-                 <%= Html.ActionImageLink("~/Content/ico2.png", "Ataskaita", "Report", new { })%>
+                 <%= Html.ActionImageLink("~/Content/ico2.png", "Vadovo Ataskaita", "ProjectManagerReport", new { })%>
                <% } %>
              </td>
           </tr>

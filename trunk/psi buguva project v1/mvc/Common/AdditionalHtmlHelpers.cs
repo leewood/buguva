@@ -23,8 +23,9 @@ namespace mvc.Common
 
         public static string ActionImageLink(this HtmlHelper helper, string imagePath, string alt, string action, object values)
         {
-            
-            return helper.ActionLink(String.Format("<img src='{0}' alt='{1} />", imagePath, alt), action, values);
+            string returnActionLink = helper.ActionLink("insert_place_for_img", action, values);
+            string replaceWith = String.Format("<img src=\"{0}\" alt = \"{1}\"/>", imagePath, HttpUtility.HtmlEncode(alt));
+            return returnActionLink.Replace("insert_place_for_img", replaceWith);
         }
 
     }

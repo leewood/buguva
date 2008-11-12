@@ -30,15 +30,17 @@ namespace mvc.Common
 			var sb = new StringBuilder();
 			
 			// Previous
-			if (this.currentPage > 1)
-			{
-				sb.Append(GeneratePageLink("Previous", this.currentPage - 1));
-			}
-			else
-			{
-				sb.Append("<span class=\"disabled\">Previous</span>");
-			}
-
+            if (pageCount > 0)
+            {
+                if (this.currentPage > 0)
+                {
+                    sb.Append(GeneratePageLink("&lt", this.currentPage - 1));
+                }
+                else
+                {
+                    sb.Append("<span class=\"disabled\">&lt</span>");
+                }
+            }
 			int start = 1;
 			int end = pageCount;
 
@@ -88,14 +90,17 @@ namespace mvc.Common
 			}
 
 			// Next
-			if (this.currentPage < pageCount)
-			{
-				sb.Append(GeneratePageLink("Next", (this.currentPage + 1)));
-			}
-			else
-			{
-				sb.Append("<span class=\"disabled\">Next</span>");
-			}
+            if (pageCount > 1)
+            {
+                if (this.currentPage < pageCount)
+                {
+                    sb.Append(GeneratePageLink("&gt", (this.currentPage + 1)));
+                }
+                else
+                {
+                    sb.Append("<span class=\"disabled\">&gt</span>");
+                }
+            }
 			return sb.ToString();
 		}
 
