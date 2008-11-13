@@ -25,12 +25,10 @@
             <tr class=''>
              <td><%= Html.ActionLink(project.title, "ListMyTasksInProject", new {project_id = project.id}) %></td>
              <td>#<%= project.id %></td>
-             <td><%= project.Worker.name + " " + project.Worker.surname %></td>
-             <% Task task = project.Tasks.OrderBy(t => (t.year * 12 + t.month)).First(); %>
-             <td><%= task.year + "-" + task.month %></td>
-             <% Task taskLast = project.Tasks.OrderByDescending(t => (t.year * 12 + t.month)).First(); %>
-             <td><%= taskLast.year + "-" + taskLast.month %></td>
-             <td><%= project.Tasks.Sum(t => t.worked_hours) %></td>
+             <td><%= project.Worker.Fullname %></td>             
+             <td><%= project.StartedAt %></td>             
+             <td><%= project.EndedAt %></td>
+             <td><%= project.TotalWorkedHours.ToString() %></td>
              <td>
                <%= Html.ActionImageLink("~/Content/ico1.png", "Ataskaita", "Report", new {}) %>
                <% if (project.project_manager_id == (int)ViewData["MyWorkerID"]) %>

@@ -30,6 +30,56 @@ namespace mvc.Common
             }
         }
 
+        public int MyUserID
+        {
+            get
+            {
+                if (Session["myUserID"] != null)
+                {
+                    return (int)Session["myUserID"];
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                Session["myUserID"] = value;
+            }
+        }
+
+
+        private Models.POADataModelsDataContext _dBDataContext = null;
+        public Models.POADataModelsDataContext DBDataContext
+        {
+            get
+            {
+                if (_dBDataContext == null)
+                {
+                    _dBDataContext = new mvc.Models.POADataModelsDataContext();
+                }
+                return _dBDataContext;
+            }
+        
+        }
+
+        public Models.Worker MyselfAsWorker
+        {
+            get
+            {
+                return DBDataContext.Workers.Where(worker => worker.id == MyWorkerID).First();
+            }
+        }
+
+        public Models.User MyselfAsUser
+        {
+            get
+            {
+                return DBDataContext.Users.Where(user => user.id == MyUserID).First();
+            }
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         { 
             filterContext.Controller.ViewData["MyWorkerID"] = MyWorkerID;            

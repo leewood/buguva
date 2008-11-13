@@ -185,6 +185,65 @@ namespace mvc.Models
         }
     }
 
+    partial class Project
+    {
+        public Task FirstTask
+        {
+            get
+            {
+                return this.Tasks.OrderBy(t => (t.year * 12 + t.month)).First();
+            }
+        }
+
+        public Task LastTask
+        {
+            get
+            {
+                return this.Tasks.OrderByDescending(t => (t.year * 12 + t.month)).First();
+            }
+
+        }
+
+        public String StartedAt
+        {
+            get
+            {
+                if (FirstTask != null)
+                {
+                    return (new MonthOfYear(FirstTask.year, FirstTask.month)).ToString();
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        public String EndedAt
+        {
+            get
+            {
+                if (LastTask != null)
+                {
+                    return (new MonthOfYear(LastTask.year, LastTask.month)).ToString();
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        public int TotalWorkedHours
+        {
+            get
+            {
+                return this.Tasks.Sum(t => t.worked_hours);
+            }
+        }
+
+    }
+
     partial class Worker
     {
         public List<MonthOfYear> workedMonthsInProject(int project_id)
@@ -202,7 +261,15 @@ namespace mvc.Models
                 }
             result.Sort();
             return result;
-        }        
+        }
+
+        public String Fullname
+        {
+            get
+            {
+                return this.name + " " + this.surname;
+            }
+        }
     }
 
     partial class POADataModelsDataContext
