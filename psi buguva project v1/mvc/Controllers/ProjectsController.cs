@@ -31,36 +31,44 @@ namespace mvc.Controllers
             return View(projects.ToPagedList(currentPage - 1, 25));
         }
 
-        public ActionResult ListMyTasksInProject(int? page, int project_id, int? year, int? month)
-        {                                   
-            List<Models.MonthOfYear> months = MyselfAsWorker.workedMonthsInProject(project_id);
-            List<Models.Task> tasks = new List<mvc.Models.Task>();
-            int currentPage = (page.HasValue) ? page.Value : 1;
-            if (currentPage < 1)
+        public ActionResult ListMyTasksInProject(int? page, int? project_id, int? year, int? month)
+        {
+            if (project_id.HasValue)
             {
-                currentPage = 1;
-            }
-            int monthToUse = 0;
-            int yearToUse = 0;
-            if ((!year.HasValue) || (!month.HasValue))
-            {
-                if (months.Count > 0)
+                int project = project_id.Value;
+                List<Models.MonthOfYear> months = MyselfAsWorker.workedMonthsInProject(project);
+                List<Models.Task> tasks = new List<mvc.Models.Task>();
+                int currentPage = (page.HasValue) ? page.Value : 1;
+                if (currentPage < 1)
                 {
-                    yearToUse = months[0].Year;
-                    monthToUse = months[0].Month;
+                    currentPage = 1;
                 }
+                int monthToUse = 0;
+                int yearToUse = 0;
+                if ((!year.HasValue) || (!month.HasValue))
+                {
+                    if (months.Count > 0)
+                    {
+                        yearToUse = months[0].Year;
+                        monthToUse = months[0].Month;
+                    }
+                }
+                else
+                {
+                    monthToUse = month.Value;
+                    yearToUse = year.Value;
+                }
+                if (monthToUse + yearToUse > 0)
+                {
+                    tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.year == yearToUse) && (task.month == monthToUse))).ToList();
+                }
+                if (tasks == null) tasks = new List<mvc.Models.Task>();
+                return View(new Models.TasksAndMonths(tasks.ToPagedList(currentPage - 1, 25), months, new Models.MonthOfYear(yearToUse, monthToUse), project));
             }
             else
             {
-                monthToUse = month.Value;
-                yearToUse = year.Value;
+                return RedirectToAction("ListMyProjects");
             }
-            if (monthToUse + yearToUse > 0)
-            {
-                tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.year == yearToUse) && (task.month == monthToUse))).ToList();
-            }
-            if (tasks == null) tasks = new List<mvc.Models.Task>();
-            return View(new Models.TasksAndMonths(tasks.ToPagedList(currentPage - 1, 25), months, new Models.MonthOfYear(yearToUse, monthToUse), project_id));
         }
     }
 }

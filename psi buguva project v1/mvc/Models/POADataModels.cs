@@ -35,7 +35,7 @@ namespace mvc.Models
                 }
                 else
                 {
-                    throw new FormatException("Month must be between 1 and 12");
+                    //throw new FormatException("Month must be between 1 and 12");
                 }
             }
         }
