@@ -19,7 +19,10 @@ namespace mvc.Controllers
         {
             ViewData["Title"] = "Mano Projektai";
             int currentPage = (page.HasValue) ? page.Value: 1;
-            
+            if (currentPage < 1)
+            {
+                currentPage = 1;
+            }
             IEnumerable<Models.Project> projects = DBDataContext.Projects;
             if (projects.Count() > 0)
             {
@@ -33,6 +36,10 @@ namespace mvc.Controllers
             List<Models.MonthOfYear> months = MyselfAsWorker.workedMonthsInProject(project_id);
             List<Models.Task> tasks = new List<mvc.Models.Task>();
             int currentPage = (page.HasValue) ? page.Value : 1;
+            if (currentPage < 1)
+            {
+                currentPage = 1;
+            }
             int monthToUse = 0;
             int yearToUse = 0;
             if ((!year.HasValue) || (!month.HasValue))

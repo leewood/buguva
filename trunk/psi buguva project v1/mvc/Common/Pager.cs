@@ -30,78 +30,82 @@ namespace mvc.Common
 			var sb = new StringBuilder();
 			
 			// Previous
-            if (pageCount > 0)
-            {
-                if (this.currentPage > 0)
-                {
-                    sb.Append(GeneratePageLink("&lt", this.currentPage - 1));
-                }
-                else
-                {
-                    sb.Append("<span class=\"disabled\">&lt</span>");
-                }
-            }
-			int start = 1;
-			int end = pageCount;
-
-			if (pageCount > nrOfPagesToDisplay)
-			{
-				int middle = (int)Math.Ceiling(nrOfPagesToDisplay / 2d) - 1;
-				int below = (this.currentPage - middle);
-				int above = (this.currentPage + middle);
-
-				if (below < 4)
-				{
-					above = nrOfPagesToDisplay;
-					below = 1;
-				}
-				else if (above > (pageCount - 4))
-				{
-					above = pageCount;
-					below = (pageCount - nrOfPagesToDisplay);
-				}
-
-				start = below;
-				end = above;
-			}
-
-			if (start > 3)
-			{
-				sb.Append(GeneratePageLink("1", 1));
-				sb.Append(GeneratePageLink("2", 2));
-				sb.Append("...");
-			}
-			for (int i = start; i <= end; i++)
-			{
-				if (i == this.currentPage)
-				{
-					sb.AppendFormat("<span class=\"current\">{0}</span>", i);
-				}
-				else
-				{
-					sb.Append(GeneratePageLink(i.ToString(), i));
-				}
-			}
-			if (end < (pageCount - 3))
-			{
-				sb.Append("...");
-				sb.Append(GeneratePageLink((pageCount - 1).ToString(), pageCount - 1));
-				sb.Append(GeneratePageLink(pageCount.ToString(), pageCount));
-			}
-
-			// Next
             if (pageCount > 1)
             {
-                if (this.currentPage < pageCount)
+                if (pageCount > 0)
                 {
-                    sb.Append(GeneratePageLink("&gt", (this.currentPage + 1)));
+                    if (this.currentPage > 0)
+                    {
+                        sb.Append(GeneratePageLink("&lt", this.currentPage - 1));
+                    }
+                    else
+                    {
+                        sb.Append("<span class=\"disabled\">&lt</span>");
+                    }
                 }
-                else
+                int start = 1;
+                int end = pageCount;
+
+                if (pageCount > nrOfPagesToDisplay)
                 {
-                    sb.Append("<span class=\"disabled\">&gt</span>");
+                    int middle = (int)Math.Ceiling(nrOfPagesToDisplay / 2d) - 1;
+                    int below = (this.currentPage - middle);
+                    int above = (this.currentPage + middle);
+
+                    if (below < 4)
+                    {
+                        above = nrOfPagesToDisplay;
+                        below = 1;
+                    }
+                    else if (above > (pageCount - 4))
+                    {
+                        above = pageCount;
+                        below = (pageCount - nrOfPagesToDisplay);
+                    }
+
+                    start = below;
+                    end = above;
+                }
+
+                if (start > 3)
+                {
+                    sb.Append(GeneratePageLink("1", 1));
+                    sb.Append(GeneratePageLink("2", 2));
+                    sb.Append("...");
+                }
+                for (int i = start; i <= end; i++)
+                {
+                    if (i == this.currentPage)
+                    {
+                        sb.AppendFormat("<span class=\"current\">{0}</span>", i);
+                    }
+                    else
+                    {
+                        sb.Append(GeneratePageLink(i.ToString(), i));
+                    }
+                }
+                if (end < (pageCount - 3))
+                {
+                    sb.Append("...");
+                    sb.Append(GeneratePageLink((pageCount - 1).ToString(), pageCount - 1));
+                    sb.Append(GeneratePageLink(pageCount.ToString(), pageCount));
+                }
+
+                // Next
+                if (pageCount > 1)
+                {
+                    if (this.currentPage < pageCount)
+                    {
+                        sb.Append(GeneratePageLink("&gt", (this.currentPage + 1)));
+                    }
+                    else
+                    {
+                        sb.Append("<span class=\"disabled\">&gt</span>");
+                    }
                 }
             }
 			return sb.ToString();
+
 		}
 
 		private string GeneratePageLink(string linkText, int pageNumber)
