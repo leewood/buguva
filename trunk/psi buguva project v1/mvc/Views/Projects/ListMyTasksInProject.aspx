@@ -9,7 +9,7 @@
    	<div id="monthChoose">
    	  <% foreach (MonthOfYear monthOfYear in ViewData.Model.Months) %>
    	  <% { %>
-   	     <% if (!monthOfYear.Equals(ViewData.Model.CurrentMonth)) %>
+   	     <% if ((monthOfYear != null) && (!monthOfYear.Equals(ViewData.Model.CurrentMonth))) %>
    	     <% { %>
    	            <%= Html.ActionLink(monthOfYear.ToString(), "ListMyTasksInProject", new {project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber, year = monthOfYear.Year, month = monthOfYear.Month}) %>
    	     <% } %>
