@@ -191,7 +191,14 @@ namespace mvc.Models
         {
             get
             {
-                return this.Tasks.OrderBy(t => (t.year * 12 + t.month)).First();
+                if (this.Tasks.Count > 0)
+                {
+                    return this.Tasks.OrderBy(t => (t.year * 12 + t.month)).First();
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -199,7 +206,14 @@ namespace mvc.Models
         {
             get
             {
-                return this.Tasks.OrderByDescending(t => (t.year * 12 + t.month)).First();
+                if (this.Tasks.Count > 0)
+                {
+                    return this.Tasks.OrderByDescending(t => (t.year * 12 + t.month)).First();
+                }
+                else
+                {
+                    return null;
+                }
             }
 
         }
@@ -238,7 +252,14 @@ namespace mvc.Models
         {
             get
             {
-                return this.Tasks.Sum(t => t.worked_hours);
+                if (this.Tasks.Count > 0)
+                {
+                    return this.Tasks.Sum(t => t.worked_hours);
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 
@@ -249,7 +270,15 @@ namespace mvc.Models
         public List<MonthOfYear> workedMonthsInProject(int project_id)
         {
             List<MonthOfYear> result = new List<MonthOfYear>();
-            List<Task> tasks = this.Tasks.Where(task => task.project_id == project_id).ToList();
+            List<Task> tasks;
+            if (this.Tasks.Count > 0)
+            {
+                tasks = this.Tasks.Where(task => task.project_id == project_id).ToList();
+            }
+            else
+            {
+                tasks = new List<Task>();
+            }
             if (tasks.Count > 0)
                 foreach (Task task in tasks)
                 {
