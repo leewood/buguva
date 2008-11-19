@@ -1,4 +1,10 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="mvc.Views.Shared.Site" %>
+<%@ Import Namespace="mvc.Common"%>
+<%@ Import Namespace="mvc.Models"%>
+<%@ Import Namespace="System.Web.Mvc.Html"%>
+<% 
+    mvc.Common.SiteMap site = new mvc.Common.SiteMap(); 
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,15 +16,18 @@
 
 <body>
         <div id="header">
-            <p id="logo">
+            <p id="logo"><%= site.RenderHtml() %>
                 <a href="">Organizacijos apskaita&reg;</a>
             </p>
             <ul id="menu">
                 <li class="selected">
-                    <a href="/Home/">Home</a>
+                    <a href="/Home/">Projektai</a>
                 </li>
                 <li class="simple">
-                    <a href="/Home/About/">About</a>
+                    <a href="/Home/About/">Skyriai</a>
+                </li>
+                <li class="simple">
+                    <a href="/Home/About/">Administravimas</a>
                 </li>
             </ul>
         </div>

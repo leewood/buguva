@@ -9,7 +9,7 @@ using LinqToSqlExtensions;
 
 namespace mvc.Controllers
 {
-    public class WorkersController : Controller
+    public class WorkersController : Common.BaseController
     {   
         
         public ActionResult Index()
