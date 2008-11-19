@@ -19,6 +19,13 @@ p, ul
     line-height: 1.6em;
 }
 
+img
+{
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
 /* HEADINGS   
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6
@@ -302,6 +309,86 @@ div #login form input:hover[type=submit]
     color: #E6EDEF;
     text-decoration: none;
     font-size: 32px !important;
+}
+
+/* TABLE  
+----------------------------------------------------------*/
+
+.grid  
+{
+	width: 97%;
+	text-align: left;
+	border-left: 1px solid #EBEBEB;
+	border-right: 1px solid #EBEBEB;
+	border-collapse: collapse;
+	empty-cells: show;	
+	margin-left: 10px;
+	margin-right: 10px;	
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.grid  th {
+	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	background-color: #EBEBEB;
+	border-bottom: 2px solid #EBEBEB;
+	border-right: 1px solid #EBEBEB;
+	border-top: 1px solid #EBEBEB;
+	color: #535353;
+	padding: 6px 6px 6px 12px;
+	background-image: url("/Content/List/back.jpg");
+	background-repeat: repeat-x;
+}
+
+.grid  tr td {
+	font: 12px Arial, Helvetica, sans-serif;
+	border-right: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
+	padding: 0px 4px 0px 4px;
+	height: 20px;
+	/*padding: 6px 4px 6px 4px;*/	
+	border-collapse: collapse;
+	empty-cells: show;
+	color: #2e2e2e;
+}
+
+.grid  tr:hover {
+	background: #eeeeee;
+	border-collapse: collapse;
+	empty-cells: show;
+}
+
+/* FORM  
+----------------------------------------------------------*/
+
+form input, 
+form select {
+	margin-bottom: 5px;
+	color: #212121;
+	background-color: #FFF;
+	border: 1px solid #EBEBEB;
+}
+
+form textarea {
+	margin-bottom: 5px;
+	color: #212121;
+	background-color: #FFF;
+	border: 1px solid #EBEBEB;
+	font-size: 14px;
+}
+
+form input[type=submit] {
+	background-color: #FFF;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #999999;
+	color: #595a5c;
+	font-weight: bold;
+}
+
+form input:hover[type=submit] {
+	background-color: #a4a3a8;
+	color: #FFF;
 }
 
 /* MISC  

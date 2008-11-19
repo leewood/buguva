@@ -30,10 +30,10 @@
              <td><%= project.EndedAt %></td>
              <td><%= project.TotalWorkedHours.ToString() %></td>
              <td>
-               <%= Html.ActionImageLink("~/Content/ico1.png", "Ataskaita", "Report", new {}) %>
+               <%= Html.ActionImageLink("/Content/ico1.png", "Ataskaita", "Report", new {}) %>
                <% if (project.project_manager_id == (int)ViewData["MyWorkerID"]) %>
                <% { %>
-                 <%= Html.ActionImageLink("~/Content/ico2.png", "Vadovo Ataskaita", "ProjectManagerReport", new { })%>
+                 <%= Html.ActionImageLink("/Content/ico2.png", "Vadovo Ataskaita", "ProjectManagerReport", new { })%>
                <% } %>
              </td>
           </tr>
