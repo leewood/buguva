@@ -9,48 +9,27 @@ namespace mvc.Common
 {
     public class BaseController : Controller
     {
-        public int MyWorkerID
-        {
-            get
-            {
-                if (HttpContext.Session["myWorkerID"] != null)
-                {
-                    return (int)HttpContext.Session["myWorkerID"];
-                }
-                else
-                {
-                    //return 0;
-                    return 1; //<--- Cia tik meginimo tikslais, kai normaliai veiks loginas, sito neturetu but
-                }
-            }
-            set
-            {
-                HttpContext.Session["myWorkerID"] = value;
-                
-            }
-        }
-
-        public int MyUserID
-        {
-            get
-            {
-                if (Session["myUserID"] != null)
-                {
-                    return (int)Session["myUserID"];
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            set
-            {
-                Session["myUserID"] = value;
-            }
-        }
-
-
         private Models.POADataModelsDataContext _dBDataContext = null;
+       
+        /**
+         * informacija apie vartotoja
+         */
+        public UserSession userSession = null;
+
+        /**
+         * konstruktorius
+         */ 
+        public BaseController()
+        {
+            this.userSession = new UserSession();   
+        }
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            filterContext.Controller.ViewData["MyWorkerID"] = userSession.workerID;            
+            base.OnActionExecuting(filterContext);
+        }
+
         public Models.POADataModelsDataContext DBDataContext
         {
             get
@@ -61,29 +40,23 @@ namespace mvc.Common
                 }
                 return _dBDataContext;
             }
-        
+
         }
 
-        public Models.Worker MyselfAsWorker
+        public Models.Worker WorkerInformation
         {
             get
             {
-                return DBDataContext.Workers.Where(worker => worker.id == MyWorkerID).First();
+                return DBDataContext.Workers.Where(worker => worker.id == userSession.workerID).First();
             }
         }
 
-        public Models.User MyselfAsUser
+        public Models.User UserInformation
         {
             get
             {
-                return DBDataContext.Users.Where(user => user.id == MyUserID).First();
+                return DBDataContext.Users.Where(user => user.id == userSession.userId).First();
             }
-        }
-
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        { 
-            filterContext.Controller.ViewData["MyWorkerID"] = MyWorkerID;            
-            base.OnActionExecuting(filterContext);
         }
     }
 }
