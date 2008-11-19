@@ -37,7 +37,7 @@ namespace mvc.Controllers
             {
 
                 Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
-                System.Collections.Generic.List<Models.Department> departments = DBDataContext.Departments.Where(department =>((department.Workers.Count > 0) && (department.Workers.Where(worker => ((worker.hasTasksInProject(project_id.Value)) || (myProject.project_manager_id == worker.id))).Count() > 0))).ToList();
+                System.Collections.Generic.List<Models.Department> departments = DBDataContext.Departments.Where(department =>(department.Workers.Count > 0) && (department.Workers.Where(worker => ((((worker.Tasks.Count > 0) && (worker.Tasks.Where(task=> task.project_id == project_id.Value).Count() > 0))) || (myProject.project_manager_id == worker.id))).Count() > 0)).ToList();
                 int totalProjectHours = 0;
                 System.Collections.Generic.List<Models.DepartmentInfoForProject> departmentsInfo = new List<mvc.Models.DepartmentInfoForProject>();
                 int totalCountOfWorkers = 0;
