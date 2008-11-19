@@ -31,6 +31,72 @@ namespace mvc.Controllers
             return View(projects.ToPagedList(currentPage - 1, 25));
         }
 
+        public ActionResult ProjectManagerReport(int? project_id)
+        {
+            if (project_id.HasValue)
+            {
+
+                Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
+                System.Collections.Generic.List<Models.Department> departments = DBDataContext.Departments.Where(department =>((department.Workers.Count > 0) && (department.Workers.Where(worker => ((worker.hasTasksInProject(project_id.Value)) || (myProject.project_manager_id == worker.id))).Count() > 0))).ToList();
+                int totalProjectHours = 0;
+                System.Collections.Generic.List<Models.DepartmentInfoForProject> departmentsInfo = new List<mvc.Models.DepartmentInfoForProject>();
+                int totalCountOfWorkers = 0;
+                int firstDepartment = 0;
+                if (myProject.Worker != null)
+                {
+                    firstDepartment = myProject.Worker.department_id.Value;
+                }
+                int firstDepartmentIndex = -1;
+                for (int i = 0; i < departments.Count; i++)
+                {
+                    if (departments[i].id == firstDepartment)
+                    {
+                        firstDepartmentIndex = i;
+                    }
+                }
+                if (firstDepartmentIndex >= 0)
+                {
+
+                    for (int i = firstDepartmentIndex; i > 0; i--)
+                    {
+                        Models.Department temp = departments[i - 1];
+                        departments[i - 1] = departments[i];
+                        departments[i] = temp;
+                    }
+                }
+
+                foreach (Models.Department department in departments)
+                {
+                    System.Collections.Generic.List<Models.Worker> workers = department.Workers.Where(worker => ((worker.hasTasksInProject(project_id.Value)) || (myProject.project_manager_id == worker.id))).ToList();
+                    System.Collections.Generic.List<Models.WorkerAndHours> workersResult = new List<mvc.Models.WorkerAndHours>();
+                    int totalDepartmentHours = 0;
+                    foreach (Models.Worker worker in workers)
+                    {
+                        int hours = 0;
+                        if (worker.Tasks.Where(t => t.project_id == project_id.Value).Count() > 0)
+                        {
+                            hours = worker.Tasks.Where(t => t.project_id == project_id.Value).Sum(task => task.worked_hours);
+                        }
+                        else
+                        {
+                            hours = 0;
+                        }
+                        totalDepartmentHours += hours;
+                        workersResult.Add(new mvc.Models.WorkerAndHours(worker, hours));
+                    }
+                    departmentsInfo.Add(new mvc.Models.DepartmentInfoForProject(workersResult, department, totalDepartmentHours));
+                    totalCountOfWorkers += workers.Count;
+                    totalProjectHours += totalDepartmentHours;
+                }
+                Models.ProjectManagerReportInfo projectManagerReport = new mvc.Models.ProjectManagerReportInfo(myProject, totalProjectHours, departmentsInfo, totalCountOfWorkers);
+                return View(projectManagerReport);
+            }
+            else
+            {
+                return RedirectToAction("ListMyProjects");
+            }
+        }
+
         public ActionResult ListMyTasksInProject(int? page, int? project_id, int? year, int? month)
         {
             if (project_id.HasValue)

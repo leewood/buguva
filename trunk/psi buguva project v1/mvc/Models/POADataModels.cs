@@ -4,6 +4,19 @@ using System.Linq;
 
 namespace mvc.Models
 {
+
+    public partial class Task
+    {
+        public string FullMonthName
+        {
+            get
+            {
+                return (new MonthOfYear(this.year, this.month)).ToString();
+            }
+        }
+    }
+
+
     public class MonthOfYear: IComparable
     {
         private int _year = 0;
@@ -265,8 +278,173 @@ namespace mvc.Models
 
     }
 
+    public class WorkerAndHours
+    {
+        Worker _worker;
+        int _hours = 0;
+        public Worker Worker
+        {
+            get
+            {
+                return _worker;
+            }
+            set
+            {
+                _worker = value;
+            }
+        }
+
+        public int Hours
+        {
+            get
+            {
+                return _hours;
+            }
+            set
+            {
+                _hours = value;
+            }
+        }
+
+        public WorkerAndHours(Worker worker, int hours)
+        {
+            Hours = hours;
+            Worker = worker;
+        }
+    }
+
+
+    public class DepartmentInfoForProject
+    {
+        System.Collections.Generic.List<Models.WorkerAndHours> _workersResult;
+        int _hours = 0;
+        Department _department;
+        public System.Collections.Generic.List<Models.WorkerAndHours> Workers
+        {
+            get
+            {
+                return _workersResult;
+            }
+            set
+            {
+                _workersResult = value;
+            }
+        }
+
+        public Department Department
+        {
+            get
+            {
+                return _department;
+            }
+            set
+            {
+                _department = value;
+            }
+        }
+
+        public int Hours
+        {
+            get
+            {
+                return _hours;
+            }
+            set
+            {
+                _hours = value;
+            }
+        }
+
+        public DepartmentInfoForProject(System.Collections.Generic.List<Models.WorkerAndHours> workers, Department department, int hours)
+        {
+            Hours = hours;
+            Workers = workers;
+            Department = department;
+        }
+
+    }
+
+
+    public class ProjectManagerReportInfo
+    {
+        Project _project;
+        System.Collections.Generic.List<Models.DepartmentInfoForProject> _departmentsInfo;
+        int _totalHours = 0;
+        int _workersCount = 0;
+        public int TotalCountOfWorkers
+        {
+            get
+            {
+                return _workersCount;
+            }
+            set
+            {
+                _workersCount = value;
+            }
+        }
+
+        public Project Project
+        {
+            get
+            {
+                return _project;
+            }
+            set
+            {
+                _project = value;
+            }
+        }
+
+        public System.Collections.Generic.List<Models.DepartmentInfoForProject> DepartmentsInfo
+        {
+            get
+            {
+                return _departmentsInfo;
+            }
+            set
+            {
+                _departmentsInfo = value;
+            }
+        }
+
+        public int TotalWorkedHours
+        {
+            get
+            {
+                return _totalHours;
+            }
+            set
+            {
+                _totalHours = value;
+            }
+        }
+
+        public ProjectManagerReportInfo(Project project, int totalHours, System.Collections.Generic.List<Models.DepartmentInfoForProject> departmentsInfo, int workersCount)
+        {
+            Project = project;
+            TotalCountOfWorkers = workersCount;
+            TotalWorkedHours = totalHours;
+            DepartmentsInfo = departmentsInfo;
+        }
+
+    }
+
     partial class Worker
     {
+        public bool hasTasksInProject(int project_id)
+        {
+
+            if (this.Tasks.Count() > 0)
+            {
+                return (this.Tasks.Where(task => task.project_id == project_id).Count() > 0);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         public List<MonthOfYear> workedMonthsInProject(int project_id)
         {
             List<MonthOfYear> result = new List<MonthOfYear>();
