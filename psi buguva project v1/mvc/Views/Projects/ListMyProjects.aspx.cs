@@ -12,6 +12,6 @@ namespace mvc.Views.Projects
 {
     public partial class ListMyProjects : ViewPage<mvc.Common.IPagedList<Project>>
     {
-     
+        public string className = "";
     }
 }
