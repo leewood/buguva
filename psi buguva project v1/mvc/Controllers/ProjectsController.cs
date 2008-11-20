@@ -31,6 +31,36 @@ namespace mvc.Controllers
             return View(projects.ToPagedList(currentPage - 1, 25));
         }
 
+        public ActionResult ProjectIntensivityReport(int? project_id)
+        {
+            if (project_id.HasValue)
+            {
+                ViewData["project_id"] = project_id;
+                Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
+                List<Models.MonthOfYear> months = myProject.workedMonthsInProject();
+                List<Models.ProjectIntensivity> result = new List<mvc.Models.ProjectIntensivity>();
+                foreach (Models.MonthOfYear month in months)
+                {
+                    int total = myProject.Tasks.Where(task => (task.year == month.Year) && (task.month == month.Month)).Sum(t => t.worked_hours);
+                    int myWorkersWorked = 0;
+                    try
+                    {
+                        myWorkersWorked = myProject.Tasks.Where(task => (task.year == month.Year) && (task.month == month.Month) && (task.Worker.department_id == myProject.Worker.department_id)).Sum(t => t.worked_hours);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    result.Add(new mvc.Models.ProjectIntensivity(month, myProject.id, total, myWorkersWorked));
+                }
+                return View(result);
+            }
+            else
+            {
+                return RedirectToAction("ListMyProjects");
+            }
+
+        }
+
         public ActionResult ProjectManagerReport(int? project_id)
         {
             if (project_id.HasValue)

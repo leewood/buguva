@@ -1,8 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" CodeBehind="ProjectManagerReport.aspx.cs" Inherits="mvc.Views.Projects.ProjectManagerReport" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" CodeBehind="ProjectManagerReport.aspx.cs" Inherits="mvc.Views.Projects.ProjectManagerReport" %>
+
+
+
 <%@ Import Namespace="mvc.Common"%>
 <%@ Import Namespace="mvc.Models"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">  
+
+<%= Html.Path() %>
+<ul id="menu">
+   <li class="selected">
+      <%= Html.ActionLink("Projekto ataskaita", "ProjectManagerReport", new { project_id = ViewData.Model.Project.id }) %>
+   </li>
+   <li class="simple">
+      <%= Html.ActionLink("Projekto intensyvumas", "ProjectIntensivityReport", new { project_id = ViewData.Model.Project.id }) %>                    
+   </li>
+</ul>
 <table>
  <tr>
    <td>Projekto kodas</td><td><%= ViewData.Model.Project.id %></td>
@@ -12,14 +25,15 @@
  </tr>  
  <tr>
   <td>Projekto vadovo skyrius</td><td><%= (ViewData.Model.Project.Worker != null)?ViewData.Model.Project.Worker.department_id.ToString():"Nepaskirtas" %></td>
- </tr> 
-  <td>Prasidėjo</td><td><%= (ViewData.Model.Project.FirstTask != null)?ViewData.Model.Project.FirstTask.FullMonthName:"Neprasidėjo" %></td>
- </tr> 
- <tr>
-  <td>Baigėsi</td><td><%= (ViewData.Model.Project.LastTask != null)?ViewData.Model.Project.LastTask.FullMonthName:"Neprasidėjo" %></td>
+ </tr>
+ <tr> 
+  <td>Prasid&#279;jo</td><td><%= (ViewData.Model.Project.FirstTask != null)?ViewData.Model.Project.FirstTask.FullMonthName:"Neprasid&#279;jo" %></td>
  </tr> 
  <tr>
-  <td>Dalyvių skaičius</td><td><%= (ViewData.Model.TotalCountOfWorkers) %></td>
+  <td>Baig&#279;si</td><td><%= (ViewData.Model.Project.LastTask != null)?ViewData.Model.Project.LastTask.FullMonthName:"Neprasid&#279;jo" %></td>
+ </tr> 
+ <tr>
+  <td>Dalyvi&#371; skai&#269;ius</td><td><%= (ViewData.Model.TotalCountOfWorkers) %></td>
  </tr>
 </table>  
 <table> 
@@ -47,6 +61,7 @@
               <td><%= workerInfo.Hours %></td>
             </tr>            
             <% } %>
+            
             <tr class = "total">
               <td>
                 Viso skyriui:
@@ -67,4 +82,5 @@
         </td>
       </tr>
   </table>
+
 </asp:Content>
