@@ -8,9 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mvc.Views.Projects {
-    
-    
-    public partial class ProjectManagerReport {
+namespace mvc.Views.Projects
+{
+
+
+    public partial class ProjectIntensivityReport
+    {
     }
 }
