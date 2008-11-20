@@ -24,7 +24,7 @@ namespace mvc.Common
             this.userSession = new UserSession();
 
 
-            SiteMap map = SiteMap.Instance;
+            NavigationMap map = NavigationMap.Instance;
 
 
 
