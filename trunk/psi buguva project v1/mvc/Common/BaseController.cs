@@ -21,7 +21,14 @@ namespace mvc.Common
          */ 
         public BaseController()
         {
-            this.userSession = new UserSession();   
+            this.userSession = new UserSession();
+
+
+            SiteMap map = SiteMap.Instance;
+
+
+
+
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
