@@ -3,7 +3,7 @@
 <%@ Import Namespace="mvc.Models"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <% 
-    mvc.Common.SiteMap site = new mvc.Common.SiteMap(); 
+    mvc.Common.NavigationMap mav = mvc.Common.NavigationMap.Instance;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -15,9 +15,10 @@
 </head>
 
 <body>
+<%=Debugger.Instance %>
         <div id="header">
-            <p id="logo"><%= site.RenderHtml() %>
-                <a href="">Organizacijos apskaita&reg;</a>
+            <p id="logo"><%= mav.siteName %>
+                <a href=""></a>
             </p>
             <ul id="menu">
                 <li class="selected">

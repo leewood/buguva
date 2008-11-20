@@ -72,11 +72,12 @@
   <ItemGroup>
     <Compile Include="Common\AdditionalHtmlHelpers.cs" />
     <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\Debugger.cs" />
     <Compile Include="Common\IPagedList.cs" />
     <Compile Include="Common\PagedList.cs" />
     <Compile Include="Common\Pager.cs" />
     <Compile Include="Common\PagingExtensions.cs" />
-    <Compile Include="Common\SiteMap.cs" />
+    <Compile Include="Common\NavigationMap.cs" />
     <Compile Include="Common\UserSession.cs" />
     <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
