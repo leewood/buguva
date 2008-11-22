@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using mvc.Common;
 
 namespace mvc.Controllers
 {
@@ -11,8 +12,18 @@ namespace mvc.Controllers
     {
         public ActionResult Index()
         {
-            ViewData["Title"] = "Prisijungimas";
-            ViewData["Message"] = "žinutė";
+            Authentication auth = new Authentication();
+
+            if (auth.loginWithCookie())
+            {
+                ViewData["Title"] = "Perkeliama...";
+                Debugger.Instance.addMessage("su cookie Prisijungta!");
+            }
+            else
+            {
+                ViewData["Title"] = "Prisijungimas";
+                Debugger.Instance.addMessage("su cookie neprisijungta");
+            }
 
             return View();
         }

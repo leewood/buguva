@@ -82,6 +82,7 @@
     <Compile Include="Common\Pager.cs" />
     <Compile Include="Common\PagingExtensions.cs" />
     <Compile Include="Common\NavigationMap.cs" />
+    <Compile Include="Common\UserCookie.cs" />
     <Compile Include="Common\UserSession.cs" />
     <Compile Include="Common\Validators\Attributes\AbstractValidationAttribute.cs" />
     <Compile Include="Common\Validators\Attributes\ValidateCollectionNotEmptyAttribute.cs" />
@@ -163,7 +164,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Authentication.cs" />
+    <Compile Include="Common\Authentication.cs" />
     <Compile Include="Models\DataClasses.cs">
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
@@ -417,7 +418,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3017</DevelopmentServerPort>
+          <DevelopmentServerPort>2889</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

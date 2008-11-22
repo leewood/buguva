@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using mvc.Common;
 
 namespace mvc.Views.Login
 {
@@ -13,19 +13,33 @@ namespace mvc.Views.Login
         {
             Label4.Text = "Jungiamasi...";
 
-
-            mvc.Models.Authentication auth = mvc.Models.Authentication.instance();
+            Authentication auth = new Authentication();
 
             string name = input_loginname.Text;
             string password = input_password.Text;
 
-            bool remember = (input_rememberme.Text != "")? true : false;
+            bool remember = input_rememberme.Checked;
 
             if (auth.login(name, password, remember))
+            {
                 Label4.Text = "Prisijungta";
-            else
-                Label4.Text = "Blogas slaptažodsi arba vardas";
 
+                if (remember)
+                {
+                    var newCookie = new HttpCookie("poa_login");
+
+                    // kai uz pinigus programinat, sitaip niekad nedarykit
+                    newCookie.Values["name"] = name;
+                    newCookie.Values["password"] = password;
+
+                    newCookie.Expires = DateTime.Now.AddDays(10);
+                    Response.AppendCookie(newCookie);
+                }
+            }
+            else
+            {
+                Label4.Text = "Blogas slaptažodis arba prisijungimo vardas";
+            }
         }
     }
 }
