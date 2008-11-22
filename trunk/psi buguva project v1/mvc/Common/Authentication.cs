@@ -78,14 +78,15 @@ namespace mvc.Common
             return this.userSession.loged;
         }
 
+        public void logout()
+        {
+            this.userSession.destroyInformation();
+        }
+
         public bool loginWithCookie()
         {
-            Debugger.Instance.addMessage("bandoma jungtis su cookie");
-            
             string name = this.userCookie.getValue("name");
             string auth = this.userCookie.getValue("password");
-
-            Debugger.Instance.addMessage("name: " + name + " auth: " + auth);
 
             if (name.Length > 0 && auth.Length > 0)
             {

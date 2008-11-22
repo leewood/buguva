@@ -17,15 +17,32 @@ namespace mvc.Controllers
             if (auth.loginWithCookie())
             {
                 ViewData["Title"] = "Perkeliama...";
-                Debugger.Instance.addMessage("su cookie Prisijungta!");
+                return Redirect("/Projects/");
             }
             else
             {
                 ViewData["Title"] = "Prisijungimas";
-                Debugger.Instance.addMessage("su cookie neprisijungta");
             }
 
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Authentication auth = new Authentication();
+
+            auth.logout();
+
+            var newCookie = new HttpCookie("poa_login");
+
+            // kai uz pinigus programinat, sitaip niekad nedarykit
+            newCookie.Values["name"] = "";
+            newCookie.Values["password"] = "";
+
+            newCookie.Expires = DateTime.Now.AddDays(10);
+            Response.AppendCookie(newCookie);
+
+            return Redirect("/Login/");
         }
     }
 }
