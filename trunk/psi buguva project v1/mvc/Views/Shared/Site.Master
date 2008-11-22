@@ -17,6 +17,7 @@
 
 <body>
 <%=Debugger.Instance %>
+<% Debugger.Instance.clear(); %>
         <div id="header">
             <p id="logo"><%= mav.siteName %>
                 <a href=""></a>

@@ -44,7 +44,7 @@ namespace mvc.Common
 
         private void addLine(string line)
         {
-            this.messages += line + "<br />";
+            this.messages += line + "<br /> \n";
         }
 
         public void addException(string message)
@@ -66,7 +66,12 @@ namespace mvc.Common
 
         public override string ToString()
         {
-            return "<font color='#FFF'>" + this.messages + "</font>";
+            return "<font color='#FFF'>" + this.messages + "</font> \n";
+        }
+
+        public void clear()
+        {
+            this.messages = "";
         }
     }
 }
