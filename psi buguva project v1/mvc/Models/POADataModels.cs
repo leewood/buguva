@@ -1,9 +1,106 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Castle.Components.Validator;
+using System.Web.Mvc;
 
 namespace mvc.Models
 {
+    public partial class User
+    {
+        public static string[] LevelNames = { "Paprastas darbuotojas", "Skyriaus vadovas", "Antanas", "Administratorius" };
+
+        public SelectList LevelsList
+        {
+            get
+            {
+                System.Collections.Generic.Dictionary<string, int> list = new Dictionary<string, int>();
+                for (int i = 0; i < LevelNames.Length; i++)
+                {
+                    list.Add(LevelNames[i], i + 1);
+                }
+                int selectedLevel = level;
+                if (level == 0)
+                {
+                    selectedLevel = 1;
+                }
+                SelectList result = new SelectList(list, "Value", "Key", selectedLevel);
+                return result;
+            }
+        }
+
+        private string _repeatPass = null;
+        [ValidateSameAs("password", "Slaptaþodis ir pakartotasis slaptaþodis turi sutapti")]        
+        public string repeated_password
+        {
+            get
+            {
+                return _repeatPass;
+            }
+            set
+            {
+                _repeatPass = value;
+            }
+        }
+
+        private string _newRepeatPass = null;
+        private string _newPass = null;
+
+
+        public string new_password
+        {
+            get
+            {
+                return _newPass;
+            }
+            set
+            {
+                _newPass = value;
+            }
+        }
+
+
+        [ValidateSameAs("new_password", "Slaptaþodis ir pakartotasis slaptaþodis turi sutapti")]        
+        public string new_repeated_password
+        {
+            get
+            {
+                return _newRepeatPass;
+            }
+            set
+            {
+                _newRepeatPass = value;
+            }
+        }
+
+
+
+
+        public string LevelName
+        {
+            get
+            {
+                if ((this.level <= LevelNames.Length) && (this.level > 0))
+                {
+                    return LevelNames[this.level - 1];
+                }
+                else
+                {
+                    return "Lygis " + level.ToString();
+                }
+            }
+        }
+
+
+        public ErrorSummary Validate()
+        {
+            ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
+            if (!vr.IsValid(this))
+                return vr.GetErrorSummary(this);
+            else
+                return null;
+        }
+    }
 
     public partial class Task
     {
@@ -14,8 +111,28 @@ namespace mvc.Models
                 return (new MonthOfYear(this.year, this.month)).ToString();
             }
         }
+
+        public ErrorSummary Validate()
+        {
+            ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
+            if (!vr.IsValid(this))
+                return vr.GetErrorSummary(this);
+            else
+                return null;
+        }
     }
 
+    public partial class Department
+    {
+        public ErrorSummary Validate()
+        {
+            ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
+            if (!vr.IsValid(this))
+                return vr.GetErrorSummary(this);
+            else
+                return null;
+        }
+    }
 
     public class ProjectIntensivity
     {
@@ -374,6 +491,14 @@ namespace mvc.Models
             }
         }
 
+        public ErrorSummary Validate()
+        {
+            ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
+            if (!vr.IsValid(this))
+                return vr.GetErrorSummary(this);
+            else
+                return null;
+        }
     }
 
     public class WorkerAndHours
@@ -529,6 +654,7 @@ namespace mvc.Models
 
     partial class Worker
     {
+
         public bool hasTasksInProject(int project_id)
         {
 
@@ -574,6 +700,16 @@ namespace mvc.Models
             {
                 return this.name + " " + this.surname;
             }
+        }
+
+
+        public ErrorSummary Validate()
+        {
+            ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
+            if (!vr.IsValid(this))
+                return vr.GetErrorSummary(this);
+            else
+                return null;
         }
     }
 

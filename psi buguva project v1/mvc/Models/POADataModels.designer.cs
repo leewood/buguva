@@ -20,6 +20,7 @@ namespace mvc.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
+    using Castle.Components.Validator;
 	
 	
 	[System.Data.Linq.Mapping.DatabaseAttribute(Name="POA")]
@@ -1094,6 +1095,8 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_login_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+        [ValidateNonEmpty("Vartotojo vardas negali būti tuščias")]
+        [ValidateLength(4, 50, "Vartotojo vardas negali būti trumpesnis nei 4 simboliai ir ilgesnis kaip 50 simbolių")]
 		public string login_name
 		{
 			get
@@ -1114,6 +1117,8 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+        [ValidateNonEmpty("Slaptažodis negali būti tuščias")]
+        [ValidateLength(4, 50, "Slaptažodis negali būti trumpesnis nei 4 simboliai ir ilgesnis kaip 50 simbolių")]
 		public string password
 		{
 			get
@@ -1134,6 +1139,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Name="[level]", Storage="_level", DbType="Int NOT NULL")]
+        [ValidateNonEmpty("Lygis negali būti paliktas neužpildytas")]
 		public int level
 		{
 			get
@@ -1515,6 +1521,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+        [ValidateNonEmpty("Vardas negali būti paliktas tuščias")]        
 		public string name
 		{
 			get
@@ -1535,6 +1542,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_surname", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+        [ValidateNonEmpty("Pavardė negali būti tuščia")]
 		public string surname
 		{
 			get
