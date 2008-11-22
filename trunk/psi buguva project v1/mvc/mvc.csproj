@@ -361,6 +361,10 @@
     <None Include="Models\POADataModels.dbml.layout">
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </None>
+    <Content Include="bin\System.Web.Abstractions.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Routing.dll" />
+    <Content Include="bin\WebChart.dll" />
     <Content Include="Content\ico1.png" />
     <Content Include="Content\ico2.png" />
     <Content Include="Content\Images\login-header.gif" />
@@ -396,6 +400,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\bin\fr\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
