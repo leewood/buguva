@@ -24,7 +24,7 @@
 	   <% foreach (Project project in ViewData.Model) %>
        <% { %>
             <% className = (project.project_manager_id == (int)ViewData["MyWorkerID"]) ? "marked" : ""; %>
-            <tr class='<%# className.ToString()%>'>
+            <tr class='<%= className.ToString()%>'>
              <td><%= Html.ActionLink(project.title, "ListMyTasksInProject", new {project_id = project.id}) %></td>
              <td>#<%= project.id %></td>
              <td><%= project.Worker.Fullname %></td>             

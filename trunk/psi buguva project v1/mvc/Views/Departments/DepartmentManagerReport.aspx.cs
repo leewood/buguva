@@ -9,6 +9,7 @@ namespace mvc.Views.Departments
 {
     public partial class DepartmentManagerReport : ViewPage<Models.DepartmentManagerReport>
     {
-
+        protected string className = "";
+        protected string className2 = "";
     }
 }
