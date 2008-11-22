@@ -42,7 +42,7 @@ namespace mvc.Common
         {
             return (
 
-                controller == "Projects" ||
+                controller == "Projects"  ||
                 controller == "Sections" 
 
                 ) ? true : false;
