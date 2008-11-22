@@ -29,7 +29,7 @@
 	        <td><%= (user.Worker != null)?user.Worker.Fullname:"" %></td>
 	        <td>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = user.id}) %>
-	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = user.id}) %>
+	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = user.id}, true, "Ar tikrai norite ištrinti šį vartotoją?") %>
 	          <%= Html.ActionImageLink("../Content/key.png", "Keisti slaptažodį", "ChangePassword", new {id = user.id}) %>
 	        </td>
 	      </tr>
