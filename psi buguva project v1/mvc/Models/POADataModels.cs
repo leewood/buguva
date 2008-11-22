@@ -132,6 +132,12 @@ namespace mvc.Models
             else
                 return null;
         }
+
+        public Models.Department getDepartment(int workerId)
+        {
+            POADataModelsDataContext data = new POADataModelsDataContext();
+            return data.Workers.Where(Worker => (Worker.id == workerId)).First().Department;
+        }
     }
 
     public class ProjectIntensivity

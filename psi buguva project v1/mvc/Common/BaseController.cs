@@ -17,24 +17,26 @@ namespace mvc.Common
         public UserSession userSession = null;
 
         /**
+         * autentifikavimas
+         */
+        public Authentication auth = null;
+
+        /**
          * konstruktorius
          */ 
         public BaseController()
         {
             this.userSession = new UserSession();
-
-
-            NavigationMap map = NavigationMap.Instance;
-
-
-
-
+            this.auth = new Authentication();
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             filterContext.Controller.ViewData["MyWorkerID"] = userSession.workerID;            
             base.OnActionExecuting(filterContext);
+
+            if (this.auth.isLoggedIn() == false)
+                Response.Redirect("/Login/");
         }
 
         public Models.POADataModelsDataContext DBDataContext

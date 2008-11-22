@@ -35,6 +35,8 @@ namespace mvc.Views.Login
                     newCookie.Expires = DateTime.Now.AddDays(10);
                     Response.AppendCookie(newCookie);
                 }
+
+                Response.Redirect("/Projects/");
             }
             else
             {

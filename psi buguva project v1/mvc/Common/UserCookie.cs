@@ -34,18 +34,12 @@ namespace mvc.Common
 
             if (cookie == null)
             {
-                Debugger.Instance.addMessage("nerastas cookie " + cookieName);
-                
                 HttpCookie newCookie = new HttpCookie(this.cookieName);
                 newCookie.Expires = DateTime.Now.AddDays(7);
                 HttpContext.Current.Response.Cookies.Add(newCookie);
                 HttpContext.Current.Request.Cookies.Add(newCookie);
 
                 cookie = newCookie;
-            }
-            else
-            {
-                Debugger.Instance.addMessage("rastas cookie " + cookieName);
             }
         }
 
