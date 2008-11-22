@@ -13,15 +13,24 @@
       <%= Html.ActionLink("Projekto intensyvumas", "ProjectIntensivityReport", new { project_id = (int)ViewData["project_id"] })%>                    
    </li>
 </ul>
+
+	<% string[] legends = {"Viso dirbta", "Projekto skyriaus darbuotojų", "Kitų darbuotojų" }; %>
+	<% string[] yAxes = {"TotalWorkedHours", "ProjectsWorkersWorkedHours", "OthersWorkedHours"}; %>
+	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Black };  %>
+    <%= Html.LineChart<ProjectIntensivity>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Projekto intensyvumas") %>
+
+    <% IPagedList<ProjectIntensivity> pagedModel = ViewData.Model.ToPagedList((int)ViewData["curPage"] - 1, (int)ViewData["itemsPerPage"]); %>    
+    <div class = "pager">
+       <%= Html.Pager(pagedModel.PageSize, pagedModel.PageNumber, pagedModel.TotalItemCount) %>
+    </div>
 	<table class = "grid">
 	   <tr>
 	      <th>Laikotarpis</th>
 	      <th>Viso dirbta</th>
 	      <th>Projekto skyriaus darbuotojų dirbta</th>
 	      <th>Darbuotojų iš kitų skyrių dirbta</th>
-	   </tr>	  
-	   
-	   <% foreach (ProjectIntensivity projectIntensivity in ViewData.Model) %>
+	   </tr>	  	  
+	   <% foreach (ProjectIntensivity projectIntensivity in pagedModel) %>
        <% { %>            
             <tr>             
              <td>#<%= projectIntensivity.Period %></td>
@@ -37,9 +46,5 @@
 	      </tr>
 	   <% } %>
 	</table>
-	<% string[] legends = {"Viso dirbta", "Projekto skyriaus darbuotojų", "Kitų darbuotojų" }; %>
-	<% string[] yAxes = {"TotalWorkedHours", "ProjectsWorkersWorkedHours", "OthersWorkedHours"}; %>
-	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Violet, System.Drawing.Color.Yellow };  %>
-    <%= Html.LineChart<ProjectIntensivity>(legends, ViewData.Model, "Period", yAxes, colors) %>
 
 </asp:Content>

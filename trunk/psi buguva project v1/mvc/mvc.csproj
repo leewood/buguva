@@ -150,6 +150,7 @@
     <Compile Include="Common\Validators\Validators\SameAsValidator.cs" />
     <Compile Include="Common\Validators\Validators\SetValidator.cs" />
     <Compile Include="Common\Validators\Validators\SingleValidator.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportController.cs" />

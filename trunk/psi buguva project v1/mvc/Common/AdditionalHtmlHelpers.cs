@@ -73,6 +73,8 @@ namespace mvc.Common
             return result;
         }
 
+
+
         public static string GetMemberValue<T>(T data, string name)
         {
             if (data.GetType().GetField(name) != null)
@@ -91,14 +93,24 @@ namespace mvc.Common
 
         public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors)
         {
+            return helper.LineChart<T>(legends, data, XAxeName, YAxes, colors, System.Drawing.Color.White, "");
+        }
+
+        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption)
+        {
             WebChart.ChartControl chartControl = new ChartControl();
+            chartControl.Width = new System.Web.UI.WebControls.Unit("600px");
+            chartControl.Height = new System.Web.UI.WebControls.Unit("400px");
             ChartPointCollection chartPoints = new ChartPointCollection();
             List<LineChart> lineCharts = new List<LineChart>();
+            chartControl.ChartTitle.Text = caption;
             for (int i = 0; i < legends.Length; i++)
             {
                 LineChart chart = new LineChart();
-                chart.Legend = legends[i];
+                chart.Legend = legends[i];                
                 chart.Line.Color = colors[i];
+                chart.Fill.Color = colors[i];
+                chart.Fill.ForeColor = System.Drawing.Color.Black;
                 lineCharts.Add(chart);
                 
             }
@@ -116,6 +128,7 @@ namespace mvc.Common
             {
                 chartControl.Charts.Add(chart);
             }
+            chartControl.Background.Color = background;
             chartControl.RedrawChart();
             System.IO.StringWriter stringWriter = new System.IO.StringWriter();
             System.IO.TextWriter textWiter = stringWriter;
@@ -124,6 +137,30 @@ namespace mvc.Common
             string result = stringWriter.ToString();
             return result;
         }
+
+        public static string PieChart<T>(this HtmlHelper helper, string[] legends, T data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background)
+        {
+            WebChart.ChartControl chartControl = new ChartControl();
+            chartControl.BackColor = background;
+            ChartPointCollection chartPoints = new ChartPointCollection();
+            PieChart chart = new PieChart();
+            for (int i = 0; i < YAxes.Length; i++)
+            {
+                string value = GetMemberValue(data, XAxeName);
+                WebChart.ChartPoint point = new WebChart.ChartPoint(YAxes[i], int.Parse(value));
+                chart.Data.Add(point);
+            }
+
+            chartControl.Charts.Add(chart);
+            chartControl.RedrawChart();
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+            System.IO.TextWriter textWiter = stringWriter;
+            System.Web.UI.HtmlTextWriter writer = new System.Web.UI.HtmlTextWriter(textWiter);
+            chartControl.RenderControl(writer);
+            string result = stringWriter.ToString();
+            return result;
+        }
+
 
     }
 
