@@ -45,6 +45,26 @@ namespace mvc.Common
             }
         }
 
+        public int ItemsPerPage
+        {
+            get
+            {
+                if (HttpContext.Current.Session["itemsPerPage"] != null)
+                {
+                    return (int)HttpContext.Current.Session["itemsPerPage"];
+                }
+                else
+                {
+                    return 25;
+                }
+
+            }
+            set
+            {
+                HttpContext.Current.Session["itemsPerPage"] = value;
+            }
+        }
+
         public int userLevel
         {
             get

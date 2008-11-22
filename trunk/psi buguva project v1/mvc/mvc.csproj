@@ -83,10 +83,78 @@
     <Compile Include="Common\PagingExtensions.cs" />
     <Compile Include="Common\NavigationMap.cs" />
     <Compile Include="Common\UserSession.cs" />
+    <Compile Include="Common\Validators\Attributes\AbstractValidationAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateCollectionNotEmptyAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateCreditCardAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateDateAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateDateTimeAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateDecimalAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateDoubleAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateEmailAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateGroupNotEmptyAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateIntegerAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateLengthAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateNonEmptyAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateNotSameAsAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateNotSameValueAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateRangeAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateRegExpAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateSameAsAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateSetAttribute.cs" />
+    <Compile Include="Common\Validators\Attributes\ValidateSingleAttribute.cs" />
+    <Compile Include="Common\Validators\BrowserValidationConfiguration.cs" />
+    <Compile Include="Common\Validators\CachedValidationRegistry.cs" />
+    <Compile Include="Common\Validators\ClientSide\ErrorSummary.cs" />
+    <Compile Include="Common\Validators\ClientSide\LiveValidation.cs" />
+    <Compile Include="Common\Validators\ClientSide\ValidationScripts.cs" />
+    <Compile Include="Common\Validators\ErrorSummary.cs" />
+    <Compile Include="Common\Validators\IBrowserValidationGenerator.cs" />
+    <Compile Include="Common\Validators\InputElementType.cs" />
+    <Compile Include="Common\Validators\IValidator.cs" />
+    <Compile Include="Common\Validators\IValidatorBuilder.cs" />
+    <Compile Include="Common\Validators\IValidatorRegistry.cs" />
+    <Compile Include="Common\Validators\MessageConstants.cs" />
+    <Compile Include="Common\Validators\Messages.Designer.cs" />
+    <Compile Include="Common\Validators\Messages.fr.Designer.cs" />
+    <Compile Include="Common\Validators\Messages.it.Designer.cs" />
+    <Compile Include="Common\Validators\Messages.lt.Designer.cs" />
+    <Compile Include="Common\Validators\Messages.lv.Designer.cs" />
+    <Compile Include="Common\Validators\Messages.nl.Designer.cs" />
+    <Compile Include="Common\Validators\Messages.pt.Designer.cs" />
+    <Compile Include="Common\Validators\ValidationException.cs" />
+    <Compile Include="Common\Validators\ValidationInternalError.cs" />
+    <Compile Include="Common\Validators\ValidatorRunner.cs" />
+    <Compile Include="Common\Validators\Validators\AbstractValidator.cs" />
+    <Compile Include="Common\Validators\Validators\CollectionNotEmptyValidator.cs" />
+    <Compile Include="Common\Validators\Validators\CreditCardValidator.cs" />
+    <Compile Include="Common\Validators\Validators\DateTimeValidator.cs" />
+    <Compile Include="Common\Validators\Validators\DateValidator.cs" />
+    <Compile Include="Common\Validators\Validators\DecimalValidator.cs" />
+    <Compile Include="Common\Validators\Validators\DoubleValidator.cs" />
+    <Compile Include="Common\Validators\Validators\EmailValidator.cs" />
+    <Compile Include="Common\Validators\Validators\GroupNotEmptyValidator.cs" />
+    <Compile Include="Common\Validators\Validators\IntegerValidator.cs" />
+    <Compile Include="Common\Validators\Validators\LengthValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NonEmptyValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NotSameAsValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NotSameValueValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NullableDateTimeValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NullableDateValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NullableDecimalValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NullableDoubleValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NullableIntegerValidator.cs" />
+    <Compile Include="Common\Validators\Validators\NullableSingleValidator.cs" />
+    <Compile Include="Common\Validators\Validators\RangeValidator.cs" />
+    <Compile Include="Common\Validators\Validators\RegularExpressionValidator.cs" />
+    <Compile Include="Common\Validators\Validators\SameAsValidator.cs" />
+    <Compile Include="Common\Validators\Validators\SetValidator.cs" />
+    <Compile Include="Common\Validators\Validators\SingleValidator.cs" />
     <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WorkersController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -121,6 +189,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\Home\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Import\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Import\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\Index.aspx.cs">
@@ -179,6 +254,48 @@
     <Compile Include="Views\Shared\Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Views\Users\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Users\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Users\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Users\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Users\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\New.aspx.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Users\New.aspx.designer.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Workers\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Workers\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Workers\Form.aspx.cs">
       <DependentUpon>Form.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -192,6 +309,20 @@
     </Compile>
     <Compile Include="Views\Workers\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Workers\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Workers\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Workers\New.aspx.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Workers\New.aspx.designer.cs">
+      <DependentUpon>New.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -234,15 +365,34 @@
     <Content Include="Content\ico2.png" />
     <Content Include="Content\Images\login-header.gif" />
     <Content Include="Content\List\back.jpg" />
+    <Content Include="Content\livevalidation.js" />
+    <Content Include="Views\Import\Index.aspx" />
     <Content Include="Views\Projects\Index.aspx" />
     <Content Include="Views\Projects\ListMyProjects.aspx" />
     <Content Include="Views\Projects\ListMyTasksInProject.aspx" />
     <Content Include="Views\Projects\ProjectIntensivityReport.aspx" />
     <Content Include="Views\Projects\ProjectManagerReport.aspx" />
     <Content Include="Views\Shared\Blank.Master" />
+    <Content Include="Views\Users\ChangePassword.aspx" />
+    <Content Include="Views\Users\Edit.aspx" />
+    <Content Include="Views\Users\Index.aspx" />
+    <Content Include="Views\Users\List.aspx" />
+    <Content Include="Views\Users\New.aspx" />
+    <Content Include="Views\Workers\Edit.aspx" />
+    <Content Include="Views\Workers\List.aspx" />
+    <Content Include="Views\Workers\New.aspx" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Validators\Messages.fr.resx" />
+    <EmbeddedResource Include="Common\Validators\Messages.it.resx" />
+    <EmbeddedResource Include="Common\Validators\Messages.lt.resx" />
+    <EmbeddedResource Include="Common\Validators\Messages.lv.resx" />
+    <EmbeddedResource Include="Common\Validators\Messages.nl.resx" />
+    <EmbeddedResource Include="Common\Validators\Messages.pt.resx" />
+    <EmbeddedResource Include="Common\Validators\Messages.resx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -262,7 +412,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4541</DevelopmentServerPort>
+          <DevelopmentServerPort>3017</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
