@@ -38,12 +38,12 @@ namespace mvc.Common
             return helper.ActionImageLink(imagePath, alt, action, values, false, "");
         }
 
-        public static string ActionImageLink(this HtmlHelper helper, string imagePath, string alt, string action, object values, bool useConfirm, string confirmText)
+        public static string ActionImageLink(this HtmlHelper helper, string imagePath, string alt, string action, object values, bool useConfirm, string confirmationText)
         {
             string returnActionLink = "";
             if (useConfirm)
             {
-                returnActionLink = helper.ActionLink("insert_place_for_img", action, values, new { onclick = "javascript:return confirm('" + confirmText + "')" });
+                returnActionLink = helper.ActionLink("insert_place_for_img", action, values, new { onclick = "javascript:return confirm('" + confirmationText + "')" });
             }
             else
             {
