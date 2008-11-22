@@ -7,16 +7,40 @@
    	  <%= Html.Path() %>
    	</div>
    	<div id="monthChoose">
+   	  <% int currentYear = 0; %>
+   	  <% int lastMonth = 0; %>
+   	  <% string next = "<br/>"; %>
    	  <% foreach (MonthOfYear monthOfYear in ViewData.Model.Months) %>
-   	  <% { %>
-   	     <% if ((monthOfYear != null) && (!monthOfYear.Equals(ViewData.Model.CurrentMonth))) %>
+   	  <% { %>   	     	        
+   	     <% if ((monthOfYear != null)) %>
    	     <% { %>
-   	            <%= Html.ActionLink(monthOfYear.ToString(), "ListMyTasksInProject", new {project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber, year = monthOfYear.Year, month = monthOfYear.Month}) %>
-   	     <% } %>
-   	     <% else %>
-   	     <% {   %>                
-   	           <span><%= monthOfYear.ToString() %></span>
-         <% } %>
+   	            <%
+                    if (monthOfYear.Year != currentYear)
+                    { %>
+                      <label><%=monthOfYear.Year %></label>
+                      
+                    <%  if (currentYear != 0)
+                        for (int i = lastMonth + 1; i <= 12; i++)
+                        {  %>
+                        <span><%= MonthOfYear.getMonthName(i) %></span>    
+                     <%   }    
+                        currentYear = monthOfYear.Year;
+                        lastMonth = 0;
+                    }
+                   for (int i = lastMonth + 1; i < monthOfYear.Month; i++)
+                   { %>
+                   <span><%= MonthOfYear.getMonthName(i) %></span>    
+                <% }
+                   lastMonth = monthOfYear.Month;
+                   if (this.ViewData.Model.CurrentMonth.Equals(monthOfYear))
+                   { %>
+                    <span class="selected"><%= MonthOfYear.getMonthName(monthOfYear.Month)%></span>
+             <% }
+                   else
+                   { %>   
+   	            <%= Html.ActionLink(MonthOfYear.getMonthName(monthOfYear.Month), "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber, year = monthOfYear.Year, month = monthOfYear.Month })%>
+   	     <% }
+                } %>
    	  <% } %>
    	</div>
    	<div class="pager">   	

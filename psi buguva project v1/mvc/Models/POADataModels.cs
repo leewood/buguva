@@ -217,6 +217,64 @@ namespace mvc.Models
         private int _year = 0;
         private int _month = 1;
 
+        public static string getMonthName(int month)
+        {
+            switch (month)
+            {
+                case 1: return "Sausis";
+                case 2: return "Vasaris";
+                case 3: return "Kovas";
+                case 4: return "Balandis";
+                case 5: return "Geguþë";
+                case 6: return "Birþelis";
+                case 7: return "Liepa";
+                case 8: return "Rugpjûtis";
+                case 9: return "Rugsëjis";
+                case 10: return "Spalis";
+                case 11: return "Lapkritis";
+                case 12: return "Groudis";
+                
+            }
+            return "";
+        }
+
+        public static string getMonth(int month)
+        {
+            string result = month.ToString();
+            if (result.Length < 2)
+            {
+                result = "0" + result;
+            }
+            return result;
+        }
+
+
+        public string ShortName()
+        {
+            return getMonthName(this.Month);
+        }
+
+        public static SelectList monthsList(object selected)
+        {
+            System.Collections.Generic.Dictionary<string, int> list = new Dictionary<string, int>();
+            for (int i = 1; i <= 12; i++)
+            {
+                list.Add(getMonthName(i), i);
+            }
+            return new SelectList(list, "Value", "Key", selected);
+        }
+
+        public static SelectList monthsListUnTitled(object selected)
+        {
+            System.Collections.Generic.Dictionary<string, int> list = new Dictionary<string, int>();
+            for (int i = 1; i <= 12; i++)
+            {
+                list.Add(getMonth(i), i);
+            }
+            return new SelectList(list, "Value", "Key", selected);
+        }
+
+
         public int Year
         {
             get

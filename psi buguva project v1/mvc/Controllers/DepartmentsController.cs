@@ -121,8 +121,8 @@ namespace mvc.Models
                 DateTime start = new DateTime(PeriodStart.Year, PeriodStart.Month, 1);
                 int days = DateTime.DaysInMonth(PeriodEnd.Year, PeriodEnd.Month);
                 DateTime end = new DateTime(PeriodEnd.Year, PeriodEnd.Month, days);
-                int result = (int)DateDiff("month", start, end);
-                return result;
+                int result = (int)DateDiff("month", start, end) + 1;
+                return result * 160;
             }
         }
 
@@ -186,8 +186,7 @@ namespace mvc.Models
         }
 
         private int _totalDepartmentWorked = 0;
-        private int _workersOfDepartmentWorked = 0;
-        private int _totalOthersWorked = 0;
+        private int _workersOfDepartmentWorked = 0;        
         private List<AssociatedWorkedHours> _hoursOfOthers = new List<AssociatedWorkedHours>();
 
         public List<AssociatedWorkedHours> WorkedHoursOfOthers
@@ -254,7 +253,14 @@ namespace mvc.Models
         {
             get
             {
-                return (((double)WorkedNoWhere / (double)Period.TotalWorkHoursInPeriod) * (double)100).ToString("0.00");
+                if (Period.TotalWorkHoursInPeriod != 0)
+                {
+                    return (((double)WorkedNoWhere / (double)Period.TotalWorkHoursInPeriod) * (double)100).ToString("0.00") + "%";
+                }
+                else
+                {
+                    return "0.00%";
+                }
             }
         }
     }

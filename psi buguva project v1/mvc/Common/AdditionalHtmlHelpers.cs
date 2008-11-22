@@ -138,17 +138,50 @@ namespace mvc.Common
             return result;
         }
 
-        public static string PieChart<T>(this HtmlHelper helper, string[] legends, T data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background)
+        public static string PieChart<T>(this HtmlHelper helper, string[] legends, T data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption)
         {
             WebChart.ChartControl chartControl = new ChartControl();
-            chartControl.BackColor = background;
+            chartControl.Background.Color = background;
+            chartControl.ChartTitle.Text = caption;
             ChartPointCollection chartPoints = new ChartPointCollection();
             PieChart chart = new PieChart();
+            chart.Colors = colors;
             for (int i = 0; i < YAxes.Length; i++)
             {
-                string value = GetMemberValue(data, XAxeName);
-                WebChart.ChartPoint point = new WebChart.ChartPoint(YAxes[i], int.Parse(value));
+                string value = GetMemberValue(data, YAxes[i]);
+                WebChart.ChartPoint point = new WebChart.ChartPoint(legends[i], int.Parse(value));
                 chart.Data.Add(point);
+                
+            }
+
+            chartControl.Charts.Add(chart);
+            chartControl.RedrawChart();
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+            System.IO.TextWriter textWiter = stringWriter;
+            System.Web.UI.HtmlTextWriter writer = new System.Web.UI.HtmlTextWriter(textWiter);
+            chartControl.RenderControl(writer);
+            string result = stringWriter.ToString();
+            return result;
+        }
+
+
+        public static string PieChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string YAxe, System.Drawing.Color[] colors, System.Drawing.Color background, string caption)
+        {
+            WebChart.ChartControl chartControl = new ChartControl();
+            chartControl.Background.Color = background;
+            chartControl.ChartTitle.Text = caption;
+            ChartPointCollection chartPoints = new ChartPointCollection();
+            PieChart chart = new PieChart();
+            int i = 0;
+            chart.Colors = colors;
+            foreach (T line in data)
+            {
+                string value = GetMemberValue(line, YAxe);
+                string title = GetMemberValue(line, XAxe);
+                WebChart.ChartPoint point = new WebChart.ChartPoint(title, int.Parse(value));
+                chart.Data.Add(point);
+                
+                i++;
             }
 
             chartControl.Charts.Add(chart);
