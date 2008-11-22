@@ -35,11 +35,23 @@ namespace mvc.Common
 
         public static string ActionImageLink(this HtmlHelper helper, string imagePath, string alt, string action, object values)
         {
-            string returnActionLink = helper.ActionLink("insert_place_for_img", action, values);
+            return helper.ActionImageLink(imagePath, alt, action, values, false, "");
+        }
+
+        public static string ActionImageLink(this HtmlHelper helper, string imagePath, string alt, string action, object values, bool useConfirm, string confirmText)
+        {
+            string returnActionLink = "";
+            if (useConfirm)
+            {
+                returnActionLink = helper.ActionLink("insert_place_for_img", action, values, new { onclick = "javascript:return confirm('" + confirmText + "')" });
+            }
+            else
+            {
+                returnActionLink = helper.ActionLink("insert_place_for_img", action, values);
+            }
             string replaceWith = String.Format("<img src=\"{0}\" alt = \"{1}\"/>", imagePath, HttpUtility.HtmlEncode(alt));
             return returnActionLink.Replace("insert_place_for_img", replaceWith);
         }
-
 
         public static string LineChart(this HtmlHelper helper, string legend, System.Collections.Generic.List<ChartPoint> chartData)
         {            
