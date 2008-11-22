@@ -29,7 +29,7 @@
 	        <td><%= (worker.Department != null)?worker.Department.title:"" %></td>
 	        <td>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = worker.id}) %>
-	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = worker.id}) %>
+	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = worker.id}, true, "Ar tikrai norite ištrinti šį darbuotoją?") %>
 	        </td>
 	      </tr>
 	   <% } %>
