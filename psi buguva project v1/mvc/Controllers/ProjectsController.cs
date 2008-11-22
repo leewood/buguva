@@ -31,11 +31,15 @@ namespace mvc.Controllers
             return View(projects.ToPagedList(currentPage - 1, 25));
         }
 
-        public ActionResult ProjectIntensivityReport(int? project_id)
+        public ActionResult ProjectIntensivityReport(int? project_id, int? page)
         {
             if (project_id.HasValue)
             {
                 ViewData["project_id"] = project_id;
+                ViewData["Title"] = "Projekto #" + project_id.Value.ToString() + " intensyvumas";
+                int curPage = page ?? 1;
+                ViewData["curPage"] = curPage;
+                ViewData["itemsPerPage"] = userSession.ItemsPerPage;
                 Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
                 List<Models.MonthOfYear> months = myProject.workedMonthsInProject();
                 List<Models.ProjectIntensivity> result = new List<mvc.Models.ProjectIntensivity>();
