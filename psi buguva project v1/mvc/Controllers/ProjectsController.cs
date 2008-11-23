@@ -12,6 +12,94 @@ namespace mvc.Controllers
 {
     public class ProjectsController : Common.BaseController
     {
+
+        public ActionResult AllProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart, int? page, int? pageSize)
+        {
+
+
+            ViewData["Title"] = "Visi projektai";
+            int stYear = startYear ?? DateTime.Today.Year;
+            int stMonth = startMonth ?? DateTime.Today.Month;
+            int enYear = endYear ?? DateTime.Today.Year;
+            int enMonth = endMonth ?? DateTime.Today.Month;
+            ViewData["startYear"] = stYear;
+            ViewData["endYear"] = enYear;
+            ViewData["startMonth"] = stMonth;
+            ViewData["endMonth"] = enMonth;
+            ViewData["chart"] = chart ?? false;
+            bool useChart = chart ?? false;
+            int currentPage = page ?? 1;
+            int currentPageSize = pageSize ?? userSession.ItemsPerPage;
+            List<Models.Project> projects = DBDataContext.Projects.Where(p => p.Tasks.Any(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth))).ToList();
+            ViewData["pageSize"] = currentPageSize;
+            IPagedList<Models.Project> pagedProjects = projects.ToPagedList(currentPage - 1, currentPageSize);
+            int size = currentPageSize;
+            if (useChart)
+            {
+                size = projects.Count();
+                pagedProjects = projects.ToPagedList(0, size);
+            }
+            List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
+            ViewData["page"] = currentPage;
+
+
+            foreach (Models.Project project in pagedProjects)
+            {
+                Models.DepartmentProjectReport line = new mvc.Models.DepartmentProjectReport();
+                line.Title = "#" + project.id.ToString() + project.title;
+                line.Manager = (project.Worker != null) ? project.Worker.Fullname : "Nepaskirtas";
+                line.ManagerDepartment = (project.Worker != null) ? project.Worker.Department.title : "Nėra";
+                line.Started = (project.FirstTask != null) ? new Models.MonthOfYear(project.FirstTask.year, project.FirstTask.month) : null;
+                line.Ended = (project.LastTask != null) ? new Models.MonthOfYear(project.LastTask.year, project.LastTask.month) : null;
+                line.TotalWorked = project.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth)).Sum(t2 => t2.worked_hours);
+                result.Add(line);
+            }
+            IPagedList<Models.DepartmentProjectReport> paged = result.ToPagedList(currentPage - 1, currentPageSize);
+            if (useChart)
+            {
+                paged = result.ToPagedList(0, size);
+            }
+            ViewData["pageCount"] = paged.PageCount;
+            return View(result);
+        }
+
+        public ActionResult GrandMastersReport(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart)
+        {
+            ViewData["Title"] = "Vadovybės ataskaita";
+            Models.DepartmentManagerReport report = new mvc.Models.DepartmentManagerReport();
+            report.DepartmentInfo = null;
+            report.ShowAsChart = chart ?? false;
+            int stYear = startYear ?? DateTime.Today.Year;
+            int stMonth = startMonth ?? DateTime.Today.Month;
+            int enYear = endYear ?? DateTime.Today.Year;
+            int enMonth = endMonth ?? DateTime.Today.Month;
+            ViewData["startYear"] = stYear;
+            ViewData["endYear"] = enYear;
+            ViewData["startMonth"] = stMonth;
+            ViewData["endMonth"] = enMonth;
+            ViewData["chart"] = chart ?? false;
+            report.Period = new mvc.Models.Period(stYear, stMonth, enYear, enMonth);
+            report.WorkersCount = DBDataContext.Workers.Count();
+            System.Data.Linq.EntitySet<Models.Project> myProjects = new System.Data.Linq.EntitySet<mvc.Models.Project>();
+            if (DBDataContext.Departments.Any())
+            {
+                List<Models.Department> departments = DBDataContext.Departments.ToList();
+                List<Models.Task> myTasks = DBDataContext.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth)).ToList();
+                report.TotalDepartmentWorked = myTasks.Sum(t => t.worked_hours);
+                foreach (Models.Department department in departments)
+                {
+                    if (department.Workers.Any())
+                    {
+                        IEnumerable<Models.Task> tasks = myTasks.Where(t => (department.Workers.Contains(t.Worker)));
+                        report.WorkedHoursOfOthers.Add(new mvc.Models.AssociatedWorkedHours(department.title, tasks.Sum(t => t.worked_hours)));
+                    }
+                }
+            }
+
+            return View(report);
+        }
+
+
         public ActionResult Index()
         {
             return View();
