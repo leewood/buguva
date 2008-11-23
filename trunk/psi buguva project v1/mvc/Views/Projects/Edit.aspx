@@ -10,7 +10,7 @@
     <% Html.BeginForm("Update", "Projects", new {id = ViewData.Model.id}, FormMethod.Post); %>
     <% { %>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
-        <% SelectList list = new SelectList(data.Workers.ToList(), "Fullname", "id", ViewData.Model.project_manager_id); %>
+        <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.project_manager_id); %>
          <p>
            <label for="id">ID:</label><span><%= ViewData.Model.id %></span>
          </p>
