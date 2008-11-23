@@ -198,5 +198,63 @@ namespace mvc.Controllers
             }
             return RedirectToAction("List");
         }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id.HasValue)
+            {
+                Project project = null;
+                try
+                {
+                    project = (Project)TempData["project"] ?? DBDataContext.Projects.Where(w => w.id == id.Value).First();
+                }
+                catch (Exception)
+                {
+                }
+                if (project != null)
+                {
+                    ViewData["Title"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
+                    return View(project);
+                }
+                else
+                {
+                    string[] errors = { "Bandoma koreguoti neegzistuojantį projektą" };
+                    TempData["errors"] = errors;
+                    return RedirectToAction("ListMyProjects");
+                }
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks projektas" };
+                TempData["errors"] = errors;
+                return RedirectToAction("ListMyProjects");
+            }
+        }
+
+        public ActionResult Update(int? id)
+        {
+            if (id.HasValue)
+            {
+                Project project = DBDataContext.CreateEntityFromForm<Project>(Request.Form);
+                project.id = id.Value;
+                var errors = project.Validate();
+                if (errors != null)
+                {
+                    TempData["errors"] = errors.ErrorMessages;
+                    TempData["project"] = project;
+                    return RedirectToAction("Edit", new { id = project.id });
+                }
+                else
+                {
+                    DBDataContext.Update<Project>(Request.Form, id.Value);
+                }
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks projektas" };
+                TempData["errors"] = errors;
+            }
+            return RedirectToAction("ListMyProjects");
+        }
     }
 }
