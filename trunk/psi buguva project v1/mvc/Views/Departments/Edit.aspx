@@ -6,11 +6,11 @@
     <div class = "errors">
       <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
     </div>
-    
+    <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <% Html.BeginForm("Update", "Departments", new {id = ViewData.Model.id}, FormMethod.Post); %>
     <% { %>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
-        <% SelectList list = new SelectList(data.Workers.ToList(), "Fullname", "id", ViewData.Model.headmaster_id); %>
+        <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.headmaster_id); %>
          <p>
            <label for="id">ID:</label><span><%= ViewData.Model.id %></span>
          </p>
@@ -18,7 +18,7 @@
             <label for="title">Skyriaus pavadinimas:</label><%= Html.TextBox("title") %>
          </p>
          <p> 
-            <label for="project_manager_id">Skyriaus vadovas:</label><%= Html.DropDownList("project_manager_id", list) %>
+            <label for="project_manager_id">Skyriaus vadovas:</label><%= Html.DropDownList("headmaster_id", list) %>
         </p>
          <input type="submit" value = "Keisti" />                         
     <% } %>
