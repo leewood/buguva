@@ -27,21 +27,32 @@
 
 <% Html.BeginForm("DepartmentProjects", "Departments", FormMethod.Get); %>  
   <label>Nuo:</label>
-  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
   <label>Iki:</label>
   Metai:<%=Html.TextBox("endYear") %> Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>  
+  <% if ((bool)ViewData["chart"]) %>
+  <% { %>
+      <%=Html.Hidden("showOnlyMyProjects", false) %>
+  <% } else {%>
+   
+  <% System.Collections.Generic.Dictionary<string, bool> list = new Dictionary<string,bool>(); %>
+  <% list.Add("Visi susiję projektai", false); %>
+  <% list.Add("Tik šio skyriaus projektai", true); %>
+  <%=Html.DropDownList("showOnlyMyProjects", new SelectList(list, "Value", "Key", ViewData["viewOnlyMy"])) %>
+  <% } %>
   <input type="submit" value="Pasirinkti" />
   <%= Html.Hidden("department_id") %>
   <%= Html.Hidden("chart") %>
-  <%= Html.Hidden("page") %>
   <%= Html.Hidden("pageSize") %>
 <% Html.EndForm(); %>
 <% if ((bool)ViewData["chart"]) %>
 <% { %>
-	<% string[] legends = {"Savo", "Kitų", "Nedirbo" }; %>
-	<% string[] yAxes = { "ThisDepartmentWorkersWorkedInDepartmentProjects", "ThisDepartmentWorkersWorkedInOtherProjects", "WorkedNoWhere" }; %>
+	<% string[] legends = {"Skyriaus darbuotojai dirbo", "Kiti dirbo"}; %>
+	<% string[] yAxes = { "DepartmentWorkersWorked", "OthersWorked"}; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
+	
+	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 50, true) %>
 <% } %>
 <% else %>
 <% { %>
@@ -79,6 +90,17 @@
 	      </tr>
 	   <% } %>  
  </table>
- 
+ <% Html.BeginForm("DepartmentProjects", "Departments", FormMethod.Get); %>  
+   <%= Html.Hidden("department_id") %>
+   <%= Html.Hidden("chart") %>
+   <%= Html.Hidden("startYear") %>
+   <%= Html.Hidden("startMonth") %>
+   <%= Html.Hidden("endYear") %>
+   <%= Html.Hidden("endMonth") %>
+   <%= Html.Hidden("showOnlyMyProjects") %>
+   <% List<int> pageSizes = new List<int>(); %>
+   <% for (int i = 5; i <= 50; i += 5) pageSizes.Add(i); %>
+   <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSize"]), new { onChange = "javascript: form.submit();"})%>
+ <% Html.EndForm(); %>
 <% } %>
 </asp:Content>
