@@ -10,7 +10,7 @@
       <%= Html.ActionLink("Bendra ataskaita", "GrandMastersReport", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"] })%>
    </li>
    <li class="selected">
-      <%= Html.ActionLink("Projektai", "AllProjects", new {(int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"], page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] })%>                    
+      <%= Html.ActionLink("Projektai", "AllProjects", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"], page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] })%>                    
    </li>
 </ul>
 

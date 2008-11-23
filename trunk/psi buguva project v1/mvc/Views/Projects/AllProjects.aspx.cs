@@ -9,5 +9,7 @@ namespace mvc.Views.Projects
 {
     public partial class AllProjects : ViewPage<List<Models.DepartmentProjectReport>>
     {
+        public string className = "";
+        public string className2 = "";
     }
 }
