@@ -144,6 +144,20 @@ namespace mvc.Models
             }
         }
 
+        private int _workersCount = 0;
+        public int WorkersCount
+        {
+            get
+            {
+                return _workersCount;
+            }
+            set
+            {
+                _workersCount = value;
+            }
+        }
+
+
         private Department _department = null;
         public Department DepartmentInfo
         {
@@ -246,7 +260,7 @@ namespace mvc.Models
         {
             get
             {
-                return Period.TotalWorkHoursInPeriod - TotalDepartmentWorked;
+                return (Period.TotalWorkHoursInPeriod * WorkersCount) - TotalDepartmentWorked;
             }
         }
 
@@ -256,7 +270,7 @@ namespace mvc.Models
             {
                 if (Period.TotalWorkHoursInPeriod != 0)
                 {
-                    return (((double)WorkedNoWhere / (double)Period.TotalWorkHoursInPeriod) * (double)100).ToString("0.00") + "%";
+                    return (((double)WorkedNoWhere / ((double)Period.TotalWorkHoursInPeriod * WorkersCount)) * (double)100).ToString("0.00") + "%";
                 }
                 else
                 {
@@ -533,6 +547,7 @@ namespace mvc.Controllers
                         ViewData["endMonth"] = enMonth;
                         ViewData["chart"] = chart ?? false;
                         report.Period = new mvc.Models.Period(stYear, stMonth, enYear, enMonth);
+                        report.WorkersCount = currentDepartment.Workers.Count;
                         System.Data.Linq.EntitySet<Models.Project> myProjects = new System.Data.Linq.EntitySet<mvc.Models.Project>();
                         if (currentDepartment.Worker != null)
                         {
