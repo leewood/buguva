@@ -66,6 +66,35 @@ namespace mvc.Common
                 this.userSession.userId = user.id;
                 this.userSession.userName = user.login_name;
                 this.userSession.userLevel = user.level;
+                this.userSession.workerID = (int)user.worker_id;
+
+                try
+                {
+                    this.userSession.workerName = user.Worker.name;
+                }
+                catch (Exception e)
+                {
+                    this.userSession.workerName = "";
+                }
+
+                try
+                {
+                    this.userSession.workerSurname = user.Worker.surname;
+                }
+                catch (Exception e)
+                {
+                    this.userSession.workerSurname = "";
+                }
+
+                try
+                {
+                    this.userSession.workerDepartment = (int)user.Worker.department_id;
+                }
+                catch (Exception e)
+                {
+                    this.userSession.workerDepartment = 0;
+                }
+
 
                 return true;
             }
@@ -96,6 +125,8 @@ namespace mvc.Common
 
             return false;
         }
+
+
 
     }
 }

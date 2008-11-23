@@ -14,10 +14,20 @@ namespace mvc.Controllers
         {
             Authentication auth = new Authentication();
 
+            UserSession userSession = new UserSession();
+
             if (auth.loginWithCookie())
             {
                 ViewData["Title"] = "Perkeliama...";
-                return Redirect("/Projects/");
+
+                if (userSession.isAdministrator())
+                {
+                    return Redirect("/Workers/");
+                }
+                else
+                {
+                    return Redirect("/Projects/");
+                }
             }
             else
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using mvc.Common;
+using mvc.Models;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
@@ -84,13 +85,28 @@ namespace mvc.Common
             }
         }
 
+        public string userLevelName
+        {
+            get
+            {
+                if (this.userLevel != 0)
+                {
+                    return Models.User.LevelNames[this.userLevel - 1];
+                }
+                else
+                {
+                    return "nežinomas lygis";
+                }
+            }
+        }
+
         public int workerID
         {
             get
             {
                 if (HttpContext.Current.Session["workerId"] != null)
                 {
-                    return (int)HttpContext.Current.Session["myWorkerID"];
+                    return (int)HttpContext.Current.Session["workerId"];
                 }
                 else
                 {
@@ -123,6 +139,63 @@ namespace mvc.Common
             }
         }
 
+        public int workerDepartment
+        {
+            get
+            {
+                if (HttpContext.Current.Session["workerDepartment"] != null)
+                {
+                    return (int)HttpContext.Current.Session["workerDepartment"];
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session["workerDepartment"] = value;
+            }
+        }
+
+        public string workerName
+        {
+            get
+            {
+                if (HttpContext.Current.Session["workerName"] != null)
+                {
+                    return (string)HttpContext.Current.Session["workerName"];
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session["workerName"] = value;
+            }
+        }
+
+        public string workerSurname
+        {
+            get
+            {
+                if (HttpContext.Current.Session["workerSurname"] != null)
+                {
+                    return (string)HttpContext.Current.Session["workerSurname"];
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session["workerSurname"] = value;
+            }
+        }
+
         public int userId
         {
             get
@@ -142,6 +215,35 @@ namespace mvc.Common
             }
         }
 
+        public bool isSimpleUser()
+        {
+            return (this.userLevel == 1);
+        }
+
+        public bool isDepartmentMaster()
+        {
+            return (this.userLevel == 2);
+        }
+
+        public bool isAntanas()
+        {
+            return (this.userLevel == 3);
+        }
+
+        public bool isAdministrator()
+        {
+            return (this.userLevel == 4);
+        }
+
+        public bool canViewAtaskaitos()
+        {
+            return (isAntanas() || isSimpleUser() || isDepartmentMaster());
+        }
+
+        public bool canViewAdmin()
+        {
+            return (isAntanas() || isAdministrator());
+        }
 
     }
 }

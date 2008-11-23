@@ -36,7 +36,16 @@ namespace mvc.Views.Login
                     Response.AppendCookie(newCookie);
                 }
 
-                Response.Redirect("/Projects/");
+                UserSession userSession = new UserSession();
+
+                if (userSession.isAdministrator())
+                {
+                    Response.Redirect("/Workers/");
+                }
+                else
+                {
+                    Response.Redirect("/Projects/");
+                }
             }
             else
             {

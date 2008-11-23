@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using mvc;
+using mvc.Models;
 using mvc.Common;
 using System.Web;
 using System.Web.Routing;
@@ -48,5 +49,57 @@ namespace mvc.Common
                 ) ? true : false;
         }
 
+        public Models.Department getDepartment()
+        {
+            try
+            {
+                Department data = new Department();
+                return data.getDepartment(this.userSession.workerID);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public string getDepartmentName()
+        {
+            try
+            {
+                return this.getDepartment().title;
+            }
+            catch (Exception e)
+            {
+                return "nežinomas skyrius";
+            }
+        }
+
+        public List<Models.Department> getDepartments()
+        {
+            //"Paprastas darbuotojas", "Skyriaus vadovas", "Antanas", "Administratorius"            
+
+            POADataModelsDataContext data = new POADataModelsDataContext();
+
+            switch (this.userSession.userLevel)
+            {
+                case 1:
+
+                    return new List<Department>();
+
+                case 2:
+
+                    return data.Departments.Where(Department => (Department.id == this.userSession.workerDepartment)).ToList();
+
+                case 3:
+
+                    return data.Departments.ToList();
+
+                case 4:
+
+                    return new List<Department>();
+            }
+
+            return new List<Department>();
+        }
     }
 }
