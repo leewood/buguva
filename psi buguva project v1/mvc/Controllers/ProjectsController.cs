@@ -344,5 +344,41 @@ namespace mvc.Controllers
             }
             return RedirectToAction("ListMyProjects");
         }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id.HasValue)
+            {
+                Project project = null;
+                try
+                {
+                    project = DBDataContext.Projects.Where(w => w.id == id.Value).First();
+                }
+                catch (Exception)
+                {
+                }
+                if (project != null)
+                {
+                    project.deleted = DateTime.Today;
+                    if (userSession.userId != 0)
+                    {
+                        project.deleted_by_id = userSession.userId;
+                    }
+                    DBDataContext.SubmitChanges();
+                }
+                else
+                {
+                    string[] errors = { "Bandoma trinti neegzistuojantį projektą" };
+                    TempData["errors"] = errors;
+                }
+                return RedirectToAction("ListMyProjects");
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks projektas" };
+                TempData["errors"] = errors;
+                return RedirectToAction("ListMyProjects");
+            }
+        }
     }
 }
