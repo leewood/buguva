@@ -194,6 +194,20 @@
     <Compile Include="Views\Departments\DepartmentProjects.aspx.designer.cs">
       <DependentUpon>DepartmentProjects.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Departments\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Departments\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Departments\New.aspx.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Departments\New.aspx.designer.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\Example.aspx.cs">
       <DependentUpon>Example.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -417,6 +431,8 @@
     <Content Include="Content\new.png" />
     <Content Include="Views\Departments\DepartmentManagerReport.aspx" />
     <Content Include="Views\Departments\DepartmentProjects.aspx" />
+    <Content Include="Views\Departments\Edit.aspx" />
+    <Content Include="Views\Departments\New.aspx" />
     <Content Include="Views\Import\Index.aspx" />
     <Content Include="Views\Projects\AllProjects.aspx" />
     <Content Include="Views\Projects\Edit.aspx" />
