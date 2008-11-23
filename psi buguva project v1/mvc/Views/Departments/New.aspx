@@ -10,7 +10,7 @@
     <% Html.BeginForm("Insert", "Departments", new {}, FormMethod.Post); %>
     <% { %>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
-        <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.id); %>
+        <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.headmaster_id); %>
         <p>
             <label for="title">Skyriaus pavadinimas:</label><%= Html.TextBox("title") %>
         </p>         
