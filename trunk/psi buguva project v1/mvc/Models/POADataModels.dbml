@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="POA" Class="POADataModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=5.49.217.43;Initial Catalog=POA;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="POAConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=KUOSIS;Initial Catalog=POA;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="POAConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Departments" Member="Departments">
     <Type Name="Department">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -16,7 +16,7 @@
   <Table Name="dbo.Projects" Member="Projects">
     <Type Name="Project">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="project_manager_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="project_manager_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
