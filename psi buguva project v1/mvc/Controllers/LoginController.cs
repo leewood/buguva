@@ -20,14 +20,7 @@ namespace mvc.Controllers
             {
                 ViewData["Title"] = "Perkeliama...";
 
-                if (userSession.isAdministrator())
-                {
-                    return Redirect("/Workers/");
-                }
-                else
-                {
-                    return Redirect("/Projects/");
-                }
+                return Redirect(userSession.getHomepageUrl());
             }
             else
             {

@@ -38,14 +38,7 @@ namespace mvc.Views.Login
 
                 UserSession userSession = new UserSession();
 
-                if (userSession.isAdministrator())
-                {
-                    Response.Redirect("/Workers/");
-                }
-                else
-                {
-                    Response.Redirect("/Projects/");
-                }
+                Response.Redirect(userSession.getHomepageUrl());
             }
             else
             {

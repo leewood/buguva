@@ -37,14 +37,14 @@
                     <% if (userSession.canViewAtaskaitos()) %>
                     <% { %>
                     <%=(userNav.isInAtaskaitos() ? "<li class='selected'>" : "<li class='simple'>")%>
-                        <a href="/Projects/">Ataskaitos</a>
+                        <a href="<%=userSession.myProjectsListUrl %>">Ataskaitos</a>
                     </li>
                     <% } %>
                     
                     <% if (userSession.canViewAdmin()) %>
                     <% { %>
                     <%=(userNav.isInAdmin()? "<li class='selected'>" : "<li class='simple'>" ) %>
-                        <a href="/Workers/">Administravimas</a>
+                        <a href="<%=userSession.myAdminUrl %>">Administravimas</a>
                     </li>
                     <% } %>
                     
@@ -74,13 +74,13 @@
             <ul>
                 <li>
                     <img src="/Content/ico1.png" alt="-" />
-                    <a href="/Projects/">Mano projektai</a>
+                    <a href="/Projects/ListMyProjects/">Mano projektai</a>
                 </li>
                 <% if (userSession.isDepartmentMaster()) %>
                 <% { %>
                 <li>
                     <img src="/Content/ico1.png" alt="-" />
-                    <a href="/Projects/">Visi skyriaus projektai</a>
+                    <a href="/Departments/DepartmentProjects?department_id=<%=userSession.workerDepartment %>">Visi skyriaus projektai</a>
                 </li>
                 <%} %>
                 

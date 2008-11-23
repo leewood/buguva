@@ -235,6 +235,51 @@ div #login form input:hover[type=submit]
 	border: 1px solid #0CB3DF;
 }
 
+#content #menu
+{
+	border-bottom: 1px #D3ECFF solid;
+	font-size: 15px;
+	color: #535353;
+
+}
+
+#content #menu2
+{
+	border-bottom: 1px #D3ECFF solid;
+	font-size: 15px;
+	color: #535353;	
+
+}
+
+#content ul
+{
+
+}
+
+#content ul li
+{
+	display: inline;
+	border: 1px #D3ECFF solid;
+	
+	margin-right: 5px;
+	
+	padding-top: 3px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-bottom: 3px;
+	
+	text-decoration: none;	
+}
+
+#content ul li:hover
+{
+		
+}
+
+#content ul li a 
+{
+	text-decoration: none;
+}
 
 /* TAB MENU   
 ----------------------------------------------------------*/

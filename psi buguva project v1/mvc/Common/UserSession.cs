@@ -21,6 +21,12 @@ namespace mvc.Common
 {
     public class UserSession
     {
+        public string myProjectsListUrl = "/Projects/ListMyProjects";
+
+        public string myAdminUrl = "/Workers/List";
+
+        public string myReportsUrl = "/Projects/ListMyProjects"; // vadovybes ataskaita        
+
         public UserSession()
         {
            
@@ -29,6 +35,19 @@ namespace mvc.Common
         public void destroyInformation()
         {
             HttpContext.Current.Session.RemoveAll();
+        }
+
+        public string getHomepageUrl()
+        {
+            switch (this.userLevel)
+            {
+                case 1: return this.myProjectsListUrl;
+                case 2: return this.myProjectsListUrl;
+                case 3: return this.myReportsUrl;
+                case 4: return this.myAdminUrl;
+            }
+
+            return "/";
         }
         
         public bool loged
