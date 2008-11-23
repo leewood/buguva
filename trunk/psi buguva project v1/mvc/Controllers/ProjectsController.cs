@@ -264,7 +264,7 @@ namespace mvc.Controllers
         public ActionResult New()
         {
             Project project = ((Project)TempData["project"] ?? new Project());
-            ViewData["Title"] = "Kuriamas naujas projektas";
+            ViewData["TitleWindow"] = "Kuriamas naujas projektas";
             return View(project);
         }
 
@@ -301,7 +301,7 @@ namespace mvc.Controllers
                 }
                 if (project != null)
                 {
-                    ViewData["Title"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
+                    ViewData["TitleWindow"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
                     return View(project);
                 }
                 else
