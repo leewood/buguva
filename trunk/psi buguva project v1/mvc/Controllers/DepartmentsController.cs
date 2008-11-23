@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using mvc.Common;
+using mvc.Models;
+using LinqToSqlExtensions;
 
 namespace mvc.Models
 {
@@ -611,5 +613,124 @@ namespace mvc.Controllers
             }
         }
 
+        public ActionResult New()
+        {
+            Department department = ((Department)TempData["department"] ?? new Department());
+            ViewData["Title"] = "Kuriamas naujas skyrius";
+            return View(department);
+        }
+
+        public ActionResult Insert()
+        {
+            Department department = DBDataContext.CreateEntityFromForm<Department>(Request.Form);
+            var errors = department.Validate();
+            if (errors != null)
+            {
+                TempData["errors"] = errors.ErrorMessages;
+                TempData["department"] = department;
+
+                return RedirectToAction("New");
+            }
+            else
+            {
+                DBDataContext.Departments.InsertOnSubmit(department);
+                DBDataContext.SubmitChanges();
+            }
+            return RedirectToAction("List");
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id.HasValue)
+            {
+                Department department = null;
+                try
+                {
+                    department = (Department)TempData["department"] ?? DBDataContext.Departments.Where(w => w.id == id.Value).First();
+                }
+                catch (Exception)
+                {
+                }
+                if (department != null)
+                {
+                    ViewData["Title"] = "Koreguojamas skyrius #" + department.id.ToString() + "(" + department.title + ")";
+                    return View(department);
+                }
+                else
+                {
+                    string[] errors = { "Bandoma koreguoti neegzistuojantį skyrių" };
+                    TempData["errors"] = errors;
+                    return RedirectToAction("List");
+                }
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks skyrius" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
+        }
+
+        public ActionResult Update(int? id)
+        {
+            if (id.HasValue)
+            {
+                Department department = DBDataContext.CreateEntityFromForm<Department>(Request.Form);
+                department.id = id.Value;
+                var errors = department.Validate();
+                if (errors != null)
+                {
+                    TempData["errors"] = errors.ErrorMessages;
+                    TempData["project"] = department;
+                    return RedirectToAction("Edit", new { id = department.id });
+                }
+                else
+                {
+                    DBDataContext.Update<Department>(Request.Form, id.Value);
+                }
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks skyrius" };
+                TempData["errors"] = errors;
+            }
+            return RedirectToAction("List");
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id.HasValue)
+            {
+                Department department = null;
+                try
+                {
+                    department = DBDataContext.Projects.Where(w => w.id == id.Value).First();
+                }
+                catch (Exception)
+                {
+                }
+                if (department != null)
+                {
+                    department.deleted = DateTime.Today;
+                    if (userSession.userId != 0)
+                    {
+                        department.deleted_by_id = userSession.userId;
+                    }
+                    DBDataContext.SubmitChanges();
+                }
+                else
+                {
+                    string[] errors = { "Bandoma trinti neegzistuojantį skyrių" };
+                    TempData["errors"] = errors;
+                }
+                return RedirectToAction("List");
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks skyrius" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
+        }
     }
 }
