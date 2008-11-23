@@ -84,6 +84,7 @@
     <Compile Include="Common\PagingExtensions.cs" />
     <Compile Include="Common\NavigationMap.cs" />
     <Compile Include="Common\UserCookie.cs" />
+    <Compile Include="Common\UserNavigation.cs" />
     <Compile Include="Common\UserSession.cs" />
     <Compile Include="Common\Validators\Attributes\AbstractValidationAttribute.cs" />
     <Compile Include="Common\Validators\Attributes\ValidateCollectionNotEmptyAttribute.cs" />

@@ -86,7 +86,7 @@ namespace mvc.Views.Import
                     {
                         Models.Task task = new Models.Task();
                         Models.Project project = DBDataContext.Projects.First(p => p.title == dr[0].ToString());
-                        task.project_id = project.id.Value;
+                        task.project_id = project.id;
                         Models.Worker worker = DBDataContext.Workers.First(w => w.name == dr[1].ToString());
                         task.project_participant_id = worker.id;
                         task.year = int.Parse(dr[2].ToString());
