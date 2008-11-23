@@ -194,6 +194,49 @@ namespace mvc.Common
             return result;
         }
 
+        public static string BarChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, int alpha, int maxWidth, bool useShadow)
+        {
+            WebChart.ChartControl chartControl = new ChartControl();
+            chartControl.Background.Color = background;
+            chartControl.ChartTitle.Text = caption;
+            ChartPointCollection chartPoints = new ChartPointCollection();
+            //WebChart.ColumnChart chart = new ColumnChart();            
+            int i = 0;
+            for (int j = 0; j < YAxes.Length; j++)
+            {
+                chartControl.Charts.Add(new WebChart.StackedColumnChart());
+                chartControl.Charts[j].Fill.Color = System.Drawing.Color.FromArgb(alpha, colors[j]);
+                chartControl.Charts[j].Legend = legends[j];
+                chartControl.Charts[j].Shadow.Visible = useShadow;
+                ((WebChart.StackedColumnChart)(chartControl.Charts[j])).MaxColumnWidth = maxWidth;
+            }
+
+            foreach (T line in data)
+            {
+                
+                string title = GetMemberValue(line, XAxe);
+                int j = 0;
+                foreach (string YAxe in YAxes)
+                {
+                    string value = GetMemberValue(line, YAxe);
+                    WebChart.ColumnChart chart = new ColumnChart();
+                    WebChart.ChartPoint point = new WebChart.ChartPoint(title, int.Parse(value));
+                    chartControl.Charts[j].Data.Add(point);
+                    j++;
+                }
+                i++;
+            }
+
+            
+            chartControl.RedrawChart();
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+            System.IO.TextWriter textWiter = stringWriter;
+            System.Web.UI.HtmlTextWriter writer = new System.Web.UI.HtmlTextWriter(textWiter);
+            chartControl.RenderControl(writer);
+            string result = stringWriter.ToString();
+            return result;
+        }
+
 
     }
 
