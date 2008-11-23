@@ -12,7 +12,7 @@
         
         <br />
         
-        <asp:Label ID="Label2" runat="server" Text="Slapta&#382;odis"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="Slaptažodis"></asp:Label>
         <asp:TextBox ID="input_password" runat="server" TextMode="Password"></asp:TextBox>
         
         <br />
