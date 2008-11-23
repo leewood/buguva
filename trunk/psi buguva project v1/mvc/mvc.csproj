@@ -335,6 +335,13 @@
     <Compile Include="Views\Tasks\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Tasks\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Tasks\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Tasks\New.aspx.cs">
       <DependentUpon>New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -476,6 +483,7 @@
     <Content Include="Views\Projects\ProjectManagerReport.aspx" />
     <Content Include="Views\Shared\Blank.Master" />
     <Content Include="Views\Tasks\Edit.aspx" />
+    <Content Include="Views\Tasks\List.aspx" />
     <Content Include="Views\Tasks\New.aspx" />
     <Content Include="Views\Users\ChangePassword.aspx" />
     <Content Include="Views\Users\Edit.aspx" />
