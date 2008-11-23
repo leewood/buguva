@@ -21,7 +21,7 @@ namespace mvc.Controllers
         public ActionResult New()
         {
             Task task = ((Task)TempData["task"] ?? new Task());
-            ViewData["Title"] = "Kuriama nauja užduotis";
+            ViewData["TitleWindow"] = "Kuriama nauja užduotis";
             return View(task);
         }
 
@@ -58,7 +58,7 @@ namespace mvc.Controllers
                 }
                 if (task != null)
                 {
-                    ViewData["Title"] = "Koreguojama užduotis #" + task.id.ToString() /*+ "(" + task.title + ")"*/;
+                    ViewData["TitleWindow"] = "Koreguojama užduotis #" + task.id.ToString() /*+ "(" + task.title + ")"*/;
                     return View(task);
                 }
                 else
