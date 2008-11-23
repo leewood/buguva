@@ -319,6 +319,12 @@ namespace mvc.Controllers
             }
         }
 
+        public ActionResult List(int? page)
+        {
+            ViewData["Title"] = "Projektų sąrašas";
+            return View(DBDataContext.Projects.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
+        }
+
         public ActionResult Update(int? id)
         {
             if (id.HasValue)
