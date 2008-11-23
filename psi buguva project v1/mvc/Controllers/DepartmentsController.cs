@@ -704,7 +704,7 @@ namespace mvc.Controllers
                 Department department = null;
                 try
                 {
-                    department = DBDataContext.Projects.Where(w => w.id == id.Value).First();
+                    department = DBDataContext.Departments.Where(w => w.id == id.Value).First();
                 }
                 catch (Exception)
                 {
