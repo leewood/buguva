@@ -35,7 +35,7 @@
 <% Html.EndForm(); %>
 <% if ((bool)ViewData["chart"]) %>
 <% { %>
-	<% string[] legends = {"Savo", "Kitų", "Nedirbo" }; %>
+	<% string[] legends = {"Dirbo", "Nedirbo"}; %>
 	<% string[] yAxes = { "TotalDepartmentWorked", "WorkedNoWhere" }; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red};  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>

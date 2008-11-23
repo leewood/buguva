@@ -9,5 +9,7 @@ namespace mvc.Views.Projects
 {
     public partial class GrandMastersReport : ViewPage<Models.DepartmentManagerReport>
     {
+        public string className = "";
+        public string className2 = "";
     }
 }
