@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using mvc.Common;
+using mvc.Models;
+using LinqToSqlExtensions;
 
 namespace mvc.Controllers
 {
@@ -169,6 +171,32 @@ namespace mvc.Controllers
             {
                 return RedirectToAction("ListMyProjects");
             }
+        }
+
+        public ActionResult New()
+        {
+            Project project = ((Project)TempData["project"] ?? new Project());
+            ViewData["Title"] = "Kuriamas naujas projektas";
+            return View(project);
+        }
+
+        public ActionResult Insert()
+        {
+            Project project = DBDataContext.CreateEntityFromForm<Project>(Request.Form);
+            var errors = project.Validate();
+            if (errors != null)
+            {
+                TempData["errors"] = errors.ErrorMessages;
+                TempData["project"] = project;
+
+                return RedirectToAction("New");
+            }
+            else
+            {
+                DBDataContext.Projects.InsertOnSubmit(project);
+                DBDataContext.SubmitChanges();
+            }
+            return RedirectToAction("List");
         }
     }
 }
