@@ -420,7 +420,7 @@ namespace mvc.Controllers
             throw new NotImplementedException();
         }
 
-        public ActionResult DepartmentProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, int? department_id, bool? chart, int? page, int? pageSize)
+        public ActionResult DepartmentProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, int? department_id, bool? chart, int? page, int? pageSize, bool? showOnlyMyProjects)
         {
             if (department_id.HasValue)
             {
@@ -432,7 +432,7 @@ namespace mvc.Controllers
                     {
                         ViewData["Title"] = "Skyriaus " + currentDepartment.title + " projektai";
                         ViewData["department_id"] = department_id.Value;
-                        
+                        ViewData["viewOnlyMy"] = showOnlyMyProjects ?? false;
                         int stYear = startYear ?? DateTime.Today.Year;
                         int stMonth = startMonth ?? DateTime.Today.Month;
                         int enYear = endYear ?? DateTime.Today.Year;
@@ -442,15 +442,23 @@ namespace mvc.Controllers
                         ViewData["startMonth"] = stMonth;
                         ViewData["endMonth"] = enMonth;
                         ViewData["chart"] = chart ?? false;
-
+                        bool useChart = chart ?? false;
+                        bool dontShowAll = showOnlyMyProjects ?? false;
                         int currentPage = page ?? 1;
                         int currentPageSize = pageSize ?? userSession.ItemsPerPage;
                         List<Models.Project> projects = DBDataContext.Projects.Where(p => p.Tasks.Any(t => (t.Worker.department_id == department_id.Value) && (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth))).ToList();
                         IOrderedEnumerable<Models.Project> orderedProjects = projects.OrderBy(p => p, new Models.MyDepartmentFirstComparer(department_id.Value));
-                        IPagedList<Models.Project> pagedProjects = orderedProjects.ToPagedList(currentPage, currentPageSize);
+                        ViewData["pageSize"] = currentPageSize;                        
+                        IPagedList<Models.Project> pagedProjects = orderedProjects.ToPagedList(currentPage - 1, currentPageSize);
+                        int size = currentPageSize;
+                        if (useChart)
+                        {
+                            size = orderedProjects.Count();
+                            pagedProjects = orderedProjects.ToPagedList(0, size);
+                        }
                         List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
                         ViewData["page"] = currentPage;
-                        ViewData["pageSize"] = currentPageSize;                        
+                        
                        
                         foreach (Models.Project project in pagedProjects)
                         {
@@ -464,9 +472,16 @@ namespace mvc.Controllers
                             line.DepartmentWorkersWorked = project.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth) && (currentDepartment.Workers.Contains(t.Worker))).Sum(t2 => t2.worked_hours);
                             result.Add(line);
                         }
-                        IPagedList<Models.DepartmentProjectReport> paged = result.ToPagedList(currentPage, currentPageSize);
-                        result = paged.ToList();
+                        IPagedList<Models.DepartmentProjectReport> paged = result.ToPagedList(currentPage - 1, currentPageSize);
+                        if (useChart)
+                        {
+                            paged = result.ToPagedList(0, size);
+                        }
                         ViewData["pageCount"] = paged.PageCount;
+                        if (dontShowAll)
+                        {
+                            result = result.Where(r => r.Manager == currentDepartment.Worker.Fullname).ToList();
+                        }
                         return View(result);
                     }
                     else
