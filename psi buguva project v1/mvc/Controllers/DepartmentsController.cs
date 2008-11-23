@@ -616,7 +616,7 @@ namespace mvc.Controllers
         public ActionResult New()
         {
             Department department = ((Department)TempData["department"] ?? new Department());
-            ViewData["Title"] = "Kuriamas naujas skyrius";
+            ViewData["TitleWindow"] = "Kuriamas naujas skyrius";
             return View(department);
         }
 
@@ -653,7 +653,7 @@ namespace mvc.Controllers
                 }
                 if (department != null)
                 {
-                    ViewData["Title"] = "Koreguojamas skyrius #" + department.id.ToString() + "(" + department.title + ")";
+                    ViewData["TitleWindow"] = "Koreguojamas skyrius #" + department.id.ToString() + "(" + department.title + ")";
                     return View(department);
                 }
                 else
