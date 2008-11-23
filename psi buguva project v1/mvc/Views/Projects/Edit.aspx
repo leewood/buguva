@@ -6,7 +6,7 @@
     <div class = "errors">
       <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
     </div>
-    
+    <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <% Html.BeginForm("Update", "Projects", new {id = ViewData.Model.id}, FormMethod.Post); %>
     <% { %>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
