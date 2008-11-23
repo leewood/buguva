@@ -378,11 +378,15 @@
     <None Include="Models\POADataModels.dbml.layout">
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </None>
+    <Content Include="Content\delete.png" />
+    <Content Include="Content\edit.png" />
     <Content Include="Content\ico1.png" />
     <Content Include="Content\ico2.png" />
     <Content Include="Content\Images\login-header.gif" />
+    <Content Include="Content\key.png" />
     <Content Include="Content\List\back.jpg" />
     <Content Include="Content\livevalidation.js" />
+    <Content Include="Content\new.png" />
     <Content Include="Views\Departments\DepartmentManagerReport.aspx" />
     <Content Include="Views\Departments\DepartmentProjects.aspx" />
     <Content Include="Views\Import\Index.aspx" />

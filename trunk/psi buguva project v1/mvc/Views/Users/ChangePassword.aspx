@@ -18,7 +18,7 @@
          <p>
            <label for="new_repeated_password">Pakartotas naujasis slaptažodis:</label><%= Html.Password("new_repeated_password") %>
          </p>    
-         
+         <br />
          <input type="submit" value = "Keisti Slaptažodį" />                                                             
     <% } %>
    
