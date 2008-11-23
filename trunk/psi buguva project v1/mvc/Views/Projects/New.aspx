@@ -3,7 +3,7 @@
 <%@ Import Namespace="mvc.Models"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
+    <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <div class = "errors">
         <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
     </div>
