@@ -220,6 +220,10 @@ div #login form input[type=submit]
 {
 	margin-bottom: 3px;
 	margin-top: 3px;
+	margin-left: 0px;
+	margin-right: 0px;
+	
+	float: none;
 	
 	color: #212121;
 	font-weight: bold;
