@@ -15,7 +15,7 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             // Add action logic here
-            throw new NotImplementedException();
+            return RedirectToAction("List");
         }
 
         public ActionResult New()
@@ -74,6 +74,12 @@ namespace mvc.Controllers
                 TempData["errors"] = errors;
                 return RedirectToAction("List");
             }
+        }
+
+        public ActionResult List(int? page)
+        {
+            ViewData["Title"] = "Užduočių sąrašas";
+            return View(DBDataContext.Tasks.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 
         public ActionResult Update(int? id)

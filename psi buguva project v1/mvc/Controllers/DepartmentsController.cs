@@ -433,7 +433,7 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             // Add action logic here
-            throw new NotImplementedException();
+            return RedirectToAction("List");
         }
 
         public ActionResult DepartmentProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, int? department_id, bool? chart, int? page, int? pageSize, bool? showOnlyMyProjects)

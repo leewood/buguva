@@ -102,7 +102,7 @@ namespace mvc.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("List");
         }
 
         public ActionResult ListMyProjects(int? page)
