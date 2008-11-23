@@ -395,8 +395,29 @@ div #login form input:hover[type=submit]
 	empty-cells: show;
 }
 
+/* content  
+----------------------------------------------------------*/
+
+#content a
+{
+	color: #656666;
+	text-decoration: none;
+	margin: 1px;
+}
+
+#content a:hover
+{
+	color: #1E1E1E;
+	text-decoration: underline;
+}
+
 /* FORM  
 ----------------------------------------------------------*/
+
+form
+{
+
+}
 
 form input, 
 form select {
@@ -405,6 +426,25 @@ form select {
 	background-color: #FFF;
 	border: 1px solid #EBEBEB;
 }
+
+form p {
+	margin: 3px;
+	padding: 0px;
+}
+
+form label 
+{
+	margin-right: 0px;
+	padding-right: 15px;
+	
+	width: 150px;
+	display: block;
+	float: left;
+	text-align: right;
+	position: relative;
+	color: #535353;
+}
+	
 
 form textarea {
 	margin-bottom: 5px;
@@ -421,6 +461,9 @@ form input[type=submit] {
 	border-color: #999999;
 	color: #595a5c;
 	font-weight: bold;
+	margin: 3px;
+	margin-left: 168px;
+
 }
 
 form input:hover[type=submit] {
