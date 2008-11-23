@@ -639,6 +639,12 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
+        public ActionResult List(int? page)
+        {
+            ViewData["Title"] = "Skyrių sąrašas";
+            return View(DBDataContext.Departments.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id.HasValue)

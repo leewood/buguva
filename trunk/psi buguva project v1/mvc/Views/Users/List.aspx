@@ -2,8 +2,7 @@
 <%@ Import Namespace="mvc.Common"%>
 <%@ Import Namespace="mvc.Models"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <%= ViewContext.RouteData.Values["controller"] %>/<%= ViewContext.RouteData.Values["action"] %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">    
     <div class = "path">
    	  <%= Html.Path() %>
    	</div>   
