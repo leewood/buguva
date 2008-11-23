@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AdditionalHtmlHelpers.cs" />
+    <Compile Include="Common\Authentication.cs" />
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Common\Debugger.cs" />
     <Compile Include="Common\IPagedList.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Common\Pager.cs" />
     <Compile Include="Common\PagingExtensions.cs" />
     <Compile Include="Common\NavigationMap.cs" />
+    <Compile Include="Common\UserCookie.cs" />
     <Compile Include="Common\UserSession.cs" />
     <Compile Include="Common\Validators\Attributes\AbstractValidationAttribute.cs" />
     <Compile Include="Common\Validators\Attributes\ValidateCollectionNotEmptyAttribute.cs" />
