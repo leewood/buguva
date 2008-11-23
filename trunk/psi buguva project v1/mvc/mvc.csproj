@@ -83,6 +83,7 @@
     <Compile Include="Common\Pager.cs" />
     <Compile Include="Common\PagingExtensions.cs" />
     <Compile Include="Common\NavigationMap.cs" />
+    <Compile Include="Common\SiteMap.cs" />
     <Compile Include="Common\UserCookie.cs" />
     <Compile Include="Common\UserNavigation.cs" />
     <Compile Include="Common\UserSession.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Common\Validators\Validators\SameAsValidator.cs" />
     <Compile Include="Common\Validators\Validators\SetValidator.cs" />
     <Compile Include="Common\Validators\Validators\SingleValidator.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
@@ -180,6 +182,20 @@
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Departments\DepartmentManagerReport.aspx.cs">
+      <DependentUpon>DepartmentManagerReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Departments\DepartmentManagerReport.aspx.designer.cs">
+      <DependentUpon>DepartmentManagerReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Departments\DepartmentProjects.aspx.cs">
+      <DependentUpon>DepartmentProjects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Departments\DepartmentProjects.aspx.designer.cs">
+      <DependentUpon>DepartmentProjects.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\Example.aspx.cs">
       <DependentUpon>Example.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -369,6 +385,8 @@
     <Content Include="Content\Images\login-header.gif" />
     <Content Include="Content\List\back.jpg" />
     <Content Include="Content\livevalidation.js" />
+    <Content Include="Views\Departments\DepartmentManagerReport.aspx" />
+    <Content Include="Views\Departments\DepartmentProjects.aspx" />
     <Content Include="Views\Import\Index.aspx" />
     <Content Include="Views\Projects\Index.aspx" />
     <Content Include="Views\Projects\ListMyProjects.aspx" />
