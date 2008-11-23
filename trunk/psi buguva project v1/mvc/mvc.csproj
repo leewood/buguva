@@ -229,6 +229,13 @@
     <Compile Include="Views\Projects\AllProjects.aspx.designer.cs">
       <DependentUpon>AllProjects.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\GrandMastersReport.aspx.cs">
       <DependentUpon>GrandMastersReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -412,6 +419,7 @@
     <Content Include="Views\Departments\DepartmentProjects.aspx" />
     <Content Include="Views\Import\Index.aspx" />
     <Content Include="Views\Projects\AllProjects.aspx" />
+    <Content Include="Views\Projects\Edit.aspx" />
     <Content Include="Views\Projects\GrandMastersReport.aspx" />
     <Content Include="Views\Projects\Index.aspx" />
     <Content Include="Views\Projects\ListMyProjects.aspx" />
