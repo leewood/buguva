@@ -66,7 +66,7 @@ namespace mvc.Common
                 this.userSession.userId = user.id;
                 this.userSession.userName = user.login_name;
                 this.userSession.userLevel = user.level;
-                this.userSession.workerID = (int)user.worker_id;
+                this.userSession.workerID = user.worker_id.Value;
 
                 try
                 {
