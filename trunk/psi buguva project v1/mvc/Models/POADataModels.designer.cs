@@ -393,9 +393,9 @@ namespace mvc.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int? _id;
+		private int _id;
 		
-		private int _project_manager_id;
+		private int? _project_manager_id;
 		
 		private string _title;
 		
@@ -434,7 +434,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int? id
+		public int id
 		{
 			get
 			{
@@ -454,7 +454,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_project_manager_id", DbType="Int NOT NULL")]
-		public int project_manager_id
+		public int? project_manager_id
 		{
 			get
 			{
@@ -908,7 +908,7 @@ namespace mvc.Models
 					if ((value != null))
 					{
 						value.Tasks.Add(this);
-						this._project_id = value.id.Value;
+						this._project_id = value.id;
 					}
 					else
 					{
