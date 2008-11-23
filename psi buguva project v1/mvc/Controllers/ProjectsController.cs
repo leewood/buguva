@@ -308,14 +308,14 @@ namespace mvc.Controllers
                 {
                     string[] errors = { "Bandoma koreguoti neegzistuojantį projektą" };
                     TempData["errors"] = errors;
-                    return RedirectToAction("ListMyProjects");
+                    return RedirectToAction("List");
                 }
             }
             else
             {
                 string[] errors = { "Nenurodytas joks projektas" };
                 TempData["errors"] = errors;
-                return RedirectToAction("ListMyProjects");
+                return RedirectToAction("List");
             }
         }
 
@@ -342,7 +342,7 @@ namespace mvc.Controllers
                 string[] errors = { "Nenurodytas joks projektas" };
                 TempData["errors"] = errors;
             }
-            return RedirectToAction("ListMyProjects");
+            return RedirectToAction("List");
         }
 
         public ActionResult Delete(int? id)
@@ -371,13 +371,13 @@ namespace mvc.Controllers
                     string[] errors = { "Bandoma trinti neegzistuojantį projektą" };
                     TempData["errors"] = errors;
                 }
-                return RedirectToAction("ListMyProjects");
+                return RedirectToAction("List");
             }
             else
             {
                 string[] errors = { "Nenurodytas joks projektas" };
                 TempData["errors"] = errors;
-                return RedirectToAction("ListMyProjects");
+                return RedirectToAction("List");
             }
         }
     }
