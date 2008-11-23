@@ -243,6 +243,13 @@
     <Compile Include="Views\Projects\ListMyTasksInProject.aspx.designer.cs">
       <DependentUpon>ListMyTasksInProject.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\New.aspx.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\New.aspx.designer.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProjectIntensivityReport.aspx.cs">
       <DependentUpon>ProjectIntensivityReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -393,6 +400,7 @@
     <Content Include="Views\Projects\Index.aspx" />
     <Content Include="Views\Projects\ListMyProjects.aspx" />
     <Content Include="Views\Projects\ListMyTasksInProject.aspx" />
+    <Content Include="Views\Projects\New.aspx" />
     <Content Include="Views\Projects\ProjectIntensivityReport.aspx" />
     <Content Include="Views\Projects\ProjectManagerReport.aspx" />
     <Content Include="Views\Shared\Blank.Master" />
