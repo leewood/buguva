@@ -2,11 +2,15 @@
 <%@ Import Namespace="mvc.Common"%>
 <%@ Import Namespace="mvc.Models"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
+<%@ Import Namespace="System.Collections.Generic"%>
+<%@ Import Namespace="System.Linq"%>
 <% 
     UserNavigation userNav = new UserNavigation(
             (string)ViewContext.RouteData.Values["controller"],
             (string)ViewContext.RouteData.Values["action"]
             );
+    
+    UserSession userSession = userNav.userSession;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -30,15 +34,30 @@
             </div>
             <div class="bottom_space">
                 <ul id="menu">
-                    <%=(userNav.isInAtaskaitos()? "<li class='selected'>" : "<li class='simple'>" ) %>
+                    <% if (userSession.canViewAtaskaitos()) %>
+                    <% { %>
+                    <%=(userNav.isInAtaskaitos() ? "<li class='selected'>" : "<li class='simple'>")%>
                         <a href="/Projects/">Ataskaitos</a>
                     </li>
+                    <% } %>
+                    
+                    <% if (userSession.canViewAdmin()) %>
+                    <% { %>
                     <%=(userNav.isInAdmin()? "<li class='selected'>" : "<li class='simple'>" ) %>
                         <a href="/Workers/">Administravimas</a>
                     </li>
+                    <% } %>
+                    
                     <li class="clear">
+                        <span class="login_name">                            
+                            <%=userNav.userSession.workerName %> 
+                            <%=userNav.userSession.workerSurname %>
+                            <%=(userNav.userSession.workerSurname.Length == 0)? "" : " - " %>
+                            <%=userNav.getDepartmentName() %>                        
+                        </span>
                         <span class="blank_comment">prisijungta kaip </span>
                         <span class="login_name"><%=userNav.userSession.userName %></span>
+                        <span class="blank_comment"><%=userNav.userSession.userLevelName %></span>
                         (<a href="/Login/Logout">Atsijungti</a>)
                     </li>
                 </ul>
@@ -53,15 +72,49 @@
         
             <h1>Projektai</h1>
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Mano projektai</a></li>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Visi skyriaus projektai</a></li>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Visų skyrių projektai</a></li>
+                <li>
+                    <img src="/Content/ico1.png" alt="-" />
+                    <a href="/Projects/">Mano projektai</a>
+                </li>
+                <% if (userSession.isDepartmentMaster()) %>
+                <% { %>
+                <li>
+                    <img src="/Content/ico1.png" alt="-" />
+                    <a href="/Projects/">Visi skyriaus projektai</a>
+                </li>
+                <%} %>
+                
+                <% if (userSession.isAntanas()) %>
+                <% { %>
+                <li>
+                    <img src="/Content/ico1.png" alt="-" />
+                    <a href="/Projects/">Visų skyrių projektai</a>
+                </li>
+                <%} %>
+                
             </ul> 
+            
+            <% List<Department> departments = userNav.getDepartments(); %>
+            <% if (departments.Count > 0) %>
+            <% { %>
             <h1>Skyriai</h1> 
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Skyrius 1</a></li>  
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Skyrius 2</a></li>  
-            </ul>      
+            <% } %>
+            
+            <% foreach (Department department in departments) %>
+            <% { %>
+                <li>
+                    <img src="/Content/ico1.png" alt="-" />
+                    <a href="/Departments/">
+                    <%=department.title %>
+                    </a>
+                </li>            
+            <% } %>
+            
+            <% if (departments.Count > 0) %>
+            <% { %>
+            </ul> 
+            <% } %>  
         
         <% } %>
         
@@ -70,13 +123,13 @@
         
             <h1>Organizacija</h1>
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Darbuotojai</a></li>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Skyriai</a></li>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Duomenų inportavimas</a></li>
+                <li><img src="/Content/ico1.png" alt="-" /><a href="/Workers/">Darbuotojai</a></li>
+                <li><img src="/Content/ico1.png" alt="-" /><a href="/Departments/">Skyriai</a></li>
+                <li><img src="/Content/ico1.png" alt="-" /><a href="/Import/">Duomenų inportavimas</a></li>
             </ul>
-           <h1>Apskaitos sistema</h1>
+            <h1>Apskaitos sistema</h1>
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Projects/">Vartotojai</a></li>
+                <li><img src="/Content/ico1.png" alt="-" /><a href="/Users/">Vartotojai</a></li>
             </ul>
             
         <% } %>
