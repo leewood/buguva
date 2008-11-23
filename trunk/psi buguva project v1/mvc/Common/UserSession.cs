@@ -108,7 +108,7 @@ namespace mvc.Common
         {
             get
             {
-                if (this.userLevel != 0)
+                if ((this.userLevel != 0) && (this.userLevel <= Models.User.LevelNames.Length))
                 {
                     return Models.User.LevelNames[this.userLevel - 1];
                 }
