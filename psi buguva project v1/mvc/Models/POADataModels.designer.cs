@@ -393,7 +393,7 @@ namespace mvc.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _id;
+		private int? _id;
 		
 		private int _project_manager_id;
 		
@@ -413,9 +413,9 @@ namespace mvc.Models
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnidChanging(int value);
+    partial void OnidChanging(int? value);
     partial void OnidChanged();
-    partial void Onproject_manager_idChanging(int value);
+    partial void Onproject_manager_idChanging(int? value);
     partial void Onproject_manager_idChanged();
     partial void OntitleChanging(string value);
     partial void OntitleChanged();
@@ -434,7 +434,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		public int? id
 		{
 			get
 			{
@@ -908,7 +908,7 @@ namespace mvc.Models
 					if ((value != null))
 					{
 						value.Tasks.Add(this);
-						this._project_id = value.id;
+						this._project_id = value.id.Value;
 					}
 					else
 					{

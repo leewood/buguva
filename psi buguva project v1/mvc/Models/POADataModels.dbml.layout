@@ -32,14 +32,14 @@
         <elementListCompartment Id="78985ef3-fce3-4198-8be6-dffbd8a9f591" absoluteBounds="6.265, 1.585, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(11 : 1.91959757486979); (11.75 : 1.91959757486979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11 : 1.91959757486979); (11.75 : 1.91959757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/Project/Project_Task" />
       <nodes>
         <classShapeMoniker Id="edd7e9af-55a9-407c-a664-2f9c56c9c2d2" />
         <classShapeMoniker Id="481aabf3-8c4b-4f99-ad35-1cd233c65fe0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 1.91959757486979); (3.5 : 1.91959757486979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 1.91959757486979); (3.5 : 1.91959757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/User/User_Department" />
       <nodes>
         <classShapeMoniker Id="e3264a25-561e-4447-8bef-7c76350364e9" />
@@ -53,7 +53,7 @@
         <classShapeMoniker Id="edd7e9af-55a9-407c-a664-2f9c56c9c2d2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 1.03125); (8.82413812447416 : 1.03125 : JumpStart); (8.99080479114083 : 1.03125 : JumpEnd); (11.75 : 1.03125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 1.03125); (8.82413812447416 : 1.03125 : JumpStart); (8.99080479114082 : 1.03125 : JumpEnd); (11.75 : 1.03125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/User/User_Task" />
       <nodes>
         <classShapeMoniker Id="e3264a25-561e-4447-8bef-7c76350364e9" />
@@ -67,35 +67,35 @@
         <classShapeMoniker Id="e3264a25-561e-4447-8bef-7c76350364e9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.25 : 1.91959757486979); (5.5 : 1.91959757486979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.25 : 1.91959757486979); (5.5 : 1.91959757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/Worker/Worker_Department" />
       <nodes>
         <classShapeMoniker Id="54e67444-a5bc-4f11-b5ea-5013e500ad6d" />
         <classShapeMoniker Id="953511d3-b03d-4f3b-ad94-01d591f62de1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 1.91959757486979); (9 : 1.91959757486979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 1.91959757486979); (9 : 1.91959757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/Worker/Worker_Project" />
       <nodes>
         <classShapeMoniker Id="54e67444-a5bc-4f11-b5ea-5013e500ad6d" />
         <classShapeMoniker Id="edd7e9af-55a9-407c-a664-2f9c56c9c2d2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 2.82761881510417); (11.75 : 2.82761881510417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 2.82761881510417); (11.75 : 2.82761881510417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/Worker/Worker_Task" />
       <nodes>
         <classShapeMoniker Id="54e67444-a5bc-4f11-b5ea-5013e500ad6d" />
         <classShapeMoniker Id="481aabf3-8c4b-4f99-ad35-1cd233c65fe0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.25 : 2.82761881510417); (2.75 : 2.82761881510417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.25 : 2.82761881510417); (2.75 : 2.82761881510417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/Worker/Worker_User" />
       <nodes>
         <classShapeMoniker Id="54e67444-a5bc-4f11-b5ea-5013e500ad6d" />
         <classShapeMoniker Id="e3264a25-561e-4447-8bef-7c76350364e9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 1.4597987874349); (6.25 : 1.4597987874349)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 1.4597987874349); (6.25 : 1.4597987874349)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/POADataModelsDataContext/Department/Department_Worker" />
       <nodes>
         <classShapeMoniker Id="953511d3-b03d-4f3b-ad94-01d591f62de1" />

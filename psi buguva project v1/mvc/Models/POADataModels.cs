@@ -451,7 +451,7 @@ namespace mvc.Models
         }
     }
 
-    partial class Project
+    public partial class Project
     {
         public Task FirstTask
         {
@@ -716,7 +716,7 @@ namespace mvc.Models
 
     }
 
-    partial class Worker
+    public partial class Worker
     {
 
         public bool hasTasksInProject(int project_id)
@@ -777,7 +777,7 @@ namespace mvc.Models
         }
     }
 
-    partial class POADataModelsDataContext
+    public partial class POADataModelsDataContext
     {
         public void get()
         {            
