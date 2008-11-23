@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using mvc.Common;
 
 namespace mvc.Models
 {
@@ -264,6 +265,149 @@ namespace mvc.Models
             }
         }
     }
+
+
+    public class DepartmentProjectReport
+    {
+        private string _title = "";
+        private string _managerTitle = "";
+        private string _managerDepartment = "";
+        private MonthOfYear _started = null;
+        private MonthOfYear _ended = null;
+        private int _totalWorked = 0;
+        private int _worked = 0;
+
+        public String Title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+            }
+        }
+
+        public String Manager
+        {
+            get
+            {
+                return _managerTitle;
+            }
+            set
+            {
+                _managerTitle = value;
+            }
+        }
+
+        public String ManagerDepartment
+        {
+            get
+            {
+                return _managerDepartment;
+            }
+            set
+            {
+                _managerDepartment = value;
+            }
+        }
+
+        public MonthOfYear Started
+        {
+            get
+            {
+                return _started;
+            }
+            set
+            {
+                _started = value;
+            }
+        }
+
+        public MonthOfYear Ended
+        {
+            get
+            {
+                return _ended;
+            }
+            set
+            {
+                _ended = value;
+            }
+        }
+
+        public int TotalWorked
+        {
+            get
+            {
+                return _totalWorked;
+            }
+            set
+            {
+                _totalWorked = value;
+            }
+        }
+
+        public int DepartmentWorkersWorked
+        {
+            get
+            {
+                return _worked;
+            }
+            set
+            {
+                _worked = value;
+            }
+        }
+
+        public int OthersWorked
+        {
+            get
+            {
+                return TotalWorked - DepartmentWorkersWorked;
+            }
+        }
+    }
+
+
+    public class MyDepartmentFirstComparer : IComparer<Project>
+    {
+
+        private int department_id = 0;
+        public MyDepartmentFirstComparer(int department)
+        {
+            department_id = department;
+        }
+
+        public int Compare(Project x, Project y)
+        { 
+            if ((x.Worker.department_id == department_id) && (y.Worker.department_id != department_id))
+            {
+                return 1;
+            }
+            else if ((x.Worker.department_id != department_id) && (y.Worker.department_id == department_id))
+            {
+                return -1;
+            }
+            else
+            {
+                if (x.id > y.id)
+                {
+                    return 1;
+                }
+                else if (x.id < y.id)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+    }
+
 }
 
 namespace mvc.Controllers
@@ -274,6 +418,79 @@ namespace mvc.Controllers
         {
             // Add action logic here
             throw new NotImplementedException();
+        }
+
+        public ActionResult DepartmentProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, int? department_id, bool? chart, int? page, int? pageSize)
+        {
+            if (department_id.HasValue)
+            {
+                Models.Department currentDepartment = null;
+                if (DBDataContext.Departments.Any())
+                {
+                    currentDepartment = DBDataContext.Departments.First(d => d.id == department_id.Value);
+                    if (currentDepartment != null)
+                    {
+                        ViewData["Title"] = "Skyriaus " + currentDepartment.title + " projektai";
+                        ViewData["department_id"] = department_id.Value;
+                        
+                        int stYear = startYear ?? DateTime.Today.Year;
+                        int stMonth = startMonth ?? DateTime.Today.Month;
+                        int enYear = endYear ?? DateTime.Today.Year;
+                        int enMonth = endMonth ?? DateTime.Today.Month;
+                        ViewData["startYear"] = stYear;
+                        ViewData["endYear"] = enYear;
+                        ViewData["startMonth"] = stMonth;
+                        ViewData["endMonth"] = enMonth;
+                        ViewData["chart"] = chart ?? false;
+
+                        int currentPage = page ?? 1;
+                        int currentPageSize = pageSize ?? userSession.ItemsPerPage;
+                        List<Models.Project> projects = DBDataContext.Projects.Where(p => p.Tasks.Any(t => (t.Worker.department_id == department_id.Value) && (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth))).ToList();
+                        IOrderedEnumerable<Models.Project> orderedProjects = projects.OrderBy(p => p, new Models.MyDepartmentFirstComparer(department_id.Value));
+                        IPagedList<Models.Project> pagedProjects = orderedProjects.ToPagedList(currentPage, currentPageSize);
+                        List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
+                        ViewData["page"] = currentPage;
+                        ViewData["pageSize"] = currentPageSize;                        
+                       
+                        foreach (Models.Project project in pagedProjects)
+                        {
+                            Models.DepartmentProjectReport line = new mvc.Models.DepartmentProjectReport();
+                            line.Title = "#" + project.id.ToString() + project.title;
+                            line.Manager = (project.Worker != null) ? project.Worker.Fullname : "Nepaskirtas";
+                            line.ManagerDepartment = (project.Worker != null) ? project.Worker.Department.title : "Nėra";
+                            line.Started = (project.FirstTask != null)?new Models.MonthOfYear(project.FirstTask.year, project.FirstTask.month):null;
+                            line.Ended = (project.LastTask != null) ? new Models.MonthOfYear(project.LastTask.year, project.LastTask.month) : null;
+                            line.TotalWorked = project.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth)).Sum(t2 => t2.worked_hours);
+                            line.DepartmentWorkersWorked = project.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth) && (currentDepartment.Workers.Contains(t.Worker))).Sum(t2 => t2.worked_hours);
+                            result.Add(line);
+                        }
+                        IPagedList<Models.DepartmentProjectReport> paged = result.ToPagedList(currentPage, currentPageSize);
+                        result = paged.ToList();
+                        ViewData["pageCount"] = paged.PageCount;
+                        return View(result);
+                    }
+                    else
+                    {
+                        string[] errors = { "Nurodytas skyrius nerastas" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
+
+                }
+                else
+                {
+                    string[] errors = { "Nėra jokių skyrių" };
+                    TempData["errors"] = errors;
+                    return RedirectToAction("List");
+                }
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks skyrius" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
+
         }
 
         public ActionResult DepartmentManagerReport(int? startYear, int? startMonth, int? endMonth, int? endYear, int? department_id, bool? chart)
