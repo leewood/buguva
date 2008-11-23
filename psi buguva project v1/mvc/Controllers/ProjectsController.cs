@@ -54,7 +54,7 @@ namespace mvc.Controllers
                     catch (Exception)
                     {
                     }
-                    result.Add(new mvc.Models.ProjectIntensivity(month, myProject.id.Value, total, myWorkersWorked));
+                    result.Add(new mvc.Models.ProjectIntensivity(month, myProject.id, total, myWorkersWorked));
                 }
                 return View(result);
             }
