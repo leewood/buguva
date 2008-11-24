@@ -73,9 +73,9 @@
   <% foreach (DepartmentProjectReport projectLine in ViewData.Model) %>
   <% { %>
         <tr>
-           <td><%= projectLine.Title %></td>
-           <td><%= projectLine.Manager %></td>
-           <td><%= projectLine.ManagerDepartment %></td>
+           <td><%= Html.ActionLink(projectLine.Title, "ProjectManagerReport", new {controller = "Projects", project_id = projectLine.ProjectID}) %></td>
+           <td><%= (projectLine.ManagerID > 0) ? Html.ActionLink(projectLine.Manager, "ListMyProjects", new { controller = "Projects", id = projectLine.ManagerID }) : "<span style=\"color:Red\">" + projectLine.Manager + "</span>" %></td>
+           <td><%= (projectLine.DepartmentID > 0) ? Html.ActionLink(projectLine.ManagerDepartment, "DepartmentManagerReport", new { department_id = projectLine.DepartmentID }) : "<span style=\"color:Red\">" + projectLine.ManagerDepartment + "</span>"%></td>
            <td><%= projectLine.Started %></td>
            <td><%= projectLine.Ended %></td>
            <td><%= projectLine.TotalWorked %></td>

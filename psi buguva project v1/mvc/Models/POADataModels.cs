@@ -733,13 +733,13 @@ namespace mvc.Models
         }
 
 
-        public List<MonthOfYear> workedMonthsInProject(int project_id)
+        public List<MonthOfYear> workedMonthsInProject(int project_id, int workerID)
         {
             List<MonthOfYear> result = new List<MonthOfYear>();
-            List<Task> tasks;
+            List<Task> tasks;            
             if (this.Tasks.Count > 0)
             {
-                tasks = this.Tasks.Where(task => task.project_id == project_id).ToList();
+                tasks = this.Tasks.Where(task => (task.project_id == project_id) && (task.project_participant_id == workerID)).ToList();
             }
             else
             {
