@@ -9,6 +9,9 @@
     <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <% Html.BeginForm("Insert", "Departments", new {}, FormMethod.Post); %>
     <% { %>
+        <fieldset>
+        <legend>Informacija apie departamentą</legend>
+    
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
         <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.headmaster_id); %>
         <p>
@@ -17,6 +20,7 @@
         <p> 
             <label for="headmaster_id">Skyriaus vadovas:</label><%= Html.DropDownList("headmaster_id", list) %>
         </p>
+        </fieldset>
         <input type="submit" value = "Sukurti" />                                                             
     <% } %>
 </asp:Content>

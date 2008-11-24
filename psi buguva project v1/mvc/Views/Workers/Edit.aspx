@@ -10,9 +10,8 @@
     
     <% Html.BeginForm("Update", "Workers", new {id = ViewData.Model.id}, FormMethod.Post); %>
     <% { %>
-         <p>
-           <label for="id">ID:</label><span><%= ViewData.Model.id %></span>
-         </p>
+        <fieldset>
+        <legend>Darbuotojas ID <%= ViewData.Model.id %></legend>
          <p>
             <label for="name">Vardas:</label><%= Html.TextBox("name") %>
          </p>
@@ -24,6 +23,7 @@
             <% SelectList departments = new SelectList(dbConnection.Departments, "id", "title", ViewData.Model.department_id);  %>
             <label for="director">Skyrius:</label><%= Html.DropDownList("department_id", departments) %>
          </p>
+         </fieldset>
          <input type="submit" value = "Keisti" />                         
     <% } %>
     <% Html.EndForm(); %>

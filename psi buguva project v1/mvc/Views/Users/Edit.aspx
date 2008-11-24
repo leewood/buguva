@@ -9,9 +9,8 @@
     </div>
     <% Html.BeginForm("Update", "Users", new { id = ViewData.Model.id }, FormMethod.Post); %>
     <% { %>
-         <p>
-           <label for="id">ID:</label><span><%= ViewData.Model.id %></span>
-         </p>    
+             <fieldset>
+        <legend>Vartotojas ID <%= ViewData.Model.id %></legend>
          <p>
             <label for="name">Prisijungimo vardas:</label><span><%=ViewData.Model.login_name %></span><%= Html.Hidden("login_name") %><%= Html.Hidden("password") %>
          </p>        
@@ -24,7 +23,8 @@
         
          <p>
             <label for="surname">Susietas su darbuotoju:</label><%= Html.DropDownList("worker_id", list) %>
-         </p>         
+         </p>   
+         </fieldset>      
          <input type="submit" value = "Keisti" />                                                             
     <% } %>
    

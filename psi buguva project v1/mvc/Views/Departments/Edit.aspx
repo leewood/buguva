@@ -9,17 +9,17 @@
     <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <% Html.BeginForm("Update", "Departments", new {id = ViewData.Model.id}, FormMethod.Post); %>
     <% { %>
+         <fieldset>
+        <legend>Informacija apie departamentą ID <%= ViewData.Model.id %></legend>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
         <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.headmaster_id); %>
-         <p>
-           <label for="id">ID:</label><span><%= ViewData.Model.id %></span>
-         </p>
          <p>
             <label for="title">Skyriaus pavadinimas:</label><%= Html.TextBox("title") %>
          </p>
          <p> 
             <label for="project_manager_id">Skyriaus vadovas:</label><%= Html.DropDownList("headmaster_id", list) %>
         </p>
+        </fieldset>
          <input type="submit" value = "Keisti" />                         
     <% } %>
     <% Html.EndForm(); %>

@@ -113,11 +113,12 @@ page width. Or, you can specify an exact pixel width. */
 	color: #191919;
 }
 
-#left_meniu ul li a:hover
+#left_meniu ul li a:hover, #left_meniu ul li .selected
 {
 	font-weight: bold;
 	color: #000;	
 }
+
 
 #main
 {
@@ -511,13 +512,30 @@ form input[type=submit] {
 	color: #595a5c;
 	font-weight: bold;
 	margin: 3px;
-	margin-left: 168px;
-
 }
 
 form input:hover[type=submit] {
 	background-color: #a4a3a8;
 	color: #FFF;
+}
+
+form .check_box label
+{
+	display: inline;
+	padding-left: 10px;
+	float: none;
+	color: #535353;		
+}
+
+form fieldset {
+	margin: 10px 0;
+	padding: 10px;
+	border: #DDD 1px solid;
+}
+
+form legend {
+	font-weight: bold;
+	color: #666;
 }
 
 /* MISC  

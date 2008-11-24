@@ -5,12 +5,13 @@
 <%@ Import Namespace="System.Collections.Generic"%>
 <%@ Import Namespace="System.Linq"%>
 <% 
-    UserNavigation userNav = new UserNavigation(
-            (string)ViewContext.RouteData.Values["controller"],
-            (string)ViewContext.RouteData.Values["action"]
-            );
+    string controller_name = (string)ViewContext.RouteData.Values["controller"];
+    string action_name = (string)ViewContext.RouteData.Values["action"];    
+    
+    UserNavigation userNav = new UserNavigation(controller_name, action_name);
     
     UserSession userSession = userNav.userSession;
+
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -74,13 +75,20 @@
             <ul>
                 <li>
                     <img src="/Content/ico1.png" alt="-" />
-                    <a href="/Projects/ListMyProjects/">Mano projektai</a>
+                    <%=userNav.getLink("/Projects/ListMyProjects/", 
+                        "Mano projektai", 
+                        controller_name == "Projects" && 
+                        action_name == "ListMyProjects" ||
+                        controller_name == "Projects" &&                 
+                        action_name == "ListMyTasksInProject"                    
+                        )
+                    %>
                 </li>
                 <% if (userSession.isDepartmentMaster()) %>
                 <% { %>
                 <li>
                     <img src="/Content/ico1.png" alt="-" />
-                    <a href="/Departments/DepartmentProjects?department_id=<%=userSession.workerDepartment %>">Visi skyriaus projektai</a>
+                    <%=userNav.getLink("/Departments/DepartmentProjects?department_id=" + userSession.workerDepartment, "Visi skyriaus projektai", controller_name == "Departments")%>
                 </li>
                 <%} %>
                 
@@ -88,7 +96,7 @@
                 <% { %>
                 <li>
                     <img src="/Content/ico1.png" alt="-" />
-                    <a href="/Projects/">Visų skyrių projektai</a>
+                    <%=userNav.getLink("/Projects/List/", "Visų skyrių projektai", controller_name == "Projects" && action_name == "List")%>
                 </li>
                 <%} %>
                 
@@ -104,10 +112,8 @@
             <% foreach (Department department in departments) %>
             <% { %>
                 <li>
-                    <img src="/Content/ico1.png" alt="-" />
-                    <a href="/Departments/">
-                    <%=department.title %>
-                    </a>
+                    <img src="/Content/ico1.png" alt="-" />                    
+                    <%=userNav.getLink("/Departments/DepartmentProjects?department_id=" + department.id, department.title, controller_name == "Departments" && department.id.ToString() == Request.Params.Get("department_id"))%>
                 </li>            
             <% } %>
             
@@ -123,13 +129,13 @@
         
             <h1>Organizacija</h1>
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Workers/">Darbuotojai</a></li>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Departments/">Skyriai</a></li>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Import/">Duomenų inportavimas</a></li>
+                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Workers/","Darbuotojai",controller_name == "Workers") %></li>
+                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Departments/", "Skyriai", controller_name == "Departments")%></li>
+                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Import/", "Duomenų inportavimas", controller_name == "Import")%></li>
             </ul>
             <h1>Apskaitos sistema</h1>
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><a href="/Users/">Vartotojai</a></li>
+                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Users/", "Vartotojai", controller_name == "Users")%></li>
             </ul>
             
         <% } %>

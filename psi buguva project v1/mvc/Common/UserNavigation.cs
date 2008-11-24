@@ -34,7 +34,11 @@ namespace mvc.Common
                 
                 controller == "Users" ||
                 controller == "Workers" ||
-                controller == "Import"
+                controller == "Import" ||
+                (
+                controller == "Departments" &&
+                action != "DepartmentProjects"
+                )
 
                 )? true : false;
         }
@@ -44,8 +48,11 @@ namespace mvc.Common
             return (
 
                 controller == "Projects"  ||
-                controller == "Sections" ||
-                controller == "Departments"
+                controller == "Sections"  ||
+                (
+                controller == "Departments" &&
+                action == "DepartmentProjects"
+                )
 
                 ) ? true : false;
         }
@@ -101,6 +108,13 @@ namespace mvc.Common
             }
 
             return new List<Department>();
+        }
+
+        public string getLink(string url, string caption, bool marked)
+        {
+            string mark = (marked) ? "class='selected'" : "";
+
+            return "<a href='" + url + "' " + mark + ">" + caption + "</a>";
         }
     }
 }
