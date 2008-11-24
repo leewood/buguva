@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Text;
 using System.Data.Common;
 using System.Data.Odbc;
+using System.Data.OleDb;
 using System.Configuration;
 using System.Xml;
 using System.IO;
@@ -30,27 +31,82 @@ namespace mvc.Views.Import
         private DbConnection connection;
         private DbCommand command;
 
+
+        public string[] getAllSheetNames(string connection)
+        {
+            OleDbConnection con = new OleDbConnection(connection);
+
+            con.Open();
+            DataTable dt = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+            if (dt == null)
+            {
+                return new string[0];
+            }
+            string[] excelSheetNames = new string[dt.Rows.Count];
+            int i = 0;
+            
+
+            foreach (DataRow row in dt.Rows)
+            {
+                excelSheetNames[i] = row[2].ToString();
+                i++;
+                
+            }
+            return excelSheetNames;
+        }
+
+        public string realSheetName(string wanted, string textBoxChoose, string[] possibilities)
+        {
+            System.Collections.Generic.List<string> pos = possibilities.ToList();
+            if (pos.IndexOf(wanted) >= 0)
+            {
+                return wanted;
+            }
+            else if ((textBoxChoose != "") && (pos.IndexOf(textBoxChoose) >= 0))
+            {
+                return textBoxChoose;
+            }
+            else
+            {
+                for (int i = 0; i < pos.Count; i++)
+                {
+                    if ((possibilities[i].IndexOf(wanted) >= 0) || ((textBoxChoose != "") && (possibilities[i].IndexOf(textBoxChoose) >= 0)))
+                    {
+                        return possibilities[i];
+                    }
+                }
+            }
+            return "";
+        }
+
         protected void ButtonImport_Click(object sender, EventArgs e)
         {
-            this.Page.Request.PhysicalPath.ToString();
+            string path = this.Page.Request.PhysicalApplicationPath;
             if (FileUploadImport.PostedFile != null)
             {
                 try
                 {
-                    FileUploadImport.PostedFile.SaveAs("C:\\Temp\\"+FileUploadImport.PostedFile.FileName);
+                    FileUploadImport.PostedFile.SaveAs(path + "\\"+FileUploadImport.PostedFile.FileName);
                     Span1.InnerHtml = "Upload Successful!";
                 }
                 catch (Exception ex)
                 {
-                    Span1.InnerHtml = "Error saving file <b>C:\\Temp\\" +
-                       FileUploadImport.PostedFile + "</b><br>" + ex.ToString();
+                    Span1.InnerHtml = "Error saving file <b>" + path + "\\" +
+                       FileUploadImport.PostedFile.FileName + "</b><br>" + ex.ToString();
                     return;
                 }
                 try
                 {
-                    xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + "C:\\Temp\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\"";
+                    FileInfo fileInfo = new FileInfo(path + "\\" + FileUploadImport.PostedFile.FileName);
+                    switch (fileInfo.Extension)
+                    {
+                        case ".xlsx":
+                        case ".xlsb": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=1\""; break;
+                        default: xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\""; break;
+                    }
                     //string xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strPath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=1\"";
-            
+                    string[] sheetNames = getAllSheetNames(xlsConnectionString);
                     factory = DbProviderFactories.GetFactory("System.Data.OleDb");
 
                     using (connection = factory.CreateConnection())
@@ -58,12 +114,12 @@ namespace mvc.Views.Import
                         connection.ConnectionString = xlsConnectionString;
                         connection.Open();
                         using (command = connection.CreateCommand())
-                        {
-                            ImportDepartmentsToDatabase1("Skyriai");
-                            ImportWorkersToDatabase("Darbuotojai");
-                            ImportDepartmentsToDatabase2("Skyriai");
-                            ImportProjectsToDatabase("Projektai");
-                            ImportTasksToDatabase("Užduotys");
+                        {                            
+                            ImportDepartmentsToDatabase1(realSheetName("Skyriai", "", sheetNames));
+                            ImportWorkersToDatabase(realSheetName("Darbuotojai", "", sheetNames));
+                            ImportDepartmentsToDatabase2(realSheetName("Skyriai", "", sheetNames));
+                            ImportProjectsToDatabase(realSheetName("Projektai", "", sheetNames));
+                            ImportTasksToDatabase(realSheetName("Užduotys", "", sheetNames));                            
                         }
                     }
                 }
