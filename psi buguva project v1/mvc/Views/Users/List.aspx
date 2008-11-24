@@ -26,7 +26,7 @@
 	        <td><%= user.id %></td>
 	        <td><%= user.login_name %></td>
 	        <td><%= user.LevelName %></td>
-	        <td><%= (user.Worker != null)?user.Worker.Fullname:"" %></td>
+	        <td><%= (user.Worker != null)?user.Worker.Fullname:"<span style=\"color:Red\">Nesusietas</span>" %></td>
 	        <td>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = user.id}) %>
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = user.id}, true, "Ar tikrai norite ištrinti šį vartotoją?") %>
