@@ -9,6 +9,8 @@
     </div>
     <% Html.BeginForm("Insert", "Users", new {}, FormMethod.Post); %>
     <% { %>
+         <fieldset>
+        <legend>Vartotojas</legend>
          <p>
             <label for="name">Prisijungimo vardas:</label><%= Html.TextBox("login_name") %>
          </p>
@@ -23,7 +25,8 @@
          </p>
          <p>
             <label for="surname">Susietas su darbuotoju:</label><%= Html.TextBox("worker_id") %>
-         </p>         
+         </p>   
+         </fieldset>      
          <input type="submit" value = "Sukurti" />                                                             
     <% } %>
    

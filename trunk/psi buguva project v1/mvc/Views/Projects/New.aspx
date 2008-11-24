@@ -9,6 +9,8 @@
     </div>
     <% Html.BeginForm("Insert", "Projects", new {}, FormMethod.Post); %>
     <% { %>
+          <fieldset>
+        <legend>Projektas</legend>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
         <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.project_manager_id); %>
         <p>
@@ -17,6 +19,7 @@
         <p> 
             <label for="project_manager_id">Projekto vadovas:</label><%= Html.DropDownList("project_manager_id", list) %>
         </p>
+        </fieldset>
         <input type="submit" value = "Sukurti" />                                                             
     <% } %>
 </asp:Content>

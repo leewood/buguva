@@ -9,6 +9,8 @@
     </div>
     <% Html.BeginForm("Insert", "Workers", new {}, FormMethod.Post); %>
     <% { %>
+        <fieldset>
+        <legend>Naujas darbuotojas</legend>
          <p>
             <label for="name">Vardas:</label><%= Html.TextBox("name") %>
          </p>
@@ -20,6 +22,7 @@
             <% SelectList departments = new SelectList(dbConnection.Departments, "id", "title");  %>
             <label for="director">Skyrius:</label><%= Html.DropDownList("department_id", departments) %>
          </p>
+         </fieldset>
          <input type="submit" value = "Sukurti" />                                                             
     <% } %>
    

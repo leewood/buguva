@@ -9,6 +9,8 @@
     </div>
     <% Html.BeginForm("UpdatePassword", "Users", new { id = ViewData.Model.id }, FormMethod.Post); %>
     <% { %>
+        <fieldset>
+        <legend>Slaptažodžio keitimas</legend>
          <p>
            <label for="repeated_password">Senasis slaptažodis:</label><%= Html.Password("repeated_password") %>
          </p>    
@@ -19,6 +21,7 @@
            <label for="new_repeated_password">Pakartotas naujasis slaptažodis:</label><%= Html.Password("new_repeated_password") %>
          </p>    
          <br />
+         </fieldset>
          <input type="submit" value = "Keisti Slaptažodį" />                                                             
     <% } %>
    
