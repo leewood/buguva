@@ -194,10 +194,12 @@ namespace mvc.Common
             return result;
         }
 
-        public static string BarChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, int alpha, int maxWidth, bool useShadow)
+        public static string BarChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, int alpha, int maxWidth, bool useShadow, int width, int height)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
+            chartControl.Width = width;
+            chartControl.Height = height;
             chartControl.ChartTitle.Text = caption;
             ChartPointCollection chartPoints = new ChartPointCollection();
             //WebChart.ColumnChart chart = new ColumnChart();            

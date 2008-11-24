@@ -30,16 +30,11 @@
   Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
   <label>Iki:</label>
   Metai:<%=Html.TextBox("endYear") %> Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>  
-  <% if ((bool)ViewData["chart"]) %>
-  <% { %>
-      <%=Html.Hidden("showOnlyMyProjects", false) %>
-  <% } else {%>
-   
   <% System.Collections.Generic.Dictionary<string, bool> list = new Dictionary<string,bool>(); %>
   <% list.Add("Visi susiję projektai", false); %>
   <% list.Add("Tik šio skyriaus projektai", true); %>
   <%=Html.DropDownList("showOnlyMyProjects", new SelectList(list, "Value", "Key", ViewData["viewOnlyMy"])) %>
-  <% } %>
+
   <input type="submit" value="Pasirinkti" />
   <%= Html.Hidden("department_id") %>
   <%= Html.Hidden("chart") %>
@@ -52,7 +47,7 @@
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
 	
-	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 50, true) %>
+	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 15, true, (ViewData.Model.Count > 5)? ViewData.Model.Count * 30: 600, (ViewData.Model.Count > 5)? ViewData.Model.Count * 20: 400) %>
 <% } %>
 <% else %>
 <% { %>

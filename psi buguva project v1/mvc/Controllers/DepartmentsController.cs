@@ -521,7 +521,11 @@ namespace mvc.Controllers
                         int currentPageSize = pageSize ?? userSession.ItemsPerPage;
                         List<Models.Project> projects = DBDataContext.Projects.Where(p => p.Tasks.Any(t => (t.Worker.department_id == department_id.Value) && (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth))).ToList();
                         IOrderedEnumerable<Models.Project> orderedProjects = projects.OrderBy(p => p, new Models.MyDepartmentFirstComparer(department_id.Value));
-                        ViewData["pageSize"] = currentPageSize;                        
+                        ViewData["pageSize"] = currentPageSize;
+                        if (dontShowAll)
+                        {
+                            orderedProjects = orderedProjects.Where(o => o.project_manager_id == currentDepartment.headmaster_id).OrderBy(o => o.id);
+                        }
                         IPagedList<Models.Project> pagedProjects = orderedProjects.ToPagedList(currentPage - 1, currentPageSize);
                         int size = currentPageSize;
                         if (useChart)
@@ -561,10 +565,12 @@ namespace mvc.Controllers
                             paged = result.ToPagedList(0, size);
                         }
                         ViewData["pageCount"] = paged.PageCount;
+                        /*
                         if (dontShowAll)
                         {
                             result = result.Where(r => r.Manager == currentDepartment.Worker.Fullname).ToList();
                         }
+                         */
                         return View(result);
                     }
                     else

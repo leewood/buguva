@@ -36,18 +36,18 @@ namespace mvc.Views.Import
             {
                 try
                 {
-                    FileUploadImport.PostedFile.SaveAs("D:\\Temp\\"+FileUploadImport.PostedFile.FileName);
+                    FileUploadImport.PostedFile.SaveAs("C:\\Temp\\"+FileUploadImport.PostedFile.FileName);
                     Span1.InnerHtml = "Upload Successful!";
                 }
                 catch (Exception ex)
                 {
-                    Span1.InnerHtml = "Error saving file <b>D:\\Temp\\" +
+                    Span1.InnerHtml = "Error saving file <b>C:\\Temp\\" +
                        FileUploadImport.PostedFile + "</b><br>" + ex.ToString();
                     return;
                 }
                 try
                 {
-                    xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + "D:\\Temp\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\"";
+                    xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + "C:\\Temp\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\"";
                     //string xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strPath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=1\"";
             
                     factory = DbProviderFactories.GetFactory("System.Data.OleDb");
