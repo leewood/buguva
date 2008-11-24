@@ -33,7 +33,7 @@
 	   <% foreach (ProjectIntensivity projectIntensivity in pagedModel) %>
        <% { %>            
             <tr>             
-             <td>#<%= projectIntensivity.Period %></td>
+             <td><%= projectIntensivity.Period %></td>
              <td><%= projectIntensivity.TotalWorkedHours %></td>             
              <td><%= projectIntensivity.ProjectsWorkersWorkedHours %></td>             
              <td><%= projectIntensivity.OthersWorkedHours %></td>

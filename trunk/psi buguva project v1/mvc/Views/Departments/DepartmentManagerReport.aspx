@@ -36,7 +36,7 @@
 <% Html.EndForm(); %>
 <% if ((bool)ViewData["chart"]) %>
 <% { %>
-	<% string[] legends = {"Savo", "Kitų", "Nedirbo" }; %>
+	<% string[] legends = {"Savo projektuose", "Kitų projektuose", "Nedirbo" }; %>
 	<% string[] yAxes = { "ThisDepartmentWorkersWorkedInDepartmentProjects", "ThisDepartmentWorkersWorkedInOtherProjects", "WorkedNoWhere" }; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
@@ -50,7 +50,7 @@
     <td>Nr.</td><td><%= ViewData.Model.DepartmentInfo.id %></td>
  </tr>
  <tr>
-   <td>Skyriaus vadovas</td><td><%= ViewData.Model.DepartmentManagerTitle %></td>
+   <td>Skyriaus vadovas</td><td><%= (ViewData.Model.DepartmentInfo.Worker != null) ? Html.ActionLink(ViewData.Model.DepartmentManagerTitle, "ListMyProjects", new { id = ViewData.Model.DepartmentInfo.Worker.id }) : ViewData.Model.DepartmentManagerTitle%></td>
  </tr>  
  <tr>
    <td>Viso skyrius dirbo projektuose</td><td><%= ViewData.Model.TotalDepartmentWorked %></td>
@@ -69,7 +69,7 @@
   <% foreach (AssociatedWorkedHours hours in ViewData.Model.WorkedHoursOfOthers) %>
   <% { %>
         <tr>
-           <td style="width:145px"><%= hours.Title %></td>
+           <td style="width:145px"><%= Html.ActionLink("Skyrius: " + hours.Title, "DepartmentManagerReport", new { controller = "Departments", department_id = hours.AssociationID })%></td>
            <td><%= hours.Hours %></td>
         </tr>            
   <% } %>

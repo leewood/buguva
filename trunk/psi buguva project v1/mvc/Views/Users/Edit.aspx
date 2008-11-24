@@ -18,8 +18,12 @@
          <p>
             <label for="director">Lygis:</label><%= Html.DropDownList("level", ViewData.Model.LevelsList) %>
          </p>
+        <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
+        <% List<Worker> dataList = data.Workers.Where(w => (w.deleted.HasValue == false)).ToList(); %>        
+        <% SelectList list = new SelectList(dataList, "id", "Fullname", ViewData.Model.worker_id); %>         
+        
          <p>
-            <label for="surname">Susietas su darbuotoju:</label><%= Html.TextBox("worker_id") %>
+            <label for="surname">Susietas su darbuotoju:</label><%= Html.DropDownList("worker_id", list) %>
          </p>         
          <input type="submit" value = "Keisti" />                                                             
     <% } %>

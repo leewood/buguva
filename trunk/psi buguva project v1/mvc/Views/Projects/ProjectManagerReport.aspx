@@ -21,7 +21,7 @@
    <td>Projekto kodas</td><td><%= ViewData.Model.Project.id %></td>
  </tr>
  <tr>
-  <td>Projecto vadovas</td><td><%= (ViewData.Model.Project.Worker != null)?ViewData.Model.Project.Worker.Fullname:"Nepaskirtas" %></td>
+  <td>Projecto vadovas</td><td><%= (ViewData.Model.Project.Worker != null)?(Html.ActionLink(ViewData.Model.Project.Worker.Fullname, "ListMyProjects", new {id = ViewData.Model.Project.Worker.id})):"Nepaskirtas" %></td>
  </tr>  
  <tr>
   <td>Projekto vadovo skyrius</td><td><%= (ViewData.Model.Project.Worker != null)?ViewData.Model.Project.Worker.department_id.ToString():"Nepaskirtas" %></td>
@@ -48,7 +48,7 @@
         </td>
         <td>
         <div class = "subTable">
-          <label>Skyrius <%=departmentInfo.Department.id %></label>
+          <label><%= Html.ActionLink("Skyrius: " + departmentInfo.Department.title, "DepartmentManagerReport", new {controller="Departments", department_id = departmentInfo.Department.id})%></label>
           <table class = "grid">
             <tr>
               <th>Dalyvis</th>
@@ -57,12 +57,12 @@
             <% foreach (WorkerAndHours workerInfo in departmentInfo.Workers) %>
             <% { %>
             <tr>
-              <td><%= workerInfo.Worker.Fullname %></td>
+              <td><%= (workerInfo.Worker != null)?(Html.ActionLink(workerInfo.Worker.Fullname, "ListMyProjects", new {id = workerInfo.Worker.id})):"<span style=\"color:Red\">Nepaskirtas</span>" %></td>
               <td><%= workerInfo.Hours %></td>
             </tr>            
             <% } %>
             
-            <tr class = "total">
+            <tr style="border-top: solid 2px Black">
               <td>
                 Viso skyriui:
               </td>

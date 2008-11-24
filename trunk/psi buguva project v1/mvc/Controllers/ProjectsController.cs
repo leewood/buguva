@@ -91,7 +91,7 @@ namespace mvc.Controllers
                     if (department.Workers.Any())
                     {
                         IEnumerable<Models.Task> tasks = myTasks.Where(t => (department.Workers.Contains(t.Worker)));
-                        report.WorkedHoursOfOthers.Add(new mvc.Models.AssociatedWorkedHours(department.title, tasks.Sum(t => t.worked_hours)));
+                        report.WorkedHoursOfOthers.Add(new mvc.Models.AssociatedWorkedHours(department.title, tasks.Sum(t => t.worked_hours), department.id));
                     }
                 }
             }
@@ -105,9 +105,20 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult ListMyProjects(int? page)
+        public ActionResult ListMyProjects(int? page, int? id)
         {
-            ViewData["Title"] = "Mano Projektai";
+            
+            int workerID = id ?? userSession.workerID;
+            if (workerID == userSession.workerID)
+            {
+                ViewData["Title"] = "Mano Projektai";
+            }
+            else
+            {
+                ViewData["Title"] = "Darbuotojo " + id.Value.ToString() + " projektai";
+            }
+
+            ViewData["currentWorkerID"] = workerID;
             int currentPage = (page.HasValue) ? page.Value: 1;
             if (currentPage < 1)
             {
@@ -116,7 +127,7 @@ namespace mvc.Controllers
             IEnumerable<Models.Project> projects = DBDataContext.Projects;
             if (projects.Count() > 0)
             {
-                projects = projects.Where(project => ((project.Tasks.Count > 0) && (project.Tasks.Where(task => task.project_participant_id == this.userSession.workerID).Count() > 0)) || (project.project_manager_id == userSession.workerID));
+                projects = projects.Where(project => ((project.Tasks.Count > 0) && (project.Tasks.Where(task => task.project_participant_id == workerID).Count() > 0)) || (project.project_manager_id == workerID));
             }
             return View(projects.ToPagedList(currentPage - 1, 25));
         }
@@ -221,12 +232,23 @@ namespace mvc.Controllers
             }
         }
 
-        public ActionResult ListMyTasksInProject(int? page, int? project_id, int? year, int? month)
+        public ActionResult ListMyTasksInProject(int? page, int? project_id, int? year, int? month, int? id)
         {
             if (project_id.HasValue)
             {
+                int workerID = id ?? userSession.workerID;
+                if (workerID == userSession.workerID)
+                {
+                    ViewData["Title"] = "Mano užduotys projekte";
+                }
+                else
+                {
+                    ViewData["Title"] = "Darbuotojo " + id.Value.ToString() + " užduotys projekte";
+                }
+                
                 int project = project_id.Value;
-                List<Models.MonthOfYear> months = WorkerInformation.workedMonthsInProject(project);
+                
+                List<Models.MonthOfYear> months = WorkerInformation.workedMonthsInProject(project, workerID);
                 List<Models.Task> tasks = new List<mvc.Models.Task>();
                 int currentPage = (page.HasValue) ? page.Value : 1;
                 if (currentPage < 1)
@@ -250,7 +272,7 @@ namespace mvc.Controllers
                 }
                 if (monthToUse + yearToUse > 0)
                 {
-                    tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.year == yearToUse) && (task.month == monthToUse))).ToList();
+                    tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.year == yearToUse) && (task.month == monthToUse) && (task.project_participant_id == workerID))).ToList();
                 }
                 if (tasks == null) tasks = new List<mvc.Models.Task>();
                 return View(new Models.TasksAndMonths(tasks.ToPagedList(currentPage - 1, 25), months, new Models.MonthOfYear(yearToUse, monthToUse), project));

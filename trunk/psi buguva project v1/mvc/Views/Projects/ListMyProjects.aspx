@@ -12,8 +12,7 @@
 	</div>
 	<table class = "grid">
 	   <tr>
-	      <th>Pavadinimas</th>
-	      <th>Kodas</th>
+	      <th>Kodas/Pavadinimas</th>	      
 	      <th>Vadovas</th>
 	      <th>Pradėta dalyvauti</th>
 	      <th>Baigta dalyvauti</th>
@@ -23,19 +22,18 @@
 	   
 	   <% foreach (Project project in ViewData.Model) %>
        <% { %>
-            <% className = (project.project_manager_id == (int)ViewData["MyWorkerID"]) ? "marked" : ""; %>
+            <% className = (project.project_manager_id == (int)ViewData["currentWorkerID"]) ? "marked" : ""; %>
             <tr class='<%= className.ToString()%>'>
-             <td><%= Html.ActionLink(project.title, "ListMyTasksInProject", new {project_id = project.id}) %></td>
-             <td>#<%= project.id %></td>
-             <td><%= project.Worker.Fullname %></td>             
+             <td><%= Html.ActionLink(project.title, "ListMyTasksInProject", new {project_id = project.id}) %></td>             
+             <td><%= (project.Worker == null)?"<span style=\"color: Red\">Nepaskirtas</span>":Html.ActionLink(project.Worker.Fullname, "ListMyProjects", new { project_id = project.id, id = project.project_manager_id })%></td>             
              <td><%= project.StartedAt %></td>             
              <td><%= project.EndedAt %></td>
              <td><%= project.TotalWorkedHours.ToString() %></td>
              <td>
-               <%= Html.ActionImageLink("/Content/ico1.png", "Ataskaita", "Report", new {}) %>
-               <% if (project.project_manager_id == (int)ViewData["MyWorkerID"]) %>
+               <%= Html.ActionImageLink("/Content/ico1.png", "Ataskaita", "ListMyTasksInProject", new { project_id = project.id, id = ViewData["currentWorkerID"]})%>
+               <% if (project.project_manager_id == (int)ViewData["currentWorkerID"]) %>
                <% { %>
-                 <%= Html.ActionImageLink("/Content/ico2.png", "Vadovo Ataskaita", "ProjectManagerReport", new {project_id = project.id })%>
+                 <%= Html.ActionImageLink("/Content/ico2.png", "Vadovo Ataskaita", "ProjectManagerReport", new { project_id = project.id })%>
                <% } %>
              </td>
           </tr>

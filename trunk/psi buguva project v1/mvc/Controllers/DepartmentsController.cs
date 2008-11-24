@@ -38,10 +38,26 @@ namespace mvc.Models
             }
         }
 
-        public AssociatedWorkedHours(string title, int hours)
+        private int _associationID = 0;
+
+        public int AssociationID
+        {
+            get
+            {
+                return _associationID;
+            }
+            set
+            {
+                _associationID = value;
+            }
+
+        }
+
+        public AssociatedWorkedHours(string title, int hours, int associationID)
         {
             Title = title;
             Hours = hours;
+            AssociationID = associationID;
         }
         
     }
@@ -292,6 +308,46 @@ namespace mvc.Models
         private MonthOfYear _ended = null;
         private int _totalWorked = 0;
         private int _worked = 0;
+        private int _project_id = 0;
+        private int _manager_id = 0;
+        private int _department_id = 0;
+
+
+        public int DepartmentID
+        {
+            get
+            {
+                return _department_id;
+            }
+            set
+            {
+                _department_id = value;
+            }
+        }
+
+        public int ProjectID
+        {
+            get
+            {
+                return _project_id;
+            }
+            set
+            {
+                _project_id = value;
+            }
+        }
+
+        public int ManagerID
+        {
+            get
+            {
+                return _manager_id;
+            }
+            set
+            {
+                _manager_id = value;
+            }
+        }
 
         public String Title
         {
@@ -304,6 +360,7 @@ namespace mvc.Models
                 _title = value;
             }
         }
+
 
         public String Manager
         {
@@ -479,8 +536,18 @@ namespace mvc.Controllers
                         foreach (Models.Project project in pagedProjects)
                         {
                             Models.DepartmentProjectReport line = new mvc.Models.DepartmentProjectReport();
-                            line.Title = "#" + project.id.ToString() + project.title;
+                            line.Title = project.title;
                             line.Manager = (project.Worker != null) ? project.Worker.Fullname : "Nepaskirtas";
+                            line.ManagerID = (project.Worker != null) ? project.project_manager_id.Value : 0;
+                            if (line.ManagerID != 0)
+                            {
+                                line.DepartmentID = (project.Worker.Department != null) ? project.Worker.Department.id : 0;
+                            }
+                            else
+                            {
+                                line.DepartmentID = 0;
+                            }
+                            line.ProjectID = project.id;
                             line.ManagerDepartment = (project.Worker != null) ? project.Worker.Department.title : "Nėra";
                             line.Started = (project.FirstTask != null)?new Models.MonthOfYear(project.FirstTask.year, project.FirstTask.month):null;
                             line.Ended = (project.LastTask != null) ? new Models.MonthOfYear(project.LastTask.year, project.LastTask.month) : null;
@@ -567,7 +634,7 @@ namespace mvc.Controllers
                                             IEnumerable<Models.Task> myTasks = myProjectTasks.Where(t => (department.Workers.Contains(t.Worker)));
                                             if (myTasks.Count() > 0)
                                             {
-                                                report.WorkedHoursOfOthers.Add(new mvc.Models.AssociatedWorkedHours(department.title, myTasks.Sum(t => t.worked_hours)));
+                                                report.WorkedHoursOfOthers.Add(new mvc.Models.AssociatedWorkedHours(department.title, myTasks.Sum(t => t.worked_hours), department.id));
                                             }
                                         }
                                     }
