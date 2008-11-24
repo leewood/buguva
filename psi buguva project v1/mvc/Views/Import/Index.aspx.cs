@@ -32,6 +32,7 @@ namespace mvc.Views.Import
 
         protected void ButtonImport_Click(object sender, EventArgs e)
         {
+            this.Page.Request.PhysicalPath.ToString();
             if (FileUploadImport.PostedFile != null)
             {
                 try

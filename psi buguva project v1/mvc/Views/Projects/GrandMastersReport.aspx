@@ -39,8 +39,8 @@
 	<% string[] yAxes = { "TotalDepartmentWorked", "WorkedNoWhere" }; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red};  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
-    <%= Html.PieChart<DepartmentManagerReport>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Visas įmonės darbas") %>
-    <%= Html.PieChart<AssociatedWorkedHours>(legends, ViewData.Model.WorkedHoursOfOthers, "Title", "Hours", colors2, System.Drawing.Color.White, "Skyrių darbas projektuose")%>
+    <%= Html.PieChart<DepartmentManagerReport>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Visas įmonės darbas", "") %>
+    <%= Html.PieChart<AssociatedWorkedHours>(legends, ViewData.Model.WorkedHoursOfOthers, "Title", "Hours", colors2, System.Drawing.Color.White, "Skyrių darbas projektuose", "Skyrius ")%>
 <% } %>
 <% else %>
 <% { %>

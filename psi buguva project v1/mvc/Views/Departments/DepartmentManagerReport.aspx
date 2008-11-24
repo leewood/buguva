@@ -27,7 +27,7 @@
 
 <% Html.BeginForm("DepartmentManagerReport", "Departments", FormMethod.Get); %>  
   <label>Nuo:</label>
-  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
   <label>Iki:</label>
   Metai:<%=Html.TextBox("endYear") %> Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
   <input type="submit" value="Pasirinkti" />
@@ -40,14 +40,14 @@
 	<% string[] yAxes = { "ThisDepartmentWorkersWorkedInDepartmentProjects", "ThisDepartmentWorkersWorkedInOtherProjects", "WorkedNoWhere" }; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
-    <%= Html.PieChart<DepartmentManagerReport>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbas") %>
-    <%= Html.PieChart<AssociatedWorkedHours>(legends, ViewData.Model.WorkedHoursOfOthers, "Title", "Hours", colors, System.Drawing.Color.White, "Kitų skyrių darbuotojų darbas šio skyriaus projektuose")%>
+    <%= Html.PieChart<DepartmentManagerReport>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbas", "") %>
+    <%= Html.PieChart<AssociatedWorkedHours>(legends, ViewData.Model.WorkedHoursOfOthers, "Title", "Hours", colors, System.Drawing.Color.White, "Kitų skyrių darbuotojų darbas šio skyriaus projektuose", "Skyrius: ")%>
 <% } %>
 <% else %>
 <% { %>
 <table>
  <tr>
-    <td>Nr.</td><td><%= ViewData.Model.DepartmentInfo.id %></td>
+    <td>Skyriaus kodas/pavadinimas</td><td><%= ViewData.Model.DepartmentInfo.title %></td>
  </tr>
  <tr>
    <td>Skyriaus vadovas</td><td><%= (ViewData.Model.DepartmentInfo.Worker != null) ? Html.ActionLink(ViewData.Model.DepartmentManagerTitle, "ListMyProjects", new { id = ViewData.Model.DepartmentInfo.Worker.id }) : ViewData.Model.DepartmentManagerTitle%></td>

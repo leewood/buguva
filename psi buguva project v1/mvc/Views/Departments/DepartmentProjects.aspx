@@ -10,7 +10,7 @@
       <%= Html.ActionLink("Bendra Ataskaita", "DepartmentManagerReport", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"] })%>
    </li>
    <li class="selected">
-      <%= Html.ActionLink("Projektai", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"], page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] })%>                    
+      <%= Html.ActionLink("Projektai", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"], page = (int)ViewData["pageExt"], pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"] })%>                    
    </li>
 </ul>
 
@@ -18,10 +18,10 @@
 <% className2 = ((bool)ViewData["chart"])? "selected" : "simple"; %>
 <ul id="menu2">
    <li class='<%= className.ToString() %>'>
-      <%= Html.ActionLink("Ataskaita", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] })%>
+      <%= Html.ActionLink("Ataskaita", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, page = (int)ViewData["pageExt"], pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"] })%>
    </li>
    <li class='<%= className2.ToString() %>'>
-      <%= Html.ActionLink("Grafikas", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true, page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] })%>                    
+      <%= Html.ActionLink("Grafikas", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true, page = (int)ViewData["pageExt"], pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"] })%>                    
    </li>
 </ul>
 
@@ -47,12 +47,12 @@
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
 	
-	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 15, true, (ViewData.Model.Count > 5)? ViewData.Model.Count * 30: 600, (ViewData.Model.Count > 5)? ViewData.Model.Count * 20: 400) %>
+	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 15, true, (ViewData.Model.Count > 5)? ViewData.Model.Count * 30 + 160: 600, (ViewData.Model.Count > 5)? ViewData.Model.Count * 20 + 110: 400, "Projektas ", true) %>
 <% } %>
 <% else %>
 <% { %>
  <div class="pager">
-   <%= Html.Pager((int)ViewData["pageSize"], (int)ViewData["page"], (int)ViewData["pageCount"]) %>
+   <%= Html.Pager((int)ViewData["pageSizeExt"], (int)ViewData["pageExt"], (int)ViewData["pageCountExt"] * (int)ViewData["pageSizeExt"], new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"] })%>
  </div>
  <table class="grid">   
     <tr>
@@ -95,7 +95,7 @@
    <%= Html.Hidden("showOnlyMyProjects") %>
    <% List<int> pageSizes = new List<int>(); %>
    <% for (int i = 5; i <= 50; i += 5) pageSizes.Add(i); %>
-   <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSize"]), new { onChange = "javascript: form.submit();"})%>
+   <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSizeExt"]), new { onChange = "javascript: form.submit();"})%>
  <% Html.EndForm(); %>
 <% } %>
 </asp:Content>
