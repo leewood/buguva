@@ -15,15 +15,15 @@
 	</div>   
 	<table class = "grid">
 	   <tr>
-	      <th>ID</th>
-	      <th>Pavadinimas</th>
+	      <th style="display:none">ID</th>
+	      <th>Kodas/Pavadinimas</th>
 	      <th>Vadovas</th>
 	      <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (Department department in ViewData.Model) %>
 	   <% { %>
 	      <tr>
-	        <td><%= department.id %></td>
+	        <td style="display:none"><%= department.id %></td>
 	        <td><%= department.title %></td>
 	        <td><%= (department.Worker != null)?department.Worker.Fullname:"Nepaskirtas" %></td>
 	        <td>

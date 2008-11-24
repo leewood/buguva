@@ -15,17 +15,17 @@
 	</div>   
 	<table class = "grid">
 	   <tr>
-	      <th>ID</th>
-	      <th>Pavadinimas</th>
+	      <th style="display:none">ID</th>
+	      <th>Kodas/pavadinimas</th>
 	      <th>Vadovas</th>
 	      <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (Project project in ViewData.Model) %>
 	   <% { %>
 	      <tr>
-	        <td><%= project.id %></td>
+	        <td style="display:none"><%= project.id %></td>
 	        <td><%= project.title %></td>
-	        <td><%= (project.Worker != null)?project.Worker.Fullname:"Nepaskirtas" %></td>
+	        <td><%= (project.Worker != null)?project.Worker.Fullname:"<span style=\"color:Red\">Nepaskirtas</span>" %></td>
 	        <td>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = project.id}) %>
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = project.id}, true, "Ar tikrai norite ištrinti šį projektą?") %>	          
