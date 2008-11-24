@@ -56,7 +56,7 @@
   <% foreach (AssociatedWorkedHours hours in ViewData.Model.WorkedHoursOfOthers) %>
   <% { %>
         <tr>
-           <td style="width:145px"><%= hours.Title %></td>
+           <td style="width:145px"><%= Html.ActionLink("Skyrius: " + hours.Title, "DepartmentManagerReport", new { controller = "Departments", department_id = hours.AssociationID })%></td>
            <td><%= hours.Hours %></td>
         </tr>            
   <% } %>

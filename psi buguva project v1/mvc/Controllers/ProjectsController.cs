@@ -46,7 +46,17 @@ namespace mvc.Controllers
             foreach (Models.Project project in pagedProjects)
             {
                 Models.DepartmentProjectReport line = new mvc.Models.DepartmentProjectReport();
-                line.Title = "#" + project.id.ToString() + project.title;
+                line.Title = project.title;
+                line.ManagerID = (project.Worker != null) ? project.project_manager_id.Value : 0;
+                if (line.ManagerID != 0)
+                {
+                    line.DepartmentID = (project.Worker.Department != null) ? project.Worker.Department.id : 0;
+                }
+                else
+                {
+                    line.DepartmentID = 0;
+                }
+                line.ProjectID = project.id;
                 line.Manager = (project.Worker != null) ? project.Worker.Fullname : "Nepaskirtas";
                 line.ManagerDepartment = (project.Worker != null) ? project.Worker.Department.title : "Nėra";
                 line.Started = (project.FirstTask != null) ? new Models.MonthOfYear(project.FirstTask.year, project.FirstTask.month) : null;
