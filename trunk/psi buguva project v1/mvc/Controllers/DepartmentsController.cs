@@ -457,27 +457,54 @@ namespace mvc.Models
         { 
             if ((x.Worker.department_id == department_id) && (y.Worker.department_id != department_id))
             {
-                return 1;
+                return -1;
             }
             else if ((x.Worker.department_id != department_id) && (y.Worker.department_id == department_id))
             {
-                return -1;
+                return 1;
+            }
+            else if ((x.Worker.department_id != department_id) && (y.Worker.department_id != department_id))
+            {
+                if (x.Worker.department_id > y.Worker.department_id)
+                {
+                    return -1;
+                }
+                else if (x.Worker.department_id < y.Worker.department_id)
+                {
+                    return 1;
+                }
+                else
+                {
+                    if (x.id > y.id)
+                    {
+                        return -1;
+                    }
+                    else if (x.id < y.id)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
             }
             else
             {
                 if (x.id > y.id)
                 {
-                    return 1;
+                    return -1;
                 }
                 else if (x.id < y.id)
                 {
-                    return -1;
+                    return 1;
                 }
                 else
                 {
                     return 0;
                 }
             }
+
         }
     }
 
@@ -521,20 +548,22 @@ namespace mvc.Controllers
                         int currentPageSize = pageSize ?? userSession.ItemsPerPage;
                         List<Models.Project> projects = DBDataContext.Projects.Where(p => p.Tasks.Any(t => (t.Worker.department_id == department_id.Value) && (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth))).ToList();
                         IOrderedEnumerable<Models.Project> orderedProjects = projects.OrderBy(p => p, new Models.MyDepartmentFirstComparer(department_id.Value));
-                        ViewData["pageSize"] = currentPageSize;
+                        ViewData["pageSizeExt"] = currentPageSize;
                         if (dontShowAll)
                         {
-                            orderedProjects = orderedProjects.Where(o => o.project_manager_id == currentDepartment.headmaster_id).OrderBy(o => o.id);
+                            orderedProjects = orderedProjects.Where(o => currentDepartment.Workers.Contains(o.Worker)).OrderBy(o => o.id);
                         }
                         IPagedList<Models.Project> pagedProjects = orderedProjects.ToPagedList(currentPage - 1, currentPageSize);
+                        
                         int size = currentPageSize;
                         if (useChart)
                         {
                             size = orderedProjects.Count();
                             pagedProjects = orderedProjects.ToPagedList(0, size);
                         }
+                        ViewData["pageCountExt"] = pagedProjects.PageCount;
                         List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
-                        ViewData["page"] = currentPage;
+                        ViewData["pageExt"] = currentPage;
                         
                        
                         foreach (Models.Project project in pagedProjects)
@@ -564,7 +593,7 @@ namespace mvc.Controllers
                         {
                             paged = result.ToPagedList(0, size);
                         }
-                        ViewData["pageCount"] = paged.PageCount;
+                        
                         /*
                         if (dontShowAll)
                         {
@@ -623,10 +652,10 @@ namespace mvc.Controllers
                         ViewData["chart"] = chart ?? false;
                         report.Period = new mvc.Models.Period(stYear, stMonth, enYear, enMonth);
                         report.WorkersCount = currentDepartment.Workers.Count;
-                        System.Data.Linq.EntitySet<Models.Project> myProjects = new System.Data.Linq.EntitySet<mvc.Models.Project>();
+                        List<Models.Project> myProjects = new List<Project>();
                         if (currentDepartment.Worker != null)
                         {
-                            myProjects = currentDepartment.Worker.Projects;
+                            myProjects = DBDataContext.Projects.Where(p => currentDepartment.Workers.Contains(p.Worker)).ToList();
                             if (myProjects.Any())
                             {
                                 IEnumerable<Models.Task> myProjectTasks = DBDataContext.Tasks.Where(t => (myProjects.Contains(t.Project)) && (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth));

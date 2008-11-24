@@ -138,7 +138,7 @@ namespace mvc.Common
             return result;
         }
 
-        public static string PieChart<T>(this HtmlHelper helper, string[] legends, T data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption)
+        public static string PieChart<T>(this HtmlHelper helper, string[] legends, T data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string prefix)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
@@ -149,7 +149,7 @@ namespace mvc.Common
             for (int i = 0; i < YAxes.Length; i++)
             {
                 string value = GetMemberValue(data, YAxes[i]);
-                WebChart.ChartPoint point = new WebChart.ChartPoint(legends[i], int.Parse(value));
+                WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + legends[i], int.Parse(value));
                 chart.Data.Add(point);
                 
             }
@@ -165,7 +165,7 @@ namespace mvc.Common
         }
 
 
-        public static string PieChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string YAxe, System.Drawing.Color[] colors, System.Drawing.Color background, string caption)
+        public static string PieChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string YAxe, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string prefix)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
@@ -178,7 +178,7 @@ namespace mvc.Common
             {
                 string value = GetMemberValue(line, YAxe);
                 string title = GetMemberValue(line, XAxe);
-                WebChart.ChartPoint point = new WebChart.ChartPoint(title, int.Parse(value));
+                WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + title, int.Parse(value));
                 chart.Data.Add(point);
                 
                 i++;
@@ -194,13 +194,20 @@ namespace mvc.Common
             return result;
         }
 
-        public static string BarChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, int alpha, int maxWidth, bool useShadow, int width, int height)
+        public static string BarChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, int alpha, int maxWidth, bool useShadow, int width, int height, string prefix, bool vertical)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
             chartControl.Width = width;
             chartControl.Height = height;
             chartControl.ChartTitle.Text = caption;
+            if (vertical)
+            {
+                chartControl.XAxisFont.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.DirectionVertical;
+                chartControl.XAxisFont.StringFormat.Alignment = System.Drawing.StringAlignment.Center;
+                chartControl.XAxisFont.StringFormat.LineAlignment = System.Drawing.StringAlignment.Center;
+                chartControl.BottomChartPadding = 50;
+            }
             ChartPointCollection chartPoints = new ChartPointCollection();
             //WebChart.ColumnChart chart = new ColumnChart();            
             int i = 0;
@@ -210,13 +217,14 @@ namespace mvc.Common
                 chartControl.Charts[j].Fill.Color = System.Drawing.Color.FromArgb(alpha, colors[j]);
                 chartControl.Charts[j].Legend = legends[j];
                 chartControl.Charts[j].Shadow.Visible = useShadow;
+                
                 ((WebChart.StackedColumnChart)(chartControl.Charts[j])).MaxColumnWidth = maxWidth;
             }
 
             foreach (T line in data)
             {
                 
-                string title = GetMemberValue(line, XAxe);
+                string title = prefix + GetMemberValue(line, XAxe);
                 int j = 0;
                 foreach (string YAxe in YAxes)
                 {
