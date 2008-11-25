@@ -40,6 +40,12 @@
   <%= Html.Hidden("chart") %>
   <%= Html.Hidden("pageSize") %>
 <% Html.EndForm(); %>
+<% bool paintContent = true; %>
+<% if (TempData.ContainsKey("errors")) {paintContent = false;}; %>
+    <div class = "errors">
+      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
+    </div>  
+<% if (paintContent) { %>
 <% if ((bool)ViewData["chart"]) %>
 <% { %>
 	<% string[] legends = {"Skyriaus darbuotojai dirbo", "Kiti dirbo"}; %>
@@ -47,7 +53,7 @@
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
 	
-	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 15, true, (ViewData.Model.Count > 5)? ViewData.Model.Count * 30 + 160: 600, (ViewData.Model.Count > 5)? ViewData.Model.Count * 20 + 110: 400, "Projektas ", true) %>
+	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 15, true, (ViewData.Model.Count * 30 + 160 > 600) ? ViewData.Model.Count * 30 + 160 : 600, (ViewData.Model.Count * 20 + 110 > 400) ? ViewData.Model.Count * 20 + 110 : 400, "Projektas ", true)%>
 <% } %>
 <% else %>
 <% { %>
@@ -97,5 +103,6 @@
    <% for (int i = 5; i <= 50; i += 5) pageSizes.Add(i); %>
    <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSizeExt"]), new { onChange = "javascript: form.submit();"})%>
  <% Html.EndForm(); %>
+<% } %>
 <% } %>
 </asp:Content>

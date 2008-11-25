@@ -34,6 +34,12 @@
   <%= Html.Hidden("department_id") %>
   <%= Html.Hidden("chart") %>
 <% Html.EndForm(); %>
+<% bool paintContent = true; %>
+<% if (TempData.ContainsKey("errors")) {paintContent = false;}; %>
+    <div class = "errors">
+      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
+    </div>  
+<% if (paintContent) { %>
 <% if ((bool)ViewData["chart"]) %>
 <% { %>
 	<% string[] legends = {"Savo projektuose", "Kitų projektuose", "Nedirbo" }; %>
@@ -75,5 +81,6 @@
   <% } %>
  </table>
  <label>Nedirbta jokiame projekte </label><label><%= ViewData.Model.WorkedNoWhere %> val.( <%=ViewData.Model.PercentNotWorked%> viso įmonės darbo laiko per laikotarpį) </label>
+<% } %>
 <% } %>
 </asp:Content>
