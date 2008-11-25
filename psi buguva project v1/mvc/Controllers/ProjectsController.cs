@@ -137,7 +137,7 @@ namespace mvc.Controllers
             IEnumerable<Models.Project> projects = DBDataContext.Projects;
             if (projects.Count() > 0)
             {
-                projects = projects.Where(project => ((project.Tasks.Count > 0) && (project.Tasks.Where(task => task.project_participant_id == workerID).Count() > 0)) || (project.project_manager_id == workerID));
+                projects = projects.Where(project => ((project.Tasks.Count > 0) && (project.Tasks.Any(task => task.project_participant_id == workerID))) || (project.project_manager_id == workerID));
             }
             return View(projects.ToPagedList(currentPage - 1, 25));
         }
