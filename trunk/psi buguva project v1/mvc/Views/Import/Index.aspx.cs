@@ -49,10 +49,26 @@ namespace mvc.Views.Import
 
             foreach (DataRow row in dt.Rows)
             {
-                excelSheetNames[i] = row[2].ToString();
+                string name = row[2].ToString();
+
+                if (name[name.Length - 1] == '\'')
+                {
+                    name = name.Substring(0, name.Length - 1);
+                }
+                if (name[0] == '\'')
+                {
+                    name = name.Substring(1);
+                }
+                if (name[name.Length - 1] == '$')
+                {
+                    name = name.Substring(0, name.Length - 1);
+                }
+
+                excelSheetNames[i] = name;
                 i++;
                 
             }
+            con.Close();
             return excelSheetNames;
         }
 
@@ -102,7 +118,7 @@ namespace mvc.Views.Import
                     switch (fileInfo.Extension)
                     {
                         case ".xlsx":
-                        case ".xlsb": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=1\""; break;
+                        case ".xlsb": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=1\""; break;
                         default: xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\""; break;
                     }
                     //string xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strPath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=1\"";
