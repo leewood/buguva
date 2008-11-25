@@ -66,6 +66,7 @@ namespace mvc.Models
     {
         private MonthOfYear _start;
         private MonthOfYear _end;
+        List<string> errors = new List<string>();
 
         private MonthOfYear PeriodStart
         {
@@ -91,16 +92,69 @@ namespace mvc.Models
             }
         }
 
+        private void validatePeriod()
+        {
+            if (PeriodStart.Year < 1970)
+            {
+                errors.Add("Metai negali būti mažesni nei 1970. Norėta pasirinkti " + PeriodStart.Year.ToString());
+                PeriodStart.Year = DateTime.Today.Year;
+                
+            }
+            if (PeriodEnd.Year < 1970)
+            {
+                errors.Add("Metai negali būti mažesni nei 1970. Norėta pasirinkti " + PeriodEnd.Year.ToString());
+                PeriodEnd.Year = DateTime.Today.Year;                
+            }
+
+            if ((PeriodStart.Month < 1) || (PeriodStart.Month > 12))
+            {
+                errors.Add("Mėnuo gali būti tik intervale 1..12. Pasirinkta " + PeriodStart.Month.ToString());
+                PeriodStart.Month = DateTime.Today.Month;                
+            }
+            if ((PeriodEnd.Month < 1) || (PeriodEnd.Month > 12))
+            {
+                errors.Add("Mėnuo gali būti tik intervale 1..12. Pasirinkta " + PeriodStart.Month.ToString());
+                PeriodEnd.Month = DateTime.Today.Month;                
+            }
+            if (PeriodStart.Year * 12 + PeriodStart.Month > PeriodEnd.Year * 12 + PeriodEnd.Month)
+            {
+                errors.Add("Pradžios data negali būti didesnė nei pabaigos data");
+                PeriodEnd.Year = PeriodStart.Year;
+                PeriodEnd.Month = PeriodStart.Month;                
+            }
+            if (PeriodStart.Year * 12 + PeriodStart.Month > DateTime.Today.Year * 12 + DateTime.Today.Month)
+            {
+                errors.Add("Data negali viršyti šio mėnesio datos");
+                PeriodStart.Year = DateTime.Today.Year;
+                PeriodStart.Month = DateTime.Today.Month;                
+            }
+            if (PeriodEnd.Year * 12 + PeriodEnd.Month > DateTime.Today.Year * 12 + DateTime.Today.Month)
+            {
+                errors.Add("Data negali viršyti šio mėnesio datos");
+                PeriodEnd.Year = DateTime.Today.Year;
+                PeriodEnd.Month = DateTime.Today.Month;                
+            }
+
+        }
+
         public Period(MonthOfYear start, MonthOfYear end)
         {
             PeriodStart = start;
             PeriodEnd = end;
+            validatePeriod();
         }
 
         public Period(int startYear, int startMonth, int endYear, int endMonth)
         {
             PeriodStart = new MonthOfYear(startYear, startMonth);
             PeriodEnd = new MonthOfYear(endYear, endMonth);
+            validatePeriod();
+        }
+
+
+        public List<string> getErrors()
+        {
+            return errors;
         }
 
         private double DateDiff(string howtocompare, System.DateTime startDate, System.DateTime endDate) 
@@ -527,7 +581,13 @@ namespace mvc.Controllers
                 Models.Department currentDepartment = null;
                 if (DBDataContext.Departments.Any())
                 {
-                    currentDepartment = DBDataContext.Departments.First(d => d.id == department_id.Value);
+                    try
+                    {
+                        currentDepartment = DBDataContext.Departments.First(d => d.id == department_id.Value);
+                    }
+                    catch (Exception)
+                    {
+                    }
                     if (currentDepartment != null)
                     {
                         ViewData["Title"] = "Skyriaus " + currentDepartment.title + " projektai";
@@ -544,28 +604,44 @@ namespace mvc.Controllers
                         ViewData["chart"] = chart ?? false;
                         bool useChart = chart ?? false;
                         bool dontShowAll = showOnlyMyProjects ?? false;
-                        int currentPage = page ?? 1;
+                        int currentPage = page ?? 1;                        
                         int currentPageSize = pageSize ?? userSession.ItemsPerPage;
+                        ViewData["pageSizeExt"] = currentPageSize;
+                        ViewData["pageExt"] = currentPage;
+                        Period period = new Period(stYear, stMonth, enYear, enMonth);
+                        string[] errors = period.getErrors().ToArray();
+                        List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
+                        if (errors.Length > 0)
+                        {
+                            TempData["errors"] = errors;
+                            return View(result);
+                        }
                         List<Models.Project> projects = DBDataContext.Projects.Where(p => p.Tasks.Any(t => (t.Worker.department_id == department_id.Value) && (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth))).ToList();
                         IOrderedEnumerable<Models.Project> orderedProjects = projects.OrderBy(p => p, new Models.MyDepartmentFirstComparer(department_id.Value));
-                        ViewData["pageSizeExt"] = currentPageSize;
+                        
                         if (dontShowAll)
                         {
                             orderedProjects = orderedProjects.Where(o => currentDepartment.Workers.Contains(o.Worker)).OrderBy(o => o.id);
                         }
-                        IPagedList<Models.Project> pagedProjects = orderedProjects.ToPagedList(currentPage - 1, currentPageSize);
-                        
+                        IPagedList<Models.Project> pagedProjects = null;
                         int size = currentPageSize;
-                        if (useChart)
-                        {
-                            size = orderedProjects.Count();
-                            pagedProjects = orderedProjects.ToPagedList(0, size);
+                        if (orderedProjects.Count() > 0)
+                        {                            
+                            if (useChart)
+                            {
+                                size = orderedProjects.Count();
+                                pagedProjects = orderedProjects.ToPagedList(0, size);
+                            }
+                            else
+                            {
+                                pagedProjects = orderedProjects.ToPagedList(currentPage - 1, currentPageSize);
+                            }
                         }
-                        ViewData["pageCountExt"] = pagedProjects.PageCount;
-                        List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
-                        ViewData["pageExt"] = currentPage;
-                        
-                       
+                        else
+                        {
+                            pagedProjects = (new List<Models.Project>()).ToPagedList(0, size);
+                        }
+                        ViewData["pageCountExt"] = pagedProjects.PageCount;                                                                                               
                         foreach (Models.Project project in pagedProjects)
                         {
                             Models.DepartmentProjectReport line = new mvc.Models.DepartmentProjectReport();
@@ -588,12 +664,24 @@ namespace mvc.Controllers
                             line.DepartmentWorkersWorked = project.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth) && (currentDepartment.Workers.Contains(t.Worker))).Sum(t2 => t2.worked_hours);
                             result.Add(line);
                         }
-                        IPagedList<Models.DepartmentProjectReport> paged = result.ToPagedList(currentPage - 1, currentPageSize);
-                        if (useChart)
+
+                        IPagedList<Models.DepartmentProjectReport> paged = null;
+                        if (result.Count > 0)
                         {
-                            paged = result.ToPagedList(0, size);
+                            
+                            if (useChart)
+                            {
+                                paged = result.ToPagedList(0, size);
+                            }
+                            else
+                            {
+                                paged = result.ToPagedList(currentPage - 1, currentPageSize); 
+                            }
                         }
-                        
+                        else
+                        {
+                            paged = (new List<Models.DepartmentProjectReport>()).ToPagedList(0, 1);
+                        }
                         /*
                         if (dontShowAll)
                         {
@@ -633,7 +721,13 @@ namespace mvc.Controllers
                 Models.Department currentDepartment = null;
                 if (DBDataContext.Departments.Any())
                 {
-                    currentDepartment = DBDataContext.Departments.First(d => d.id == department_id.Value);
+                    try
+                    {
+                        currentDepartment = DBDataContext.Departments.First(d => d.id == department_id.Value);
+                    }
+                    catch (Exception)
+                    {
+                    }
                     if (currentDepartment != null)
                     {
                         ViewData["Title"] = "Skyriaus " + currentDepartment.title + " vadovo ataskaita";
@@ -651,6 +745,12 @@ namespace mvc.Controllers
                         ViewData["endMonth"] = enMonth;
                         ViewData["chart"] = chart ?? false;
                         report.Period = new mvc.Models.Period(stYear, stMonth, enYear, enMonth);
+                        string[] errors = report.Period.getErrors().ToArray();
+                        if (errors.Length > 0)
+                        {
+                            TempData["errors"] = errors;
+                            return View(report);
+                        }
                         report.WorkersCount = currentDepartment.Workers.Count;
                         List<Models.Project> myProjects = new List<Project>();
                         if (currentDepartment.Worker != null)
