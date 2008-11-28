@@ -103,7 +103,9 @@ namespace mvc.Views.Import
             {
                 try
                 {
+
                     FileUploadImport.PostedFile.SaveAs(path + "\\"+FileUploadImport.PostedFile.FileName);
+
                     Span1.InnerHtml = "Upload Successful!";
                 }
                 catch (Exception ex)
@@ -114,6 +116,7 @@ namespace mvc.Views.Import
                 }
                 try
                 {
+
                     FileInfo fileInfo = new FileInfo(path + "\\" + FileUploadImport.PostedFile.FileName);
                     switch (fileInfo.Extension)
                     {
@@ -121,6 +124,7 @@ namespace mvc.Views.Import
                         case ".xlsb": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=1\""; break;
                         default: xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\""; break;
                     }
+
                     //string xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strPath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=1\"";
                     string[] sheetNames = getAllSheetNames(xlsConnectionString);
                     factory = DbProviderFactories.GetFactory("System.Data.OleDb");
