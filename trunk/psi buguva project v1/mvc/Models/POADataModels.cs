@@ -6,6 +6,126 @@ using System.Web.Mvc;
 
 namespace mvc.Models
 {
+    public class IncompleteWorkValueReportCell
+    {
+        private int _value = 0;
+        private int _income = 0;
+
+        public int Value 
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+        public int Income 
+        {
+            get
+            {
+                return _income;
+            }
+            set
+            {
+                _income = value;
+            }
+        }
+        public int Difference
+        {
+            get
+            {
+                return Value - Income;
+            }
+        }
+        public string Percent
+        {
+            get
+            {
+                if (Value > 0)
+                {
+                    return (((double)(Difference) / ((double)Value)) * 100.00).ToString("0.00") + "%";
+                }
+                else
+                {
+                    return "0.00%";
+                }
+            }
+        }
+    }
+
+    public class IncompleteWorkValueReportRow
+    {
+        private string _period = "";
+        public string Period
+        {
+            get
+            {
+                return _period;
+            }
+            set
+            {
+                _period = value;
+            }
+        }
+
+        private List<IncompleteWorkValueReportCell> _cells = new List<IncompleteWorkValueReportCell>();
+        public List<IncompleteWorkValueReportCell> Cells
+        {
+            get
+            {
+                return _cells;
+            }
+            set
+            {
+                _cells = value;
+            }
+        }
+    }
+
+
+    public class IncompleteWorkValueReport
+    {
+        private List<string> _columnCaptions = new List<string>();
+        private List<object> _columnRedirections = new List<object>();
+        private List<IncompleteWorkValueReportRow> _rows = new List<IncompleteWorkValueReportRow>();
+        public List<string> Captions
+        {
+            get
+            {
+                return _columnCaptions;
+            }
+            set
+            {
+                _columnCaptions = value;
+            }
+        }
+        public List<object> Redirections
+        {
+            get
+            {
+                return _columnRedirections;
+            }
+            set
+            {
+                _columnRedirections = value;
+            }
+        }
+        public List<IncompleteWorkValueReportRow> Rows
+        {
+            get
+            {
+                return _rows;
+            }
+            set
+            {
+                _rows = value;
+            }
+        }
+    }
+
     public partial class User
     {
         public static string[] LevelNames = { "Paprastas darbuotojas", "Skyriaus vadovas", "Antanas", "Administratorius" };
