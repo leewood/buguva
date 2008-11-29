@@ -266,6 +266,13 @@
     <Compile Include="Views\Projects\GrandMastersReport.aspx.designer.cs">
       <DependentUpon>GrandMastersReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\IncompleteWorkReport.aspx.cs">
+      <DependentUpon>IncompleteWorkReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\IncompleteWorkReport.aspx.designer.cs">
+      <DependentUpon>IncompleteWorkReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -504,6 +511,7 @@
     <Content Include="Views\Projects\AllProjects.aspx" />
     <Content Include="Views\Projects\Edit.aspx" />
     <Content Include="Views\Projects\GrandMastersReport.aspx" />
+    <Content Include="Views\Projects\IncompleteWorkReport.aspx" />
     <Content Include="Views\Projects\Index.aspx" />
     <Content Include="Views\Projects\List.aspx" />
     <Content Include="Views\Projects\ListMyProjects.aspx" />
