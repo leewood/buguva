@@ -5,8 +5,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
    
     <div class = "path">
-   	  <%= Html.Path() %>
-   	</div>   
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	</div>    
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
     </div>   	
@@ -26,7 +26,7 @@
 	        <td style="display:none"><%= department.id %></td>
 	        <td><%= department.title %></td>
 	        <td><%= (department.Worker != null)?department.Worker.Fullname:"Nepaskirtas" %></td>
-	        <td>
+	        <td width="60">
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = department.id}) %>
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = department.id}, true, "Ar tikrai norite ištrinti šį skyrių?") %>	          
 	        </td>

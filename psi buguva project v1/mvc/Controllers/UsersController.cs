@@ -12,6 +12,12 @@ namespace mvc.Controllers
 {
     public class UsersController : Common.BaseController
     {
+        public UsersController()
+        {
+            ViewData["Image"] = road.img("Users");
+            ViewData["Base"] = road.link("Vartotojų sąrašas", "Users","");
+        }
+        
         public ActionResult Index()
         {
             return RedirectToAction("List");

@@ -4,6 +4,9 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <div class = "path">
+   	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
+   	</div> 
     <div class = "errors">
       <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
     </div>

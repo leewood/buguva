@@ -4,8 +4,8 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">    
     <div class = "path">
-   	  <%= Html.Path() %>
-   	</div>   
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	</div>    
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
     </div>   	
@@ -23,11 +23,11 @@
 	   <% foreach (User user in ViewData.Model) %>
 	   <% { %>
 	      <tr>
-	        <td><%= user.id %></td>
+	        <td width="60"><%= user.id %></td>
 	        <td><%= user.login_name %></td>
 	        <td><%= user.LevelName %></td>
 	        <td><%= (user.Worker != null)?user.Worker.Fullname:"<span style=\"color:Red\">Nesusietas</span>" %></td>
-	        <td>
+	        <td width="100">
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = user.id}) %>
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = user.id}, true, "Ar tikrai norite ištrinti šį vartotoją?") %>
 	          <%= Html.ActionImageLink("../Content/key.png", "Keisti slaptažodį", "ChangePassword", new {id = user.id}) %>
