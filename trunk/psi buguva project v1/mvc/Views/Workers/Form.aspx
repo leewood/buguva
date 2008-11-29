@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" CodeBehind="Form.aspx.cs" Inherits="mvc.Views.Workers.Form" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div class = "path">
+   	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
+   	</div> 
     <form id="form1" runat="server">
     <h1>Method1:</h1>
     <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" 

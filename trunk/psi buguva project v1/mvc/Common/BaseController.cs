@@ -21,6 +21,9 @@ namespace mvc.Common
          */
         public Authentication auth = null;
 
+
+        public RoadHelper road = null;
+
         /**
          * konstruktorius
          */ 
@@ -28,6 +31,7 @@ namespace mvc.Common
         {
             this.userSession = new UserSession();
             this.auth = new Authentication();
+            this.road = new RoadHelper();
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

@@ -29,8 +29,8 @@
 
         <div id="header">
             <div class="top_space">
-                <p id="logo">Organizacijos apskaita®
-                    <a href=""></a>
+                <p id="logo">
+                    <img src="../../Content/Images/POAlogo.png" alt="logo" />
                 </p>
             </div>
             <div class="bottom_space">
@@ -129,13 +129,13 @@
         
             <h1>Organizacija</h1>
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Workers/","Darbuotojai",controller_name == "Workers") %></li>
-                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Departments/", "Skyriai", controller_name == "Departments")%></li>
-                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Import/", "Duomenų inportavimas", controller_name == "Import")%></li>
+                <li><img src="/Content/Images/Icons/workers.png" alt="-" /><%=userNav.getLink("/Workers/","Darbuotojai",controller_name == "Workers") %></li>
+                <li><img src="/Content/Images/Icons/Skyriai.png" alt="-" /><%=userNav.getLink("/Departments/", "Skyriai", controller_name == "Departments")%></li>
+                <li><img src="/Content/Images/Icons/Inport.png" alt="-" /><%=userNav.getLink("/Import/", "Duomenų importavimas", controller_name == "Import")%></li>
             </ul>
             <h1>Apskaitos sistema</h1>
             <ul>
-                <li><img src="/Content/ico1.png" alt="-" /><%=userNav.getLink("/Users/", "Vartotojai", controller_name == "Users")%></li>
+                <li><img src="/Content/Images/Icons/Users.png" alt="-" /><%=userNav.getLink("/Users/", "Vartotojai", controller_name == "Users")%></li>
             </ul>
             
         <% } %>
@@ -151,10 +151,9 @@
         </div>
             
     </div>            
-        
         <div id="footer">
             <p>
-               Buguva &copy; Copyright 2008
+               <img src="../../Content/Images/logo2.png" alt="logo" />
             </p>
         </div>
 </body>

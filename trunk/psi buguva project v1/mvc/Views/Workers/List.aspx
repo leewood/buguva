@@ -4,7 +4,7 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class = "path">
-   	  <%= Html.Path() %>
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
    	</div>   
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
@@ -23,11 +23,11 @@
 	   <% foreach (Worker worker in ViewData.Model) %>
 	   <% { %>
 	      <tr>
-	        <td><%= worker.id %></td>
+	        <td width="60"><%= worker.id %></td>
 	        <td><%= worker.name %></td>
 	        <td><%= worker.surname %></td>
 	        <td><%= (worker.Department != null)?worker.Department.title:"" %></td>
-	        <td>
+	        <td width="60">
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = worker.id}) %>
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = worker.id}, true, "Ar tikrai norite ištrinti šį darbuotoją?") %>
 	        </td>

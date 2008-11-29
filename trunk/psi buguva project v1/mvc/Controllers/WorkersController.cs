@@ -11,7 +11,13 @@ using mvc.Common;
 namespace mvc.Controllers
 {
     public class WorkersController : Common.BaseController
-    {   
+    {
+        public WorkersController()
+        {
+            ViewData["Image"] = road.img("Workers");
+            ViewData["Base"] = road.link("Darbuotojų sąrašas", "Workers","");
+        }
+        
         
         public ActionResult Index()
         {

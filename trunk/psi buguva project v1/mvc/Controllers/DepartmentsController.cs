@@ -9,7 +9,8 @@ using mvc.Models;
 using LinqToSqlExtensions;
 
 namespace mvc.Models
-{
+{   
+    
     public class AssociatedWorkedHours
     {
         private int _hours = 0;
@@ -568,6 +569,12 @@ namespace mvc.Controllers
 {
     public class DepartmentsController : Common.BaseController
     {
+        public DepartmentsController()
+        {
+            ViewData["Image"] = road.img("Skyriai");
+            ViewData["Base"] = road.link("Skyrių sąrašas", "Departments","");
+        }
+        
         public ActionResult Index()
         {
             // Add action logic here

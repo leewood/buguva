@@ -9,9 +9,16 @@ namespace mvc.Controllers
 {
     public class ImportController : Common.BaseController
     {
+        public ImportController()
+        {
+            ViewData["Image"] = road.img("Inport");
+            ViewData["Base"] = road.link("Duomenų importavimas", "Import", "");
+            ViewData["Title"] = "Duomenų importavimas";
+        }
+        
         public ActionResult Index()
         {
-            // Add action logic here
+
             return View();
         }
 

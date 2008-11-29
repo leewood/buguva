@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="mvc.Views.Import.Index" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <div class = "path">
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	</div>       
     <form id="form1" runat="server" style="height: 265px; width: 657px">  
     <fieldset>
         <legend>Duomenų importavimas</legend>
