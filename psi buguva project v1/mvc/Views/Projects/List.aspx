@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
    
     <div class = "path">
-   	  <%= Html.Path() %>
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
    	</div>   
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
@@ -26,7 +26,7 @@
 	        <td style="display:none"><%= project.id %></td>
 	        <td><%= project.title %></td>
 	        <td><%= (project.Worker != null)?project.Worker.Fullname:"<span style=\"color:Red\">Nepaskirtas</span>" %></td>
-	        <td>
+	        <td width="60">
 	          <%= Html.ActionImageLink("/Content/edit.png", "Koreguoti", "Edit", new { id = project.id })%>
 	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new {id = project.id}, true, "Ar tikrai norite ištrinti šį projektą?") %>	          
 	        </td>

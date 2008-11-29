@@ -4,9 +4,9 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-   	<div class = "path">
-   	  <%= Html.Path() %>
-   	</div>
+    <div class = "path">
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	</div> 
    	<div class="pager">   	
 		<%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
 	</div>
@@ -29,11 +29,11 @@
              <td><%= project.StartedAt %></td>             
              <td><%= project.EndedAt %></td>
              <td><%= project.TotalWorkedHours.ToString() %></td>
-             <td>
-               <%= Html.ActionImageLink("/Content/ico1.png", "Ataskaita", "ListMyTasksInProject", new { project_id = project.id, id = ViewData["currentWorkerID"]})%>
+             <td width="60">
+               <%= Html.ActionImageLink("/Content/Images/Icons/Tasks.png", "Ataskaita", "ListMyTasksInProject", new { project_id = project.id, id = ViewData["currentWorkerID"] })%>
                <% if (project.project_manager_id == (int)ViewData["currentWorkerID"]) %>
                <% { %>
-                 <%= Html.ActionImageLink("/Content/ico2.png", "Vadovo Ataskaita", "ProjectManagerReport", new { project_id = project.id })%>
+                 <%= Html.ActionImageLink("/Content/Images/Icons/ManagerReport.png", "Vadovo Ataskaita", "ProjectManagerReport", new { project_id = project.id })%>
                <% } %>
              </td>
           </tr>

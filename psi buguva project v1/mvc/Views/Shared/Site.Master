@@ -74,7 +74,7 @@
             <h1>Projektai</h1>
             <ul>
                 <li>
-                    <img src="/Content/ico1.png" alt="-" />
+                    <img src="/Content/Images/Icons/MyProjects.png" alt="-" />
                     <%=userNav.getLink("/Projects/ListMyProjects/", 
                         "Mano projektai", 
                         controller_name == "Projects" && 
@@ -87,7 +87,7 @@
                 <% if (userSession.isDepartmentMaster()) %>
                 <% { %>
                 <li>
-                    <img src="/Content/ico1.png" alt="-" />
+                    <img src="/Content/Images/Icons/Department.png" alt="-" />
                     <%=userNav.getLink("/Departments/DepartmentProjects?department_id=" + userSession.workerDepartment, "Visi skyriaus projektai", controller_name == "Departments")%>
                 </li>
                 <%} %>
@@ -95,7 +95,7 @@
                 <% if (userSession.isAntanas()) %>
                 <% { %>
                 <li>
-                    <img src="/Content/ico1.png" alt="-" />
+                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
                     <%=userNav.getLink("/Projects/List/", "Visų skyrių projektai", controller_name == "Projects" && action_name == "List")%>
                 </li>
                 <%} %>
@@ -112,7 +112,7 @@
             <% foreach (Department department in departments) %>
             <% { %>
                 <li>
-                    <img src="/Content/ico1.png" alt="-" />                    
+                    <img src="/Content/Images/Icons/Department.png" alt="-" />                    
                     <%=userNav.getLink("/Departments/DepartmentProjects?department_id=" + department.id, department.title, controller_name == "Departments" && department.id.ToString() == Request.Params.Get("department_id"))%>
                 </li>            
             <% } %>
