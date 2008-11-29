@@ -7,7 +7,9 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">  
 
-<%= Html.Path() %>
+    <div class = "path">
+   	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
+   	</div> 
 <ul id="menu">
    <li class="selected">
       <%= Html.ActionLink("Projekto ataskaita", "ProjectManagerReport", new { project_id = ViewData.Model.Project.id }) %>

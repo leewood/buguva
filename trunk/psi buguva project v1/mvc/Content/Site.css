@@ -448,6 +448,18 @@ div #login form input:hover[type=submit]
 	empty-cells: show;
 }
 
+.grid .marked 
+{
+	background-color: #ffffa3;
+}
+
+.grid .marked:hover
+{
+	background-color: #f4eb67;
+}
+
+
+
 /* content  
 ----------------------------------------------------------*/
 
@@ -635,7 +647,65 @@ form legend {
 	float: left;
 }
 
+#monthChoose
+{
+	border-bottom: 1px solid #d3ecff;
+	margin-left: 10px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	height: 30px;	
+}
 
+#monthChoose label
+{
+	border: 1px solid #d3ecff;
+	padding: 4px;
+	margin: 2px;
+	text-align: center;
+	float: left;
+	color: #333;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#monthChoose span
+{
+	border: 1px solid #EDF7FF;
+	padding: 4px;
+	margin: 2px;
+	text-align: center;
+	float: left;
+	color: #999;
+	text-decoration: none;
+}
+
+#monthChoose .selected
+{
+	border: 1px solid #d3ecff;
+	padding: 4px;
+	margin: 2px;
+	text-align: center;
+	float: left;
+	color: #FFF;
+	background-color: #0cb3df;
+}
+
+#monthChoose a 
+{
+	border: 1px solid #d3ecff;
+	padding: 4px;
+	margin: 2px;
+	text-align: center;
+	float: left;
+	color: #333;
+	text-decoration: none;
+}
+
+#monthChoose a:hover {
+	background-color: #0cb3df;
+	color: #FFF;
+	text-decoration: none;
+}
 
 /* MISC  
 ----------------------------------------------------------*/

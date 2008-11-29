@@ -12,7 +12,13 @@ namespace mvc.Controllers
 {
     public class ProjectsController : Common.BaseController
     {
-
+        public ProjectsController()
+        {
+            ViewData["Image"] = road.img("AllProjects");
+            ViewData["Base"] = road.link("Projektų sąrašas", "Projects","");
+        }
+        
+        
         public ActionResult AllProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart, int? page, int? pageSize)
         {
 
@@ -117,6 +123,8 @@ namespace mvc.Controllers
 
         public ActionResult ListMyProjects(int? page, int? id)
         {
+
+            ViewData["Image"] = road.img("MyProjects");
             
             int workerID = id ?? userSession.workerID;
             if (workerID == userSession.workerID)
@@ -146,6 +154,9 @@ namespace mvc.Controllers
         {
             if (project_id.HasValue)
             {
+                ViewData["Image"] = road.img("ManagerReport");
+                ViewData["Base"] = road.link("Mano Projektai", "Projects", "ListMyProjects");
+
                 ViewData["project_id"] = project_id;
                 ViewData["Title"] = "Projekto #" + project_id.Value.ToString() + " intensyvumas";
                 int curPage = page ?? 1;
@@ -180,7 +191,10 @@ namespace mvc.Controllers
         {
             if (project_id.HasValue)
             {
-
+                ViewData["Image"] = road.img("ManagerReport");
+                ViewData["Base"] = road.link("Mano Projektai", "Projects", "ListMyProjects");
+                ViewData["Title"] = "Vadovo ataskaita";
+                
                 Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
                 System.Collections.Generic.List<Models.Department> departments = DBDataContext.Departments.Where(department =>(department.Workers.Count > 0) && (department.Workers.Where(worker => ((((worker.Tasks.Count > 0) && (worker.Tasks.Where(task=> task.project_id == project_id.Value).Count() > 0))) || (myProject.project_manager_id == worker.id))).Count() > 0)).ToList();
                 int totalProjectHours = 0;
@@ -246,6 +260,9 @@ namespace mvc.Controllers
         {
             if (project_id.HasValue)
             {
+                ViewData["Image"] = road.img("Tasks");
+                ViewData["Base"] = road.link("Mano Projektai", "Projects", "ListMyProjects");
+                
                 int workerID = id ?? userSession.workerID;
                 if (workerID == userSession.workerID)
                 {
@@ -296,7 +313,7 @@ namespace mvc.Controllers
         public ActionResult New()
         {
             Project project = ((Project)TempData["project"] ?? new Project());
-            ViewData["TitleWindow"] = "Kuriamas naujas projektas";
+            ViewData["Title"] = "Kuriamas naujas projektas";
             return View(project);
         }
 
@@ -333,7 +350,7 @@ namespace mvc.Controllers
                 }
                 if (project != null)
                 {
-                    ViewData["TitleWindow"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
+                    ViewData["Title"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
                     return View(project);
                 }
                 else
