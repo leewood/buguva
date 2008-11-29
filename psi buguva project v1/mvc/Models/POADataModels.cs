@@ -9,7 +9,7 @@ namespace mvc.Models
     public class IncompleteWorkValueReportCell
     {
         private int _value = 0;
-        private int _income = 0;
+        private double _income = 0;
 
         public int Value 
         {
@@ -22,7 +22,7 @@ namespace mvc.Models
                 _value = value;
             }
         }
-        public int Income 
+        public double Income 
         {
             get
             {
@@ -33,7 +33,7 @@ namespace mvc.Models
                 _income = value;
             }
         }
-        public int Difference
+        public double Difference
         {
             get
             {
@@ -89,6 +89,7 @@ namespace mvc.Models
     public class IncompleteWorkValueReport
     {
         private List<string> _columnCaptions = new List<string>();
+        private List<string> _columnActions = new List<string>();
         private List<object> _columnRedirections = new List<object>();
         private List<IncompleteWorkValueReportRow> _rows = new List<IncompleteWorkValueReportRow>();
         public List<string> Captions
@@ -102,6 +103,8 @@ namespace mvc.Models
                 _columnCaptions = value;
             }
         }
+
+
         public List<object> Redirections
         {
             get
@@ -113,6 +116,19 @@ namespace mvc.Models
                 _columnRedirections = value;
             }
         }
+
+        public List<string> Actions
+        {
+            get
+            {
+                return _columnActions;
+            }
+            set
+            {
+                _columnActions = value;
+            }
+        }
+
         public List<IncompleteWorkValueReportRow> Rows
         {
             get
@@ -585,6 +601,89 @@ namespace mvc.Models
                 {
                     return null;
                 }
+            }
+        }
+
+        public int Length
+        {
+            get
+            {
+                if ((FirstTask != null) && (LastTask != null))
+                {
+                    Task last = LastTask;
+                    Task first = FirstTask;
+                    return last.year * 12 + last.month - first.year * 12 - first.month + 1;
+                }
+                return 0;
+            }
+        }
+
+        public int MiddleMonth
+        {
+            get
+            {
+                int length = Length;
+                int middle = length / 2 + length % 2;
+                Task firstTask = FirstTask;
+                if (firstTask != null)
+                {
+                    return firstTask.year * 12 + firstTask.month + middle - 1;
+                }
+                return middle;
+            }
+        }
+
+        public int Month8
+        {
+            get
+            {
+                Task firstTask = FirstTask;
+                if (firstTask != null)
+                {
+                    return firstTask.year * 12 + firstTask.month + 7;
+                }
+                return 8;
+
+            }
+        }
+
+
+        public int Month15
+        {
+            get
+            {
+                Task firstTask = FirstTask;
+                if (firstTask != null)
+                {
+                    return firstTask.year * 12 + firstTask.month + 14;
+                }
+                return 15;
+
+            }
+        }
+
+        public int LastMonth
+        {
+            get
+            {
+                Task lastTask = LastTask;
+                if (lastTask != null)
+                {
+                    return lastTask.year * 12 + lastTask.month;
+                }
+                return 0;
+            }
+        }
+
+        public int FullIncome
+        {
+            get
+            {
+                if (this.Tasks.Count > 0)
+                {
+                    return this.Tasks.Sum(t => t.worked_hours);
+                }
+                return 0;
             }
         }
 

@@ -17,7 +17,222 @@ namespace mvc.Controllers
             ViewData["Image"] = road.img("AllProjects");
             ViewData["Base"] = road.link("Projektų sąrašas", "Projects","");
         }
-        
+
+        private int getPeriodsCount(int type, int start, int end)
+        {
+            int startYear = (start - 1) / 12;
+            int startMonth = 1 + (start - 1) % 12;
+            int endYear = (end - 1) / 12;
+            int endMonth = 1 + (end - 1) % 12;
+            switch (type)
+            {
+                case 1: //Metai
+                    return endYear - startYear + 1;
+                case 2: //Pusmetis
+                    {
+                        int tStart = startYear * 2 + (startMonth - 1) / 6;
+                        int tEnd = endYear * 2 + (endMonth - 1) / 6;
+                        return tEnd - tStart + 1;
+                    }                   
+                case 3: // Ketvirtis
+                    {
+                        int tStart = startYear * 4 + (startMonth - 1) / 3;
+                        int tEnd = endYear * 4 + (endMonth - 1) / 3;
+                        return tEnd - tStart + 1;
+                    }
+                case 4: //Mėnuo
+                    return end - start + 1;
+            }
+            return 0;
+        }
+
+
+        private int getPeriodStart(int type, int start)
+        {
+            int startYear = (start - 1) / 12;
+            int startMonth = 1 + (start - 1) % 12;
+            switch (type)
+            {
+                case 1: //Metai
+                    return startYear;
+                case 2: //Pusmetis
+                    {
+                        int tStart = startYear * 2 + (startMonth - 1) / 6;
+                        return tStart;
+                    }
+                case 3: // Ketvirtis
+                    {
+                        int tStart = startYear * 4 + (startMonth - 1) / 3;
+                        return tStart;
+                    }
+                case 4: //Mėnuo
+                    return start;
+            }
+            return 0;
+        }
+
+        private int constructPeriodStart(int type, int index)
+        {
+            switch (type)
+            {
+                case 1:
+                    return index * 12 + 1;
+                case 2:
+                    return index * 6 + 1;
+                case 3:
+                    return index * 3 + 1;
+                case 4:
+                    return index;
+            }
+            return index;
+        }
+
+        private int constructPeriodEnd(int type, int index)
+        {
+            switch (type)
+            {
+                case 1:
+                    return index * 12 + 12;
+                case 2:
+                    return index * 6 + 6;
+                case 3:
+                    return index * 3 + 3;
+                case 4:
+                    return index;
+            }
+            return index;
+        }
+
+        private string periodString(int type, int value)
+        {
+            switch (type)
+            {
+                case 1:
+                    return value.ToString() + " metai";
+                case 2:
+                    return ((value - 1) / 2).ToString() + " metų " + (1 + (value - 1)% 2).ToString() + " pusmetis";
+                case 3:
+                    return ((value - 1) / 4).ToString() + " metų " + (1 + (value-1) % 4).ToString() + " ketvirtis";
+                case 4:
+                    return ((value - 1) / 12).ToString() + "-" + (1 + (value-1) % 12).ToString();
+            }
+            return "";
+        }
+
+        public ActionResult IncompleteWorkReport(int? page, int? periodType)
+        {
+            int currentPage = page ?? 1;
+            int pType = periodType ?? 1;
+            List<Department> departments = DBDataContext.Departments.Where(d => d.deleted.HasValue == false).ToList();
+            IncompleteWorkValueReport report = new IncompleteWorkValueReport();
+            report.Captions.Add("Laikotarpis");
+            report.Redirections.Add(null);
+            report.Actions.Add("");
+            List<List<Project>> departmentProjects = new List<List<Project>>();
+            foreach (Department department in departments)
+            {
+                report.Captions.Add("Skyrius " + department.title);
+                report.Redirections.Add(new { controller = "Departments", department_id = department.id });
+                report.Actions.Add("DepartmentManagerReport");
+                departmentProjects.Add(DBDataContext.Projects.Where(p => p.Tasks.Any(t => (department.Workers.Contains(t.Worker))) || department.Workers.Contains(p.Worker)).ToList());
+            }
+            report.Captions.Add("Visa firma");
+            report.Redirections.Add(new { controller = "Projects" });
+            report.Actions.Add("GrandMasterReport");
+            List<Task> tasks = DBDataContext.Tasks.OrderBy(t => t.year * 12 + t.month).ToList();
+            int start = 0;
+            int end = 0;
+            if (tasks.Count > 0)
+            {
+                start = tasks[0].year * 12 + tasks[0].month;
+                end = tasks[tasks.Count - 1].year * 12 + tasks[tasks.Count - 1].month;
+            }
+            int periodsCount = getPeriodsCount(pType, start, end);
+            int periodStart = getPeriodStart(pType, start);
+            IncompleteWorkValueReportRow totalRow = new IncompleteWorkValueReportRow();
+            for (int i = 0; i < departments.Count + 1; i++)
+            {
+                totalRow.Cells.Add(new IncompleteWorkValueReportCell());
+            }
+            int itemsPerPage = userSession.ItemsPerPage;
+            int endCycle = (periodsCount <= itemsPerPage) ? periodsCount + periodStart - 1 : periodStart + ((currentPage - 1) * itemsPerPage) + itemsPerPage - 1;
+            for (int i = periodStart + ((currentPage - 1) * itemsPerPage); i <= endCycle; i++)
+            {
+                int pStart = constructPeriodStart(pType, i);
+                int pEnd = constructPeriodEnd(pType, i);
+                IncompleteWorkValueReportRow row = new IncompleteWorkValueReportRow();
+                row.Period = periodString(pType, i);
+                int j = 0;
+                foreach (Department department in departments)
+                {
+                    List<Task> periodTasks = DBDataContext.Tasks.Where(t => (department.Workers.Contains(t.Worker) && ((t.year * 12 + t.month) >= pStart) && ((t.year * 12 + t.month) <= pEnd))).ToList();
+                    IncompleteWorkValueReportCell cell = new IncompleteWorkValueReportCell();
+                    cell.Value = periodTasks.Sum(t => t.worked_hours);
+                    cell.Income = 0;
+                    List<Project> myProjects = departmentProjects[j];
+                    foreach (Project project in myProjects)
+                    {
+                        if (project.Length <= 6)
+                        {
+                            if ((project.LastMonth >= pStart) && (project.LastMonth <= pEnd))
+                            {
+                                cell.Income += project.FullIncome;
+                            }
+
+                        }
+                        else if ((project.Length >= 7) && (project.Length <= 18))
+                        {
+                            if ((project.LastMonth >= pStart) && (project.LastMonth <= pEnd))
+                            {
+                                cell.Income += project.FullIncome * 0.6;
+                            }
+                            if ((project.MiddleMonth >= pStart) && (project.MiddleMonth <= pEnd))
+                            {
+                                cell.Income += project.FullIncome * 0.4;
+                            }
+                        }
+                        else
+                        {
+                            if ((project.LastMonth >= pStart) && (project.LastMonth <= pEnd))
+                            {
+                                cell.Income += project.FullIncome * 0.6;
+                            }
+                            if ((project.Month8 >= pStart) && (project.Month8 <= pEnd))
+                            {
+                                cell.Income += project.FullIncome * 0.2;
+                            }
+                            if ((project.Month15 >= pStart) && (project.Month15 <= pEnd))
+                            {
+                                cell.Income += project.FullIncome * 0.2;
+                            }
+
+                        }
+                        row.Cells.Add(cell);
+                        totalRow.Cells[j].Value += cell.Value;
+                        totalRow.Cells[j].Income += cell.Income;
+                    }
+                    IncompleteWorkValueReportCell totalCell = new IncompleteWorkValueReportCell();
+                    totalCell.Value = row.Cells.Sum(c => c.Value);
+                    totalCell.Income = row.Cells.Sum(c => c.Income);
+                    row.Cells.Add(totalCell);
+                    totalRow.Cells[departments.Count].Value = totalCell.Value;
+                    totalRow.Cells[departments.Count].Income = totalCell.Income;
+
+                }                
+                report.Rows.Add(row);
+
+
+            }
+            totalRow.Period = "Viso ";
+            report.Rows.Add(totalRow);
+            ViewData["Title"] = "Nebaigto darbo vertės ataskaita";
+            ViewData["page"] = currentPage;
+            ViewData["type"] = pType;
+            ViewData["total"] = periodsCount;
+            ViewData["totalPages"] = periodsCount / itemsPerPage + ((periodsCount % itemsPerPage > 0) ? 1 : 0);
+            ViewData["size"] = itemsPerPage;
+            return View(report);
+        }
         
         public ActionResult AllProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart, int? page, int? pageSize)
         {
