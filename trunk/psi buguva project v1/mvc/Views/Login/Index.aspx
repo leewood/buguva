@@ -3,7 +3,7 @@
 
 <div id="login">
     <div class="header">        
-        <asp:Label ID="Label4" runat="server" Text="Prisijungimas"></asp:Label>
+        <asp:Label ID="Label4" runat="server" Text="<img src='../../Content/Images/prisijungimas.png' alt='logo' /><span>Prisijungimas</span>"></asp:Label>
     </div>
     
     <form id="loginform" runat="server">

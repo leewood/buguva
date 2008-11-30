@@ -113,7 +113,13 @@ page width. Or, you can specify an exact pixel width. */
 	color: #191919;
 }
 
-#left_meniu ul li a:hover, #left_meniu ul li .selected
+#left_meniu ul li a:hover
+{
+	font-weight: bold;
+	color: #333;	
+}
+
+#left_meniu ul li .selected
 {
 	font-weight: bold;
 	color: #000;	
@@ -142,7 +148,7 @@ page width. Or, you can specify an exact pixel width. */
 	margin: 0px;
 	width: 100%;
 	float: left;
-	min-height: 400px;	
+	min-height: 490px;	
 	background-color: #F4F5F6;
 	border-bottom: 1px #D3ECFF solid;
 }
@@ -154,7 +160,8 @@ page width. Or, you can specify an exact pixel width. */
     width: 100%;
     background-image: url("../Content/Images/pattern6.jpg");
     background-repeat: repeat-x;
-    height: 131px;
+    background-position: top;
+    height: 80px;
     float: left;
 }
 
@@ -178,6 +185,7 @@ div #login
 	border-right: 2px #D3ECFF solid;
 	border-bottom: 2px #D3ECFF solid;
 	border-left: 1px #D3ECFF solid;
+	padding-right: 2px;
 }
 
 div #login .header
@@ -187,9 +195,23 @@ div #login .header
 	text-align: left;
 	font-size: 20px;
 	color: #FFFFFF;
-	padding: 10px 10px 10px 80px;
-	background-image: url("../Content/Images/login-header.gif");
+	padding: 5px 10px 4px 10px;
+	background-image: url("../Content/Images/login-header.jpg");
 	background-repeat: no-repeat;
+}
+
+div #login .header img
+{
+	float: left;
+	display: block;
+	margin-right: 5px;
+}
+
+div #login .header span 
+{
+	padding-top: 0px;
+	display: block;
+	float: left;
 }
 
 div #login form span
