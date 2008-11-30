@@ -134,7 +134,7 @@ namespace mvc.Controllers
                 report.Captions.Add("Skyrius " + department.title);
                 report.Redirections.Add(new { controller = "Departments", department_id = department.id });
                 report.Actions.Add("DepartmentManagerReport");
-                departmentProjects.Add(DBDataContext.Projects.Where(p => p.Tasks.Any(t => (department.Workers.Contains(t.Worker))) || department.Workers.Contains(p.Worker)).ToList());
+                departmentProjects.Add(DBDataContext.Projects.Where(p => department.Workers.Contains(p.Worker)).ToList());
             }
             report.Captions.Add("Visa firma");
             report.Redirections.Add(new { controller = "Projects" });
@@ -165,6 +165,7 @@ namespace mvc.Controllers
                 int j = 0;
                 foreach (Department department in departments)
                 {
+                    
                     List<Task> periodTasks = DBDataContext.Tasks.Where(t => (department.Workers.Contains(t.Project.Worker) && ((t.year * 12 + t.month) >= pStart) && ((t.year * 12 + t.month) <= pEnd))).ToList();
                     IncompleteWorkValueReportCell cell = new IncompleteWorkValueReportCell();
                     cell.Value = periodTasks.Sum(t => t.worked_hours);
