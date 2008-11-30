@@ -57,12 +57,12 @@ namespace mvc.Controllers
                     return startYear;
                 case 2: //Pusmetis
                     {
-                        int tStart = startYear * 2 + (startMonth - 1) / 6;
+                        int tStart = startYear * 2 + (startMonth - 1) / 6 + 1;
                         return tStart;
                     }
                 case 3: // Ketvirtis
                     {
-                        int tStart = startYear * 4 + (startMonth - 1) / 3;
+                        int tStart = startYear * 4 + (startMonth - 1) / 3 + 1;
                         return tStart;
                     }
                 case 4: //Mėnuo
@@ -114,7 +114,12 @@ namespace mvc.Controllers
                 case 3:
                     return ((value - 1) / 4).ToString() + " metų " + (1 + (value-1) % 4).ToString() + " ketvirtis";
                 case 4:
-                    return ((value - 1) / 12).ToString() + "-" + (1 + (value-1) % 12).ToString();
+                    string month = (1 + (value-1) % 12).ToString();
+                    if (month.Length < 2)
+                    {
+                        month = "0" + month;
+                    }
+                    return ((value - 1) / 12).ToString() + "-" + month;
             }
             return "";
         }
@@ -150,13 +155,15 @@ namespace mvc.Controllers
             int periodsCount = getPeriodsCount(pType, start, end);
             int periodStart = getPeriodStart(pType, start);
             IncompleteWorkValueReportRow totalRow = new IncompleteWorkValueReportRow();
+            IncompleteWorkValueReportRow totalRow2 = new IncompleteWorkValueReportRow();
             for (int i = 0; i < departments.Count + 1; i++)
             {
                 totalRow.Cells.Add(new IncompleteWorkValueReportCell());
+                totalRow2.Cells.Add(new IncompleteWorkValueReportCell());
             }
             int itemsPerPage = userSession.ItemsPerPage;
             int endCycle = (periodsCount <= itemsPerPage) ? periodsCount + periodStart - 1 : periodStart + ((currentPage - 1) * itemsPerPage) + itemsPerPage - 1;
-            for (int i = periodStart + ((currentPage - 1) * itemsPerPage); i <= endCycle; i++)
+            for (int i = periodStart; i <= periodsCount + periodStart - 1; i++)
             {
                 int pStart = constructPeriodStart(pType, i);
                 int pEnd = constructPeriodEnd(pType, i);
@@ -212,7 +219,9 @@ namespace mvc.Controllers
                     row.Cells.Add(cell);
                     totalRow.Cells[j].Value += cell.Value;
                     totalRow.Cells[j].Income += cell.Income;
+                    totalRow2.Cells[j].Income += (cell.Difference > 0) ? cell.Difference : -cell.Difference;
                     j++;
+                    
                 }
                 IncompleteWorkValueReportCell totalCell = new IncompleteWorkValueReportCell();
                 totalCell.Value = row.Cells.Sum(c => c.Value);
@@ -220,12 +229,21 @@ namespace mvc.Controllers
                 row.Cells.Add(totalCell);
                 totalRow.Cells[departments.Count].Value += totalCell.Value;
                 totalRow.Cells[departments.Count].Income += totalCell.Income;
+                totalRow2.Cells[departments.Count].Income += (totalCell.Difference > 0) ? totalCell.Difference : -totalCell.Difference;
                 report.Rows.Add(row);
 
 
             }
-            totalRow.Period = "Viso ";
+            totalRow.Period = "";
+            totalRow2.Period = "Viso ";
+            for (int i = 0; i < totalRow2.Cells.Count; i++)
+            {
+                totalRow2.Cells[i].Value = totalRow.Cells[i].Value / report.Rows.Count;
+                totalRow2.Cells[i].Income = totalRow2.Cells[i].Value - (totalRow2.Cells[i].Income / report.Rows.Count);
+            }
             report.Rows.Add(totalRow);
+            report.Rows.Add(totalRow2);
+            report.Rows = report.Rows.ToPagedList(currentPage - 1, itemsPerPage).ToList();
             ViewData["Title"] = "Nebaigto darbo vertės ataskaita";
             ViewData["page"] = currentPage;
             ViewData["type"] = pType;
