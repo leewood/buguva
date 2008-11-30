@@ -42,7 +42,7 @@ namespace mvc.Views.Login
             }
             else
             {
-                Label4.Text = "Blogas slaptažodis arba prisijungimo vardas";
+                Label4.Text = "<img src='../../Content/Images/nepavyko.png' alt='logo' /><span>Blogas vartotojo vardas arba slaptažodis</span>";
             }
         }
     }
