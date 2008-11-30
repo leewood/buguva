@@ -25,12 +25,19 @@
 	
 	<table class = "grid">
 	   <tr>
-	    <th>Periodas</th>
-	   <% for (int i = 0; i < ViewData.Model.Captions.Count; i++)
+	   <th rowspan="2"><%= ViewData.Model.Captions[0] %></th>
+	   <% for (int i = 1; i < ViewData.Model.Captions.Count; i++)
        { %>
-         <th><%= (ViewData.Model.Redirections[i] == null) ? ViewData.Model.Captions[i] : Html.ActionLink(ViewData.Model.Captions[i], ViewData.Model.Actions[i], ViewData.Model.Redirections) %></th>
+         <th colspan="4"><%= (ViewData.Model.Redirections[i] == null) ? ViewData.Model.Captions[i] : Html.ActionLink(ViewData.Model.Captions[i], ViewData.Model.Actions[i], ViewData.Model.Redirections) %></th>
 	   <%} %>
 	   </tr>    
+	   <tr>
+	   <% for (int i = 1; i < ViewData.Model.Captions.Count; i++)
+       { %>
+         <th>Vertė</th><th>Įplaukos</th><th>Skirtumas</th><th>Dalis %</th>
+	   <%} %>
+	   
+	   </tr>
 	   <% foreach (IncompleteWorkValueReportRow row in ViewData.Model.Rows)
        { %>
        <tr>
@@ -39,7 +46,10 @@
          </td>
          <% for (int i = 0; i < row.Cells.Count; i++)
             { %>
-            <td><%= row.Cells[i].Value.ToString() + "/" + row.Cells[i].Income.ToString("0.00") + "/" + row.Cells[i].Difference.ToString("0.00") + "/" + row.Cells[i].Percent %></td>
+            <td><%= row.Cells[i].Value.ToString() %></td>
+            <td><%= row.Cells[i].Income.ToString("0.00") %></td>
+            <td><%= row.Cells[i].Difference.ToString("0.00") %></td>
+            <td><%= row.Cells[i].Percent %></td>
          <% } %>
        </tr>
 	   <%} %>

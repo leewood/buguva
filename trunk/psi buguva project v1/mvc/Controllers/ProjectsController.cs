@@ -119,10 +119,10 @@ namespace mvc.Controllers
             return "";
         }
 
-        public ActionResult IncompleteWorkReport(int? page, int? periodType)
+        public ActionResult IncompleteWorkReport(int? page, int? type)
         {
             int currentPage = page ?? 1;
-            int pType = periodType ?? 1;
+            int pType = type ?? 1;
             List<Department> departments = DBDataContext.Departments.Where(d => d.deleted.HasValue == false).ToList();
             IncompleteWorkValueReport report = new IncompleteWorkValueReport();
             report.Captions.Add("Laikotarpis");
@@ -165,7 +165,7 @@ namespace mvc.Controllers
                 int j = 0;
                 foreach (Department department in departments)
                 {
-                    List<Task> periodTasks = DBDataContext.Tasks.Where(t => (department.Workers.Contains(t.Worker) && ((t.year * 12 + t.month) >= pStart) && ((t.year * 12 + t.month) <= pEnd))).ToList();
+                    List<Task> periodTasks = DBDataContext.Tasks.Where(t => (department.Workers.Contains(t.Project.Worker) && ((t.year * 12 + t.month) >= pStart) && ((t.year * 12 + t.month) <= pEnd))).ToList();
                     IncompleteWorkValueReportCell cell = new IncompleteWorkValueReportCell();
                     cell.Value = periodTasks.Sum(t => t.worked_hours);
                     cell.Income = 0;
@@ -207,18 +207,18 @@ namespace mvc.Controllers
                             }
 
                         }
-                        row.Cells.Add(cell);
-                        totalRow.Cells[j].Value += cell.Value;
-                        totalRow.Cells[j].Income += cell.Income;
                     }
-                    IncompleteWorkValueReportCell totalCell = new IncompleteWorkValueReportCell();
-                    totalCell.Value = row.Cells.Sum(c => c.Value);
-                    totalCell.Income = row.Cells.Sum(c => c.Income);
-                    row.Cells.Add(totalCell);
-                    totalRow.Cells[departments.Count].Value = totalCell.Value;
-                    totalRow.Cells[departments.Count].Income = totalCell.Income;
-
-                }                
+                    row.Cells.Add(cell);
+                    totalRow.Cells[j].Value += cell.Value;
+                    totalRow.Cells[j].Income += cell.Income;
+                    j++;
+                }
+                IncompleteWorkValueReportCell totalCell = new IncompleteWorkValueReportCell();
+                totalCell.Value = row.Cells.Sum(c => c.Value);
+                totalCell.Income = row.Cells.Sum(c => c.Income);
+                row.Cells.Add(totalCell);
+                totalRow.Cells[departments.Count].Value += totalCell.Value;
+                totalRow.Cells[departments.Count].Income += totalCell.Income;
                 report.Rows.Add(row);
 
 

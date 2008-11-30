@@ -46,11 +46,11 @@ namespace mvc.Models
             {
                 if (Value > 0)
                 {
-                    return (((double)(Difference) / ((double)Value)) * 100.00).ToString("0.00") + "%";
+                    return (((double)(Difference) / ((double)Value)) * 100.00).ToString("0.00");
                 }
                 else
                 {
-                    return "0.00%";
+                    return "-";
                 }
             }
         }
