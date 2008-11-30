@@ -8,10 +8,10 @@ namespace mvc.Models
 {
     public class IncompleteWorkValueReportCell
     {
-        private int _value = 0;
+        private double _value = 0;
         private double _income = 0;
 
-        public int Value 
+        public double Value 
         {
             get
             {

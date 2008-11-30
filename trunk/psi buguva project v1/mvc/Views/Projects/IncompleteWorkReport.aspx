@@ -11,7 +11,7 @@
       <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
     </div>   	
    	<div class="pager">   	
-	  <%= Html.Pager((int)ViewData["size"], (int)ViewData["page"], (int)ViewData["total"])%>
+	  <%= Html.Pager((int)ViewData["size"], (int)ViewData["page"], (int)ViewData["total"], new { type = (int)ViewData["type"]})%>
 	</div>   
     <% Html.BeginForm("IncompleteWorkReport", "Projects", FormMethod.Get); %>  
        <% List<KeyValuePair<string, int>> types = new List<KeyValuePair<string, int>>(); %>
@@ -38,21 +38,52 @@
 	   <%} %>
 	   
 	   </tr>
+	   <% IncompleteWorkValueReportRow tempRow = new IncompleteWorkValueReportRow(); %>
 	   <% foreach (IncompleteWorkValueReportRow row in ViewData.Model.Rows)
        { %>
        <tr>
+       <% if (row.Period == "")
+          {
+              tempRow = row;
+              %>
+             <th></th>
+             <% for (int i = 0; i < row.Cells.Count; i++)
+                { %>
+             <th>Suma</th>
+             <th>Vidurkis</th>
+             <th>Vid.Skirt.</th>
+             <th>Vid.Sant.%</th>
+             <%} %>
+       <% }
+          else if (row.Period == "Viso ")
+          {%>
          <td>
-           <%= row.Period %>
+           <%= row.Period%>
          </td>
          <% for (int i = 0; i < row.Cells.Count; i++)
             { %>
-            <td><%= row.Cells[i].Value.ToString() %></td>
-            <td><%= row.Cells[i].Income.ToString("0.00") %></td>
-            <td><%= row.Cells[i].Difference.ToString("0.00") %></td>
-            <td><%= row.Cells[i].Percent %></td>
+            <td style="text-align:right;"><%= tempRow.Cells[i].Value.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= row.Cells[i].Value.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= row.Cells[i].Difference.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= row.Cells[i].Percent%></td>
          <% } %>
+          
+       <% }
+          else
+          { %>
+         <td>
+           <%= row.Period%>
+         </td>
+         <% for (int i = 0; i < row.Cells.Count; i++)
+            { %>
+            <td style="text-align:right;"><%= row.Cells[i].Value.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= row.Cells[i].Income.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= row.Cells[i].Difference.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= row.Cells[i].Percent%></td>
+         <% }
+          } %>
        </tr>
-	   <%} %>
+	   <% } %>
 	</table>
 
 </asp:Content>
