@@ -42,8 +42,17 @@ namespace mvc.Common
 
         private bool checkLoginInfo(string name, string password)
         {
-            POADataModelsDataContext data = new POADataModelsDataContext();
-            return data.Users.Where(user => (user.login_name == name && user.password == password)).Count() > 0;
+            try
+            {
+                POADataModelsDataContext data = new POADataModelsDataContext();
+                return data.Users.Where(user => (user.login_name == name && user.password == password)).Count() > 0;
+            }
+            catch (Exception e)
+            {
+                Debugger.Instance.addException("negalima prisijungti prie MS duomenų bazės - susisiekite su sistemos administratoriumi");
+            }
+
+            return false;
         }
 
         private Models.User getUserInfo(string name, string password)

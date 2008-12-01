@@ -37,7 +37,8 @@ namespace mvc.Common
                 controller == "Import" ||
                 (
                 controller == "Departments" &&
-                action != "DepartmentProjects"
+                action != "DepartmentProjects" &&
+                action != "DepartmentManagerReport"
                 )
 
                 )? true : false;
@@ -49,6 +50,10 @@ namespace mvc.Common
 
                 controller == "Projects"  ||
                 controller == "Sections"  ||
+                (
+                controller == "Departments" &&
+                action == "DepartmentManagerReport"
+                ) ||
                 (
                 controller == "Departments" &&
                 action == "DepartmentProjects"

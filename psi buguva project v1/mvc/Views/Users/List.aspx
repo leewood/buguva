@@ -36,4 +36,11 @@
 	   <% } %>
 	</table>
 	<%= Html.ActionImageLink("../Content/new.png", "", "New", new {}) %><%= Html.ActionLink("Naujas vartotojas", "New") %>
+
+	<div class="description">
+	    <img src="../../Content/delete.png" alt="img" /> - Ištrinti įrašą <br />
+	    <img src="../../Content/edit.png" alt="img" /> - Redaguoti įrašą<br />
+	    <img src="../../Content/key.png" alt="img" /> - Keisti vartotojo prisijungimo slaptažodį
+	</div>
+
 </asp:Content>

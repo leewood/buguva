@@ -29,10 +29,14 @@
             Text="Importuoti" />
         <span id="Span1" runat="Server" />
         <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
-        <br />
         
-        <br />
-    
+	<div class="description">
+	    Pasirinkite Excel failą savo lokaliame diske paspaudę 'Browse'.
+	    Jūs galite importuori *.xls ir *.xlsx failus. 
+	</div>
+	
     </form>
+    
+
     
 </asp:Content>

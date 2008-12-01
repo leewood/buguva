@@ -8,10 +8,10 @@
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
    	</div> 
 <ul id="menu">
-   <li class="selected">
+   <li class="simple">
       <%= Html.ActionLink("Projekto ataskaita", "ProjectManagerReport", new { project_id = (int)ViewData["project_id"]}) %>
    </li>
-   <li class="simple">
+   <li class="selected">
       <%= Html.ActionLink("Projekto intensyvumas", "ProjectIntensivityReport", new { project_id = (int)ViewData["project_id"] })%>                    
    </li>
 </ul>

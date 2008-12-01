@@ -585,6 +585,8 @@ namespace mvc.Controllers
         {
             if (department_id.HasValue)
             {
+                ViewData["Image"] = road.img("Department");
+                
                 Models.Department currentDepartment = null;
                 if (DBDataContext.Departments.Any())
                 {
@@ -725,6 +727,8 @@ namespace mvc.Controllers
         {
             if (department_id.HasValue)
             {
+                ViewData["Image"] = road.img("Department");
+                
                 Models.Department currentDepartment = null;
                 if (DBDataContext.Departments.Any())
                 {

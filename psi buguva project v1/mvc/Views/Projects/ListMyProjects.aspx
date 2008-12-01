@@ -46,4 +46,9 @@
 	   <% } %>
 	</table>
 	
+	<div class="description">
+	    <img src="../../Content/Images/Icons/Tasks.png" alt="img" /> - Projekte esančios užduotys <br />
+	    <img src="../../Content/Images/Icons/ManagerReport.png" alt="img" /> - Vadovaujamo projekto ataskaita
+	</div>
+	
 </asp:Content>

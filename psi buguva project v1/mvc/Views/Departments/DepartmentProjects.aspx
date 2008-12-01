@@ -4,7 +4,9 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-<%= Html.Path() %>
+    <div class = "path">
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	</div> 
 <ul id="menu">
    <li class="simple">
       <%= Html.ActionLink("Bendra Ataskaita", "DepartmentManagerReport", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"] })%>
@@ -25,6 +27,7 @@
    </li>
 </ul>
 
+<div id="years_form">
 <% Html.BeginForm("DepartmentProjects", "Departments", FormMethod.Get); %>  
   <label>Nuo:</label>
   Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
@@ -40,6 +43,7 @@
   <%= Html.Hidden("chart") %>
   <%= Html.Hidden("pageSize") %>
 <% Html.EndForm(); %>
+</div>
 <% bool paintContent = true; %>
 <% if (TempData.ContainsKey("errors")) {paintContent = false;}; %>
     <div class = "errors">
