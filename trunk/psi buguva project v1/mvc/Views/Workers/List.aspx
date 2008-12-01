@@ -35,4 +35,10 @@
 	   <% } %>
 	</table>
 	<%= Html.ActionImageLink("../Content/new.png", "", "New", new {}) %><%= Html.ActionLink("Naujas darbuotojas", "New") %>
+
+	<div class="description">
+	    <img src="../../Content/delete.png" alt="img" /> - Ištrinti įrašą <br />
+	    <img src="../../Content/edit.png" alt="img" /> - Redaguoti įrašą
+	</div>
+
 </asp:Content>

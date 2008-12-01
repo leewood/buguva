@@ -115,8 +115,7 @@ page width. Or, you can specify an exact pixel width. */
 
 #left_meniu ul li a:hover
 {
-	font-weight: bold;
-	color: #333;	
+	text-decoration: underline;	
 }
 
 #left_meniu ul li .selected
@@ -267,16 +266,34 @@ div #login form input:hover[type=submit]
 {
 	border-bottom: 1px #D3ECFF solid;
 	font-size: 15px;
-	color: #535353;
-
 }
 
 #content #menu2
 {
 	border-bottom: 1px #D3ECFF solid;
 	font-size: 15px;
-	color: #535353;	
+}
 
+#content #menu .selected, #content #menu2 .selected
+{
+	border-bottom: 1px #FFFFFF solid;
+	background-color: #FFFFFF;
+}
+
+#content #menu .selected a, #content #menu2 .selected a
+{
+	font-weight: bold;
+	color: #000000;
+}
+
+#content #menu .simple a, #content #menu2 .simple a
+{
+	color: #000000;
+}
+
+#content table 
+{
+	margin: 10px;
 }
 
 #content ul
@@ -308,6 +325,30 @@ div #login form input:hover[type=submit]
 {
 	text-decoration: none;
 }
+
+#years_form 
+{
+	background-color: #F0F7FB;
+	border: 1px #D6E9F3 solid;
+	padding: 5px;
+}
+
+#years_form input
+{
+	width: 40px;
+}
+
+
+#years_form input[type=submit]
+{
+	width: 100px;
+}
+
+#years_form label
+{
+	font-weight: bold;
+}
+	
 
 /* TAB MENU   
 ----------------------------------------------------------*/
@@ -506,7 +547,9 @@ form
 
 }
 
-form input, 
+#years_form input,
+#years_form select,
+form input,
 form select {
 	margin-bottom: 5px;
 	color: #212121;
@@ -541,6 +584,7 @@ form textarea {
 	font-size: 14px;
 }
 
+#years_form input[type=submit],
 form input[type=submit] {
 	background-color: #FFF;
 	border-width: 1px;
@@ -551,6 +595,7 @@ form input[type=submit] {
 	margin: 3px;
 }
 
+#years_form input:hover[type=submit],
 form input:hover[type=submit] {
 	background-color: #a4a3a8;
 	color: #FFF;
@@ -599,6 +644,7 @@ form legend {
 	float: left;
 	padding-left: 3px;
 	padding-right: 3px;
+	font-weight: bold;
 }
 
 .path a
@@ -606,7 +652,6 @@ form legend {
 	padding-top: 19px;
 	display: block;
 	float: left;
-	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -727,6 +772,14 @@ form legend {
 	background-color: #0cb3df;
 	color: #FFF;
 	text-decoration: none;
+}
+
+.description {
+	border: 1px solid #CCC;
+	background-color: #EEE;
+	color: #2e2e2e;
+	margin: 10px;
+	padding: 10px;
 }
 
 /* MISC  
