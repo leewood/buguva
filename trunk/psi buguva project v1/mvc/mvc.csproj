@@ -498,6 +498,8 @@
     <Content Include="Content\Images\pattern2.gif" />
     <Content Include="Content\Images\pattern4.jpg" />
     <Content Include="Content\Images\pattern6.jpg" />
+    <Content Include="Content\Images\pattern6_old.jpg" />
+    <Content Include="Content\Images\pattern_back.jpg" />
     <Content Include="Content\Images\POAlogo.png" />
     <Content Include="Content\Images\prisijungimas.png" />
     <Content Include="Content\key.png" />
