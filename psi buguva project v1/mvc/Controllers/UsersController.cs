@@ -48,6 +48,7 @@ namespace mvc.Controllers
                     {
                         user.deleted_by_id = userSession.userId;
                     }
+                    user.login_name = "?" + user.id.ToString() + "?" + user.login_name;
                     DBDataContext.SubmitChanges();
                 }
                 else
@@ -170,7 +171,15 @@ namespace mvc.Controllers
                 var errors = user.Validate();
                 if (errors != null)
                 {
-                    TempData["errors"] = errors.ErrorMessages;
+                    string[] errorsList = errors.ErrorMessages;
+                    for (int i = 0; i < errorsList.Length; i++)
+                    {
+                        if (errorsList[i] == "Slaptažodis ir pakartotasis slaptažodis turi sutapti")
+                        {
+                            errorsList[i] = "Neteisingas senasis slaptažodis";
+                        }
+                    }
+                    TempData["errors"] = errorsList;
                     TempData["user"] = user;
                     return RedirectToAction("ChangePassword", new { id = user.id });
                 }

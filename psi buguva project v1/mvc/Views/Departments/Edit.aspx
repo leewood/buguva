@@ -7,7 +7,7 @@
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["TitleWindow"]%></span>
    	</div>  
     <div class = "errors">
-      <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
+      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"])%>
     </div>
     <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <% Html.BeginForm("Update", "Departments", new {id = ViewData.Model.id}, FormMethod.Post); %>
@@ -15,7 +15,7 @@
          <fieldset>
         <legend>Informacija apie departamentą ID <%= ViewData.Model.id %></legend>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
-        <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.headmaster_id); %>
+        <% SelectList list = new SelectList(data.Workers.Where(w => w.deleted.HasValue == false).ToList(), "id", "Fullname", ViewData.Model.headmaster_id); %>
          <p>
             <label for="title">Skyriaus pavadinimas:</label><%= Html.TextBox("title") %>
          </p>

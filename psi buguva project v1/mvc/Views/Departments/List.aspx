@@ -25,7 +25,7 @@
 	      <tr>
 	        <td style="display:none"><%= department.id %></td>
 	        <td><%= department.title %></td>
-	        <td><%= (department.Worker != null)?department.Worker.Fullname:"Nepaskirtas" %></td>
+	        <td><%= ((department.Worker != null) && (department.Worker.deleted.HasValue == false))?department.Worker.Fullname:"Nepaskirtas" %></td>
 	        <td width="60">
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = department.id}) %>
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = department.id}, true, "Ar tikrai norite ištrinti šį skyrių?") %>	          

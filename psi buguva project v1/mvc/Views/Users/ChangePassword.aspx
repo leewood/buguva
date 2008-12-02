@@ -7,7 +7,7 @@
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
    	</div> 
     <div class = "errors">
-      <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
+      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
     </div>
     <% Html.BeginForm("UpdatePassword", "Users", new { id = ViewData.Model.id }, FormMethod.Post); %>
     <% { %>
