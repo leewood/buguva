@@ -196,7 +196,7 @@ namespace mvc.Models
         }
 
 
-        [ValidateSameAs("new_password", "Slaptaþodis ir pakartotasis slaptaþodis turi sutapti")]        
+        [ValidateSameAs("new_password", "Naujasis slaptaþodis ir pakartotasis slaptaþodis turi sutapti")]        
         public string new_repeated_password
         {
             get

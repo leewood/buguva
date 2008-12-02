@@ -392,11 +392,13 @@ namespace mvc.Controllers
                 ViewData["Base"] = road.link("Mano Projektai", "Projects", "ListMyProjects");
 
                 ViewData["project_id"] = project_id;
-                ViewData["Title"] = "Projekto #" + project_id.Value.ToString() + " intensyvumas";
+                
                 int curPage = page ?? 1;
                 ViewData["curPage"] = curPage;
                 ViewData["itemsPerPage"] = userSession.ItemsPerPage;
                 Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
+                ViewData["Title"] = "Projekto " + myProject.title + " intensyvumas";
+                ViewData["projectCode"] = myProject.title;
                 List<Models.MonthOfYear> months = myProject.workedMonthsInProject();
                 List<Models.ProjectIntensivity> result = new List<mvc.Models.ProjectIntensivity>();
                 foreach (Models.MonthOfYear month in months)
@@ -427,9 +429,11 @@ namespace mvc.Controllers
             {
                 ViewData["Image"] = road.img("ManagerReport");
                 ViewData["Base"] = road.link("Mano Projektai", "Projects", "ListMyProjects");
-                ViewData["Title"] = "Vadovo ataskaita";
+                
                 
                 Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
+                ViewData["Title"] = "Projekto " + myProject.title + " vadovo ataskaita";
+                ViewData["projectCode"] = myProject.title;
                 System.Collections.Generic.List<Models.Department> departments = DBDataContext.Departments.Where(department =>(department.Workers.Count > 0) && (department.Workers.Where(worker => ((((worker.Tasks.Count > 0) && (worker.Tasks.Where(task=> task.project_id == project_id.Value).Count() > 0))) || (myProject.project_manager_id == worker.id))).Count() > 0)).ToList();
                 int totalProjectHours = 0;
                 System.Collections.Generic.List<Models.DepartmentInfoForProject> departmentsInfo = new List<mvc.Models.DepartmentInfoForProject>();
@@ -520,11 +524,13 @@ namespace mvc.Controllers
                 int yearToUse = 0;
                 if ((!year.HasValue) || (!month.HasValue))
                 {
+                    /*
                     if (months.Count > 0)
                     {
                         yearToUse = months[0].Year;
                         monthToUse = months[0].Month;
                     }
+                     */
                 }
                 else
                 {
@@ -535,8 +541,12 @@ namespace mvc.Controllers
                 {
                     tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.year == yearToUse) && (task.month == monthToUse) && (task.project_participant_id == workerID))).ToList();
                 }
+                else
+                {
+                    tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.project_participant_id == workerID))).ToList();
+                }
                 if (tasks == null) tasks = new List<mvc.Models.Task>();
-                return View(new Models.TasksAndMonths(tasks.ToPagedList(currentPage - 1, 25), months, new Models.MonthOfYear(yearToUse, monthToUse), project));
+                return View(new Models.TasksAndMonths(tasks.ToPagedList(currentPage - 1, 25), months, ((yearToUse + monthToUse > 0)?new Models.MonthOfYear(yearToUse, monthToUse):null), project));
             }
             else
             {

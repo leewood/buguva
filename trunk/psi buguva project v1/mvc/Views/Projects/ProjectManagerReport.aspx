@@ -21,13 +21,13 @@
 <fieldset class="report">
 <table>
  <tr>
-   <td>Projekto kodas</td><td><%= ViewData.Model.Project.id %></td>
+   <td>Projekto kodas</td><td><%= ViewData.Model.Project.title %></td>
  </tr>
  <tr>
   <td>Projecto vadovas</td><td><%= (ViewData.Model.Project.Worker != null)?(Html.ActionLink(ViewData.Model.Project.Worker.Fullname, "ListMyProjects", new {id = ViewData.Model.Project.Worker.id})):"Nepaskirtas" %></td>
  </tr>  
  <tr>
-  <td>Projekto vadovo skyrius</td><td><%= (ViewData.Model.Project.Worker != null)?ViewData.Model.Project.Worker.department_id.ToString():"Nepaskirtas" %></td>
+  <td>Projekto vadovo skyrius</td><td><%= (ViewData.Model.Project.Worker != null)?((ViewData.Model.Project.Worker.Department != null)?ViewData.Model.Project.Worker.Department.title:"Nepaskirtas"):"Nepaskirtas" %></td>
  </tr>
  <tr> 
   <td>Prasid&#279;jo</td><td><%= (ViewData.Model.Project.FirstTask != null)?ViewData.Model.Project.FirstTask.FullMonthName:"Neprasid&#279;jo" %></td>
@@ -81,7 +81,7 @@
       <% } %>
       <tr>
         <td colspan="2">
-          <label><b>Viso:</b></label><label><%= ViewData.Model.TotalWorkedHours %></label>
+          <label><b>Viso projekte dirbta </b></label><label style=" font-weight: 200"><%= ViewData.Model.TotalWorkedHours %></label><label><b> val.</b></label>
         </td>
       </tr>
   </table>

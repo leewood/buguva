@@ -7,7 +7,7 @@
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
    	</div> 
     <div class = "errors">
-      <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
+      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"])%>
     </div>
     <% Html.BeginForm("Update", "Users", new { id = ViewData.Model.id }, FormMethod.Post); %>
     <% { %>
@@ -20,12 +20,19 @@
             <label for="director">Lygis:</label><%= Html.DropDownList("level", ViewData.Model.LevelsList) %>
          </p>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
-        <% List<Worker> dataList = data.Workers.Where(w => (w.deleted.HasValue == false)).ToList(); %>        
-        <% SelectList list = new SelectList(dataList, "id", "Fullname", ViewData.Model.worker_id); %>         
-        
+        <% List<Worker> dataList = data.Workers.Where(w => (w.deleted.HasValue == false)).ToList(); %>                
+        <% List<KeyValuePair<string, object>> additionalValues = new List<KeyValuePair<string, object>>();
+           additionalValues.Add(new KeyValuePair<string,object>("Nesusietas", null));
+           
+           foreach (Worker worker in dataList)
+           {
+               additionalValues.Add(new KeyValuePair<string, object>(worker.Fullname, worker.id));
+           }
+            %>
+        <% SelectList list = new SelectList(additionalValues, "Value", "Key", ViewData.Model.worker_id); %>                     
          <p>
-            <label for="surname">Susietas su darbuotoju:</label><%= Html.DropDownList("worker_id", list) %>
-         </p>   
+            <label for="surname">Susietas su darbuotoju:</label><%= Html.DropDownList("worker_id", list)%>
+         </p>  
          </fieldset>      
          <input type="submit" value = "Keisti" />                                                             
     <% } %>

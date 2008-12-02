@@ -9,7 +9,17 @@
    	<div id="monthChoose">
    	  <% int currentYear = 0; %>
    	  <% int lastMonth = 0; %>
-   	  <% string next = "<br/>"; %>
+   	  <% string next = "<br/>";
+         string nextStyle = " style=\"clear:left;\"";
+   	   %>
+   	   <% if (ViewData.Model.CurrentMonth == null)
+          { %>     
+   	      <span class="selected">Visos užduotys</span>
+       <% }
+          else
+          { %>
+       <%= Html.ActionLink("Visos užduotys", "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber })%>
+       <%} %>
    	  <% foreach (MonthOfYear monthOfYear in ViewData.Model.Months) %>
    	  <% { %>   	     	        
    	     <% if ((monthOfYear != null)) %>
@@ -17,9 +27,11 @@
    	            <%
                     if (monthOfYear.Year != currentYear)
                     { %>
-                      <label><%=monthOfYear.Year %></label>
-                      
-                    <%  if (currentYear != 0)
+                    <%= next %>
+                     <%= "<label" + nextStyle + ">" + monthOfYear.Year.ToString() +  "</label>" %>
+                    <%  next = "<br/>";
+                        nextStyle = " style=\"clear:left;\"";
+                        if (currentYear != 0)
                         for (int i = lastMonth + 1; i <= 12; i++)
                         {  %>
                         <span><%= MonthOfYear.getMonthName(i) %></span>    
@@ -32,7 +44,7 @@
                    <span><%= MonthOfYear.getMonthName(i) %></span>    
                 <% }
                    lastMonth = monthOfYear.Month;
-                   if (this.ViewData.Model.CurrentMonth.Equals(monthOfYear))
+                   if ((this.ViewData.Model.CurrentMonth != null) && (this.ViewData.Model.CurrentMonth.Equals(monthOfYear)))
                    { %>
                     <span class="selected"><%= MonthOfYear.getMonthName(monthOfYear.Month)%></span>
              <% }
