@@ -5,12 +5,13 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    background-color: #b2b2b2;
     font-family: Calibri, "Lucida Sans Unicode", Verdana, Helvetica, Sans-Serif;
     font-size: 12px;
     margin: 0;
     padding: 0;
     color: #696969;
+    background-image: url("../Content/Images/pattern_back.jpg");
+    background-repeat: repeat;
 }
 
 p, ul
@@ -438,12 +439,12 @@ div #login form input:hover[type=submit]
 
 #header ul#menu li.clear a
 {
-    color: #75C1FF;	
+    color: #EEEEEE;	
 }
 
 #header ul#menu li.clear a:hover
 {
-    color: #EBEBEB;	
+    color: #FFFFFF;	
 }
 
 #header p#logo
@@ -609,11 +610,46 @@ form .check_box label
 	color: #535353;		
 }
 
-form fieldset {
+form fieldset, .report {
 	margin: 10px 0;
 	padding: 10px;
 	border: #DDD 1px solid;
 }
+
+.report
+{
+	font-size: 15px;
+	color: #333333;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.report_table 
+{
+	border-top: #DDD 1px solid;
+	border-left:  #DDD 1px solid;
+	border-right:  #DDD 1px solid;
+	width: 300px;	
+}
+
+.report_table td 
+{
+	color: inherit;
+	padding: 3px;	
+	border-bottom: 1px #DDD solid;
+}
+
+.report_table .sum
+{
+	border-top: 1px #000000 solid;
+}
+
+.report_table th
+{
+	padding: 3px;
+	text-align: left;
+	border-bottom: 2px #DDD solid;
+}
+
 
 form legend {
 	font-weight: bold;

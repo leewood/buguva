@@ -48,17 +48,22 @@
                         <a href="<%=userSession.myAdminUrl %>">Administravimas</a>
                     </li>
                     <% } %>
-                    
+
                     <li class="clear">
-                        <span class="login_name">                            
+                        <span class="login_name">
+                        <!--                            
                             <%=userNav.userSession.workerName %> 
                             <%=userNav.userSession.workerSurname %>
+                        -->
+                            <span class="login_name"><%=userNav.userSession.userName %></span>
+                        <!--    
                             <%=(userNav.userSession.workerSurname.Length == 0)? "" : " - " %>
                             <%=userNav.getDepartmentName() %>                        
                         </span>
                         <span class="blank_comment">prisijungta kaip </span>
                         <span class="login_name"><%=userNav.userSession.userName %></span>
                         <span class="blank_comment"><%=userNav.userSession.userLevelName %></span>
+                        -->
                         (<a href="/Login/Logout">Atsijungti</a>)
                     </li>
                 </ul>
