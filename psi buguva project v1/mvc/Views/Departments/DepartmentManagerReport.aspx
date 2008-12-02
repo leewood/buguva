@@ -54,7 +54,8 @@
 <% } %>
 <% else %>
 <% { %>
-<table>
+<fieldset class="report">
+<table style="margin-bottom: 0px;">
  <tr>
     <td>Skyriaus kodas/pavadinimas</td><td><%= ViewData.Model.DepartmentInfo.title %></td>
  </tr>
@@ -83,7 +84,13 @@
         </tr>            
   <% } %>
  </table>
+ <table style="margin-top: 0px;"><tr><td>
  <label>Nedirbta jokiame projekte </label><label><%= ViewData.Model.WorkedNoWhere %> val.( <%=ViewData.Model.PercentNotWorked%> viso įmonės darbo laiko per laikotarpį) </label>
+ </td></tr></table>
 <% } %>
+
+</fieldset>
+
 <% } %>
+
 </asp:Content>

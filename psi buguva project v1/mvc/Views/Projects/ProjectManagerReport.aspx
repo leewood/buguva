@@ -18,6 +18,7 @@
       <%= Html.ActionLink("Projekto intensyvumas", "ProjectIntensivityReport", new { project_id = ViewData.Model.Project.id }) %>                    
    </li>
 </ul>
+<fieldset class="report">
 <table>
  <tr>
    <td>Projekto kodas</td><td><%= ViewData.Model.Project.id %></td>
@@ -40,7 +41,7 @@
 </table>  
 <table> 
   <tr>
-    <td colspan="2">Dalyviai:</td>
+    <td colspan="2"><b>Dalyviai:</b><br /><br /></td>
   </tr>
   
   <% foreach (DepartmentInfoForProject departmentInfo in ViewData.Model.DepartmentsInfo) %>
@@ -51,7 +52,7 @@
         <td>
         <div class = "subTable">
           <label><%= Html.ActionLink("Skyrius: " + departmentInfo.Department.title, "DepartmentManagerReport", new {controller="Departments", department_id = departmentInfo.Department.id})%></label>
-          <table class = "grid">
+          <table class = "report_table" cellpadding="0" cellspacing="0">
             <tr>
               <th>Dalyvis</th>
               <th>Dirbo val.</th>
@@ -64,11 +65,11 @@
             </tr>            
             <% } %>
             
-            <tr style="border-top: solid 2px Black">
-              <td>
+            <tr>
+              <td class="sum">
                 Viso skyriui:
               </td>
-              <td>
+              <td class="sum">
                 <%=departmentInfo.Hours %>
               </td>
             </tr>
@@ -80,9 +81,9 @@
       <% } %>
       <tr>
         <td colspan="2">
-          <label>Viso:</label><label><%= ViewData.Model.TotalWorkedHours %></label>
+          <label><b>Viso:</b></label><label><%= ViewData.Model.TotalWorkedHours %></label>
         </td>
       </tr>
   </table>
-
+</fieldset>
 </asp:Content>
