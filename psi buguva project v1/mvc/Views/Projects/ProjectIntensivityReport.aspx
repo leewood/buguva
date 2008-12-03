@@ -16,7 +16,7 @@
    </li>
 </ul>
     
-    <label style="margin-left: 30px; font-size: larger"><b>Projekto kodas: </b><%= ViewData["projectCode"].ToString() %></label><br />
+    <label style="margin-left: 30px; font-size: larger"><b>Projekto kodas: </b><%= ((ViewData["projectCode"] != null)?ViewData["projectCode"].ToString():"") %></label><br />
 	<% string[] legends = {"Viso dirbta", "Projekto skyriaus darbuotojų", "Kitų darbuotojų" }; %>
 	<% string[] yAxes = {"TotalWorkedHours", "ProjectsWorkersWorkedHours", "OthersWorkedHours"}; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Black };  %>
