@@ -398,7 +398,7 @@ namespace mvc.Controllers
                 ViewData["itemsPerPage"] = userSession.ItemsPerPage;
                 Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
                 ViewData["Title"] = "Projekto " + myProject.title + " intensyvumas";
-                ViewData["projectCode"] = myProject.title;
+                ViewData["projectCode"] = myProject.title + " ";
                 List<Models.MonthOfYear> months = myProject.workedMonthsInProject();
                 List<Models.ProjectIntensivity> result = new List<mvc.Models.ProjectIntensivity>();
                 foreach (Models.MonthOfYear month in months)
