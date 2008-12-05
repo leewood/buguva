@@ -599,6 +599,10 @@ namespace mvc.Controllers
                     }
                     if (currentDepartment != null)
                     {
+                        if (!currentDepartment.canBeSeen())
+                        {
+                            return RedirectToAction("NoPermissions", "Home");
+                        }
                         ViewData["Title"] = "Skyriaus " + currentDepartment.title + " projektai";
                         ViewData["department_id"] = department_id.Value;
                         ViewData["viewOnlyMy"] = showOnlyMyProjects ?? false;
@@ -741,6 +745,10 @@ namespace mvc.Controllers
                     }
                     if (currentDepartment != null)
                     {
+                        if (!currentDepartment.canBeSeen())
+                        {
+                            return RedirectToAction("NoPermissions", "Home");
+                        }
                         ViewData["Title"] = "Skyriaus " + currentDepartment.title + " vadovo ataskaita";
                         ViewData["department_id"] = department_id.Value;                        
                         Models.DepartmentManagerReport report = new mvc.Models.DepartmentManagerReport();

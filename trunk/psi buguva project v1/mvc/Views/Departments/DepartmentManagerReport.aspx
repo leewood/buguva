@@ -60,7 +60,7 @@
     <td>Skyriaus kodas/pavadinimas</td><td><%= ViewData.Model.DepartmentInfo.title %></td>
  </tr>
  <tr>
-   <td>Skyriaus vadovas</td><td><%= (ViewData.Model.DepartmentInfo.Worker != null) ? Html.ActionLink(ViewData.Model.DepartmentManagerTitle, "ListMyProjects", new { id = ViewData.Model.DepartmentInfo.Worker.id }) : ViewData.Model.DepartmentManagerTitle%></td>
+   <td>Skyriaus vadovas</td><td><%= (ViewData.Model.DepartmentInfo.Worker != null) ? ((ViewData.Model.DepartmentInfo.Worker.canBeSeen())?Html.ActionLink(ViewData.Model.DepartmentManagerTitle, "ListMyProjects", new {controller="Projects", id = ViewData.Model.DepartmentInfo.Worker.id }):ViewData.Model.DepartmentManagerTitle) : ViewData.Model.DepartmentManagerTitle%></td>
  </tr>  
  <tr>
    <td>Viso skyrius dirbo projektuose</td><td><%= ViewData.Model.TotalDepartmentWorked %></td>
@@ -78,8 +78,10 @@
  <table class="grid">   
   <% foreach (AssociatedWorkedHours hours in ViewData.Model.WorkedHoursOfOthers) %>
   <% { %>
-        <tr>
-           <td style="width:145px"><%= Html.ActionLink("Skyrius: " + hours.Title, "DepartmentManagerReport", new { controller = "Departments", department_id = hours.AssociationID })%></td>
+        <tr>          
+           <%  mvc.Models.POADataModelsDataContext DBDataContext = new POADataModelsDataContext();
+               Department department = DBDataContext.Departments.First(d => d.id == hours.AssociationID); %>
+           <td style="width:145px"><%= (department.canBeSeen()) ? Html.ActionLink("Skyrius: " + hours.Title, "DepartmentManagerReport", new { controller = "Departments", department_id = hours.AssociationID }) : "Skyrius: " + hours.Title%></td>
            <td><%= hours.Hours %></td>
         </tr>            
   <% } %>

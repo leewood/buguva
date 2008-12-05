@@ -62,7 +62,7 @@
 <% else %>
 <% { %>
  <div class="pager">
-   <%= Html.Pager((int)ViewData["pageSizeExt"], (int)ViewData["pageExt"], (int)ViewData["pageCountExt"] * (int)ViewData["pageSizeExt"], new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"] })%>
+   <%= Html.Pager((int)ViewData["pageSizeExt"], (int)ViewData["pageExt"], (int)ViewData["pageCountExt"] * (int)ViewData["pageSizeExt"], new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"] })%>
  </div>
  <table class="grid">   
     <tr>
@@ -77,10 +77,15 @@
     </tr>
   <% foreach (DepartmentProjectReport projectLine in ViewData.Model) %>
   <% { %>
-        <tr>
-           <td><%= Html.ActionLink(projectLine.Title, "ProjectManagerReport", new {controller = "Projects", project_id = projectLine.ProjectID}) %></td>
-           <td><%= (projectLine.ManagerID > 0) ? Html.ActionLink(projectLine.Manager, "ListMyProjects", new { controller = "Projects", id = projectLine.ManagerID }) : "<span style=\"color:Red\">" + projectLine.Manager + "</span>" %></td>
-           <td><%= (projectLine.DepartmentID > 0) ? Html.ActionLink(projectLine.ManagerDepartment, "DepartmentManagerReport", new { department_id = projectLine.DepartmentID }) : "<span style=\"color:Red\">" + projectLine.ManagerDepartment + "</span>"%></td>
+        <tr> 
+        <% mvc.Models.POADataModelsDataContext DBDataContext = new POADataModelsDataContext();
+                Project project = DBDataContext.Projects.First(p => p.id == projectLine.ProjectID);
+                Department department = DBDataContext.Departments.First(d => d.id == projectLine.DepartmentID);
+                Worker worker = DBDataContext.Workers.First(w => w.id == projectLine.ManagerID);
+          %>
+           <td><%= (project.canBeSeen())?Html.ActionLink(projectLine.Title, "ProjectManagerReport", new {controller = "Projects", project_id = projectLine.ProjectID}):projectLine.Title %></td>
+           <td><%= (projectLine.ManagerID > 0) ? ((worker.canBeSeen())? Html.ActionLink(projectLine.Manager, "ListMyProjects", new { controller = "Projects", id = projectLine.ManagerID }):projectLine.Manager) : "<span style=\"color:Red\">" + projectLine.Manager + "</span>" %></td>
+           <td><%= (projectLine.DepartmentID > 0) ? ((department.canBeSeen())? Html.ActionLink(projectLine.ManagerDepartment, "DepartmentManagerReport", new { department_id = projectLine.DepartmentID }):projectLine.ManagerDepartment) : "<span style=\"color:Red\">" + projectLine.ManagerDepartment + "</span>"%></td>
            <td><%= projectLine.Started %></td>
            <td><%= projectLine.Ended %></td>
            <td><%= projectLine.TotalWorked %></td>

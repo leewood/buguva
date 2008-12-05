@@ -231,6 +231,13 @@
     <Compile Include="Views\Home\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Home\NoPermissions.aspx.cs">
+      <DependentUpon>NoPermissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Home\NoPermissions.aspx.designer.cs">
+      <DependentUpon>NoPermissions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Import\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -511,6 +518,7 @@
     <Content Include="Views\Departments\Edit.aspx" />
     <Content Include="Views\Departments\List.aspx" />
     <Content Include="Views\Departments\New.aspx" />
+    <Content Include="Views\Home\NoPermissions.aspx" />
     <Content Include="Views\Import\Index.aspx" />
     <Content Include="Views\Projects\AllProjects.aspx" />
     <Content Include="Views\Projects\Edit.aspx" />

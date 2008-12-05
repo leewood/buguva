@@ -101,11 +101,11 @@ namespace mvc.Common
 
                 case 2:
 
-                    return data.Departments.Where(Department => (Department.id == this.userSession.workerDepartment)).ToList();
+                    return data.Departments.Where(Department => ((Department.headmaster_id == this.userSession.workerID) && (Department.deleted.HasValue == false))).ToList();
 
                 case 3:
 
-                    return data.Departments.ToList();
+                    return data.Departments.Where(d => d.deleted.HasValue == false).ToList();
 
                 case 4:
 
