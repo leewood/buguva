@@ -90,7 +90,7 @@ namespace mvc.Models
     {
         private List<string> _columnCaptions = new List<string>();
         private List<string> _columnActions = new List<string>();
-        private List<object> _columnRedirections = new List<object>();
+        private List<System.Web.Routing.RouteValueDictionary> _columnRedirections = new List<System.Web.Routing.RouteValueDictionary>();
         private List<IncompleteWorkValueReportRow> _rows = new List<IncompleteWorkValueReportRow>();
         public List<string> Captions
         {
@@ -105,7 +105,7 @@ namespace mvc.Models
         }
 
 
-        public List<object> Redirections
+        public List<System.Web.Routing.RouteValueDictionary> Redirections
         {
             get
             {
@@ -163,6 +163,57 @@ namespace mvc.Models
                 SelectList result = new SelectList(list, "Value", "Key", selectedLevel);
                 return result;
             }
+        }
+
+        public bool canBeSeen()
+        {
+            mvc.Common.UserSession userSession = new mvc.Common.UserSession();
+            if (userSession.isSimpleUser())
+            {
+                if (userSession.userId != this.id)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else if (userSession.isAdministrator())
+            {
+                return true;
+            }
+            else if (userSession.isAntanas())
+            {
+                return true;
+            }
+            else if (userSession.isDepartmentMaster())
+            {
+                if (this.Worker == null)
+                {
+                    return false;
+                }
+                else 
+                {
+                    if (this.Worker.Department == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        if (this.Worker.Department.Worker == null)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return this.Worker.Department.Worker.id == userSession.workerID;
+                        }
+                      
+                    }
+                }
+            }
+            return false;
         }
 
         private string _repeatPass = null;
@@ -248,6 +299,31 @@ namespace mvc.Models
             }
         }
 
+        public bool canBeSeen()
+        {
+            mvc.Common.UserSession userSession = new mvc.Common.UserSession();
+            if (userSession.isAntanas() || userSession.isAdministrator())
+            {
+                return true;
+            }
+            else if (userSession.isSimpleUser())
+            {
+                if (this.Worker != null)
+                {
+                    return this.Worker.id == userSession.workerID;
+                }
+            }
+            else if (userSession.isDepartmentMaster())
+            {
+                if ((this.Worker != null) && (this.Worker.Department != null) && (this.Worker.Department.Worker != null))
+                {
+                    return this.Worker.Department.Worker.id == userSession.workerID;
+                }
+            }
+            return false;
+        }
+
+
         public ErrorSummary Validate()
         {
             ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
@@ -268,6 +344,32 @@ namespace mvc.Models
             else
                 return null;
         }
+
+        public bool canBeSeen()
+        {
+            mvc.Common.UserSession userSession = new mvc.Common.UserSession();
+            if (userSession.isAntanas() || userSession.isAdministrator())
+            {
+                return true;
+            }
+            else if (userSession.isSimpleUser())
+            {
+                return false;
+            }
+            else if (userSession.isDepartmentMaster())
+            {
+                if (this.Worker == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.Worker.id == userSession.workerID;
+                }
+            }
+            return false;
+        }
+
 
         public Models.Department getDepartment(int workerId)
         {
@@ -603,6 +705,34 @@ namespace mvc.Models
                 }
             }
         }
+
+        public bool canBeSeen()
+        {
+            mvc.Common.UserSession userSession = new mvc.Common.UserSession();
+            if (userSession.isAntanas() || userSession.isAdministrator())
+            {
+                return true;
+            }
+            else if (userSession.isSimpleUser())
+            {
+                return false;
+            }
+            else if (userSession.isDepartmentMaster())
+            {
+                if (this.Worker != null)
+                {
+                    if (this.Worker.Department != null)
+                    {
+                        if (this.Worker.Department.Worker != null)
+                        {
+                            return this.Worker.Department.Worker.id == userSession.workerID;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
 
         public int Length
         {
@@ -951,6 +1081,34 @@ namespace mvc.Models
             }
         }
 
+        public bool canBeSeen()
+        {
+            mvc.Common.UserSession userSession = new mvc.Common.UserSession();
+            if (userSession.isAntanas() || userSession.isAdministrator())
+            {
+                return true;
+            }
+            else if (userSession.isSimpleUser())
+            {
+                return this.id == userSession.workerID;
+            }
+            else if (userSession.isDepartmentMaster())
+            {
+                if (this.Department == null)
+                {
+                    return false;
+                }
+                else if (this.Department.Worker == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.Department.Worker.id == userSession.workerID;
+                }
+            }
+            return false;
+        }
 
         public List<MonthOfYear> workedMonthsInProject(int project_id, int workerID)
         {

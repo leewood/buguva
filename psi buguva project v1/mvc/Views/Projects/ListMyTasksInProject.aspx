@@ -6,20 +6,23 @@
     <div class = "path">
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
    	</div> 
-   	<div id="monthChoose">
+   	<div id="monthChoose" style="height: auto">
    	  <% int currentYear = 0; %>
    	  <% int lastMonth = 0; %>
-   	  <% string next = "<br/>";
-         string nextStyle = " style=\"clear:left;\"";
+   	  <% string next = "";
+         string nextStyle = " style=\"\"";
    	   %>
+   	  <table style="margin: 0px">
+   	   <%= "<tr><td>"%>
    	   <% if (ViewData.Model.CurrentMonth == null)
           { %>     
-   	      <span class="selected">Visos užduotys</span>
+   	      <span class="selected" style="">Visos užduotys</span>
        <% }
           else
           { %>
-       <%= Html.ActionLink("Visos užduotys", "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber })%>
+       <%= Html.ActionLink("Visos užduotys", "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber })%>       
        <%} %>
+       
    	  <% foreach (MonthOfYear monthOfYear in ViewData.Model.Months) %>
    	  <% { %>   	     	        
    	     <% if ((monthOfYear != null)) %>
@@ -28,12 +31,13 @@
                     if (monthOfYear.Year != currentYear)
                     { %>
                     <%= next %>
-                     <%= "<label" + nextStyle + ">" + monthOfYear.Year.ToString() +  "</label>" %>
-                    <%  next = "<br/>";
-                        nextStyle = " style=\"clear:left;\"";
+                     <%= "</td></tr><tr><td><label" + nextStyle + ">" + monthOfYear.Year.ToString() + "</label>"%>
+                    <%  next = "";
+                        nextStyle = " style=\"\"";
                         if (currentYear != 0)
                         for (int i = lastMonth + 1; i <= 12; i++)
                         {  %>
+                        
                         <span><%= MonthOfYear.getMonthName(i) %></span>    
                      <%   }    
                         currentYear = monthOfYear.Year;
@@ -54,10 +58,15 @@
    	     <% }
                 } %>
    	  <% } %>
+   	  <%= "</td></tr>" %>
+   	  </table>
    	</div>
+   	<% if (ViewData.Model.Tasks.PageCount > 1)
+       { %>
    	<div class="pager">   	
-		<%= Html.Pager(ViewData.Model.Tasks.PageSize, ViewData.Model.Tasks.PageNumber, ViewData.Model.Tasks.TotalItemCount) %>
+		<%= Html.Pager(ViewData.Model.Tasks.PageSize, ViewData.Model.Tasks.PageNumber, ViewData.Model.Tasks.TotalItemCount)%>
 	</div>
+	<% } %>
 	<table class = "grid">
 	   <tr>
 	      <th>Pavadinimas</th>

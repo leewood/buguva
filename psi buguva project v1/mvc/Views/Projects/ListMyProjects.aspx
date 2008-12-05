@@ -20,20 +20,27 @@
 	      <th>Peržiūra</th>
 	   </tr>	  
 	   
-	   <% foreach (Project project in ViewData.Model) %>
+	   <% Worker worker = (Worker)ViewData["worker"];
+	       foreach (Project project in ViewData.Model) %>
        <% { %>
             <% className = (project.project_manager_id == (int)ViewData["currentWorkerID"]) ? "marked" : ""; %>
             <tr class='<%= className.ToString()%>'>
-             <td><%= Html.ActionLink(project.title, "ListMyTasksInProject", new {project_id = project.id}) %></td>             
-             <td><%= (project.Worker == null)?"<span style=\"color: Red\">Nepaskirtas</span>":Html.ActionLink(project.Worker.Fullname, "ListMyProjects", new { project_id = project.id, id = project.project_manager_id })%></td>             
+             <td><%= (worker.canBeSeen()) ? Html.ActionLink(project.title, "ListMyTasksInProject", new { project_id = project.id, id = ViewData["currentWorkerID"] }) : project.title%></td>             
+             <td><%= (project.Worker == null) ? "<span style=\"color: Red\">Nepaskirtas</span>" : ((project.Worker.canBeSeen()) ? Html.ActionLink(project.Worker.Fullname, "ListMyProjects", new { project_id = project.id, id = project.project_manager_id }) : project.Worker.Fullname)%></td>             
              <td><%= project.StartedAt %></td>             
              <td><%= project.EndedAt %></td>
              <td><%= project.TotalWorkedHours.ToString() %></td>
              <td width="60">
+               <% if (worker.canBeSeen())
+                  { %>
                <%= Html.ActionImageLink("/Content/Images/Icons/Tasks.png", "Ataskaita", "ListMyTasksInProject", new { project_id = project.id, id = ViewData["currentWorkerID"] })%>
+               <% } %>
                <% if (project.project_manager_id == (int)ViewData["currentWorkerID"]) %>
                <% { %>
+                 <% if (project.canBeSeen())
+                    { %>
                  <%= Html.ActionImageLink("/Content/Images/Icons/ManagerReport.png", "Vadovo Ataskaita", "ProjectManagerReport", new { project_id = project.id })%>
+                 <%} %>
                <% } %>
              </td>
           </tr>

@@ -16,6 +16,13 @@ namespace mvc.Controllers
             return View();
         }
 
+        public ActionResult NoPermissions()
+        {
+            ViewData["Title"] = "Nėra teisių atlikti šią operaciją";
+            ViewData["Message"] = "Nėra teisių atlikti šią operaciją";
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewData["Title"] = "About Page";

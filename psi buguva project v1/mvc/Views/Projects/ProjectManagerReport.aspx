@@ -24,7 +24,7 @@
    <td>Projekto kodas</td><td><%= ViewData.Model.Project.title %></td>
  </tr>
  <tr>
-  <td>Projecto vadovas</td><td><%= (ViewData.Model.Project.Worker != null)?(Html.ActionLink(ViewData.Model.Project.Worker.Fullname, "ListMyProjects", new {id = ViewData.Model.Project.Worker.id})):"Nepaskirtas" %></td>
+  <td>Projecto vadovas</td><td><%= (ViewData.Model.Project.Worker != null)?((ViewData.Model.Project.Worker.canBeSeen())?(Html.ActionLink(ViewData.Model.Project.Worker.Fullname, "ListMyProjects", new {id = ViewData.Model.Project.Worker.id})):ViewData.Model.Project.Worker.Fullname):"Nepaskirtas" %></td>
  </tr>  
  <tr>
   <td>Projekto vadovo skyrius</td><td><%= (ViewData.Model.Project.Worker != null)?((ViewData.Model.Project.Worker.Department != null)?ViewData.Model.Project.Worker.Department.title:"Nepaskirtas"):"Nepaskirtas" %></td>
@@ -51,7 +51,7 @@
         </td>
         <td>
         <div class = "subTable">
-          <label><%= Html.ActionLink("Skyrius: " + departmentInfo.Department.title, "DepartmentManagerReport", new {controller="Departments", department_id = departmentInfo.Department.id})%></label>
+          <label><%= (departmentInfo.Department.canBeSeen())?Html.ActionLink("Skyrius: " + departmentInfo.Department.title, "DepartmentManagerReport", new {controller="Departments", department_id = departmentInfo.Department.id}): "Skyrius: " + departmentInfo.Department.title%></label>
           <table class = "report_table" cellpadding="0" cellspacing="0">
             <tr>
               <th>Dalyvis</th>
@@ -60,7 +60,7 @@
             <% foreach (WorkerAndHours workerInfo in departmentInfo.Workers) %>
             <% { %>
             <tr>
-              <td><%= (workerInfo.Worker != null)?(Html.ActionLink(workerInfo.Worker.Fullname, "ListMyProjects", new {id = workerInfo.Worker.id})):"<span style=\"color:Red\">Nepaskirtas</span>" %></td>
+              <td><%= (workerInfo.Worker != null)?((workerInfo.Worker.canBeSeen())?(Html.ActionLink(workerInfo.Worker.Fullname, "ListMyProjects", new {id = workerInfo.Worker.id})):workerInfo.Worker.Fullname):"<span style=\"color:Red\">Nepaskirtas</span>" %></td>
               <td><%= workerInfo.Hours %></td>
             </tr>            
             <% } %>

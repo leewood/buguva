@@ -28,7 +28,8 @@
 	   <th rowspan="2"><%= ViewData.Model.Captions[0] %></th>
 	   <% for (int i = 1; i < ViewData.Model.Captions.Count; i++)
        { %>
-         <th colspan="4"><%= (ViewData.Model.Redirections[i] == null) ? ViewData.Model.Captions[i] : Html.ActionLink(ViewData.Model.Captions[i], ViewData.Model.Actions[i], ViewData.Model.Redirections) %></th>
+       
+         <th colspan="4"><%= (ViewData.Model.Redirections[i] == null) ? ViewData.Model.Captions[i] : Html.ActionLink(ViewData.Model.Captions[i], ViewData.Model.Actions[i], ViewData.Model.Redirections[i], new RouteValueDictionary()) %></th>
 	   <%} %>
 	   </tr>    
 	   <tr>

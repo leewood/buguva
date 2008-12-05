@@ -137,12 +137,25 @@ namespace mvc.Controllers
             foreach (Department department in departments)
             {
                 report.Captions.Add("Skyrius " + department.title);
-                report.Redirections.Add(new { controller = "Departments", department_id = department.id });
+                System.Web.Routing.RouteValueDictionary dict = new System.Web.Routing.RouteValueDictionary();
+                dict.Add("controller", "Departments");
+                dict.Add("department_id", department.id);
+                if (!department.canBeSeen())
+                {
+                    dict = null;
+                }
+                report.Redirections.Add(dict);
                 report.Actions.Add("DepartmentManagerReport");
                 departmentProjects.Add(DBDataContext.Projects.Where(p => department.Workers.Contains(p.Worker)).ToList());
             }
             report.Captions.Add("Visa firma");
-            report.Redirections.Add(new { controller = "Projects" });
+            System.Web.Routing.RouteValueDictionary dict2 = new System.Web.Routing.RouteValueDictionary();
+            dict2.Add("controller", "Departments");
+            if (!(userSession.isAdministrator() || userSession.isAntanas()))
+            {
+                dict2 = null;
+            }
+            report.Redirections.Add(dict2);
             report.Actions.Add("GrandMasterReport");
             List<Task> tasks = DBDataContext.Tasks.OrderBy(t => t.year * 12 + t.month).ToList();
             int start = 0;
@@ -358,9 +371,15 @@ namespace mvc.Controllers
         public ActionResult ListMyProjects(int? page, int? id)
         {
 
-            ViewData["Image"] = road.img("MyProjects");
-            
+            ViewData["Image"] = road.img("MyProjects");            
             int workerID = id ?? userSession.workerID;
+            Worker worker = DBDataContext.Workers.First(w => w.id == workerID);
+            
+            if (!worker.canBeSeen())
+            {
+                return RedirectToAction("NoPermissions", "Home");
+            }
+            ViewData["worker"] = worker;
             if (workerID == userSession.workerID)
             {
                 ViewData["Title"] = "Mano Projektai";
@@ -369,7 +388,8 @@ namespace mvc.Controllers
             {
                 ViewData["Title"] = "Darbuotojo " + id.Value.ToString() + " projektai";
             }
-
+            
+            
             ViewData["currentWorkerID"] = workerID;
             int currentPage = (page.HasValue) ? page.Value: 1;
             if (currentPage < 1)
@@ -396,7 +416,11 @@ namespace mvc.Controllers
                 int curPage = page ?? 1;
                 ViewData["curPage"] = curPage;
                 ViewData["itemsPerPage"] = userSession.ItemsPerPage;
-                Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
+                Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();                
+                if (!myProject.canBeSeen())
+                {
+                    return RedirectToAction("NoPermissions", "Home");
+                }
                 ViewData["Title"] = "Projekto " + myProject.title + " intensyvumas";
                 ViewData["projectCode"] = myProject.title + " ";
                 List<Models.MonthOfYear> months = myProject.workedMonthsInProject();
@@ -432,6 +456,10 @@ namespace mvc.Controllers
                 
                 
                 Models.Project myProject = DBDataContext.Projects.Where(project => project.id == project_id.Value).First();
+                if (!myProject.canBeSeen())
+                {
+                    return RedirectToAction("NoPermissions", "Home");
+                }
                 ViewData["Title"] = "Projekto " + myProject.title + " vadovo ataskaita";
                 ViewData["projectCode"] = myProject.title;
                 System.Collections.Generic.List<Models.Department> departments = DBDataContext.Departments.Where(department =>(department.Workers.Count > 0) && (department.Workers.Where(worker => ((((worker.Tasks.Count > 0) && (worker.Tasks.Where(task=> task.project_id == project_id.Value).Count() > 0))) || (myProject.project_manager_id == worker.id))).Count() > 0)).ToList();
@@ -502,6 +530,12 @@ namespace mvc.Controllers
                 ViewData["Base"] = road.link("Mano Projektai", "Projects", "ListMyProjects");
                 
                 int workerID = id ?? userSession.workerID;
+                Worker worker = DBDataContext.Workers.First(w => w.id == workerID);
+                if (!worker.canBeSeen())
+                {
+                    return RedirectToAction("NoPermissions", "Home");
+                }
+
                 if (workerID == userSession.workerID)
                 {
                     ViewData["Title"] = "Mano užduotys projekte";

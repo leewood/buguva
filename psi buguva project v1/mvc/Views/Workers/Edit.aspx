@@ -22,7 +22,7 @@
          </p>
          <p>
             <% POADataModelsDataContext dbConnection = new POADataModelsDataContext(); %>
-            <% SelectList departments = new SelectList(dbConnection.Departments, "id", "title", ViewData.Model.department_id);  %>
+            <% SelectList departments = new SelectList(dbConnection.Departments.Where(d=> d.deleted.HasValue == false), "id", "title", ViewData.Model.department_id);  %>
             <label for="director">Skyrius:</label><%= Html.DropDownList("department_id", departments) %>
          </p>
          </fieldset>
