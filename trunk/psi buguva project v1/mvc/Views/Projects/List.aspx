@@ -2,8 +2,18 @@
 <%@ Import Namespace="mvc.Common"%>
 <%@ Import Namespace="mvc.Models"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
+<%@ Import Namespace="System.Collections.Generic"%>
+<%@ Import Namespace="System.Linq"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   
+<% 
+    string controller_name = (string)ViewContext.RouteData.Values["controller"];
+    string action_name = (string)ViewContext.RouteData.Values["action"];    
+    
+    UserNavigation userNav = new UserNavigation(controller_name, action_name);
+    
+    UserSession userSession = userNav.userSession;
+
+%>
     <div class = "path">
    	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
    	</div>   
@@ -27,8 +37,15 @@
 	        <td><%= project.title %></td>
 	        <td><%= (project.Worker != null)?project.Worker.Fullname:"<span style=\"color:Red\">Nepaskirtas</span>" %></td>
 	        <td width="60">
+	        <% if (userSession.canEditProjects()) %>
+	        <% { %>	        
 	          <%= Html.ActionImageLink("/Content/edit.png", "Koreguoti", "Edit", new { id = project.id })%>
-	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new {id = project.id}, true, "Ar tikrai norite ištrinti šį projektą?") %>	          
+	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new { id = project.id }, true, "Ar tikrai norite ištrinti šį projektą?")%>	          
+	        <% } %>
+	        <% if (userSession.canViewAllProjectsReoprts()) %>
+	        <% { %>
+	          <%= Html.ActionImageLink("/Content/Images/Icons/ManagerReport.png", "Vadovo Ataskaita", "ProjectManagerReport", new { id = project.id })%>
+	        <% } %>
 	        </td>
 	      </tr>
 	   <% } %>

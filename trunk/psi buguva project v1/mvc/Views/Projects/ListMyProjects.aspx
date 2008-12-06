@@ -2,8 +2,18 @@
 <%@ Import Namespace="mvc.Common"%>
 <%@ Import Namespace="mvc.Models"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
+<%@ Import Namespace="System.Collections.Generic"%>
+<%@ Import Namespace="System.Linq"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<%
+    string controller_name = (string)ViewContext.RouteData.Values["controller"];
+    string action_name = (string)ViewContext.RouteData.Values["action"];    
+    
+    UserNavigation userNav = new UserNavigation(controller_name, action_name);
+    
+    UserSession userSession = userNav.userSession;
 
+%>
     <div class = "path">
    	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
    	</div> 
@@ -35,7 +45,7 @@
                   { %>
                <%= Html.ActionImageLink("/Content/Images/Icons/Tasks.png", "Ataskaita", "ListMyTasksInProject", new { project_id = project.id, id = ViewData["currentWorkerID"] })%>
                <% } %>
-               <% if (project.project_manager_id == (int)ViewData["currentWorkerID"]) %>
+               <% if (project.project_manager_id == (int)ViewData["currentWorkerID"] || userSession.canViewAllProjectsReoprts()) %>
                <% { %>
                  <% if (project.canBeSeen())
                     { %>
