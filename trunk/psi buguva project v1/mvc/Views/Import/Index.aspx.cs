@@ -99,7 +99,7 @@ namespace mvc.Views.Import
         protected void ButtonImport_Click(object sender, EventArgs e)
         {
             string path = this.Page.Request.PhysicalApplicationPath;
-            if (FileUploadImport.PostedFile != null)
+            if (FileUploadImport.FileName != "")
             {
                 try
                 {
@@ -120,9 +120,13 @@ namespace mvc.Views.Import
                     FileInfo fileInfo = new FileInfo(path + "\\" + FileUploadImport.PostedFile.FileName);
                     switch (fileInfo.Extension)
                     {
-                        case ".xlsx":
-                        case ".xlsb": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=1\""; break;
-                        default: xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\""; break;
+                        case ".xlsx": xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\"";
+                            break;
+                        case ".xls": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=1\""; 
+                            break;
+                        default:
+                            Span1.InnerHtml = "Pasirinktas blogo formato failas";
+                            return;
                     }
 
                     //string xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strPath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=1\"";
@@ -135,11 +139,11 @@ namespace mvc.Views.Import
                         connection.Open();
                         using (command = connection.CreateCommand())
                         {                            
-                            ImportDepartmentsToDatabase1(realSheetName("Skyriai", "", sheetNames));
-                            ImportWorkersToDatabase(realSheetName("Darbuotojai", "", sheetNames));
-                            ImportDepartmentsToDatabase2(realSheetName("Skyriai", "", sheetNames));
-                            ImportProjectsToDatabase(realSheetName("Projektai", "", sheetNames));
-                            ImportTasksToDatabase(realSheetName("Užduotys", "", sheetNames));                            
+                            if (CheckBoxDepartments.Checked) ImportDepartmentsToDatabase1(realSheetName("Skyriai", "", sheetNames));
+                            if (CheckBoxEmployees.Checked) ImportWorkersToDatabase(realSheetName("Darbuotojai", "", sheetNames));
+                            if (CheckBoxDepartments.Checked)ImportDepartmentsToDatabase2(realSheetName("Skyriai", "", sheetNames));
+                            if (CheckBoxProjects.Checked) ImportProjectsToDatabase(realSheetName("Projektai", "", sheetNames));
+                            if (CheckBoxTasks.Checked) ImportTasksToDatabase(realSheetName("Užduotys", "", sheetNames));                            
                         }
                     }
                 }
@@ -149,6 +153,11 @@ namespace mvc.Views.Import
                     return;
                 }
             }
+            else
+            {
+                Span1.InnerHtml = "Klaida: Nepasirinktas failas";
+            }
+
         }
 
         private void ImportTasksToDatabase(String strTable)
