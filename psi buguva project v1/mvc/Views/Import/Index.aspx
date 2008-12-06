@@ -3,12 +3,14 @@
     <div class = "path">
    	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
    	</div>       
-    <form id="form1" runat="server" style="height: 265px; width: 657px">  
+    <form id="form1" runat="server" style="height: 347px; width: 657px" >  
     <fieldset>
-        <legend>Duomenų importavimas</legend>
+        <legend>Duomen&#371; importavimas</legend>
         <asp:Label ID="LabelFileUploadImport" runat="server" Text="Failas"></asp:Label>
         <br />
-        <asp:FileUpload ID="FileUploadImport" runat="server" />
+        <asp:FileUpload ID="FileUploadImport" runat="server"/> 
+        <span id="Span1" runat="Server" />
+        <%= Html.ErrorSummary("Klaid&#371; s&#261;ra&#353;as:", (string[])TempData["errors"]) %>
         <br />
         <br />
         <asp:Label ID="LabelCheckBoxes" runat="server" Text="Importuoti"></asp:Label>
@@ -22,21 +24,28 @@
         <asp:CheckBox ID="CheckBoxProjects" runat="server" Checked="True" CssClass="check_box"
             Text="Projektai" />
         <br />
-        
-        </fieldset>
+        <asp:CheckBox ID="CheckBoxDepartments" runat="server" Checked="True" CssClass="check_box"
+            Text="Skyriai" />
+        <br />
+                            <br />
+                        <span class="login_name">
         
         <asp:Button ID="ButtonImport" runat="server" onclick="ButtonImport_Click" 
             Text="Importuoti" />
-        <span id="Span1" runat="Server" />
-        <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
+        
+        
+	    </span>
+        <br />
+        
+                        <span class="login_name">
+        
         
 	<div class="description">
-	    Pasirinkite Excel failą savo lokaliame diske paspaudę 'Browse'.
-	    Jūs galite importuori *.xls ir *.xlsx failus. 
-	</div>
-	
+	    Pasirinkite Excel fail&#261; savo lokaliame diske paspaud&#281; 'Browse'. J&#363;s galite 
+        importuori *.xls ir *.xlsx failus. 
+    </div> 
+        </span>
+        
+    </fieldset>
     </form>
-    
-
-    
 </asp:Content>
