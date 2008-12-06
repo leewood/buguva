@@ -27,9 +27,9 @@
 
 <% Html.BeginForm("GrandMastersReport", "Projects", FormMethod.Get); %>  
   <label>Nuo:</label>
-  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+  Metai:<%=Html.TextBox("startYear", ViewData["startYear"],new { style="width:50px" } ) %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
   <label>Iki:</label>
-  Metai:<%=Html.TextBox("endYear") %> Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+  Metai:<%=Html.TextBox("endYear", ViewData["endYear"], new { style = "width:50px" })%>Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
   <input type="submit" value="Pasirinkti" />  
   <%= Html.Hidden("chart") %>
 <% Html.EndForm(); %>

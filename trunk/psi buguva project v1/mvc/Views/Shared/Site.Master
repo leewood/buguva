@@ -104,10 +104,6 @@
                 <% { %>
                 <li>
                     <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
-                    <%=userNav.getLink("/Projects/List/", "Visų skyrių projektai", controller_name == "Projects" && action_name == "List")%>
-                </li>
-                <li>
-                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
                     <%=userNav.getLink("/Projects/GrandMastersReport/", "Vadovybės ataskaita", controller_name == "Projects" && action_name == "GrandMastersReport")%>
                 </li>      
                 <li>
@@ -145,9 +141,22 @@
         
             <h1>Organizacija</h1>
             <ul>
-                <li><img src="/Content/Images/Icons/workers.png" alt="-" /><%=userNav.getLink("/Workers/","Darbuotojai",controller_name == "Workers") %></li>
-                <li><img src="/Content/Images/Icons/Skyriai.png" alt="-" /><%=userNav.getLink("/Departments/", "Skyriai", controller_name == "Departments")%></li>
-                <li><img src="/Content/Images/Icons/Inport.png" alt="-" /><%=userNav.getLink("/Import/", "Duomenų importavimas", controller_name == "Import")%></li>
+                <li>
+                    <img src="/Content/Images/Icons/workers.png" alt="-" />
+                    <%=userNav.getLink("/Workers/","Darbuotojai",controller_name == "Workers") %>
+                </li>
+                <li>
+                    <img src="/Content/Images/Icons/Skyriai.png" alt="-" />
+                    <%=userNav.getLink("/Departments/", "Skyriai", controller_name == "Departments")%>
+                </li>
+                <li>
+                    <img src="/Content/Images/Icons/Inport.png" alt="-" />
+                    <%=userNav.getLink("/Import/", "Duomenų importavimas", controller_name == "Import")%>
+                </li>
+                <li>
+                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
+                    <%=userNav.getLink("/Projects/List/", "Visų skyrių projektai", controller_name == "Projects" && action_name == "List")%>
+                </li>
             </ul>
             <h1>Apskaitos sistema</h1>
             <ul>

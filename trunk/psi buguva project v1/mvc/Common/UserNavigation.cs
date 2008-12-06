@@ -39,6 +39,14 @@ namespace mvc.Common
                 controller == "Departments" &&
                 action != "DepartmentProjects" &&
                 action != "DepartmentManagerReport"
+                ) ||
+                (
+                controller == "Projects" &&
+                    (
+                    action == "List" ||
+                    action == "Edit" ||
+                    action == "New"
+                    )
                 )
 
                 )? true : false;
@@ -47,8 +55,12 @@ namespace mvc.Common
         public bool isInAtaskaitos()
         {
             return (
-
-                controller == "Projects"  ||
+                (
+                controller == "Projects" &&
+                action != "List" && 
+                action != "New" &&
+                action != "Edit"
+                ) ||
                 controller == "Sections"  ||
                 (
                 controller == "Departments" &&
