@@ -265,6 +265,113 @@ namespace mvc.Controllers
             ViewData["size"] = itemsPerPage;
             return View(report);
         }
+
+        public ActionResult OvertimeReport(int? page, int? type)
+        {
+            int currentPage = page ?? 1;
+            int pType = type ?? 1;
+            List<Department> departments = DBDataContext.Departments.Where(d => d.deleted.HasValue == false).ToList();
+            OvertimeReport report = new OvertimeReport();
+            report.Captions.Add("Laikotarpis");
+            report.Redirections.Add(null);
+            report.Actions.Add("");
+            List<List<Project>> departmentProjects = new List<List<Project>>();
+            
+            foreach (Department department in departments)
+            {
+                report.Captions.Add("Skyrius " + department.title);
+                System.Web.Routing.RouteValueDictionary dict = new System.Web.Routing.RouteValueDictionary();
+                dict.Add("controller", "Departments");
+                dict.Add("department_id", department.id);
+                if (!department.canBeSeen())
+                {
+                    dict = null;
+                }
+                report.Redirections.Add(dict);
+                report.Actions.Add("DepartmentManagerReport");
+                departmentProjects.Add(DBDataContext.Projects.Where(p => department.Workers.Contains(p.Worker)).ToList());
+            }
+            report.Captions.Add("Visa firma");
+            System.Web.Routing.RouteValueDictionary dict2 = new System.Web.Routing.RouteValueDictionary();
+            dict2.Add("controller", "Departments");
+            if (!(userSession.isAdministrator() || userSession.isAntanas()))
+            {
+                dict2 = null;
+            }
+            report.Redirections.Add(dict2);
+            report.Actions.Add("GrandMasterReport");
+            List<Task> tasks = DBDataContext.Tasks.OrderBy(t => t.year * 12 + t.month).ToList();
+            int start = 0;
+            int end = 0;
+            if (tasks.Count > 0)
+            {
+                start = tasks[0].year * 12 + tasks[0].month;
+                end = tasks[tasks.Count - 1].year * 12 + tasks[tasks.Count - 1].month;
+            }
+            int periodsCount = getPeriodsCount(pType, start, end);
+            int periodStart = getPeriodStart(pType, start);
+
+            OvertimeReportRow totalRow = new OvertimeReportRow();
+            OvertimeReportRow totalRow2 = new OvertimeReportRow();
+            for (int i = 0; i < departments.Count + 1; i++)
+            {
+                totalRow.Cells.Add(new OvertimeReportCell());
+                totalRow2.Cells.Add(new OvertimeReportCell());
+            }
+            int itemsPerPage = userSession.ItemsPerPage;
+            int endCycle = (periodsCount <= itemsPerPage) ? periodsCount + periodStart - 1 : periodStart + ((currentPage - 1) * itemsPerPage) + itemsPerPage - 1;
+            for (int i = periodStart; i <= periodsCount + periodStart - 1; i++)
+            {
+                int pStart = constructPeriodStart(pType, i);
+                int pEnd = constructPeriodEnd(pType, i);
+                OvertimeReportRow row = new OvertimeReportRow();
+                row.Period = periodString(pType, i);
+                int j = 0;
+                foreach (Department department in departments)
+                {
+
+                    List<Task> periodTasks = DBDataContext.Tasks.Where(t => (department.Workers.Contains(t.Project.Worker) && ((t.year * 12 + t.month) >= pStart) && ((t.year * 12 + t.month) <= pEnd))).ToList();
+                    OvertimeReportCell cell = new OvertimeReportCell();
+                    cell.TimeSum = periodTasks.Sum(t => t.worked_hours);
+                    cell.TimeNormal = 0;
+
+                    row.Cells.Add(cell);
+                    totalRow.Cells[j].TimeSum += cell.TimeSum;
+                    totalRow.Cells[j].TimeNormal += cell.TimeNormal;
+                    totalRow2.Cells[j].TimeNormal += (cell.TimeNormal > 0) ? cell.TimeNormal : -cell.TimeNormal;
+                    j++;
+
+                }
+
+                OvertimeReportCell totalCell = new OvertimeReportCell();
+                totalCell.TimeSum = row.Cells.Sum(c => c.TimeSum);
+                totalCell.TimeNormal = row.Cells.Sum(c => c.TimeNormal);
+                row.Cells.Add(totalCell);
+                totalRow.Cells[departments.Count].TimeSum += totalCell.TimeSum;
+                totalRow.Cells[departments.Count].TimeNormal += totalCell.TimeNormal;
+                totalRow2.Cells[departments.Count].TimeNormal += (totalCell.TimeNormal > 0) ? totalCell.TimeNormal : -totalCell.TimeNormal;
+                report.Rows.Add(row);
+
+
+            }
+            totalRow.Period = "";
+            totalRow2.Period = "Viso ";
+            for (int i = 0; i < totalRow2.Cells.Count; i++)
+            {
+                totalRow2.Cells[i].TimeSum = totalRow.Cells[i].TimeSum / report.Rows.Count;
+                totalRow2.Cells[i].TimeNormal = totalRow2.Cells[i].TimeNormal - (totalRow2.Cells[i].TimeNormal / report.Rows.Count);
+            }
+            report.Rows.Add(totalRow);
+            report.Rows.Add(totalRow2);
+            report.Rows = report.Rows.ToPagedList(currentPage - 1, itemsPerPage).ToList();
+            ViewData["Title"] = "Darbo laiko išnaudojimo projektams / viršvalandžių ataskaita";
+            ViewData["page"] = currentPage;
+            ViewData["type"] = pType;
+            ViewData["total"] = periodsCount;
+            ViewData["totalPages"] = periodsCount / itemsPerPage + ((periodsCount % itemsPerPage > 0) ? 1 : 0);
+            ViewData["size"] = itemsPerPage;
+            return View(report);
+        }
         
         public ActionResult AllProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart, int? page, int? pageSize)
         {

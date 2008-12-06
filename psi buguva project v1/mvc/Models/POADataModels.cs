@@ -85,7 +85,6 @@ namespace mvc.Models
         }
     }
 
-
     public class IncompleteWorkValueReport
     {
         private List<string> _columnCaptions = new List<string>();
@@ -130,6 +129,162 @@ namespace mvc.Models
         }
 
         public List<IncompleteWorkValueReportRow> Rows
+        {
+            get
+            {
+                return _rows;
+            }
+            set
+            {
+                _rows = value;
+            }
+        }
+    }
+
+    public class OvertimeReportCell
+    {
+        private int _timeSum = 0;
+        private int _timeNormal = 0;
+
+        public int TimeSum
+        {
+            get
+            {
+                return _timeSum;
+            }
+            set
+            {
+                _timeSum = value;
+            }
+        }
+        public int TimeNormal
+        {
+            get
+            {
+                return _timeNormal;
+            }
+            set
+            {
+                _timeNormal = value;
+            }
+        }
+        public int TimeOvertime
+        {
+            get
+            {
+                if (TimeNormal < TimeSum)
+                {
+                    return TimeSum - TimeNormal;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        public string PercentUndertime
+        {
+            get
+            {
+                if (TimeSum < TimeNormal)
+                {
+                    return ((((double)TimeNormal - (double)TimeSum) / (double)TimeNormal) * 100.00).ToString("0.00");
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+        }
+        public string PercentOvertime
+        {
+            get
+            {
+                if (TimeOvertime > 0)
+                {
+                    return ( ((double)TimeOvertime / (double)TimeNormal) * 100.00).ToString("0.00");
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+        }
+    }
+
+    public class OvertimeReportRow
+    {
+        private string _period = "";
+        public string Period
+        {
+            get
+            {
+                return _period;
+            }
+            set
+            {
+                _period = value;
+            }
+        }
+
+        private List<OvertimeReportCell> _cells = new List<OvertimeReportCell>();
+        public List<OvertimeReportCell> Cells
+        {
+            get
+            {
+                return _cells;
+            }
+            set
+            {
+                _cells = value;
+            }
+        }
+    }
+
+    public class OvertimeReport
+    {
+        private List<string> _columnCaptions = new List<string>();
+        private List<string> _columnActions = new List<string>();
+        private List<System.Web.Routing.RouteValueDictionary> _columnRedirections = new List<System.Web.Routing.RouteValueDictionary>();
+        private List<OvertimeReportRow> _rows = new List<OvertimeReportRow>();
+     
+        public List<string> Captions
+        {
+            get
+            {
+                return _columnCaptions;
+            }
+            set
+            {
+                _columnCaptions = value;
+            }
+        }
+
+        public List<System.Web.Routing.RouteValueDictionary> Redirections
+        {
+            get
+            {
+                return _columnRedirections;
+            }
+            set
+            {
+                _columnRedirections = value;
+            }
+        }
+
+        public List<string> Actions
+        {
+            get
+            {
+                return _columnActions;
+            }
+            set
+            {
+                _columnActions = value;
+            }
+        }
+
+        public List<OvertimeReportRow> Rows
         {
             get
             {
