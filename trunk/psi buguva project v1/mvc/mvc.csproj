@@ -315,6 +315,13 @@
     <Compile Include="Views\Projects\New.aspx.designer.cs">
       <DependentUpon>New.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\OvertimeReport.aspx.cs">
+      <DependentUpon>OvertimeReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\OvertimeReport.aspx.designer.cs">
+      <DependentUpon>OvertimeReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProjectIntensivityReport.aspx.cs">
       <DependentUpon>ProjectIntensivityReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -529,6 +536,7 @@
     <Content Include="Views\Projects\ListMyProjects.aspx" />
     <Content Include="Views\Projects\ListMyTasksInProject.aspx" />
     <Content Include="Views\Projects\New.aspx" />
+    <Content Include="Views\Projects\OvertimeReport.aspx" />
     <Content Include="Views\Projects\ProjectIntensivityReport.aspx" />
     <Content Include="Views\Projects\ProjectManagerReport.aspx" />
     <Content Include="Views\Shared\Blank.Master" />
