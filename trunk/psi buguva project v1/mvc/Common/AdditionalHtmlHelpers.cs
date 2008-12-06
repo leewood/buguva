@@ -124,7 +124,7 @@ namespace mvc.Common
             for (int i = 0; i < legends.Length; i++)
             {
                 LineChart chart = new LineChart();
-                chart.Legend = legends[i];                               
+                chart.Legend = legends[i];
                 chart.Line.Color = colors[i];
                 chart.Fill.Color = colors[i];
                 chart.Fill.ForeColor = System.Drawing.Color.Black;
@@ -167,19 +167,31 @@ namespace mvc.Common
             chartControl.Background.Color = background;
             chartControl.GridLines = GridLines.None;
             chartControl.ChartTitle.Text = caption;
+
             ChartPointCollection chartPoints = new ChartPointCollection();
             PieChart chart = new PieChart();            
             chart.Colors = new System.Drawing.Color[colors.Length];
+            chart.DataLabels.ShowValue = true;
+            chart.DataLabels.NumberFormat = "0.00%";
+            chart.DataLabels.Visible = true;
+
             int j = 0;
             foreach (System.Drawing.Color color in colors)
             {
                 chart.Colors[j] = System.Drawing.Color.FromArgb(alpha, colors[j]);
                 j++;
             }
+            int total = 0;
             for (int i = 0; i < YAxes.Length; i++)
             {
                 string value = GetMemberValue(data, YAxes[i]);
-                WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + legends[i], int.Parse(value));
+                total += int.Parse(value);
+            }
+            for (int i = 0; i < YAxes.Length; i++)
+            {
+                string value = GetMemberValue(data, YAxes[i]);
+                float realValue = float.Parse(value) / (float)total;
+                WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + legends[i], realValue);
                 chart.Data.Add(point);
                 
             }
@@ -200,10 +212,15 @@ namespace mvc.Common
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
             chartControl.ChartTitle.Text = caption;
+
             chartControl.GridLines = GridLines.None;
             ChartPointCollection chartPoints = new ChartPointCollection();
             PieChart chart = new PieChart();
             int i = 0;
+            chart.DataLabels.ShowValue = true;            
+            chart.DataLabels.Visible = true;
+            chart.DataLabels.NumberFormat = "0.00%";
+            //chart.DataLabels.NumberFormat = "0%";
             chart.Colors = new System.Drawing.Color[colors.Length];
             int j = 0;
             foreach (System.Drawing.Color color in colors)
@@ -211,12 +228,19 @@ namespace mvc.Common
                 chart.Colors[j] = System.Drawing.Color.FromArgb(alpha, colors[j]);
                 j++;
             }
-            
+
+            int total = 0;
+            foreach (T line in data)
+            {
+                string value = GetMemberValue(line, YAxe);
+                total += int.Parse(value);
+            }
             foreach (T line in data)
             {
                 string value = GetMemberValue(line, YAxe);
                 string title = GetMemberValue(line, XAxe);
-                WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + title, int.Parse(value));
+                float realValue = float.Parse(value) / (float)total;
+                WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + title, realValue);
                 chart.Data.Add(point);
                 
                 i++;
