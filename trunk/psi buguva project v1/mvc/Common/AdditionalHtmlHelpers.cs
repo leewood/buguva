@@ -53,10 +53,12 @@ namespace mvc.Common
             return returnActionLink.Replace("insert_place_for_img", replaceWith);
         }
 
-        public static string LineChart(this HtmlHelper helper, string legend, System.Collections.Generic.List<ChartPoint> chartData)
+        public static string LineChart(this HtmlHelper helper, string legend, System.Collections.Generic.List<ChartPoint> chartData, string titleX, string titleY)
         {            
             WebChart.ChartControl chartControl = new ChartControl();
             ChartPointCollection chartPoints = new ChartPointCollection();
+            chartControl.XTitle.Text = titleX;
+            chartControl.YTitle.Text = titleY;
             foreach (ChartPoint point in chartData)
             {
                 chartPoints.Add(new WebChart.ChartPoint(point.x, point.y));
@@ -91,12 +93,12 @@ namespace mvc.Common
             }
         }
 
-        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors)
+        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, string titleX, string titleY)
         {
-            return helper.LineChart<T>(legends, data, XAxeName, YAxes, colors, System.Drawing.Color.White, "");
+            return helper.LineChart<T>(legends, data, XAxeName, YAxes, colors, System.Drawing.Color.White, "", titleX, titleY);
         }
 
-        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption)
+        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string titleX, string titleY)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Width = new System.Web.UI.WebControls.Unit("600px");
@@ -104,10 +106,25 @@ namespace mvc.Common
             ChartPointCollection chartPoints = new ChartPointCollection();
             List<LineChart> lineCharts = new List<LineChart>();
             chartControl.ChartTitle.Text = caption;
+            chartControl.XTitle.Text = titleX;
+            chartControl.XTitle.StringFormat.LineAlignment = System.Drawing.StringAlignment.Far;
+            chartControl.XTitle.StringFormat.Alignment = System.Drawing.StringAlignment.Far;
+            chartControl.XTitle.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.FitBlackBox;
+            chartControl.YTitle.Text = titleY;
+            chartControl.YTitle.StringFormat.LineAlignment = System.Drawing.StringAlignment.Near;            
+            chartControl.YTitle.StringFormat.Alignment = System.Drawing.StringAlignment.Near;
+            chartControl.YTitle.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.NoWrap;
+            chartControl.ShowTitlesOnBackground = false;
+            //chartControl.
+            chartControl.YValuesInterval = 20;
+            chartControl.BottomChartPadding = 0;
+
+            chartControl.TopChartPadding = 0;
+            float maxValue = 0;
             for (int i = 0; i < legends.Length; i++)
             {
                 LineChart chart = new LineChart();
-                chart.Legend = legends[i];                
+                chart.Legend = legends[i];                               
                 chart.Line.Color = colors[i];
                 chart.Fill.Color = colors[i];
                 chart.Fill.ForeColor = System.Drawing.Color.Black;
@@ -121,9 +138,15 @@ namespace mvc.Common
                 for (int i = 0; i < legends.Length; i++)
                 {
                     string yAxe = GetMemberValue(line, YAxes[i]);
-                    lineCharts[i].Data.Add(new WebChart.ChartPoint(xAxe, int.Parse(yAxe)));
+                    int yValue = int.Parse(yAxe);
+                    if (yValue > maxValue)
+                    {
+                        maxValue = yValue;
+                    }
+                    lineCharts[i].Data.Add(new WebChart.ChartPoint(xAxe, yValue));
                 }
             }
+            chartControl.YCustomEnd = ((maxValue / 20) + ((maxValue % 20 > 0) ? 1 : 0)) * 20 + 20;
             foreach (LineChart chart in lineCharts)
             {
                 chartControl.Charts.Add(chart);
@@ -194,13 +217,16 @@ namespace mvc.Common
             return result;
         }
 
-        public static string BarChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, int alpha, int maxWidth, bool useShadow, int width, int height, string prefix, bool vertical)
+        public static string BarChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, int alpha, int maxWidth, bool useShadow, int width, int height, string prefix, bool vertical, string titleX, string titleY)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
             chartControl.Width = width;
             chartControl.Height = height;
             chartControl.ChartTitle.Text = caption;
+            chartControl.XTitle.Text = titleX;
+            chartControl.YTitle.Text = titleY;
+
             if (vertical)
             {
                 chartControl.XAxisFont.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.DirectionVertical;

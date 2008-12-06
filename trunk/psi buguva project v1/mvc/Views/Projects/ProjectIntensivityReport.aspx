@@ -20,7 +20,7 @@
 	<% string[] legends = {"Viso dirbta", "Projekto skyriaus darbuotojų", "Kitų darbuotojų" }; %>
 	<% string[] yAxes = {"TotalWorkedHours", "ProjectsWorkersWorkedHours", "OthersWorkedHours"}; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Black };  %>
-    <%= Html.LineChart<ProjectIntensivity>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Projekto intensyvumas") %>
+    <%= Html.LineChart<ProjectIntensivity>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Projekto intensyvumas", "Laikotarpis", "Val.") %>
 
     <% IPagedList<ProjectIntensivity> pagedModel = ViewData.Model.ToPagedList((int)ViewData["curPage"] - 1, (int)ViewData["itemsPerPage"]); %>    
     <div class = "pager">

@@ -95,6 +95,7 @@ namespace mvc.Models
 
         private void validatePeriod()
         {
+            bool used = false;
             if (PeriodStart.Year < 1970)
             {
                 errors.Add("Metai negali būti mažesni nei 1970. Norėta pasirinkti " + PeriodStart.Year.ToString());
@@ -120,12 +121,16 @@ namespace mvc.Models
             if (PeriodStart.Year * 12 + PeriodStart.Month > PeriodEnd.Year * 12 + PeriodEnd.Month)
             {
                 errors.Add("Pradžios data negali būti didesnė nei pabaigos data");
+                used = true;
                 PeriodEnd.Year = PeriodStart.Year;
                 PeriodEnd.Month = PeriodStart.Month;                
             }
             if (PeriodStart.Year * 12 + PeriodStart.Month > DateTime.Today.Year * 12 + DateTime.Today.Month)
             {
-                errors.Add("Data negali viršyti šio mėnesio datos");
+                if (!used)
+                {
+                    errors.Add("Data negali viršyti šio mėnesio datos");
+                }
                 PeriodStart.Year = DateTime.Today.Year;
                 PeriodStart.Month = DateTime.Today.Month;                
             }
