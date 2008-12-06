@@ -14,22 +14,22 @@ namespace mvc.Views.Import {
     public partial class Index {
         
         /// <summary>
-        /// form1 control.
+        /// form2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form2;
         
         /// <summary>
-        /// LabelFileUploadImport control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelFileUploadImport;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// FileUploadImport control.
@@ -50,13 +50,13 @@ namespace mvc.Views.Import {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Span1;
         
         /// <summary>
-        /// LabelCheckBoxes control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelCheckBoxes;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
         /// CheckBoxTasks control.
@@ -95,12 +95,12 @@ namespace mvc.Views.Import {
         protected global::System.Web.UI.WebControls.CheckBox CheckBoxDepartments;
         
         /// <summary>
-        /// ButtonImport control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonImport;
+        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }
