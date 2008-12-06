@@ -16,7 +16,7 @@
 	<table class = "grid">
 	   <tr>
 	      <th style="display:none">ID</th>
-	      <th>Kodas/Pavadinimas</th>
+	      <th style="width: 150px">Skyriaus kodas</th>
 	      <th>Vadovas</th>
 	      <th>Veiksmai</th>
 	   </tr>    

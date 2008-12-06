@@ -39,7 +39,7 @@
              <td><%= (project.Worker == null) ? "<span style=\"color: Red\">Nepaskirtas</span>" : ((project.Worker.canBeSeen()) ? Html.ActionLink(project.Worker.Fullname, "ListMyProjects", new { project_id = project.id, id = project.project_manager_id }) : project.Worker.Fullname)%></td>             
              <td><%= project.StartedAt %></td>             
              <td><%= project.EndedAt %></td>
-             <td><%= project.TotalWorkedHours.ToString() %></td>
+             <td style="text-align:right"><%= project.TotalWorkedHours.ToString() %></td>
              <td width="60">
                <% if (worker.canBeSeen())
                   { %>

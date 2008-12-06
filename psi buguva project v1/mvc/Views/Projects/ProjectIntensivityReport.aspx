@@ -37,9 +37,9 @@
        <% { %>            
             <tr>             
              <td><%= projectIntensivity.Period %></td>
-             <td><%= projectIntensivity.TotalWorkedHours %></td>             
-             <td><%= projectIntensivity.ProjectsWorkersWorkedHours %></td>             
-             <td><%= projectIntensivity.OthersWorkedHours %></td>
+             <td style="text-align:right"><%= projectIntensivity.TotalWorkedHours %></td>             
+             <td style="text-align:right"><%= projectIntensivity.ProjectsWorkersWorkedHours %></td>             
+             <td style="text-align:right"><%= projectIntensivity.OthersWorkedHours %></td>
           </tr>
 	   <% } %>
 	   <% if (ViewData.Model.Count == 0) %>
