@@ -43,8 +43,8 @@ namespace mvc.Common
             {
                 case 1: return this.myProjectsListUrl;
                 case 2: return this.myProjectsListUrl;
-                case 3: return this.myReportsUrl;
-                case 4: return this.myAdminUrl;
+                case 3: return this.myAdminUrl;
+                case 4: return this.myReportsUrl;
             }
 
             return "/";
@@ -244,25 +244,39 @@ namespace mvc.Common
             return (this.userLevel == 2);
         }
 
-        public bool isAntanas()
+        public bool isAdministrator()
         {
             return (this.userLevel == 3);
         }
 
-        public bool isAdministrator()
+        public bool isAntanas()
         {
             return (this.userLevel == 4);
         }
 
         public bool canViewAtaskaitos()
         {
-            return (isAntanas() || isSimpleUser() || isDepartmentMaster());
+            return (isAdministrator() || isSimpleUser() || isDepartmentMaster() || isAntanas());
         }
 
         public bool canViewAdmin()
         {
-            return (isAntanas() || isAdministrator());
+            return (isAdministrator());
         }
 
+        public bool canViewAllProjectsReoprts()
+        {
+            return (isAdministrator() || isAntanas());
+        }
+
+        public bool canEditProjects()
+        {
+            return (!isAntanas());
+        }
+
+        public bool canEditAnyProject()
+        {
+            return (isAdministrator() || isDepartmentMaster());
+        }
     }
 }

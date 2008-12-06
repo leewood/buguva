@@ -89,20 +89,31 @@
                         )
                     %>
                 </li>
+                <!--
                 <% if (userSession.isDepartmentMaster()) %>
                 <% { %>
+                
                 <li>
                     <img src="/Content/Images/Icons/Department.png" alt="-" />
                     <%=userNav.getLink("/Departments/DepartmentProjects?department_id=" + userSession.workerDepartment, "Visi skyriaus projektai", controller_name == "Departments")%>
                 </li>
-                <%} %>
                 
+                <%} %>
+                -->
                 <% if (userSession.isAntanas()) %>
                 <% { %>
                 <li>
                     <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
                     <%=userNav.getLink("/Projects/List/", "Visų skyrių projektai", controller_name == "Projects" && action_name == "List")%>
                 </li>
+                <li>
+                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
+                    <%=userNav.getLink("/Projects/GrandMastersReport/", "Vadovybės ataskaita", controller_name == "Projects" && action_name == "GrandMastersReport")%>
+                </li>      
+                <li>
+                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
+                    <%=userNav.getLink("/Projects/IncompleteWorkReport/", "Nebaigto darbo ataskaita", controller_name == "Projects" && action_name == "IncompleteWorkReport")%>
+                </li>   
                 <%} %>
                 
             </ul> 

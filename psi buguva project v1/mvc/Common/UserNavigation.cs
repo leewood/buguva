@@ -89,7 +89,7 @@ namespace mvc.Common
 
         public List<Models.Department> getDepartments()
         {
-            //"Paprastas darbuotojas", "Skyriaus vadovas", "Antanas", "Administratorius"            
+            //"Paprastas darbuotojas", "Skyriaus vadovas", "Administratorius", "Antanas",            
 
             POADataModelsDataContext data = new POADataModelsDataContext();
 
@@ -109,7 +109,7 @@ namespace mvc.Common
 
                 case 4:
 
-                    return new List<Department>();
+                    return data.Departments.Where(d => d.deleted.HasValue == false).ToList();
             }
 
             return new List<Department>();

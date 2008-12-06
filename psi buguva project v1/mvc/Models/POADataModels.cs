@@ -144,7 +144,7 @@ namespace mvc.Models
 
     public partial class User
     {
-        public static string[] LevelNames = { "Paprastas darbuotojas", "Skyriaus vadovas", "Antanas", "Administratorius" };
+        public static string[] LevelNames = { "Paprastas darbuotojas", "Skyriaus vadovas", "Administratorius", "Antanas" };
 
         public SelectList LevelsList
         {
