@@ -156,7 +156,7 @@ namespace mvc.Controllers
                 dict2 = null;
             }
             report.Redirections.Add(dict2);
-            report.Actions.Add("GrandMasterReport");
+            report.Actions.Add("GrandMastersReport");
             List<Task> tasks = DBDataContext.Tasks.OrderBy(t => t.year * 12 + t.month).ToList();
             int start = 0;
             int end = 0;
@@ -299,7 +299,7 @@ namespace mvc.Controllers
                 dict2 = null;
             }
             report.Redirections.Add(dict2);
-            report.Actions.Add("GrandMasterReport");
+            report.Actions.Add("GrandMastersReport");
             List<Task> tasks = DBDataContext.Tasks.OrderBy(t => t.year * 12 + t.month).ToList();
             int start = 0;
             int end = 0;

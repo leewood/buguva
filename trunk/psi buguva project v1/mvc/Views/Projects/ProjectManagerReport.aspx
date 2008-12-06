@@ -61,7 +61,7 @@
             <% { %>
             <tr>
               <td><%= (workerInfo.Worker != null)?((workerInfo.Worker.canBeSeen())?(Html.ActionLink(workerInfo.Worker.Fullname, "ListMyProjects", new {id = workerInfo.Worker.id})):workerInfo.Worker.Fullname):"<span style=\"color:Red\">Nepaskirtas</span>" %></td>
-              <td><%= workerInfo.Hours %></td>
+              <td style="text-align:right"><%= workerInfo.Hours %></td>
             </tr>            
             <% } %>
             
@@ -69,7 +69,7 @@
               <td class="sum">
                 Viso skyriui:
               </td>
-              <td class="sum">
+              <td class="sum" style="text-align:right">
                 <%=departmentInfo.Hours %>
               </td>
             </tr>

@@ -67,7 +67,7 @@
            <td><%= (projectLine.DepartmentID > 0) ? Html.ActionLink(projectLine.ManagerDepartment, "DepartmentManagerReport", new { controller="Departments", department_id = projectLine.DepartmentID }) : "<span style=\"color:Red\">" + projectLine.ManagerDepartment + "</span>"%></td>
            <td><%= projectLine.Started %></td>
            <td><%= projectLine.Ended %></td>
-           <td><%= projectLine.TotalWorked %></td>
+           <td style="text-align:right"><%= projectLine.TotalWorked %></td>
         </tr>            
   <% } %>
 	   <% if (ViewData.Model.Count == 0) %>

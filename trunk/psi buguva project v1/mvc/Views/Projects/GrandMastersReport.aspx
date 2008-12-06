@@ -37,10 +37,10 @@
 <% { %>
 	<% string[] legends = {"Dirbo", "Nedirbo"}; %>
 	<% string[] yAxes = { "TotalDepartmentWorked", "WorkedNoWhere" }; %>
-	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red};  %>
-	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
-    <%= Html.PieChart<DepartmentManagerReport>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Visas įmonės darbas", "") %>
-    <%= Html.PieChart<AssociatedWorkedHours>(legends, ViewData.Model.WorkedHoursOfOthers, "Title", "Hours", colors2, System.Drawing.Color.White, "Skyrių darbas projektuose", "Skyrius ")%>
+	<% System.Drawing.Color[] colors = { System.Drawing.Color.Red, System.Drawing.Color.Yellow, System.Drawing.Color.Green };  %>
+	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Red, System.Drawing.Color.Yellow, System.Drawing.Color.Green, System.Drawing.Color.YellowGreen, System.Drawing.Color.Khaki, System.Drawing.Color.Lavender };  %>
+    <%= Html.PieChart<DepartmentManagerReport>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Visas įmonės darbas", "", 90) %>
+    <%= Html.PieChart<AssociatedWorkedHours>(legends, ViewData.Model.WorkedHoursOfOthers, "Title", "Hours", colors2, System.Drawing.Color.White, "Skyrių darbas projektuose", "Skyrius ", 80)%>
 <% } %>
 <% else %>
 <% { %>
@@ -52,12 +52,16 @@
    <td>Nedirbta jokiame projekte</td><td><%= ViewData.Model.WorkedNoWhere %> val.( <%=ViewData.Model.PercentNotWorked%> viso įmonės darbo laiko per laikotarpį) </td>
  </tr>
 </table>  
- <table class="grid">   
+ <table class="grid" style="width:290px;">   
+    <tr>
+      <th style="width:145px">Skyrius</th>
+      <th style="width:145px">Išdirbtas laikas (val.)</th>
+    </tr>
   <% foreach (AssociatedWorkedHours hours in ViewData.Model.WorkedHoursOfOthers) %>
   <% { %>
         <tr>
            <td style="width:145px"><%= Html.ActionLink("Skyrius: " + hours.Title, "DepartmentManagerReport", new { controller = "Departments", department_id = hours.AssociationID })%></td>
-           <td><%= hours.Hours %></td>
+           <td style="text-align:right;width:70px"><%= hours.Hours %></td>
         </tr>            
   <% } %>
  </table>

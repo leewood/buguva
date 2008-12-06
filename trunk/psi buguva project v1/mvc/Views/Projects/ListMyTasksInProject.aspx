@@ -76,7 +76,7 @@
        <% { %>
             <tr class=''>
              <td><%= task.id.ToString() %></td>
-             <td><%= task.worked_hours.ToString() %></td>
+             <td style="text-align:right"><%= task.worked_hours.ToString() %></td>
           </tr>
 	   <% } %>
 	   <% if (ViewData.Model.Tasks.Count == 0) %>

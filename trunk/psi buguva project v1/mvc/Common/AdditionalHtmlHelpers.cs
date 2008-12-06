@@ -161,14 +161,21 @@ namespace mvc.Common
             return result;
         }
 
-        public static string PieChart<T>(this HtmlHelper helper, string[] legends, T data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string prefix)
+        public static string PieChart<T>(this HtmlHelper helper, string[] legends, T data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string prefix, int alpha)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
+            chartControl.GridLines = GridLines.None;
             chartControl.ChartTitle.Text = caption;
             ChartPointCollection chartPoints = new ChartPointCollection();
-            PieChart chart = new PieChart();
-            chart.Colors = colors;
+            PieChart chart = new PieChart();            
+            chart.Colors = new System.Drawing.Color[colors.Length];
+            int j = 0;
+            foreach (System.Drawing.Color color in colors)
+            {
+                chart.Colors[j] = System.Drawing.Color.FromArgb(alpha, colors[j]);
+                j++;
+            }
             for (int i = 0; i < YAxes.Length; i++)
             {
                 string value = GetMemberValue(data, YAxes[i]);
@@ -188,15 +195,23 @@ namespace mvc.Common
         }
 
 
-        public static string PieChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string YAxe, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string prefix)
+        public static string PieChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxe, string YAxe, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string prefix, int alpha)
         {
             WebChart.ChartControl chartControl = new ChartControl();
             chartControl.Background.Color = background;
             chartControl.ChartTitle.Text = caption;
+            chartControl.GridLines = GridLines.None;
             ChartPointCollection chartPoints = new ChartPointCollection();
             PieChart chart = new PieChart();
             int i = 0;
-            chart.Colors = colors;
+            chart.Colors = new System.Drawing.Color[colors.Length];
+            int j = 0;
+            foreach (System.Drawing.Color color in colors)
+            {
+                chart.Colors[j] = System.Drawing.Color.FromArgb(alpha, colors[j]);
+                j++;
+            }
+            
             foreach (T line in data)
             {
                 string value = GetMemberValue(line, YAxe);

@@ -88,9 +88,9 @@
            <td><%= (projectLine.DepartmentID > 0) ? ((department.canBeSeen())? Html.ActionLink(projectLine.ManagerDepartment, "DepartmentManagerReport", new { department_id = projectLine.DepartmentID }):projectLine.ManagerDepartment) : "<span style=\"color:Red\">" + projectLine.ManagerDepartment + "</span>"%></td>
            <td><%= projectLine.Started %></td>
            <td><%= projectLine.Ended %></td>
-           <td><%= projectLine.TotalWorked %></td>
-           <td><%= projectLine.DepartmentWorkersWorked %></td>
-           <td><%= projectLine.OthersWorked %></td>
+           <td style="text-align:right"><%= projectLine.TotalWorked %></td>
+           <td style="text-align:right"><%= projectLine.DepartmentWorkersWorked %></td>
+           <td style="text-align:right"><%= projectLine.OthersWorked %></td>
         </tr>            
   <% } %>
 	   <% if (ViewData.Model.Count == 0) %>
