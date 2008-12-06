@@ -66,14 +66,14 @@
  </div>
  <table class="grid">   
     <tr>
-       <td>Projekto kodas</td>
-       <td>Vadovas</td>
-       <td>Skyrius</td>
-       <td>Pradžia</td>
-       <td>Pabaiga</td>
-       <td>Viso dirbta</td>
-       <td>Skyriaus darbuotojų dirbta</td>
-       <td>Kitų darbuotojų dirbta</td>
+       <th>Projekto kodas</th>
+       <th>Vadovas</th>
+       <th>Skyrius</th>
+       <th>Pradžia</th>
+       <th>Pabaiga</th>
+       <th>Viso dirbta</th>
+       <th>Skyriaus darbuotojų dirbta</th>
+       <th>Kitų darbuotojų dirbta</th>
     </tr>
   <% foreach (DepartmentProjectReport projectLine in ViewData.Model) %>
   <% { %>
