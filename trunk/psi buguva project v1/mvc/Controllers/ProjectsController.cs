@@ -387,6 +387,14 @@ namespace mvc.Controllers
             ViewData["startMonth"] = stMonth;
             ViewData["endMonth"] = enMonth;
             ViewData["chart"] = chart ?? false;
+            List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
+            Period period = new Period(stYear, stMonth, enYear, enMonth);
+            string[] errors = period.getErrors().ToArray();
+            if (errors.Length > 0)
+            {
+                TempData["errors"] = errors;
+                return View(result);
+            }
             bool useChart = chart ?? false;
             int currentPage = page ?? 1;
             int currentPageSize = pageSize ?? userSession.ItemsPerPage;
@@ -399,7 +407,7 @@ namespace mvc.Controllers
                 size = projects.Count();
                 pagedProjects = projects.ToPagedList(0, size);
             }
-            List<Models.DepartmentProjectReport> result = new List<mvc.Models.DepartmentProjectReport>();
+
             ViewData["page"] = currentPage;
 
 
@@ -449,6 +457,13 @@ namespace mvc.Controllers
             ViewData["endMonth"] = enMonth;
             ViewData["chart"] = chart ?? false;
             report.Period = new mvc.Models.Period(stYear, stMonth, enYear, enMonth);
+            Period period = new Period(stYear, stMonth, enYear, enMonth);
+            string[] errors = period.getErrors().ToArray();            
+            if (errors.Length > 0)
+            {
+                TempData["errors"] = errors;
+                return View(report);
+            }
             report.WorkersCount = DBDataContext.Workers.Count();
             System.Data.Linq.EntitySet<Models.Project> myProjects = new System.Data.Linq.EntitySet<mvc.Models.Project>();
             if (DBDataContext.Departments.Any())
@@ -480,9 +495,15 @@ namespace mvc.Controllers
 
             ViewData["Image"] = road.img("MyProjects");            
             int workerID = id ?? userSession.workerID;
-            Worker worker = DBDataContext.Workers.First(w => w.id == workerID);
-            
-            if (!worker.canBeSeen())
+            Worker worker = null;
+            try
+            {
+                worker = DBDataContext.Workers.First(w => w.id == workerID);
+            }
+            catch (Exception)
+            {
+            }
+            if ((worker != null) && (!worker.canBeSeen()))
             {
                 return RedirectToAction("NoPermissions", "Home");
             }
