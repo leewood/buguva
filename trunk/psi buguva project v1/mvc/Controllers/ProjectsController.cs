@@ -127,6 +127,10 @@ namespace mvc.Controllers
         public ActionResult IncompleteWorkReport(int? page, int? type)
         {
             int currentPage = page ?? 1;
+            if (currentPage < 1)
+            {
+                currentPage = 1;
+            }
             int pType = type ?? 1;
             List<Department> departments = DBDataContext.Departments.Where(d => d.deleted.HasValue == false).ToList();
             IncompleteWorkValueReport report = new IncompleteWorkValueReport();
@@ -254,9 +258,9 @@ namespace mvc.Controllers
                 totalRow2.Cells[i].Value = totalRow.Cells[i].Value / report.Rows.Count;
                 totalRow2.Cells[i].Income = totalRow2.Cells[i].Value - (totalRow2.Cells[i].Income / report.Rows.Count);
             }
+            report.Rows = report.Rows.ToPagedList(currentPage - 1, itemsPerPage).ToList();
             report.Rows.Add(totalRow);
             report.Rows.Add(totalRow2);
-            report.Rows = report.Rows.ToPagedList(currentPage - 1, itemsPerPage).ToList();
             ViewData["Title"] = "Nebaigto darbo vertės ataskaita";
             ViewData["page"] = currentPage;
             ViewData["type"] = pType;
