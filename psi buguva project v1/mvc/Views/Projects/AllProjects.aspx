@@ -36,10 +36,17 @@
   <%= Html.Hidden("chart") %>
   <%= Html.Hidden("pageSize") %>
 <% Html.EndForm(); %>
+<% bool paintContent = true; %>
+<% if (TempData.ContainsKey("errors")) {paintContent = false;}; %>
+    <div class = "errors">
+      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
+    </div>  
+<% if (paintContent)
+   { %>
 <% if ((bool)ViewData["chart"]) %>
 <% { %>
-	<% string[] legends = {"Darbuotojai dirbo"}; %>
-	<% string[] yAxes = { "TotalWorked"}; %>
+	<% string[] legends = { "Darbuotojai dirbo" }; %>
+	<% string[] yAxes = { "TotalWorked" }; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
 	
@@ -48,7 +55,7 @@
 <% else %>
 <% { %>
  <div class="pager">
-   <%= Html.Pager((int)ViewData["pageSize"], (int)ViewData["page"], (int)ViewData["pageCount"]) %>
+   <%= Html.Pager((int)ViewData["pageSize"], (int)ViewData["page"], (int)ViewData["pageCount"])%>
  </div>
  <table class="grid">   
     <tr>
@@ -62,12 +69,12 @@
   <% foreach (DepartmentProjectReport projectLine in ViewData.Model) %>
   <% { %>
         <tr>
-           <td><%= Html.ActionLink(projectLine.Title, "ProjectManagerReport", new {controller = "Projects", project_id = projectLine.ProjectID}) %></td>
-           <td><%= (projectLine.ManagerID > 0) ? Html.ActionLink(projectLine.Manager, "ListMyProjects", new { controller = "Projects", id = projectLine.ManagerID }) : "<span style=\"color:Red\">" + projectLine.Manager + "</span>" %></td>
-           <td><%= (projectLine.DepartmentID > 0) ? Html.ActionLink(projectLine.ManagerDepartment, "DepartmentManagerReport", new { controller="Departments", department_id = projectLine.DepartmentID }) : "<span style=\"color:Red\">" + projectLine.ManagerDepartment + "</span>"%></td>
-           <td><%= projectLine.Started %></td>
-           <td><%= projectLine.Ended %></td>
-           <td style="text-align:right"><%= projectLine.TotalWorked %></td>
+           <td><%= Html.ActionLink(projectLine.Title, "ProjectManagerReport", new { controller = "Projects", project_id = projectLine.ProjectID })%></td>
+           <td><%= (projectLine.ManagerID > 0) ? Html.ActionLink(projectLine.Manager, "ListMyProjects", new { controller = "Projects", id = projectLine.ManagerID }) : "<span style=\"color:Red\">" + projectLine.Manager + "</span>"%></td>
+           <td><%= (projectLine.DepartmentID > 0) ? Html.ActionLink(projectLine.ManagerDepartment, "DepartmentManagerReport", new { controller = "Departments", department_id = projectLine.DepartmentID }) : "<span style=\"color:Red\">" + projectLine.ManagerDepartment + "</span>"%></td>
+           <td><%= projectLine.Started%></td>
+           <td><%= projectLine.Ended%></td>
+           <td style="text-align:right"><%= projectLine.TotalWorked%></td>
         </tr>            
   <% } %>
 	   <% if (ViewData.Model.Count == 0) %>
@@ -79,15 +86,16 @@
  </table>
  <% Html.BeginForm("AllProjects", "Projects", FormMethod.Get); %>  
 
-   <%= Html.Hidden("chart") %>
-   <%= Html.Hidden("startYear") %>
-   <%= Html.Hidden("startMonth") %>
-   <%= Html.Hidden("endYear") %>
-   <%= Html.Hidden("endMonth") %>
+   <%= Html.Hidden("chart")%>
+   <%= Html.Hidden("startYear")%>
+   <%= Html.Hidden("startMonth")%>
+   <%= Html.Hidden("endYear")%>
+   <%= Html.Hidden("endMonth")%>
 
    <% List<int> pageSizes = new List<int>(); %>
    <% for (int i = 5; i <= 50; i += 5) pageSizes.Add(i); %>
-   <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSize"]), new { onChange = "javascript: form.submit();"})%>
+   <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSize"]), new { onChange = "javascript: form.submit();" })%>
  <% Html.EndForm(); %>
-<% } %>
+<% }
+   }%>
 </asp:Content>

@@ -172,7 +172,7 @@ namespace mvc.Common
             PieChart chart = new PieChart();            
             chart.Colors = new System.Drawing.Color[colors.Length];
             chart.DataLabels.ShowValue = true;
-            chart.DataLabels.NumberFormat = "0.00%";
+            
             chart.DataLabels.Visible = true;
 
             int j = 0;
@@ -187,10 +187,14 @@ namespace mvc.Common
                 string value = GetMemberValue(data, YAxes[i]);
                 total += int.Parse(value);
             }
+            if (total > 0)
+            {
+                chart.DataLabels.NumberFormat = "0.00%";
+            }
             for (int i = 0; i < YAxes.Length; i++)
             {
                 string value = GetMemberValue(data, YAxes[i]);
-                float realValue = float.Parse(value) / (float)total;
+                float realValue = (total != 0) ? float.Parse(value) / (float)total : 0;
                 WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + legends[i], realValue);
                 chart.Data.Add(point);
                 
@@ -217,9 +221,7 @@ namespace mvc.Common
             ChartPointCollection chartPoints = new ChartPointCollection();
             PieChart chart = new PieChart();
             int i = 0;
-            chart.DataLabels.ShowValue = true;            
-            chart.DataLabels.Visible = true;
-            chart.DataLabels.NumberFormat = "0.00%";
+            
             //chart.DataLabels.NumberFormat = "0%";
             chart.Colors = new System.Drawing.Color[colors.Length];
             int j = 0;
@@ -235,12 +237,26 @@ namespace mvc.Common
                 string value = GetMemberValue(line, YAxe);
                 total += int.Parse(value);
             }
+            if (total > 0)
+            {
+                chart.DataLabels.ShowValue = true;
+                chart.DataLabels.Visible = true;
+                chart.DataLabels.NumberFormat = "0.00%";
+            }
             foreach (T line in data)
             {
                 string value = GetMemberValue(line, YAxe);
                 string title = GetMemberValue(line, XAxe);
-                float realValue = float.Parse(value) / (float)total;
-                WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + title, realValue);
+                WebChart.ChartPoint point = new WebChart.ChartPoint();
+                if (total > 0)
+                {
+                    float realValue = (total != 0) ? float.Parse(value) / (float)total : 0;
+                    point = new WebChart.ChartPoint(prefix + title, realValue);
+                }
+                else
+                {
+                    point = new WebChart.ChartPoint(prefix + title, int.Parse(value));
+                }
                 chart.Data.Add(point);
                 
                 i++;
