@@ -402,6 +402,10 @@ namespace mvc.Controllers
             bool useChart = chart ?? false;
             int currentPage = page ?? 1;
             int currentPageSize = pageSize ?? userSession.ItemsPerPage;
+            if (currentPageSize < 1)
+            {
+                currentPageSize = 1;
+            }
             List<Models.Project> projects = DBDataContext.Projects.Where(p => p.Tasks.Any(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth))).ToList();
             ViewData["pageSize"] = currentPageSize;
             IPagedList<Models.Project> pagedProjects = projects.ToPagedList(currentPage - 1, currentPageSize);
@@ -409,6 +413,10 @@ namespace mvc.Controllers
             if (useChart)
             {
                 size = projects.Count();
+                if (size < 1)
+                {
+                    size = 1;
+                }
                 pagedProjects = projects.ToPagedList(0, size);
             }
 
