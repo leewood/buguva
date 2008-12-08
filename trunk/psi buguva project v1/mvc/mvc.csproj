@@ -475,9 +475,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\POADataModels.dbml.layout">
-      <DependentUpon>POADataModels.dbml</DependentUpon>
-    </None>
     <Content Include="Content\delete.png" />
     <Content Include="Content\edit.png" />
     <Content Include="Content\ico1.png" />
@@ -563,6 +560,9 @@
     <EmbeddedResource Include="Common\Validators\Messages.nl.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.pt.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.resx" />
+    <None Include="Models\POADataModels.dbml.layout">
+      <DependentUpon>POADataModels.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
