@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="POA" Class="POADataModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=5.49.217.43;Initial Catalog=POA;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="POAConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Departments" Member="Departments">
+    <Type Name="Department">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="headmaster_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Department_Worker" Member="Workers" ThisKey="id" OtherKey="department_id" Type="Worker" />
+      <Association Name="User_Department" Member="User" ThisKey="deleted_by_id" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="Worker_Department" Member="Worker" ThisKey="headmaster_id" OtherKey="id" Type="Worker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Projects" Member="Projects">
+    <Type Name="Project">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_manager_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Project_Task" Member="Tasks" ThisKey="id" OtherKey="project_id" Type="Task" />
+      <Association Name="User_Project" Member="User" ThisKey="deleted_by_id" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="Worker_Project" Member="Worker" ThisKey="project_manager_id" OtherKey="id" Type="Worker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tasks" Member="Tasks">
+    <Type Name="Task">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="project_participant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worked_hours" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Project_Task" Member="Project" ThisKey="project_id" OtherKey="id" Type="Project" IsForeignKey="true" />
+      <Association Name="User_Task" Member="User" ThisKey="deleted_by_id" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="Worker_Task" Member="Worker" ThisKey="project_participant_id" OtherKey="id" Type="Worker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="login_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worker_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Department" Member="Departments" ThisKey="id" OtherKey="deleted_by_id" Type="Department" />
+      <Association Name="User_Project" Member="Projects" ThisKey="id" OtherKey="deleted_by_id" Type="Project" />
+      <Association Name="User_Task" Member="Tasks" ThisKey="id" OtherKey="deleted_by_id" Type="Task" />
+      <Association Name="User_User" Member="Users" ThisKey="id" OtherKey="deleted_by_id" Type="User" />
+      <Association Name="User_Worker" Member="Workers" ThisKey="id" OtherKey="deleted_by_id" Type="Worker" />
+      <Association Name="User_WorkerStatus" Member="WorkerStatus" ThisKey="id" OtherKey="deleted_by_id" Type="WorkerStatus" />
+      <Association Name="User_User" Member="User1" ThisKey="deleted_by_id" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="Worker_User" Member="Worker" ThisKey="worker_id" OtherKey="id" Type="Worker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Workers" Member="Workers">
+    <Type Name="Worker">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="surname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="department_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Worker_Department" Member="Departments" ThisKey="id" OtherKey="headmaster_id" Type="Department" />
+      <Association Name="Worker_Project" Member="Projects" ThisKey="id" OtherKey="project_manager_id" Type="Project" />
+      <Association Name="Worker_Task" Member="Tasks" ThisKey="id" OtherKey="project_participant_id" Type="Task" />
+      <Association Name="Worker_User" Member="Users" ThisKey="id" OtherKey="worker_id" Type="User" />
+      <Association Name="Worker_WorkerStatus" Member="WorkerStatus" ThisKey="id" OtherKey="worker_id" Type="WorkerStatus" />
+      <Association Name="Department_Worker" Member="Department" ThisKey="department_id" OtherKey="id" Type="Department" IsForeignKey="true" />
+      <Association Name="User_Worker" Member="User" ThisKey="deleted_by_id" OtherKey="id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WorkerStatus" Member="WorkerStatus">
+    <Type Name="WorkerStatus">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="worker_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_WorkerStatus" Member="User" ThisKey="deleted_by_id" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="Worker_WorkerStatus" Member="Worker" ThisKey="worker_id" OtherKey="id" Type="Worker" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
