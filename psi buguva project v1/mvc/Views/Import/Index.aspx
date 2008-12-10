@@ -8,7 +8,7 @@
         <legend>Duomenø importavimas</legend>
         <asp:Label ID="Label1" runat="server" Text="Failas"></asp:Label>
         <br />
-        <asp:FileUpload ID="FileUploadImport" runat="server" />
+        <asp:FileUpload ID="FileUploadImport" runat="server"  />
                 <span id="Span1" runat="Server" />
                 <%= Html.ErrorSummary("Klaidø sàraðas:", (string[])TempData["errors"]) %>
         <br />
@@ -18,7 +18,7 @@
 
 
         <asp:RadioButtonList ID="RadioButtonListImport" runat="server">
-             <asp:ListItem Text="Pagrindinis duomenø failas" Value="1">                                                      
+             <asp:ListItem Text="Pagrindinis duomenø failas" Value="1" Selected="true">                                                      
              </asp:ListItem>
              <asp:ListItem Text="Duomenø apie darbuotojø darbà matrica" Value="2">           
              </asp:ListItem>
