@@ -489,6 +489,18 @@ namespace mvc.Models
         }
     }
 
+    public partial class WorkerStatus
+    {
+        public ErrorSummary Validate()
+        {
+            ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
+            if (!vr.IsValid(this))
+                return vr.GetErrorSummary(this);
+            else
+                return null;
+        }
+    }
+
     public partial class Department
     {
         public ErrorSummary Validate()
