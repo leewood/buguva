@@ -120,7 +120,7 @@ namespace mvc.Views.Import
                     FileInfo fileInfo = new FileInfo(path + "\\" + FileUploadImport.PostedFile.FileName);
                     switch (fileInfo.Extension)
                     {
-                        case ".xlsx": xlsConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 8.0;HDR=YES;\"";
+                        case ".xlsx": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES\"";
                             break;
                         case ".xls": xlsConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + "\\" + FileUploadImport.PostedFile.FileName + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=1\""; 
                             break;
@@ -138,18 +138,27 @@ namespace mvc.Views.Import
                         connection.ConnectionString = xlsConnectionString;
                         connection.Open();
                         using (command = connection.CreateCommand())
-                        {                            
-                            if (CheckBoxDepartments.Checked) ImportDepartmentsToDatabase1(realSheetName("Skyriai", "", sheetNames));
-                            if (CheckBoxEmployees.Checked) ImportWorkersToDatabase(realSheetName("Darbuotojai", "", sheetNames));
-                            if (CheckBoxDepartments.Checked)ImportDepartmentsToDatabase2(realSheetName("Skyriai", "", sheetNames));
-                            if (CheckBoxProjects.Checked) ImportProjectsToDatabase(realSheetName("Projektai", "", sheetNames));
-                            if (CheckBoxTasks.Checked) ImportTasksToDatabase(realSheetName("Užduotys", "", sheetNames));                            
+                        {
+                            if (RadioButtonListImport.SelectedValue == "1")
+                            {
+                                if (CheckBoxDepartments.Checked) ImportDepartmentsToDatabase1(realSheetName("Skyriai", "", sheetNames));
+                                if (CheckBoxEmployees.Checked) ImportWorkersToDatabase(realSheetName("Darbuotojai", "", sheetNames));
+                                if (CheckBoxDepartments.Checked) ImportDepartmentsToDatabase2(realSheetName("Skyriai", "", sheetNames));
+                                if (CheckBoxProjects.Checked) ImportProjectsToDatabase(realSheetName("Projektai", "", sheetNames));
+                                if (CheckBoxTasks.Checked) ImportTasksToDatabase(realSheetName("Užduotys", "", sheetNames));
+                            }
+                            else
+                                if (RadioButtonListImport.SelectedValue == "2")
+                                {
+                                    ImportMatrixToDatabase(sheetNames[0]);
+                                }
+
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Span1.InnerHtml = "Error importing data<br>" + ex.ToString();
+                    Span1.InnerHtml = "Klaida importuojant duomenis!";
                     return;
                 }
             }
@@ -158,6 +167,58 @@ namespace mvc.Views.Import
                 Span1.InnerHtml = "Klaida: Nepasirinktas failas";
             }
 
+        }
+
+        private void ImportMatrixToDatabase(String strTable)
+        {
+
+            Models.POADataModelsDataContext DBDataContext = new mvc.Models.POADataModelsDataContext();
+            int intDepart = 0;
+            int intWorker = 0;
+            string tableName;
+            foreach (Models.Department department in DBDataContext.Departments)
+            {
+                intDepart++;
+                List<Models.Worker> workers = DBDataContext.Workers.Where(w => w.department_id == department.id).ToList();
+                workers = workers.Where(w => w.deleted.HasValue == false).ToList();
+                intWorker = 0;
+                foreach (Models.Worker worker in workers)
+                {
+                    intWorker++;
+                    if (intWorker < 10)
+                        tableName = "S" + intDepart.ToString() + "-0" + intWorker.ToString() + " dirba";
+                    else
+                        tableName = "S" + intDepart.ToString() + "-" + intWorker.ToString() + " dirba";
+
+                    command.CommandText = "SELECT [Metai], [Mėnuo], [" + tableName + "] FROM [" + strTable + "$]";
+                    using (DbDataReader dr = command.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (dr[tableName].ToString() != "")
+                            {
+                                Models.WorkerStatus workerStatus = new Models.WorkerStatus();
+                                workerStatus.worker_id = worker.id;
+                                workerStatus.year = int.Parse(dr[0].ToString());
+                                workerStatus.month = int.Parse(dr[1].ToString());
+                                workerStatus.status = int.Parse(dr[2].ToString());
+
+                                var errors = workerStatus.Validate();
+                                if (errors != null)
+                                {
+                                    TempData["errors"] = errors.ErrorMessages;
+                                }
+                                else
+                                {
+                                    DBDataContext.WorkerStatus.InsertOnSubmit(workerStatus);
+                                    DBDataContext.SubmitChanges();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
 
         private void ImportTasksToDatabase(String strTable)
