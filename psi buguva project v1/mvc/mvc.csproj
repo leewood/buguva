@@ -336,6 +336,13 @@
     <Compile Include="Views\Projects\ProjectManagerReport.aspx.designer.cs">
       <DependentUpon>ProjectManagerReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\SwitchingReport.aspx.cs">
+      <DependentUpon>SwitchingReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\SwitchingReport.aspx.designer.cs">
+      <DependentUpon>SwitchingReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Blank.Master.cs">
       <DependentUpon>Blank.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -536,6 +543,7 @@
     <Content Include="Views\Projects\OvertimeReport.aspx" />
     <Content Include="Views\Projects\ProjectIntensivityReport.aspx" />
     <Content Include="Views\Projects\ProjectManagerReport.aspx" />
+    <Content Include="Views\Projects\SwitchingReport.aspx" />
     <Content Include="Views\Shared\Blank.Master" />
     <Content Include="Views\Tasks\Edit.aspx" />
     <Content Include="Views\Tasks\List.aspx" />
