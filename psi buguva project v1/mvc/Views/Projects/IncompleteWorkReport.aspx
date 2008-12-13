@@ -53,9 +53,9 @@
  </script>
  
  <div id="monthChoose">
- <label style="">Paslinkti sąrašą</label>
- <a onclick="scrool(-10)" href="#">< į kairę</a>
- <a onclick="scrool(10)" href="#">į dešinę ></a>
+ <label style="">Paslinkti sąrašą: </label>
+ <a href="javascript:scrool(-10);">< į kairę</a>
+ <a href="javascript:scrool(10);">į dešinę ></a>
  </div>
 	<div style="display: run-in; overflow : auto;" id="scrool_container">
 	
