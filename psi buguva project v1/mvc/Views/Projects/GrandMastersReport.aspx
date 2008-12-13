@@ -4,7 +4,9 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-<%= Html.Path() %>
+    <div class = "path">
+   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	</div> 
 <ul id="menu">
    <li class="selected">
       <%= Html.ActionLink("Bendra Ataskaita", "GrandMastersReport", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = (bool)ViewData["chart"] })%>
@@ -24,16 +26,34 @@
       <%= Html.ActionLink("Grafikas", "GrandMastersReport", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true })%>                    
    </li>
 </ul>
-<div id="years_form">
+
 <% Html.BeginForm("GrandMastersReport", "Projects", FormMethod.Get); %>  
-  <label>Nuo:</label>
-  Metai:<%=Html.TextBox("startYear", ViewData["startYear"],new { style="width:50px" } ) %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
-  <label>Iki:</label>
-  Metai:<%=Html.TextBox("endYear", ViewData["endYear"], new { style = "width:50px" })%>Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+<fieldset class="years">
+    <legend>Ataskaitos laikotarpis</legend>
+
+  <div class="label">Metai nuo:</div>
+  
+  <%=Html.TextBox("startYear", ViewData["startYear"],new { style="width:50px; float: left;" } ) %> 
+  
+  <div class="label">Mėnuo:</div>
+  
+  <%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
+
+  <div class="label">Metai iki:</div>
+  
+  <%=Html.TextBox("endYear", ViewData["endYear"], new { style = "width:50px; float: left;" })%>
+  
+  <div class="label">Mėnuo:</div>
+  
+  <%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+  
+  <br />
   <input type="submit" value="Pasirinkti" />  
+  
   <%= Html.Hidden("chart") %>
+</fieldset>  
 <% Html.EndForm(); %>
-</div>
+
 <% bool paintContent = true; %>
 <% if (TempData.ContainsKey("errors")) {paintContent = false;}; %>
     <div class = "errors">

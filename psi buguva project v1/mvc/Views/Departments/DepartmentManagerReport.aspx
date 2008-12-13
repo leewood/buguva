@@ -28,13 +28,31 @@
 </ul>
 <div id="years_form">
 <% Html.BeginForm("DepartmentManagerReport", "Departments", FormMethod.Get); %>  
-  <label>Nuo:</label>
-  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
-  <label>Iki:</label>
-  Metai:<%=Html.TextBox("endYear") %> Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+
+<fieldset class="years">
+    <legend>Ataskaitos laikotarpis</legend>
+
+  <div class="label">Metai nuo:</div>
+  
+  <%=Html.TextBox("startYear", ViewData["startYear"],new { style="width:50px; float: left;" } ) %> 
+  
+  <div class="label">Mėnuo:</div>
+  
+  <%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
+
+  <div class="label">Metai iki:</div>
+  
+  <%=Html.TextBox("endYear", ViewData["endYear"], new { style = "width:50px; float: left;" })%>
+  
+  <div class="label">Mėnuo:</div>
+  
+  <%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
+  
+  
   <input type="submit" value="Pasirinkti" />
   <%= Html.Hidden("department_id") %>
   <%= Html.Hidden("chart") %>
+ </fieldset>
 <% Html.EndForm(); %>
 </div>
 <% bool paintContent = true; %>
@@ -55,6 +73,7 @@
 <% else %>
 <% { %>
 <fieldset class="report">
+
 <table style="margin-bottom: 0px;">
  <tr>
     <td>Skyriaus kodas/pavadinimas</td><td><%= ViewData.Model.DepartmentInfo.title %></td>

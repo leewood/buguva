@@ -27,23 +27,42 @@
    </li>
 </ul>
 
+
+
 <div id="years_form">
 <% Html.BeginForm("DepartmentProjects", "Departments", FormMethod.Get); %>  
-  <label>Nuo:</label>
-  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
-  <label>Iki:</label>
-  Metai:<%=Html.TextBox("endYear") %> Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>  
+<fieldset class="years">
+    <legend>Ataskaitos laikotarpis</legend>
+
+  <div class="label">Metai nuo:</div>
+  
+  <%=Html.TextBox("startYear", ViewData["startYear"],new { style="width:50px; float: left;" } ) %> 
+  
+  <div class="label">Mėnuo:</div>
+  
+  <%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
+
+  <div class="label">Metai iki:</div>
+  
+  <%=Html.TextBox("endYear", ViewData["endYear"], new { style = "width:50px; float: left;" })%>
+  
+  <div class="label">Mėnuo:</div>
+  
+  <%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
+
   <% System.Collections.Generic.Dictionary<string, bool> list = new Dictionary<string,bool>(); %>
   <% list.Add("Visi susiję projektai", false); %>
   <% list.Add("Tik šio skyriaus projektai", true); %>
   <%=Html.DropDownList("showOnlyMyProjects", new SelectList(list, "Value", "Key", ViewData["viewOnlyMy"])) %>
-
+<br />
   <input type="submit" value="Pasirinkti" />
   <%= Html.Hidden("department_id") %>
   <%= Html.Hidden("chart") %>
   <%= Html.Hidden("pageSize") %>
+  </fieldset>
 <% Html.EndForm(); %>
 </div>
+
 <% bool paintContent = true; %>
 <% if (TempData.ContainsKey("errors")) {paintContent = false;}; %>
     <div class = "errors">
@@ -57,7 +76,43 @@
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
 	
+ <script type="text/javascript">
+
+     var scrool_by = 5;
+
+     var scrooled = 100;
+
+     function scroolBy() {
+         var element = document.getElementById("scrool_container");
+         element.scrollLeft = element.scrollLeft + scrool_by;
+
+         if (scrooled > 0)
+             setTimeout("scroolBy()", 5);
+
+         scrooled = scrooled - 1;
+     }
+
+     function scrool(left) {
+         scrool_by = left;
+         scrooled = 25;
+         scroolBy();
+     }
+ 
+ </script>	
+	
+<div id="monthChoose">
+ <label style="">Paslinkti sąrašą</label>
+ <a onclick="scrool(-10)" href="#">< į kairę</a>
+ <a onclick="scrool(10)" href="#">į dešinę ></a>
+ </div>
+	<div style="display: run-in; overflow : auto;" id="scrool_container">
+	
 	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 15, true, (ViewData.Model.Count * 30 + 160 > 600) ? ViewData.Model.Count * 30 + 160 : 600, (ViewData.Model.Count * 20 + 110 > 400) ? ViewData.Model.Count * 20 + 110 : 400, "Projektas ", true, "Valandos", "")%>
+
+</div>
+
+
+
 <% } %>
 <% else %>
 <% { %>

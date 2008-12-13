@@ -14,14 +14,50 @@
 	  <%= Html.Pager((int)ViewData["size"], (int)ViewData["page"], (int)ViewData["total"], new { type = (int)ViewData["type"]})%>
 	</div>   
     <% Html.BeginForm("IncompleteWorkReport", "Projects", FormMethod.Get); %>  
+    <fieldset class="years">
+     <legend>Ataskaitos laikotarpis</legend>
        <% List<KeyValuePair<string, int>> types = new List<KeyValuePair<string, int>>(); %>
        <% types.Add(new KeyValuePair<string,int>("Metai", 1));%>
        <% types.Add(new KeyValuePair<string,int>("Pusmečiai", 2));%>
        <% types.Add(new KeyValuePair<string,int>("Ketvirčiai", 3));%>
        <% types.Add(new KeyValuePair<string,int>("Mėnesiai", 4));%>
+ 
+ 
    
    <label>Periodo tipas:</label><%= Html.DropDownList("type", new SelectList(types, "Value", "Key", ViewData["type"]), new { onChange = "javascript: form.submit();"})%>
+ </fieldset>
  <% Html.EndForm(); %>
+ 
+ <script type="text/javascript">
+
+     var scrool_by = 5;
+
+     var scrooled = 100;
+
+     function scroolBy() {
+         var element = document.getElementById("scrool_container");
+         element.scrollLeft = element.scrollLeft + scrool_by;
+         
+         if (scrooled > 0)
+            setTimeout("scroolBy()", 5);
+
+        scrooled = scrooled - 1; 
+     }
+
+     function scrool(left) {
+         scrool_by = left;
+         scrooled = 25;
+         scroolBy();
+     }
+ 
+ </script>
+ 
+ <div id="monthChoose">
+ <label style="">Paslinkti sąrašą</label>
+ <a onclick="scrool(-10)" href="#">< į kairę</a>
+ <a onclick="scrool(10)" href="#">į dešinę ></a>
+ </div>
+	<div style="display: run-in; overflow : auto;" id="scrool_container">
 	
 	<table class = "grid">
 	   <tr>
@@ -86,5 +122,7 @@
        </tr>
 	   <% } %>
 	</table>
+
+    </div>
 
 </asp:Content>
