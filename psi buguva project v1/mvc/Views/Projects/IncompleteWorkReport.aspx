@@ -60,7 +60,7 @@
 	<div style="display: run-in; overflow : auto;" id="scrool_container">
 	
 	<table class = "grid">
-	   <tr>
+	   <tr> 
 	   <th rowspan="2"><%= ViewData.Model.Captions[0] %></th>
 	   <% for (int i = 1; i < ViewData.Model.Captions.Count; i++)
        { %>
