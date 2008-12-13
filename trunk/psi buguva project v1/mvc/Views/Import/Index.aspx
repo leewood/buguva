@@ -2,8 +2,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class = "path">
       <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
-    </div>       
-    <form id="form2" runat="server" style="height: 265px; width: 657px">  
+    </div>    
+<div style="height: 380px;">
+    <form name="" id="form2" runat="server" style="height: 265px; width: 657px">  
     <fieldset>
         <legend>Duomenø importavimas</legend>
         <asp:Label ID="Label1" runat="server" Text="Failas"></asp:Label>
@@ -13,29 +14,28 @@
                 <%= Html.ErrorSummary("Klaidø sàraðas:", (string[])TempData["errors"]) %>
         <br />
         <br />
-        <asp:Label ID="Label2" runat="server" Text="Importuoti"></asp:Label>
-        <br /><br />
+        <asp:Label ID="Label2" runat="server" Text="<b>Importuoti:</b>"></asp:Label>
+        
 
-
+        <div class="radio_list">
         <asp:RadioButtonList ID="RadioButtonListImport" runat="server">
-             <asp:ListItem Text="Pagrindinis duomenø failas" Value="1" Selected="true">                                                      
+             <asp:ListItem Text="Pagrindiná duomenø failà" Value="1" Selected="true">                                                      
              </asp:ListItem>
-             <asp:ListItem Text="Duomenø apie darbuotojø darbà matrica" Value="2">           
+             
+             <asp:ListItem Text="Duomenis apie darbuotojø darbà - 'matrica'" Value="2">           
              </asp:ListItem>
         </asp:RadioButtonList>
-        
+        </div>
         
         <asp:CheckBox ID="CheckBoxTasks" runat="server" Checked="True" CssClass="check_box"
             Text="U&#382;duotys" />
         <br />       
-        <asp:CheckBox ID="CheckBoxEmployees" runat="server" Checked="True" CssClass="check_box"
-            Text="Darbuotojai" />
+
+        <asp:CheckBox ID="CheckBoxEmployees" runat="server" Checked="True" CssClass="check_box" Text="Darbuotojai" />
         <br />
-        <asp:CheckBox ID="CheckBoxProjects" runat="server" Checked="True" CssClass="check_box"
-            Text="Projektai" />
+        <asp:CheckBox ID="CheckBoxProjects" runat="server" Checked="True" CssClass="check_box" Text="Projektai" />
         <br />
-        <asp:CheckBox ID="CheckBoxDepartments" runat="server" Checked="True" CssClass="check_box"
-            Text="Skyriai" />
+        <asp:CheckBox ID="CheckBoxDepartments" runat="server" Checked="True" CssClass="check_box" Text="Skyriai" />
         <br />
         
     </fieldset>
@@ -50,6 +50,6 @@
  
     </form>
     
-
-    
+</div>
+   
 </asp:Content>

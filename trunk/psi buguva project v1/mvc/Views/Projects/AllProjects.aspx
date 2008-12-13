@@ -27,12 +27,30 @@
    </li>
 </ul>
 
-<% Html.BeginForm("AllProjects", "Projects", FormMethod.Get); %>  
-  <label>Nuo:</label>
-  Metai:<%=Html.TextBox("startYear") %> Mėnuo:<%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
-  <label>Iki:</label>
-  Metai:<%=Html.TextBox("endYear") %> Mėnuo:<%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>  
-  <input type="submit" value="Pasirinkti" />
+<% Html.BeginForm("AllProjects", "Projects", FormMethod.Get); %> 
+<fieldset class="years">
+    <legend>Ataskaitos laikotarpis</legend>
+    
+  <div style="width: 70px; float: left;">Metai nuo:</div>
+  
+  <%=Html.TextBox("startYear", ViewData["startYear"],new { style="width:50px; float: left;" } ) %> 
+  
+  <div style="width: 70px; float: left; text-align: center;">Mėnuo:</div>
+  
+  <%=Html.DropDownList("startMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %><br />
+
+  <div style="width: 70px; float: left;">Metai iki:</div>
+  
+  <%=Html.TextBox("endYear", ViewData["endYear"], new { style = "width:50px; float: left;" })%>
+  
+  <div style="width: 70px; float: left; text-align: center;">Mėnuo:</div>
+  
+  <%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
+  
+  <br />
+  <input type="submit" value="Pasirinkti" /> 
+  
+ </fieldset> 
   <%= Html.Hidden("chart") %>
   <%= Html.Hidden("pageSize") %>
 <% Html.EndForm(); %>
