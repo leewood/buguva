@@ -63,12 +63,46 @@
    { %>
 <% if ((bool)ViewData["chart"]) %>
 <% { %>
+
+ <script type="text/javascript">
+
+     var scrool_by = 5;
+
+     var scrooled = 100;
+
+     function scroolBy() {
+         var element = document.getElementById("scrool_container");
+         element.scrollLeft = element.scrollLeft + scrool_by;
+
+         if (scrooled > 0)
+             setTimeout("scroolBy()", 5);
+
+         scrooled = scrooled - 1;
+     }
+
+     function scrool(left) {
+         scrool_by = left;
+         scrooled = 25;
+         scroolBy();
+     }
+ 
+ </script>
+
 	<% string[] legends = { "Darbuotojai dirbo" }; %>
 	<% string[] yAxes = { "TotalWorked" }; %>
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Blue, System.Drawing.Color.Red, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Navy, System.Drawing.Color.LightGreen, System.Drawing.Color.RoyalBlue };  %>
 	
+<div id="monthChoose">
+ <label style="">Paslinkti sąrašą: </label>
+ <a href="javascript:scrool(-10);">< į kairę</a>
+ <a href="javascript:scrool(10);">į dešinę ></a>
+ </div>
+ 
+ <div style="display: run-in; overflow : auto;" id="scrool_container">	
+	
 	<%= Html.BarChart<DepartmentProjectReport>(legends, ViewData.Model, "Title", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbo projektuose grafikas", 90, 15, true, (ViewData.Model.Count > 5) ? ViewData.Model.Count * 30 + 160 : 600, (ViewData.Model.Count > 5) ? /*ViewData.Model.Count * 20 + 110*/400 : 400, "Projektas ", true, "", "")%>
+</div>
 <% } %>
 <% else %>
 <% { %>
