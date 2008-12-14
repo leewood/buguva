@@ -486,11 +486,16 @@
     <Content Include="Content\edit.png" />
     <Content Include="Content\ico1.png" />
     <Content Include="Content\ico2.png" />
+    <Content Include="Content\Images\Copy of logo2.png" />
+    <Content Include="Content\Images\Copy of pattern2.gif" />
+    <Content Include="Content\Images\Copy of pattern6.jpg" />
+    <Content Include="Content\Images\Error.png" />
     <Content Include="Content\Images\Icons\AllProjects.png" />
     <Content Include="Content\Images\Icons\AllProjects_.png" />
     <Content Include="Content\Images\Icons\AllProjects_big.png" />
     <Content Include="Content\Images\Icons\Department.png" />
     <Content Include="Content\Images\Icons\Department_.png" />
+    <Content Include="Content\Images\Icons\Department_big.png" />
     <Content Include="Content\Images\Icons\Inport.png" />
     <Content Include="Content\Images\Icons\Inport_.png" />
     <Content Include="Content\Images\Icons\Inport_big.png" />
@@ -514,6 +519,7 @@
     <Content Include="Content\Images\logo2.png" />
     <Content Include="Content\Images\nepavyko.png" />
     <Content Include="Content\Images\pattern2.gif" />
+    <Content Include="Content\Images\pattern2.jpg" />
     <Content Include="Content\Images\pattern4.jpg" />
     <Content Include="Content\Images\pattern6.jpg" />
     <Content Include="Content\Images\pattern6_old.jpg" />
@@ -568,6 +574,7 @@
     <EmbeddedResource Include="Common\Validators\Messages.nl.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.pt.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.resx" />
+    <None Include="Content\Images\Untitled-3.psd" />
     <None Include="Models\POADataModels.dbml.layout">
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </None>
