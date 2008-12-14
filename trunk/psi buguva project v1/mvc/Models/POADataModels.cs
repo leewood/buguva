@@ -883,7 +883,7 @@ namespace mvc.Models
             }
             else if (userSession.isSimpleUser())
             {
-                return false;
+                return this.project_manager_id == userSession.workerID;
             }
             else if (userSession.isDepartmentMaster())
             {
