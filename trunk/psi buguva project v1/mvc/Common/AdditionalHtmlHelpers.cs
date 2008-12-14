@@ -281,7 +281,7 @@ namespace mvc.Common
             chartControl.ChartTitle.Text = caption;
             chartControl.XTitle.Text = titleX;
             chartControl.YTitle.Text = titleY;
-
+            
             if (vertical)
             {
                 chartControl.XAxisFont.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.DirectionVertical;
@@ -301,7 +301,7 @@ namespace mvc.Common
                 
                 ((WebChart.StackedColumnChart)(chartControl.Charts[j])).MaxColumnWidth = maxWidth;
             }
-
+            int max = 0;
             foreach (T line in data)
             {
                 
@@ -310,15 +310,87 @@ namespace mvc.Common
                 foreach (string YAxe in YAxes)
                 {
                     string value = GetMemberValue(line, YAxe);
+                    int intValue = int.Parse(value);
+                    if (max < intValue)
+                    {
+                        max = intValue;
+                    }
                     WebChart.ColumnChart chart = new ColumnChart();
-                    WebChart.ChartPoint point = new WebChart.ChartPoint(title, int.Parse(value));
+                    WebChart.ChartPoint point = new WebChart.ChartPoint(title, intValue);
                     chartControl.Charts[j].Data.Add(point);
                     j++;
                 }
                 i++;
             }
 
-            
+            float interval = 25;
+            int val = (max / 10) + ((max % 10 > 0)?1:0);
+            if (val <= 25)
+            {
+                interval = 25;
+            }
+            else if (val <= 50)
+            {
+                interval = 50;
+            }
+            else if (val <= 100)
+            {
+                interval = 100;
+            }
+            else if (val <= 200)
+            {
+                interval = 200;
+            }
+            else if (val <= 250)
+            {
+                interval = 250;
+            }
+            else if (val <= 400)
+            {
+                interval = 400;
+            }
+            else if (val <= 500)
+            {
+                interval = 100;
+            }
+            else if (val <= 1000)
+            {
+                interval = 1000;
+            }
+            else if (val <= 2000)
+            {
+                interval = 2000;
+            }
+            else if (val <= 2500)
+            {
+                interval = 2500;
+            }
+            else if (val <= 5000)
+            {
+                interval = 5000;
+            }
+            else if (val <= 10000)
+            {
+                interval = 10000;
+            }
+            else if (val <= 20000)
+            {
+                interval = 20000;
+            }
+            else if (val <= 25000)
+            {
+                interval = 25000;
+            }
+            else if (val <= 50000)
+            {
+                interval = 50000;
+            }
+            else if (val <= 100000)
+            {
+                interval = 100000;
+            }
+            chartControl.YValuesInterval = interval;
+            chartControl.YCustomEnd = interval * 10;
             chartControl.RedrawChart();
             System.IO.StringWriter stringWriter = new System.IO.StringWriter();
             System.IO.TextWriter textWiter = stringWriter;
