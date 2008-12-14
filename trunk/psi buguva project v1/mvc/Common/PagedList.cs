@@ -43,11 +43,13 @@ namespace mvc.Common
 			//### argument checking
 			if (index < 0)
 			{
-				throw new ArgumentOutOfRangeException("PageIndex cannot be below 0.");
+				//throw new ArgumentOutOfRangeException("PageIndex cannot be below 0.");
+                index = 0;
 			}
 			if (pageSize < 1)
 			{
-				throw new ArgumentOutOfRangeException("PageSize cannot be less than 1.");
+				//throw new ArgumentOutOfRangeException("PageSize cannot be less than 1.");
+                pageSize = 1;
 			}
 
 			//### set source to blank list if source is null to prevent exceptions

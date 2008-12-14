@@ -34,7 +34,7 @@ namespace mvc.Common
             {
                 if (pageCount > 0)
                 {
-                    if (this.currentPage > 0)
+                    if (this.currentPage > 1)
                     {
                         sb.Append(GeneratePageLink("&lt", this.currentPage - 1));
                     }
