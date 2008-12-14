@@ -7,8 +7,8 @@ using System.Web.Mvc;
 
 namespace mvc.Views.Projects
 {
-    public partial class SwitchingReport : ViewPage
+    public partial class SwitchingReport : ViewPage<Models.SwitchingReport>
     {
-        // cia komentaras
+    
     }
 }
