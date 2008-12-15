@@ -6,19 +6,13 @@ using System.Web.Mvc;
 
 namespace mvc.Models
 {
-    public partial class Worker
+    public partial class Task
     {
-
-        public bool hasTasksInProject(int project_id)
+        public string FullMonthName
         {
-
-            if (this.Tasks.Count() > 0)
+            get
             {
-                return (this.Tasks.Where(task => task.project_id == project_id).Count() > 0);
-            }
-            else
-            {
-                return false;
+                return (new MonthOfYear(this.year, this.month)).ToString();
             }
         }
 
@@ -31,21 +25,16 @@ namespace mvc.Models
             }
             else if (userSession.isSimpleUser())
             {
-                return this.id == userSession.workerID;
+                if (this.Worker != null)
+                {
+                    return this.Worker.id == userSession.workerID;
+                }
             }
             else if (userSession.isDepartmentMaster())
             {
-                if (this.Department == null)
+                if ((this.Worker != null) && (this.Worker.Department != null) && (this.Worker.Department.Worker != null))
                 {
-                    return false;
-                }
-                else if (this.Department.Worker == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return this.Department.Worker.id == userSession.workerID;
+                    return this.Worker.Department.Worker.id == userSession.workerID;
                 }
             }
             return false;
@@ -72,7 +61,7 @@ namespace mvc.Models
         public static bool administrationNew()
         {
             mvc.Common.UserSession userSession = new mvc.Common.UserSession();
-            if (userSession.isAdministrator() || userSession.isDepartmentMaster())
+            if (!userSession.isAntanas())
             {
                 return true;
             }
@@ -85,10 +74,10 @@ namespace mvc.Models
         public bool administrationDelete()
         {
             mvc.Common.UserSession userSession = new mvc.Common.UserSession();
-            if (userSession.isAntanas() || userSession.isSimpleUser())
+            if (userSession.isAntanas())
             {
                 return false;
-            }            
+            }
             else
             {
                 return canBeSeen();
@@ -101,47 +90,16 @@ namespace mvc.Models
             if (Common.UserSession.BackupDeletedData)
             {
                 BackupModelsDataContext backupDataContext = new BackupModelsDataContext();
-                BackupWorker backup = new BackupWorker();
+                BackupTask backup = new BackupTask();
                 backup.deleted_by_id = currentUserID;
                 backup.deleted = DateTime.Now;
                 backup.id = this.id;
-                backup.department_id = this.department_id;
-                backup.name = this.name;
-                backup.surname = this.surname;                
+                backup.year = this.year;
+                backup.month = this.month;
+                backup.project_id = this.project_id;
+                backup.project_participant_id = this.project_participant_id;
+                backup.worked_hours = this.worked_hours;
                 backupDataContext.SubmitChanges();
-            }
-        }
-
-        public List<MonthOfYear> workedMonthsInProject(int project_id, int workerID)
-        {
-            List<MonthOfYear> result = new List<MonthOfYear>();
-            List<Task> tasks;
-            if (this.Tasks.Count > 0)
-            {
-                tasks = this.Tasks.Where(task => (task.project_id == project_id) && (task.project_participant_id == workerID)).ToList();
-            }
-            else
-            {
-                tasks = new List<Task>();
-            }
-            if (tasks.Count > 0)
-                foreach (Task task in tasks)
-                {
-                    MonthOfYear current = new MonthOfYear(task.year, task.month);
-                    if (result.IndexOf(current) < 0)
-                    {
-                        result.Add(current);
-                    }
-                }
-            result.Sort();
-            return result;
-        }
-
-        public String Fullname
-        {
-            get
-            {
-                return this.name + " " + this.surname;
             }
         }
 

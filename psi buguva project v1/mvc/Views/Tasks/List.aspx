@@ -31,11 +31,16 @@
 	        <td><%= (new MonthOfYear(task.year, task.month)).ToString() %></td>
 	        <td style="text-align:right"><%= task.worked_hours %></td>
 	        <td>
+	        <% if (task.administrationEdit()) %>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = task.id}) %>
+            <% if (task.administrationDelete()) %>	          
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = task.id}, true, "Ar tikrai norite ištrinti šią užduotį?") %>	          
 	        </td>
 	      </tr>
 	   <% } %>
 	</table>
-	<%= Html.ActionImageLink("../Content/new.png", "", "New", new {}) %><%= Html.ActionLink("Nauja užduotis", "New") %>
+	<% if (mvc.Models.Task.administrationNew())
+    { %>
+	<%= Html.ActionImageLink("../Content/new.png", "", "New", new { })%><%= Html.ActionLink("Nauja užduotis", "New")%>
+	<% } %>
 </asp:Content>

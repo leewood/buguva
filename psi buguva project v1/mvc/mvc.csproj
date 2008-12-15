@@ -189,6 +189,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
