@@ -730,9 +730,18 @@ namespace mvc.Controllers
 
         public ActionResult New()
         {
-            Project project = ((Project)TempData["project"] ?? new Project());
-            ViewData["Title"] = "Kuriamas naujas projektas";
-            return View(project);
+            if (Project.administrationNew())
+            {
+                Project project = ((Project)TempData["project"] ?? new Project());
+                ViewData["Title"] = "Kuriamas naujas projektas";
+                return View(project);
+            }
+            else
+            {
+                string[] errors = { "Neturite teisių kurti naują projektą" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
         }
 
         public ActionResult Insert()
@@ -768,8 +777,17 @@ namespace mvc.Controllers
                 }
                 if (project != null)
                 {
-                    ViewData["Title"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
-                    return View(project);
+                    if (project.administrationEdit())
+                    {
+                        ViewData["Title"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
+                        return View(project);
+                    }
+                    else
+                    {
+                        string[] errors = { "Neturite teisių koreguoti šį projektą" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -789,7 +807,9 @@ namespace mvc.Controllers
         public ActionResult List(int? page)
         {
             ViewData["Title"] = "Projektų sąrašas";
-            return View(DBDataContext.Projects.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
+            List<Project> projects = DBDataContext.Projects.Where(w => (w.deleted.HasValue == false)).ToList();
+            projects = projects.Where(p => p.administationView()).ToList();
+            return View(projects.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 
         public ActionResult Update(int? id)
@@ -832,12 +852,18 @@ namespace mvc.Controllers
                 }
                 if (project != null)
                 {
-                    project.deleted = DateTime.Today;
-                    if (userSession.userId != 0)
+                    if (project.administrationDelete())
                     {
-                        project.deleted_by_id = userSession.userId;
+                        project.makeBackup(userSession.userId);
+                        DBDataContext.Projects.DeleteOnSubmit(project);
+                        DBDataContext.SubmitChanges();
                     }
-                    DBDataContext.SubmitChanges();
+                    else
+                    {
+                        string[] errors = { "Neturite teisių ištrinti šį projektą" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
