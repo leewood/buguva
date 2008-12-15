@@ -26,7 +26,7 @@
 	<table class = "grid">
 	   <tr>
 	      <th style="display:none">ID</th>
-	      <th style="width: 100px">Kodas/pavadinimas</th>
+	      <th style="width: 100px">Kodas</th>
 	      <th>Vadovas</th>
 	      <th>Veiksmai</th>
 	   </tr>    
@@ -39,15 +39,19 @@
 	        <td width="80">
 	        <% if (userSession.canEditProjects()) %>
 	        <% { %>	        
+	          <% if (project.administrationEdit()) %>
 	          <%= Html.ActionImageLink("/Content/edit.png", "Koreguoti", "Edit", new { id = project.id })%>
+	          <% if (project.administrationDelete()) %>
 	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new { id = project.id }, true, "Ar tikrai norite ištrinti šį projektą?")%>	          
 	        <% } %>
 	        </td>
 	      </tr>
 	   <% } %>
 	</table>
-	<%= Html.ActionImageLink("/Content/new.png", "", "New", new {}) %><%= Html.ActionLink("Naujas projektas", "New") %>
-
+	<% if (mvc.Models.Project.administrationNew())
+    { %>
+	<%= Html.ActionImageLink("/Content/new.png", "", "New", new { })%><%= Html.ActionLink("Naujas projektas", "New")%>
+    <% } %>
 	<div class="description">
 	    <img src="../../Content/Images/Icons/Tasks.png" alt="img" /> - Projekte esančios užduotys <br />
 	    <img src="../../Content/Images/Icons/ManagerReport.png" alt="img" /> - Vadovaujamo projekto ataskaita <br />
