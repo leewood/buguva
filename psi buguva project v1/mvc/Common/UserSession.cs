@@ -49,7 +49,15 @@ namespace mvc.Common
 
             return "/";
         }
-        
+
+        public static bool BackupDeletedData
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public bool loged
         {
             get
