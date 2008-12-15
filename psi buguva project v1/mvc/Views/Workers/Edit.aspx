@@ -20,11 +20,22 @@
          <p>
             <label for="surname">Pavardė:</label><%= Html.TextBox("surname") %>
          </p>
+         <% mvc.Common.UserSession userSession = new UserSession(); %>
          <p>
-            <% POADataModelsDataContext dbConnection = new POADataModelsDataContext(); %>
-            <% SelectList departments = new SelectList(dbConnection.Departments.Where(d=> d.deleted.HasValue == false), "id", "title", ViewData.Model.department_id);  %>
-            <label for="director">Skyrius:</label><%= Html.DropDownList("department_id", departments) %>
-         </p>
+           <label>Skyrius:</label>
+           <% POADataModelsDataContext dbConnection = new POADataModelsDataContext(); %>
+         <% if (!userSession.isAdministrator())
+            { %>
+            <%= Html.Hidden("department_id", userSession.workerDepartment) %>
+            <%= dbConnection.Departments.First(d => d.id == userSession.workerDepartment).title %>
+         <% }
+            else
+            { %>
+            
+            <% SelectList departments = new SelectList(dbConnection.Departments.Where(d => d.deleted.HasValue == false), "id", "title", ViewData.Model.department_id);  %>
+            <%= Html.DropDownList("department_id", departments)%>
+         <% } %>
+        </p>
          </fieldset>
          <input type="submit" value = "Keisti" />                         
     <% } %>

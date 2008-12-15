@@ -19,10 +19,22 @@
          <p>
             <label for="surname">Pavardė:</label><%= Html.TextBox("surname") %>
          </p>
+         <% mvc.Common.UserSession userSession = new UserSession(); %>
+         
          <p>
-            <% POADataModelsDataContext dbConnection = new POADataModelsDataContext(); %>
+           <label>Skyrius:</label>
+           <% POADataModelsDataContext dbConnection = new POADataModelsDataContext(); %>
+         <% if (userSession.isDepartmentMaster())
+            { %>
+            <%= Html.Hidden("department_id", userSession.workerDepartment) %>
+            <%= dbConnection.Departments.First(d => d.id == userSession.workerDepartment).title %>
+         <% }
+            else
+            { %>
+            
             <% SelectList departments = new SelectList(dbConnection.Departments.Where(d => d.deleted.HasValue == false), "id", "title");  %>
-            <label for="director">Skyrius:</label><%= Html.DropDownList("department_id", departments) %>
+            <%= Html.DropDownList("department_id", departments)%>
+         <% } %>
          </p>
          </fieldset>
          <input type="submit" value = "Sukurti" />                                                             

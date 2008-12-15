@@ -22,29 +22,23 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             return RedirectToAction("List");
-            /*
-            ViewData["Title"] = "Darbuotojai";
-            mvc.Models.POADataModelsDataContext data = new mvc.Models.POADataModelsDataContext();//System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDatabaseConnection"].ConnectionString);            
-            ViewResult result = View(data.GetWorkers());
-            
-           
-            return result;
-             */
         }
 
 
         public ActionResult Form()
         {
-            ViewData["Title"] = "Darbuotojas";
-            
-            return View(new Worker());
+            ViewData["Title"] = "Darbuotojas";            
+            //return View(new Worker());
+            return RedirectToAction("List");
         }
 
 
         public ActionResult List(int? page)
         {
             ViewData["Title"] = "Darbuotojų sąrašas";
-            return View(DBDataContext.Workers.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));                        
+            List<Worker> workers = DBDataContext.Workers.Where(w => (w.deleted.HasValue == false)).ToList();
+            workers = workers.Where(w => w.administationView()).ToList();
+            return View(workers.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));                        
         }
 
         public ActionResult Delete(int? id)
@@ -61,12 +55,18 @@ namespace mvc.Controllers
                 }
                 if (worker != null)
                 {
-                    worker.deleted = DateTime.Today;
-                    if (userSession.userId != 0)
+                    if (worker.administrationDelete())
                     {
-                        worker.deleted_by_id = userSession.userId;
+                        worker.makeBackup(userSession.userId);
+                        DBDataContext.Workers.DeleteOnSubmit(worker);
+                        DBDataContext.SubmitChanges();
                     }
-                    DBDataContext.SubmitChanges();
+                    else
+                    {
+                        string[] errors = { "Neturite teisių ištrinti šio darbuotojo" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -97,8 +97,17 @@ namespace mvc.Controllers
                 }
                 if (worker != null)
                 {
-                    ViewData["Title"] = "Koreguojamas darbuotojas #" + worker.id.ToString() + "(" + worker.Fullname + ")";
-                    return View(worker);
+                    if (worker.administrationEdit())
+                    {
+                        ViewData["Title"] = "Koreguojamas darbuotojas #" + worker.id.ToString() + "(" + worker.Fullname + ")";
+                        return View(worker);
+                    }
+                    else
+                    {
+                        string[] errors = { "Neturite teisių keisti šio darbuotojo" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -117,9 +126,19 @@ namespace mvc.Controllers
 
         public ActionResult New()
         {
-            Worker worker = ((Worker)TempData["worker"] ?? new Worker());
-            ViewData["Title"] = "Kuriamas naujas darbuotojas";
-            return View(worker);
+            if (Worker.administrationNew())
+            {
+                Worker worker = ((Worker)TempData["worker"] ?? new Worker());
+                ViewData["Title"] = "Kuriamas naujas darbuotojas";
+                return View(worker);
+            }
+            else
+            {
+                string[] errors = { "Neturite teisių kurti naujo darbuotojo" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
+            
         }
 
         public ActionResult Insert()
