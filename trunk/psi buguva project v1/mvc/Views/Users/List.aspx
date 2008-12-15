@@ -28,15 +28,21 @@
 	        <td><%= user.LevelName %></td>
 	        <td><%= (user.Worker != null)?user.Worker.Fullname:"<span style=\"color:Red\">Nesusietas</span>" %></td>
 	        <td width="100">
+	        <% if (user.administrationEdit())  %>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = user.id}) %>
+            <% if (user.administrationDelete())  %>	          
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = user.id}, true, "Ar tikrai norite ištrinti šį vartotoją?") %>
+	          <% mvc.Common.UserSession userSession = new UserSession(); %>
+	        <% if (user.administrationEdit() || user.id == userSession.userId)  %>  
 	          <%= Html.ActionImageLink("../Content/key.png", "Keisti slaptažodį", "ChangePassword", new {id = user.id}) %>
 	        </td>
 	      </tr>
 	   <% } %>
 	</table>
-	<%= Html.ActionImageLink("../Content/new.png", "", "New", new {}) %><%= Html.ActionLink("Naujas vartotojas", "New") %>
-
+	<% if (mvc.Models.User.administrationNew())
+    { %>
+	  <%= Html.ActionImageLink("../Content/new.png", "", "New", new { })%><%= Html.ActionLink("Naujas vartotojas", "New")%>
+    <% } %>
 	<div class="description">
 	    <img src="../../Content/delete.png" alt="img" /> - Ištrinti įrašą <br />
 	    <img src="../../Content/edit.png" alt="img" /> - Redaguoti įrašą<br />

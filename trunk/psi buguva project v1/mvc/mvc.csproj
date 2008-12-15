@@ -169,6 +169,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BackupModels.cs">
+      <DependentUpon>BackupModels.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BackupModels.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BackupModels.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataClasses.cs">
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
@@ -181,6 +189,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Departments\DepartmentManagerReport.aspx.cs">
       <DependentUpon>DepartmentManagerReport.aspx</DependentUpon>
@@ -565,7 +574,15 @@
     <EmbeddedResource Include="Common\Validators\Messages.nl.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.pt.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.resx" />
+    <None Include="Models\BackupModels.dbml.layout">
+      <DependentUpon>BackupModels.dbml</DependentUpon>
+    </None>
     <None Include="Content\Images\Untitled-3.psd" />
+    <None Include="Models\BackupModels.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BackupModels.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Models\POADataModels.dbml.layout">
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </None>

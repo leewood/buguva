@@ -26,7 +26,11 @@ namespace mvc.Controllers
         public ActionResult List(int? page)
         {
             ViewData["Title"] = "Vartotojų sąrašas";
-            return View(DBDataContext.Users.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
+            List<Models.User> realUsers = DBDataContext.Users.Where(w => (w.deleted.HasValue == false)).ToList();
+            Models.User myUser = DBDataContext.Users.First(u => u.id == userSession.userId);
+            realUsers = realUsers.Where(u => u.administationView()).ToList();
+            IPagedList<Models.User> users = realUsers.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage);
+            return View(users);
         }
 
         public ActionResult Delete(int? id)
@@ -34,6 +38,7 @@ namespace mvc.Controllers
             if (id.HasValue)
             {
                 User user = null;
+                User myUser = DBDataContext.Users.First(u => u.id == userSession.userId);
                 try
                 {
                     user = DBDataContext.Users.Where(u => u.id == id.Value).First();
@@ -43,13 +48,18 @@ namespace mvc.Controllers
                 }
                 if (user != null)
                 {
-                    user.deleted = DateTime.Today;
-                    if (userSession.userId != 0)
+                    if (user.administrationDelete())
                     {
-                        user.deleted_by_id = userSession.userId;
+                        user.makeBackup(userSession.userId);
+                        DBDataContext.Users.DeleteOnSubmit(user);
+                        DBDataContext.SubmitChanges();
                     }
-                    user.login_name = "?" + user.id.ToString() + "?" + user.login_name;
-                    DBDataContext.SubmitChanges();
+                    else
+                    {
+                        string[] errors = { "Jūs neturite teisių trinti šio vartotojo" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -80,8 +90,17 @@ namespace mvc.Controllers
                 }
                 if (user != null)
                 {
-                    ViewData["Title"] = "Koreguojamas vartotojas #" + user.id.ToString() + "(" + user.login_name + ")";
-                    return View(user);
+                    if (user.administrationEdit())
+                    {
+                        ViewData["Title"] = "Koreguojamas vartotojas #" + user.id.ToString() + "(" + user.login_name + ")";
+                        return View(user);
+                    }
+                    else
+                    {
+                        string[] errors = { "Neturite teisių koreguoti šio vartotojo" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -112,8 +131,17 @@ namespace mvc.Controllers
                 }
                 if (user != null)
                 {
-                    ViewData["Title"] = "#" + user.id.ToString() + "(" + user.login_name + ") vartotojo slaptažodžio keitimas";
-                    return View(user);
+                    if (user.administrationEdit() || user.id == userSession.userId)
+                    {
+                        ViewData["Title"] = "#" + user.id.ToString() + "(" + user.login_name + ") vartotojo slaptažodžio keitimas";
+                        return View(user);
+                    }
+                    else
+                    {
+                        string[] errors = { "Jūs neturite teisių keisti šio vartotojo slaptažodį" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -133,9 +161,18 @@ namespace mvc.Controllers
 
         public ActionResult New()
         {
-            User user = ((User)TempData["user"] ?? new User());
-            ViewData["Title"] = "Kuriamas naujas vartotojas";
-            return View(user);
+            if (Models.User.administrationNew())
+            {
+                User user = ((User)TempData["user"] ?? new User());
+                ViewData["Title"] = "Kuriamas naujas vartotojas";
+                return View(user);
+            }
+            else
+            {
+                string[] errors = { "Neturite teisių kurti naujus vartotojus" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
         }
 
         public ActionResult Insert()
