@@ -13,16 +13,24 @@ namespace mvc.Controllers
     public class TasksController : Common.BaseController
     {
         public ActionResult Index()
-        {
-            // Add action logic here
+        {            
             return RedirectToAction("List");
         }
 
         public ActionResult New()
         {
-            Task task = ((Task)TempData["task"] ?? new Task());
-            ViewData["TitleWindow"] = "Kuriama nauja užduotis";
-            return View(task);
+            if (Task.administrationNew())
+            {
+                Task task = ((Task)TempData["task"] ?? new Task());
+                ViewData["TitleWindow"] = "Kuriama nauja užduotis";
+                return View(task);
+            }
+            else
+            {
+                string[] errors = { "Jūs neturite teisių kurti naujų užduočių" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
         }
 
         public ActionResult Insert()
@@ -58,8 +66,17 @@ namespace mvc.Controllers
                 }
                 if (task != null)
                 {
-                    ViewData["TitleWindow"] = "Koreguojama užduotis #" + task.id.ToString() /*+ "(" + task.title + ")"*/;
-                    return View(task);
+                    if (task.administrationEdit())
+                    {
+                        ViewData["TitleWindow"] = "Koreguojama užduotis #" + task.id.ToString() /*+ "(" + task.title + ")"*/;
+                        return View(task);
+                    }
+                    else
+                    {
+                        string[] errors = { "Neturite teisių koreguoti šio užduoties" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -79,7 +96,9 @@ namespace mvc.Controllers
         public ActionResult List(int? page)
         {
             ViewData["Title"] = "Užduočių sąrašas";
-            return View(DBDataContext.Tasks.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
+            List<Task> tasks = DBDataContext.Tasks.Where(w => (w.deleted.HasValue == false)).ToList();
+            tasks = tasks.Where(t => t.administationView()).ToList();
+            return View(tasks.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 
         public ActionResult Update(int? id)
@@ -122,16 +141,22 @@ namespace mvc.Controllers
                 }
                 if (task != null)
                 {
-                    task.deleted = DateTime.Today;
-                    if (userSession.userId != 0)
+                    if (task.administrationDelete())
                     {
-                        task.deleted_by_id = userSession.userId;
+                        task.makeBackup(userSession.userId);
+                        DBDataContext.Tasks.DeleteOnSubmit(task);
+                        DBDataContext.SubmitChanges();
                     }
-                    DBDataContext.SubmitChanges();
+                    else
+                    {
+                        string[] errors = { "Neturite teisių ištrinti šią užduotį" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
-                    string[] errors = { "Bandoma trinti neegzistuojančą užduotį" };
+                    string[] errors = { "Bandoma trinti neegzistuojančią užduotį" };
                     TempData["errors"] = errors;
                 }
                 return RedirectToAction("List");

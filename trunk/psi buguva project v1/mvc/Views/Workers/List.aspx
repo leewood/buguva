@@ -36,8 +36,10 @@
 	      </tr>
 	   <% } %>
 	</table>
-	<% if (mvc.Models.Worker.administrationNew()) %>
-	  <%= Html.ActionImageLink("../Content/new.png", "", "New", new {}) %><%= Html.ActionLink("Naujas darbuotojas", "New") %>
+	<% if (mvc.Models.Worker.administrationNew())
+    { %>
+	  <%= Html.ActionImageLink("../Content/new.png", "", "New", new { })%><%= Html.ActionLink("Naujas darbuotojas", "New")%>
+	<% } %>
 
 	<div class="description">
 	    <img src="../../Content/delete.png" alt="img" /> - Ištrinti įrašą <br />

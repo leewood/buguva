@@ -12,11 +12,23 @@
         <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.id); %>
         <% SelectList listProjects = new SelectList(data.Projects.ToList(), "id", "title", ViewData.Model.id); %>
         <% SelectList listMonth = MonthOfYear.monthsList(ViewData.Model.month); %>
+        <% UserSession userSession = new UserSession();
+           User mySelf = data.Users.First(u => u.id == userSession.userId);
+            %>        
         <p> 
             <label for="project_id">Projekto pavadinimas:</label><%= Html.DropDownList("project_id", listProjects) %>
         </p>
         <p> 
-            <label for="project_participant_id">Projekto dalyvis:</label><%= Html.DropDownList("project_participant_id", list) %>
+            <label for="project_participant_id">Projekto dalyvis:</label>
+            <% if (!userSession.isSimpleUser())
+               { %>            
+               <%= Html.DropDownList("project_participant_id", list) %>
+             <% }
+                else
+                { %>
+               <%= Html.Hidden("project_participant_id", mySelf.worker_id ?? 0)%>
+               <%= (mySelf.Worker != null) ? mySelf.Worker.Fullname : ""%>
+            <% } %>               
         </p>
         <p>
             <label for="year">Metai:</label><%= Html.TextBox("year") %>
