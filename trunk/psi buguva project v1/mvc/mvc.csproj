@@ -190,6 +190,7 @@
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Departments\DepartmentManagerReport.aspx.cs">
       <DependentUpon>DepartmentManagerReport.aspx</DependentUpon>
