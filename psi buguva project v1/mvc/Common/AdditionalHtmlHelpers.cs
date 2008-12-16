@@ -21,6 +21,17 @@ namespace mvc.Common
 
     }
 
+
+    public static class TempDictionaryExtension
+    {
+        public static object getAndRemove(this TempDataDictionary dict, string key)
+        {
+            object result = dict[key];
+            dict.Remove(key);
+            return result;
+        }
+    }
+
     public static class AdditionalHtmlHelpers
     {
         public static string Label(this HtmlHelper helper, string target, string text)
