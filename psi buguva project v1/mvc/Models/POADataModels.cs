@@ -59,6 +59,10 @@ namespace mvc.Models
             Projects.DeleteAllOnSubmit(Projects);
             WorkerStatus.DeleteAllOnSubmit(WorkerStatus);
             Departments.DeleteAllOnSubmit(Departments);
+            foreach (User user in Users)
+            {
+                user.worker_id = null;
+            }
             Workers.DeleteAllOnSubmit(Workers);
             if (clearUsers)
             {

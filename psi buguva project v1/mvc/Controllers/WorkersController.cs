@@ -144,7 +144,11 @@ namespace mvc.Controllers
 
         public ActionResult Insert()
         {
-            Worker worker = DBDataContext.CreateEntityFromForm<Worker>(Request.Form);            
+            Worker worker = DBDataContext.CreateEntityFromForm<Worker>(Request.Form);
+            if ((worker.surname == "") || (worker.surname == null))
+            {
+                worker.surname = " ";
+            }
             var errors = worker.Validate();
             if (errors != null)
             {
@@ -166,6 +170,10 @@ namespace mvc.Controllers
             if (id.HasValue)
             {
                 Worker worker = DBDataContext.CreateEntityFromForm<Worker>(Request.Form);
+                if ((worker.surname == "") || (worker.surname == null))
+                {
+                    worker.surname = " ";
+                }
                 worker.id = id.Value;
                 var errors = worker.Validate();
                 if (errors != null)

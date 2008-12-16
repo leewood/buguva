@@ -489,6 +489,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_title", DbType="VarChar(MAX)")]
+        [ValidateNonEmpty("Projekto kodas negali būti paliktas tuščias")]
 		public string title
 		{
 			get
@@ -745,6 +746,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_project_id", DbType="Int NOT NULL")]
+        [ValidateNonEmpty("Būtina nurodyti projektą, kuriam priklauso užduotis")]
 		public int project_id
 		{
 			get
@@ -769,6 +771,7 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_project_participant_id", DbType="Int NOT NULL")]
+        [ValidateNonEmpty("Būtina nurodyti darbuotoją, kuriam priklauso užduotis")]
 		public int project_participant_id
 		{
 			get
@@ -793,6 +796,9 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_year", DbType="Int NOT NULL")]
+        [ValidateNonEmpty("Būtina nurodyti metus")]
+        [ValidateInteger("Metai turi būti skaičius")]
+        [ValidateRange(0, DateTime.Now.Year, "Metai turi būti intervale tarp 0 ir šių metų")]
 		public int year
 		{
 			get
@@ -813,6 +819,9 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_month", DbType="Int NOT NULL")]
+        [ValidateNonEmpty("Būtina nurodyti mėnesį")]
+        [ValidateInteger("Mėnuo turi būti skaičius")]
+        [ValidateRange(1, 12, "Mėnuo turi būti intervale tarp 1 ir 12")]
 		public int month
 		{
 			get
@@ -833,6 +842,9 @@ namespace mvc.Models
 		}
 		
 		[Column(Storage="_worked_hours", DbType="Int NOT NULL")]
+        [ValidateNonEmpty("Būtina nurodyti išdirbtas valandas")]
+        [ValidateInteger("Valandos turi būti sveikas skaičius")]
+        [ValidateRange(0, 744, "Valandos privavo būti intervale 0..744")]
 		public int worked_hours
 		{
 			get
@@ -1154,6 +1166,7 @@ namespace mvc.Models
 		
 		[Column(Name="[level]", Storage="_level", DbType="Int NOT NULL")]
         [ValidateNonEmpty("Lygis negali būti paliktas neužpildytas")]
+        [ValidateInteger("Lygis turi būti skaičius")]
 		public int level
 		{
 			get
