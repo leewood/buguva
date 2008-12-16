@@ -186,6 +186,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BackupModels.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SwitchingReportRow.cs" />
+    <Compile Include="Models\SwitchingReport.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\DepartmentInfoForProject.cs" />
     <Compile Include="Models\DepartmentManagerReport.cs" />
@@ -370,6 +372,13 @@
     </Compile>
     <Compile Include="Views\Projects\ProjectManagerReport.aspx.designer.cs">
       <DependentUpon>ProjectManagerReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\SwitchingReport.aspx.cs">
+      <DependentUpon>SwitchingReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\SwitchingReport.aspx.designer.cs">
+      <DependentUpon>SwitchingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Blank.Master.cs">
       <DependentUpon>Blank.Master</DependentUpon>
@@ -601,6 +610,7 @@
       <LastGenOutput>InstallationModels.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Projects\SwitchingReport.aspx" />
     <None Include="Models\BackupModels.dbml.layout">
       <DependentUpon>BackupModels.dbml</DependentUpon>
     </None>
