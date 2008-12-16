@@ -4,7 +4,7 @@ using System.Linq;
 using Castle.Components.Validator;
 using System.Web.Mvc;
 
-namespace mvc.Models
+namespace mvc.Installation
 {
     partial class InstallationModelsDataContext
     {

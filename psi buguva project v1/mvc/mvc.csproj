@@ -169,6 +169,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Installation\InstallationModels.cs">
+      <DependentUpon>InstallationModels.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Installation\InstallationModels.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InstallationModels.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AssociatedWorkedHours.cs" />
     <Compile Include="Models\BackupModels.cs">
       <DependentUpon>BackupModels.dbml</DependentUpon>
@@ -185,9 +193,6 @@
     <Compile Include="Models\IncompleteWorkValueReport.cs" />
     <Compile Include="Models\IncompleteWorkValueReportCell.cs" />
     <Compile Include="Models\IncompleteWorkValueReportRow.cs" />
-    <Compile Include="Models\InstallationModels.cs">
-      <DependentUpon>InstallationModels.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Models\LinqExtensions.cs" />
     <Compile Include="Models\MonthOfYear.cs" />
     <Compile Include="Models\OvertimeReport.cs" />
@@ -586,11 +591,16 @@
     <EmbeddedResource Include="Common\Validators\Messages.nl.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.pt.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.resx" />
-    <None Include="Models\InstallationModels.dbml.layout">
+    <None Include="Installation\InstallationModels.dbml.layout">
       <DependentUpon>InstallationModels.dbml</DependentUpon>
     </None>
     <Content Include="Config\SQLConfig.config" />
-    <Content Include="Config\BackupConfig.config" />
+    <Content Include="Config\SystemConfig.config" />
+    <None Include="Installation\InstallationModels.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>InstallationModels.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Models\BackupModels.dbml.layout">
       <DependentUpon>BackupModels.dbml</DependentUpon>
     </None>
@@ -598,10 +608,6 @@
     <None Include="Models\BackupModels.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BackupModels.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Models\InstallationModels.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
     </None>
     <None Include="Models\POADataModels.dbml.layout">

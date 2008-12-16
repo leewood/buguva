@@ -28,8 +28,8 @@ namespace mvc.Models
 
         public bool Install()
         {
-            InstallationModelsDataContext installation = new InstallationModelsDataContext();
-            return installation.Install();
+            mvc.Installation.InstallationModelsDataContext installation = new mvc.Installation.InstallationModelsDataContext();
+            return installation.Install();            
         }
         
         public List<Worker> GetWorkers()

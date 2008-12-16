@@ -93,7 +93,16 @@ namespace mvc.Common
                 }
                 else
                 {
-                    return 25;
+                    int result = 25;
+                    try
+                    {
+                        string conf = System.Configuration.ConfigurationSettings.AppSettings["DefaultItemsPerPageSize"];
+                        result = int.Parse(conf);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    return result;                    
                 }
 
             }
