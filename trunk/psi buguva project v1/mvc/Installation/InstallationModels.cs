@@ -15,6 +15,12 @@ namespace mvc.Installation
                 if (!DatabaseExists())
                 {
                     CreateDatabase();
+                    User admin = new User();
+                    admin.login_name = "admin";
+                    admin.password = "admin";
+                    admin.level = 3;
+                    Users.InsertOnSubmit(admin);
+                    SubmitChanges();
                 }
                 return true;
             }
