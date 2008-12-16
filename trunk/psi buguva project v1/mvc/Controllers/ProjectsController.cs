@@ -363,13 +363,13 @@ namespace mvc.Controllers
             int periodsCount = getPeriodsCount(pType, start, end);
             int periodStart = getPeriodStart(pType, start);
 
-            OvertimeReportRow totalRow = new OvertimeReportRow();
-            OvertimeReportRow totalRow2 = new OvertimeReportRow();
-            for (int i = 0; i < departments.Count + 1; i++)
-            {
-                totalRow.Cells.Add(new OvertimeReportCell());
-                totalRow2.Cells.Add(new OvertimeReportCell());
-            }
+            //OvertimeReportRow totalRow = new OvertimeReportRow();
+            //OvertimeReportRow totalRow2 = new OvertimeReportRow();
+            //for (int i = 0; i < departments.Count + 1; i++)
+            //{
+            //    totalRow.Cells.Add(new OvertimeReportCell());
+            //    totalRow2.Cells.Add(new OvertimeReportCell());
+            //}
             int itemsPerPage = userSession.ItemsPerPage;
             int endCycle = (periodsCount <= itemsPerPage) ? periodsCount + periodStart - 1 : periodStart + ((currentPage - 1) * itemsPerPage) + itemsPerPage - 1;
             for (int i = periodStart; i <= periodsCount + periodStart - 1; i++)
@@ -386,12 +386,12 @@ namespace mvc.Controllers
                     OvertimeReportCell cell = new OvertimeReportCell();
        
                     cell.TimeSum = periodTasks.Sum(t => t.worked_hours);
-                    cell.TimeNormal = department.Workers.ToList().Sum(w => w.workedMonthsInPeriod(new Period((periodStart - 1) / 12, (periodStart - 1) % 12, (periodsCount + periodStart - 1) / 12, (periodsCount + periodStart - 1) % 12))); ;
+                    cell.TimeNormal = 130 * department.Workers.ToList().Sum(w => w.workedMonthsInPeriod(new Period((pStart - 1) / 12, (pStart - 1) % 12, (pEnd - 1) / 12, (pEnd - 1) % 12))); ;
 
                     row.Cells.Add(cell);
-                    totalRow.Cells[j].TimeSum += cell.TimeSum;
-                    totalRow.Cells[j].TimeNormal += cell.TimeNormal;
-                    totalRow2.Cells[j].TimeNormal += (cell.TimeNormal > 0) ? cell.TimeNormal : -cell.TimeNormal;
+                    //totalRow.Cells[j].TimeSum += cell.TimeSum;
+                    //totalRow.Cells[j].TimeNormal += cell.TimeNormal;
+                    //totalRow2.Cells[j].TimeNormal += (cell.TimeNormal > 0) ? cell.TimeNormal : -cell.TimeNormal;
                     j++;
 
                 }
@@ -400,22 +400,22 @@ namespace mvc.Controllers
                 totalCell.TimeSum = row.Cells.Sum(c => c.TimeSum);
                 totalCell.TimeNormal = row.Cells.Sum(c => c.TimeNormal);
                 row.Cells.Add(totalCell);
-                totalRow.Cells[departments.Count].TimeSum += totalCell.TimeSum;
-                totalRow.Cells[departments.Count].TimeNormal += totalCell.TimeNormal;
-                totalRow2.Cells[departments.Count].TimeNormal += (totalCell.TimeNormal > 0) ? totalCell.TimeNormal : -totalCell.TimeNormal;
+                //totalRow.Cells[departments.Count].TimeSum += totalCell.TimeSum;
+                //totalRow.Cells[departments.Count].TimeNormal += totalCell.TimeNormal;
+                //totalRow2.Cells[departments.Count].TimeNormal += (totalCell.TimeNormal > 0) ? totalCell.TimeNormal : -totalCell.TimeNormal;
                 report.Rows.Add(row);
 
 
             }
-            totalRow.Period = "";
-            totalRow2.Period = "Viso ";
-            for (int i = 0; i < totalRow2.Cells.Count; i++)
-            {
-                totalRow2.Cells[i].TimeSum = totalRow.Cells[i].TimeSum / report.Rows.Count;
-                totalRow2.Cells[i].TimeNormal = totalRow2.Cells[i].TimeNormal - (totalRow2.Cells[i].TimeNormal / report.Rows.Count);
-            }
-            report.Rows.Add(totalRow);
-            report.Rows.Add(totalRow2);
+            //totalRow.Period = "";
+            //totalRow2.Period = "Viso ";
+            //for (int i = 0; i < totalRow2.Cells.Count; i++)
+            //{
+            //    totalRow2.Cells[i].TimeSum = totalRow.Cells[i].TimeSum / report.Rows.Count;
+            //    totalRow2.Cells[i].TimeNormal = totalRow2.Cells[i].TimeNormal - (totalRow2.Cells[i].TimeNormal / report.Rows.Count);
+            //}
+            //report.Rows.Add(totalRow);
+            //report.Rows.Add(totalRow2);
             report.Rows = report.Rows.ToPagedList(currentPage - 1, itemsPerPage).ToList();
             ViewData["Title"] = "Darbo laiko išnaudojimo projektams / viršvalandžių ataskaita";
             ViewData["page"] = currentPage;
