@@ -113,6 +113,11 @@ namespace mvc.Models
             }
         }
 
+        public bool workedInMonth(MonthOfYear month)
+        {
+            return this.WorkerStatus.Any(w => (w.year * 12 + w.month == month.UniqueID));
+        }
+
         public List<MonthOfYear> workedMonthsInProject(int project_id, int workerID)
         {
             List<MonthOfYear> result = new List<MonthOfYear>();
@@ -135,6 +140,7 @@ namespace mvc.Models
                     }
                 }
             result.Sort();
+            result = result.Where(r => this.workedInMonth(r)).ToList();
             return result;
         }
 
@@ -146,6 +152,20 @@ namespace mvc.Models
             }
         }
 
+        public int workedMonthsInPeriod(Period period)
+        {
+            int result = 0;
+            result = this.WorkerStatus.Where(w => (w.year * 12 + w.month >= period.PeriodStart.UniqueID) && (w.year * 12 + w.month <= period.PeriodEnd.UniqueID)).ToList().Sum(c => c.status);
+            return result;
+        }
+
+        public int TotalWorkedMonths
+        {
+            get
+            {
+                return this.WorkerStatus.ToList().Sum(c => c.status);
+            }
+        }
 
         public ErrorSummary Validate()
         {

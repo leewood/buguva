@@ -167,6 +167,29 @@ namespace mvc.Models
             }
         }
 
+        public int workedMonthsInPeriod(Period period)
+        {
+            int result = 0;
+            foreach (Worker worker in this.Workers)
+            {
+                result += worker.workedMonthsInPeriod(period);
+            }
+            return result;
+        }
+
+        public int couldWorkedInPeriod(Period period)
+        {
+            return workedMonthsInPeriod(period) * 160;
+        }
+
+        public int TotalWorkedMonths
+        {
+            get
+            {
+                return this.Workers.ToList().Sum(w => w.TotalWorkedMonths);
+            }
+        }
+
         public Models.Department getDepartment(int workerId)
         {
             POADataModelsDataContext data = new POADataModelsDataContext();
