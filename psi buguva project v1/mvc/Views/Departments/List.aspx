@@ -27,13 +27,18 @@
 	        <td><%= department.title %></td>
 	        <td><%= ((department.Worker != null) && (department.Worker.deleted.HasValue == false))?department.Worker.Fullname:"Nepaskirtas" %></td>
 	        <td width="60">
+	         <% if (department.administrationEdit()) %>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = department.id}) %>
+             <% if (department.administrationDelete()) %>	          
 	          <%= Html.ActionImageLink("../Content/delete.png", "Trinti", "Delete", new {id = department.id}, true, "Ar tikrai norite ištrinti šį skyrių?") %>	          
 	        </td>
 	      </tr>
 	   <% } %>
 	</table>
-	<%= Html.ActionImageLink("../Content/new.png", "", "New", new {}) %><%= Html.ActionLink("Naujas skyrius", "New") %>
+	<% if (mvc.Models.Department.administrationNew())
+    { %>
+	<%= Html.ActionImageLink("../Content/new.png", "", "New", new { })%><%= Html.ActionLink("Naujas skyrius", "New")%>
+	<% } %>
 
 	<div class="description">
 	    <img src="../../Content/delete.png" alt="img" /> - Ištrinti įrašą <br />

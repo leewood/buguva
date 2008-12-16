@@ -15,7 +15,10 @@
       <fieldset>
         <legend>Projektas ID <%= ViewData.Model.id %></legend>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
-        <% SelectList list = new SelectList(data.Workers.Where(w => (w.deleted.HasValue == false)).ToList(), "id", "Fullname", ViewData.Model.project_manager_id);
+        <% 
+           List<mvc.Models.Worker> workersList = data.Workers.Where(w => w.deleted.HasValue == false).ToList();
+           workersList = workersList.Where(u => u.administationView()).ToList();                      
+           SelectList list = new SelectList(workersList, "id", "Fullname", ViewData.Model.project_manager_id);
            UserSession userSession = new UserSession();
            User mySelf = data.Users.First(u => u.id == userSession.userId);           
            %>

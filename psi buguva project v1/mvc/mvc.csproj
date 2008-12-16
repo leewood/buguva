@@ -169,6 +169,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssociatedWorkedHours.cs" />
     <Compile Include="Models\BackupModels.cs">
       <DependentUpon>BackupModels.dbml</DependentUpon>
     </Compile>
@@ -180,7 +181,11 @@
     <Compile Include="Models\DataClasses.cs">
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DepartmentManagerReport.cs" />
+    <Compile Include="Models\DepartmentProjectReport.cs" />
     <Compile Include="Models\LinqExtensions.cs" />
+    <Compile Include="Models\Period.cs" />
     <Compile Include="Models\POADataModels.cs">
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </Compile>
