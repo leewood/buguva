@@ -855,6 +855,12 @@ namespace mvc.Controllers
                 {
                     if (project.administrationDelete())
                     {
+                        if (project.Tasks.Any())
+                        {
+                            string[] errors = { "Negalima ištrinti, nes šis projektas dar turi užduočių." };
+                            TempData["errors"] = errors;
+                            return RedirectToAction("List");
+                        }
                         project.makeBackup(userSession.userId);
                         DBDataContext.Projects.DeleteOnSubmit(project);
                         DBDataContext.SubmitChanges();
