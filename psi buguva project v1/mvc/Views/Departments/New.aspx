@@ -7,7 +7,7 @@
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["TitleWindow"]%></span>
    	</div>  
     <div class = "errors">
-        <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"])%>
+        <%= Html.ErrorSummary("Įvyko klaida:", TempData)%>
     </div>
     <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <% Html.BeginForm("Insert", "Departments", new {}, FormMethod.Post); %>
