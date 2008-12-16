@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="POA" Class="BackupModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=5.49.217.43;Initial Catalog=POA;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="POAConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BackupDepartments" Member="BackupDepartments">
+    <Type Name="BackupDepartment">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="headmaster_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="uid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BackupProjects" Member="BackupProjects">
+    <Type Name="BackupProject">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="project_manager_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="uid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BackupUsers" Member="BackupUsers">
+    <Type Name="BackupUser">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="login_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worker_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="uid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BackupWorkers" Member="BackupWorkers">
+    <Type Name="BackupWorker">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="surname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="department_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="uid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BackupWorkerStatus" Member="BackupWorkerStatus">
+    <Type Name="BackupWorkerStatus">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worker_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="uid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BackupTasks" Member="BackupTasks">
+    <Type Name="BackupTask">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="project_participant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worked_hours" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="deleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="deleted_by_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="uid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
