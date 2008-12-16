@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="BackupModels">
+  <DataContextMoniker Name="/BackupModelsDataContext" />
+  <nestedChildShapes>
+    <classShape Id="367ccb5f-fbb4-48c8-994f-a3072ce8d5d4" absoluteBounds="1, 0.75, 2, 1.75354248046875">
+      <DataClassMoniker Name="/BackupModelsDataContext/BackupDepartment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6f868e9e-347a-4610-854f-805005b414ab" absoluteBounds="1.0150000000000001, 1.21, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3a4dff5d-94d2-4da4-89d9-c371ee956816" absoluteBounds="4, 1, 2, 1.75354248046875">
+      <DataClassMoniker Name="/BackupModelsDataContext/BackupProject" />
+      <nestedChildShapes>
+        <elementListCompartment Id="725f8d1d-14b8-43c9-8c96-c710aafcea95" absoluteBounds="4.015, 1.46, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="61589925-8788-4a1f-9396-64bdede0d1f4" absoluteBounds="3.875, 3.25, 2, 2.0822371419270831">
+      <DataClassMoniker Name="/BackupModelsDataContext/BackupUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="56303431-cd14-4705-b230-6de507661e8f" absoluteBounds="3.89, 3.71, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0e9f9257-1a1e-4a40-aa89-aee618f39811" absoluteBounds="0.75, 5.25, 2, 1.9178898111979166">
+      <DataClassMoniker Name="/BackupModelsDataContext/BackupWorker" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8756ed18-67a8-40ec-baa4-5ac38887f622" absoluteBounds="0.765, 5.71, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8a5a37ef-8c41-4887-8667-776eaab91abc" absoluteBounds="4.125, 5.875, 2, 2.0822371419270831">
+      <DataClassMoniker Name="/BackupModelsDataContext/BackupWorkerStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="587a6bf0-04c2-4904-a372-501b54cf5d22" absoluteBounds="4.14, 6.335, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="94191f0b-782b-404d-8962-b8346a210445" absoluteBounds="0.625, 2.75, 2, 2.24658447265625">
+      <DataClassMoniker Name="/BackupModelsDataContext/BackupTask" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d08b6a78-01b2-4526-8b92-ad7722e9c072" absoluteBounds="0.64000000000000012, 3.21, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
