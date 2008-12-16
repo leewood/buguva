@@ -54,7 +54,17 @@ namespace mvc.Common
         {
             get
             {
-                return true;
+                
+                bool result = false;
+                try
+                {
+                    string conf = System.Configuration.ConfigurationSettings.AppSettings["BackupDeletedData"];
+                    result = bool.Parse(conf);
+                }
+                catch (Exception)
+                {
+                }                
+                return result;
             }
         }
 
