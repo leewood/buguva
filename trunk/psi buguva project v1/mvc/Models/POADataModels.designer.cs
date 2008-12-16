@@ -798,7 +798,7 @@ namespace mvc.Models
 		[Column(Storage="_year", DbType="Int NOT NULL")]
         [ValidateNonEmpty("Būtina nurodyti metus")]
         [ValidateInteger("Metai turi būti skaičius")]
-        [ValidateRange(0, DateTime.Now.Year, "Metai turi būti intervale tarp 0 ir šių metų")]
+        [ValidateRange(0, 3000, "Metai turi būti intervale tarp 0 ir 3000")]
 		public int year
 		{
 			get

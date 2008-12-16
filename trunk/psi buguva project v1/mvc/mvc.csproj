@@ -583,6 +583,8 @@
     <EmbeddedResource Include="Common\Validators\Messages.nl.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.pt.resx" />
     <EmbeddedResource Include="Common\Validators\Messages.resx" />
+    <Content Include="Config\SQLConfig.config" />
+    <Content Include="Config\BackupConfig.config" />
     <None Include="Models\BackupModels.dbml.layout">
       <DependentUpon>BackupModels.dbml</DependentUpon>
     </None>
