@@ -124,6 +124,53 @@ namespace mvc.Controllers
             return "";
         }
 
+        public ActionResult SwitchingReport(int ? page)
+        {
+            int currentPage = page ?? 1;
+            List<Department> departments = DBDataContext.Departments.Where(d => d.deleted.HasValue == false).ToList();
+            SwitchingReport report = new SwitchingReport();
+            report.Captions.Add("Laikotarpis");
+            report.Redirections.Add(null);
+            report.Actions.Add("");
+            List<List<Project>> departmentProjects = new List<List<Project>>();
+            foreach (Department department in departments)
+            {
+                report.Captions.Add("Skyrius " + department.title);
+                System.Web.Routing.RouteValueDictionary dict = new System.Web.Routing.RouteValueDictionary();
+                dict.Add("controller", "Departments");
+                dict.Add("department_id", department.id);
+                if (!department.canBeSeen())
+                {
+                    dict = null;
+                }
+                report.Redirections.Add(dict);
+                report.Actions.Add("DepartmentManagerReport");
+                departmentProjects.Add(DBDataContext.Projects.Where(p => department.Workers.Contains(p.Worker)).ToList());
+            }
+            report.Captions.Add("Visa įmonė");
+            System.Web.Routing.RouteValueDictionary dict2 = new System.Web.Routing.RouteValueDictionary();
+            dict2.Add("controller", "Departments");
+            if (!(userSession.isAdministrator() || userSession.isAntanas()))
+            {
+                dict2 = null;
+            }
+            report.Redirections.Add(dict2);
+            report.Actions.Add("GrandMastersReport");
+            int total = 0;
+            if (!(userSession.isAdministrator() || userSession.isAntanas()))
+            {
+                dict2 = null;
+            }
+
+
+            int itemsPerPage = userSession.ItemsPerPage;
+            ViewData["Title"] = "\"Persijungimo\" ataskaita";
+            ViewData["page"] = currentPage;
+            ViewData["total"] = total;
+            ViewData["size"] = itemsPerPage;
+            return View(report);
+        }
+
         public ActionResult IncompleteWorkReport(int? page, int? type)
         {
             int currentPage = page ?? 1;
@@ -152,7 +199,7 @@ namespace mvc.Controllers
                 report.Actions.Add("DepartmentManagerReport");
                 departmentProjects.Add(DBDataContext.Projects.Where(p => department.Workers.Contains(p.Worker)).ToList());
             }
-            report.Captions.Add("Visa firma");
+            report.Captions.Add("Visa įmonė");
             System.Web.Routing.RouteValueDictionary dict2 = new System.Web.Routing.RouteValueDictionary();
             dict2.Add("controller", "Departments");
             if (!(userSession.isAdministrator() || userSession.isAntanas()))
@@ -161,6 +208,7 @@ namespace mvc.Controllers
             }
             report.Redirections.Add(dict2);
             report.Actions.Add("GrandMastersReport");
+
             List<Task> tasks = DBDataContext.Tasks.OrderBy(t => t.year * 12 + t.month).ToList();
             int start = 0;
             int end = 0;
@@ -295,7 +343,7 @@ namespace mvc.Controllers
                 report.Actions.Add("DepartmentManagerReport");
                 departmentProjects.Add(DBDataContext.Projects.Where(p => department.Workers.Contains(p.Worker)).ToList());
             }
-            report.Captions.Add("Visa firma");
+            report.Captions.Add("Visa įmonė");
             System.Web.Routing.RouteValueDictionary dict2 = new System.Web.Routing.RouteValueDictionary();
             dict2.Add("controller", "Departments");
             if (!(userSession.isAdministrator() || userSession.isAntanas()))
