@@ -182,9 +182,17 @@
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DepartmentInfoForProject.cs" />
     <Compile Include="Models\DepartmentManagerReport.cs" />
     <Compile Include="Models\DepartmentProjectReport.cs" />
+    <Compile Include="Models\IncompleteWorkValueReport.cs" />
+    <Compile Include="Models\IncompleteWorkValueReportCell.cs" />
+    <Compile Include="Models\IncompleteWorkValueReportRow.cs" />
     <Compile Include="Models\LinqExtensions.cs" />
+    <Compile Include="Models\MonthOfYear.cs" />
+    <Compile Include="Models\OvertimeReport.cs" />
+    <Compile Include="Models\OvertimeReportCell.cs" />
+    <Compile Include="Models\OvertimeReportRow.cs" />
     <Compile Include="Models\Period.cs" />
     <Compile Include="Models\POADataModels.cs">
       <DependentUpon>POADataModels.dbml</DependentUpon>
@@ -195,9 +203,13 @@
       <DependentUpon>POADataModels.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\ProjectIntensivity.cs" />
+    <Compile Include="Models\ProjectManagerReportInfo.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\TasksAndMonths.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Worker.cs" />
+    <Compile Include="Models\WorkerAndHours.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Departments\DepartmentManagerReport.aspx.cs">
       <DependentUpon>DepartmentManagerReport.aspx</DependentUpon>
