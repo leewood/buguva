@@ -9,7 +9,7 @@
    	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
    	</div>   
     <div class = "errors">
-      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
+      <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>   	
    	<div class="pager">   	
 	  <%= Html.Pager((int)ViewData["size"], (int)ViewData["page"], (int)ViewData["total"], new { type = (int)ViewData["type"]})%>

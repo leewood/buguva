@@ -4,7 +4,7 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class = "errors">
-        <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
+        <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>
     <% Html.BeginForm("Insert", "Tasks", new {}, FormMethod.Post); %>
     <% { %>

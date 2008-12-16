@@ -30,7 +30,7 @@
             <% if (userSession.isSimpleUser() || userSession.isAntanas())
                { %>
             <%= Html.Hidden("headmaster_id", mySelf.worker_id ?? 0) %>
-            <%= (mySelf.Worker != null)?mySelf.Worker.Fullname %>
+            <%= (mySelf.Worker != null)?mySelf.Worker.Fullname:"" %>
             <% }
                else
                { %>

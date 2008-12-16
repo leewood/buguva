@@ -11,7 +11,7 @@
         <br />
         <asp:FileUpload ID="FileUploadImport" runat="server"  />
                 <span id="Span1" runat="Server" />
-                <%= Html.ErrorSummary("Klaidø sàraðas:", (string[])TempData["errors"]) %>
+                <%= Html.ErrorSummary("Ávyko klaida:", TempData) %>
         <br />
         <br />
         <asp:Label ID="Label2" runat="server" Text="<b>Importuoti:</b>"></asp:Label>

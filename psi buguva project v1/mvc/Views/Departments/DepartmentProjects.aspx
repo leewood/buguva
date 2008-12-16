@@ -66,7 +66,7 @@
 <% bool paintContent = true; %>
 <% if (TempData.ContainsKey("errors")) {paintContent = false;}; %>
     <div class = "errors">
-      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"]) %>
+      <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>  
 <% if (paintContent) { %>
 <% if ((bool)ViewData["chart"]) %>

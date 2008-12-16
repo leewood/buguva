@@ -90,7 +90,7 @@ namespace mvc.Controllers
                 Worker worker = null;
                 try
                 {
-                   worker = (Worker)TempData["worker"] ?? DBDataContext.Workers.Where(w => w.id == id.Value).First();
+                   worker = (Worker)TempData.getAndRemove("worker") ?? DBDataContext.Workers.Where(w => w.id == id.Value).First();
                 }
                 catch (Exception)
                 {
@@ -128,7 +128,7 @@ namespace mvc.Controllers
         {
             if (Worker.administrationNew())
             {
-                Worker worker = ((Worker)TempData["worker"] ?? new Worker());
+                Worker worker = ((Worker)TempData.getAndRemove("worker") ?? new Worker());
                 ViewData["Title"] = "Kuriamas naujas darbuotojas";
                 return View(worker);
             }
@@ -136,6 +136,7 @@ namespace mvc.Controllers
             {
                 string[] errors = { "Neturite teisių kurti naujo darbuotojo" };
                 TempData["errors"] = errors;
+                TempData.Remove("worker");
                 return RedirectToAction("List");
             }
             

@@ -732,14 +732,15 @@ namespace mvc.Controllers
         {
             if (Project.administrationNew())
             {
-                Project project = ((Project)TempData["project"] ?? new Project());
-                ViewData["Title"] = "Kuriamas naujas projektas";
+                Project project = ((Project)TempData.getAndRemove("project") ?? new Project());
+                ViewData["TitleWindow"] = "Kuriamas naujas projektas";
                 return View(project);
             }
             else
             {
                 string[] errors = { "Neturite teisių kurti naują projektą" };
                 TempData["errors"] = errors;
+                TempData.Remove("project");
                 return RedirectToAction("List");
             }
         }
@@ -770,7 +771,7 @@ namespace mvc.Controllers
                 Project project = null;
                 try
                 {
-                    project = (Project)TempData["project"] ?? DBDataContext.Projects.Where(w => w.id == id.Value).First();
+                    project = (Project)TempData.getAndRemove("project") ?? DBDataContext.Projects.Where(w => w.id == id.Value).First();
                 }
                 catch (Exception)
                 {
@@ -779,7 +780,7 @@ namespace mvc.Controllers
                 {
                     if (project.administrationEdit())
                     {
-                        ViewData["Title"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
+                        ViewData["TitleWindow"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
                         return View(project);
                     }
                     else
