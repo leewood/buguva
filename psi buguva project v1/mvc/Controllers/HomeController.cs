@@ -11,8 +11,11 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             bool installResult = DBDataContext.Install();
-            string[] errors = { "Duomenų bazė nerasta ir jos sukurti nepavyko. Pasitikrinkite nustatymus." };
-            TempData["errors"] = errors;            
+            if (!installResult)
+            {
+                string[] errors = { "Duomenų bazė nerasta ir jos sukurti nepavyko. Pasitikrinkite nustatymus." };
+                TempData["errors"] = errors;
+            }
             //ViewData["Message"] = "Welcome to ASP.NET MVC!";
             return RedirectToAction("ListMyProjects", "Projects");
         }

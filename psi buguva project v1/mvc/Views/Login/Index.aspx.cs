@@ -20,7 +20,7 @@ namespace mvc.Views.Login
                 TempData.Remove("errors");
                 if (errors.Length > 0)
                 {
-                    initCaption = String.Format("<img src='../../Content/Images/nepavyko.png' alt='logo' /><span>%s</span>", errors[0]);
+                    initCaption = String.Format("<img src='../../Content/Images/nepavyko.png' alt='logo' /><span>{0}</span>", errors[0]);
                 }
             }
             Label4.Text = initCaption;
