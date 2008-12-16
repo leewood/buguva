@@ -282,7 +282,7 @@ namespace mvc.Controllers
         {
             if (Department.administrationNew())
             {
-                Department department = ((Department)TempData["department"] ?? new Department());
+                Department department = ((Department)TempData.getAndRemove("department") ?? new Department());
                 ViewData["TitleWindow"] = "Kuriamas naujas skyrius";
                 return View(department);
             }
@@ -290,6 +290,7 @@ namespace mvc.Controllers
             {
                 string[] errors = { "Neturite teisių kurti naują skyrių" };
                 TempData["errors"] = errors;
+                TempData.Remove("department");
                 return RedirectToAction("List");
             }
         }
@@ -328,7 +329,7 @@ namespace mvc.Controllers
                 Department department = null;
                 try
                 {
-                    department = (Department)TempData["department"] ?? DBDataContext.Departments.Where(w => w.id == id.Value).First();
+                    department = (Department)TempData.getAndRemove("department") ?? DBDataContext.Departments.Where(w => w.id == id.Value).First();
                 }
                 catch (Exception)
                 {
