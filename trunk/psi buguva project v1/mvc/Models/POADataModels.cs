@@ -28,22 +28,8 @@ namespace mvc.Models
 
         public bool Install()
         {
-            try
-            {
-                if (mvc.Common.UserSession.BackupDeletedData)
-                {
-                    BackupDB.Install();
-                }
-                if (!DatabaseExists())
-                {
-                    CreateDatabase();
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            InstallationModelsDataContext installation = new InstallationModelsDataContext();
+            return installation.Install();
         }
         
         public List<Worker> GetWorkers()

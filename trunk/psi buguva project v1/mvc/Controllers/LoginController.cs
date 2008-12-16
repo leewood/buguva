@@ -16,8 +16,11 @@ namespace mvc.Controllers
             UserSession userSession = new UserSession();
             mvc.Models.POADataModelsDataContext dbDataContext = new mvc.Models.POADataModelsDataContext();
             bool installResult = dbDataContext.Install();
-            string[] errors = { "Duomenų bazė nerasta ir jos sukurti nepavyko. Pasitikrinkite nustatymus." };
-            TempData["errors"] = errors;
+            if (!installResult)
+            {
+                string[] errors = { "DB nerasta ir/arba sukurti nepavyko" };
+                TempData["errors"] = errors;
+            }
             if (auth.loginWithCookie())
             {
                 ViewData["Title"] = "Perkeliama...";

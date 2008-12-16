@@ -15,10 +15,6 @@ namespace mvc.Models
 
         public void Install()
         {
-            if (!this.DatabaseExists())
-            {
-                this.CreateDatabase();
-            }
 
         }
     }
