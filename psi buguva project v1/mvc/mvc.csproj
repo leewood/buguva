@@ -178,9 +178,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BackupModels.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataClasses.cs">
-      <DependentUpon>DataClasses.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\DepartmentInfoForProject.cs" />
     <Compile Include="Models\DepartmentManagerReport.cs" />
@@ -210,6 +207,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Models\WorkerAndHours.cs" />
+    <Compile Include="Models\WorkerStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Departments\DepartmentManagerReport.aspx.cs">
       <DependentUpon>DepartmentManagerReport.aspx</DependentUpon>
@@ -488,15 +486,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\DataClasses.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Models\DataClasses.dbml.layout">
-      <DependentUpon>DataClasses.dbml</DependentUpon>
-    </None>
     <None Include="Models\POADataModels.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>POADataModels.designer.cs</LastGenOutput>
