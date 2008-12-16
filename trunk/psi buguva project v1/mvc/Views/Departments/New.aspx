@@ -16,12 +16,29 @@
         <legend>Informacija apie departamentą</legend>
     
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
-        <% SelectList list = new SelectList(data.Workers.Where(w => w.deleted.HasValue == false).ToList(), "id", "Fullname", ViewData.Model.headmaster_id); %>
+        <% 
+           List<mvc.Models.Worker> workersList = data.Workers.Where(w => w.deleted.HasValue == false).ToList();
+           workersList = workersList.Where(u => u.administationView()).ToList();           
+           SelectList list = new SelectList(workersList, "id", "Fullname", ViewData.Model.headmaster_id); 
+           UserSession userSession = new UserSession();
+           User mySelf = data.Users.First(u => u.id == userSession.userId);
+           %>           
         <p>
             <label for="title">Skyriaus pavadinimas:</label><%= Html.TextBox("title") %>
         </p>         
         <p> 
-            <label for="headmaster_id">Skyriaus vadovas:</label><%= Html.DropDownList("headmaster_id", list) %>
+            <label for="headmaster_id">Skyriaus vadovas:</label>
+            <% if (userSession.isSimpleUser() || userSession.isAntanas())
+               { %>
+            <%= Html.Hidden("headmaster_id", mySelf.worker_id ?? 0) %>
+            <%= (mySelf.Worker != null)?mySelf.Worker.Fullname %>
+            <% }
+               else
+               { %>
+            <%= Html.DropDownList("headmaster_id", list) %>
+            <% }%>
+            
+
         </p>
         </fieldset>
         <input type="submit" value = "Sukurti" />                                                             

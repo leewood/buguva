@@ -8,567 +8,6 @@ using mvc.Common;
 using mvc.Models;
 using LinqToSqlExtensions;
 
-namespace mvc.Models
-{   
-    
-    public class AssociatedWorkedHours
-    {
-        private int _hours = 0;
-        private string _title = "";
-        public int Hours
-        {
-            get
-            {
-                return _hours;
-            }
-            set
-            {
-                _hours = value;
-            }
-        }
-
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                _title = value;
-            }
-        }
-
-        private int _associationID = 0;
-
-        public int AssociationID
-        {
-            get
-            {
-                return _associationID;
-            }
-            set
-            {
-                _associationID = value;
-            }
-
-        }
-
-        public AssociatedWorkedHours(string title, int hours, int associationID)
-        {
-            Title = title;
-            Hours = hours;
-            AssociationID = associationID;
-        }
-        
-    }
-
-    public class Period
-    {
-        private MonthOfYear _start;
-        private MonthOfYear _end;
-        List<string> errors = new List<string>();
-
-        private MonthOfYear PeriodStart
-        {
-            get
-            {
-                return _start;
-            }
-            set
-            {
-                _start = value;
-            }
-        }
-
-        private MonthOfYear PeriodEnd
-        {
-            get
-            {
-                return _end;
-            }
-            set
-            {
-                _end = value;
-            }
-        }
-
-        private void validatePeriod()
-        {
-            bool used = false;
-            if (PeriodStart.Year < 1970)
-            {
-                errors.Add("Metai negali būti mažesni nei 1970. Norėta pasirinkti " + PeriodStart.Year.ToString());
-                PeriodStart.Year = DateTime.Today.Year;
-                
-            }
-            if (PeriodEnd.Year < 1970)
-            {
-                errors.Add("Metai negali būti mažesni nei 1970. Norėta pasirinkti " + PeriodEnd.Year.ToString());
-                PeriodEnd.Year = DateTime.Today.Year;                
-            }
-
-            if ((PeriodStart.Month < 1) || (PeriodStart.Month > 12))
-            {
-                errors.Add("Mėnuo gali būti tik intervale 1..12. Pasirinkta " + PeriodStart.Month.ToString());
-                PeriodStart.Month = DateTime.Today.Month;                
-            }
-            if ((PeriodEnd.Month < 1) || (PeriodEnd.Month > 12))
-            {
-                errors.Add("Mėnuo gali būti tik intervale 1..12. Pasirinkta " + PeriodStart.Month.ToString());
-                PeriodEnd.Month = DateTime.Today.Month;                
-            }
-            if (PeriodStart.Year * 12 + PeriodStart.Month > PeriodEnd.Year * 12 + PeriodEnd.Month)
-            {
-                errors.Add("Pradžios data negali būti didesnė nei pabaigos data");
-                used = true;
-                PeriodEnd.Year = PeriodStart.Year;
-                PeriodEnd.Month = PeriodStart.Month;                
-            }
-            if (PeriodStart.Year * 12 + PeriodStart.Month > DateTime.Today.Year * 12 + DateTime.Today.Month)
-            {
-                if (!used)
-                {
-                    errors.Add("Data negali viršyti šio mėnesio datos");
-                }
-                PeriodStart.Year = DateTime.Today.Year;
-                PeriodStart.Month = DateTime.Today.Month;                
-            }
-            if (PeriodEnd.Year * 12 + PeriodEnd.Month > DateTime.Today.Year * 12 + DateTime.Today.Month)
-            {
-                errors.Add("Data negali viršyti šio mėnesio datos");
-                PeriodEnd.Year = DateTime.Today.Year;
-                PeriodEnd.Month = DateTime.Today.Month;                
-            }
-
-        }
-
-        public Period(MonthOfYear start, MonthOfYear end)
-        {
-            PeriodStart = start;
-            PeriodEnd = end;
-            validatePeriod();
-        }
-
-        public Period(int startYear, int startMonth, int endYear, int endMonth)
-        {
-            PeriodStart = new MonthOfYear(startYear, startMonth);
-            PeriodEnd = new MonthOfYear(endYear, endMonth);
-            validatePeriod();
-        }
-
-
-        public List<string> getErrors()
-        {
-            return errors;
-        }
-
-        private double DateDiff(string howtocompare, System.DateTime startDate, System.DateTime endDate) 
-        {
-            double diff=0;
-            System.TimeSpan TS = new System.TimeSpan(endDate.Ticks-startDate.Ticks);
-
-            switch (howtocompare.ToLower())
-            {
-                case "year":
-                  diff = Convert.ToDouble(TS.TotalDays/365);
-                  break;
-               case "month":
-                  diff = Convert.ToDouble((TS.TotalDays/365)*12);
-                  break;
-               case "day":
-                  diff = Convert.ToDouble(TS.TotalDays);
-                  break;
-               case "hour":
-                  diff = Convert.ToDouble(TS.TotalHours);
-                  break;
-               case "minute":
-                  diff = Convert.ToDouble(TS.TotalMinutes);
-                  break;
-               case "second":
-                  diff = Convert.ToDouble(TS.TotalSeconds);
-                  break;
-            }
-
-            return diff;
-        }
-
-        public int TotalWorkHoursInPeriod
-        {
-            get
-            {
-                DateTime start = new DateTime(PeriodStart.Year, PeriodStart.Month, 1);
-                int days = DateTime.DaysInMonth(PeriodEnd.Year, PeriodEnd.Month);
-                DateTime end = new DateTime(PeriodEnd.Year, PeriodEnd.Month, days);
-                int result = (int)DateDiff("month", start, end) + 1;
-                return result * 160;
-            }
-        }
-
-    }
-
-    public class DepartmentManagerReport
-    {
-        private Period _period = null;
-        public Period Period
-        {
-            get
-            {
-                return _period;
-            }
-            set
-            {
-                _period = value;
-            }
-        }
-
-        private int _workersCount = 0;
-        public int WorkersCount
-        {
-            get
-            {
-                return _workersCount;
-            }
-            set
-            {
-                _workersCount = value;
-            }
-        }
-
-
-        private Department _department = null;
-        public Department DepartmentInfo
-        {
-            get
-            {
-                return _department;
-            }
-            set
-            {
-                _department = value;
-            }
-        }
-
-        private bool _useChart = false;
-
-        public bool ShowAsChart
-        {
-            get
-            {
-                return _useChart;
-            }
-            set
-            {
-                _useChart = value;
-            }
-        }
-
-        public string DepartmentManagerTitle
-        {
-            get
-            {
-                if (DepartmentInfo != null)
-                {
-                    if (DepartmentInfo.Worker != null)
-                    {
-                        return DepartmentInfo.Worker.Fullname;
-                    }                   
-                }
-                return "Nepaskirtas";
-            }
-        }
-
-        private int _totalDepartmentWorked = 0;
-        private int _workersOfDepartmentWorked = 0;        
-        private List<AssociatedWorkedHours> _hoursOfOthers = new List<AssociatedWorkedHours>();
-
-        public List<AssociatedWorkedHours> WorkedHoursOfOthers
-        {
-            get
-            {
-                return _hoursOfOthers;
-            }
-            set
-            {
-                _hoursOfOthers = value;
-            }
-        }
-
-        public int TotalDepartmentWorked
-        {
-            get
-            {
-                return _totalDepartmentWorked;
-            }
-            set
-            {
-                _totalDepartmentWorked = value;
-            }
-        }
-
-        public int ThisDepartmentWorkersWorkedInDepartmentProjects
-        {
-            get
-            {
-                return _workersOfDepartmentWorked;
-            }
-            set
-            {
-                _workersOfDepartmentWorked = value;
-            }
-        }
-
-        public int ThisDepartmentWorkersWorkedInOtherProjects
-        {
-            get
-            {
-                return TotalDepartmentWorked - ThisDepartmentWorkersWorkedInDepartmentProjects;
-            }
-        }
-
-        public int OthersTotalWorked
-        {
-            get
-            {
-                return _hoursOfOthers.Sum(h => h.Hours);
-            }
-        }
-
-        public int WorkedNoWhere
-        {
-            get
-            {
-                return (Period.TotalWorkHoursInPeriod * WorkersCount) - TotalDepartmentWorked;
-            }
-        }
-
-        public string PercentNotWorked
-        {
-            get
-            {
-                if (Period.TotalWorkHoursInPeriod != 0)
-                {
-                    return (((double)WorkedNoWhere / ((double)Period.TotalWorkHoursInPeriod * WorkersCount)) * (double)100).ToString("0.00") + "%";
-                }
-                else
-                {
-                    return "0.00%";
-                }
-            }
-        }
-    }
-
-
-    public class DepartmentProjectReport
-    {
-        private string _title = "";
-        private string _managerTitle = "";
-        private string _managerDepartment = "";
-        private MonthOfYear _started = null;
-        private MonthOfYear _ended = null;
-        private int _totalWorked = 0;
-        private int _worked = 0;
-        private int _project_id = 0;
-        private int _manager_id = 0;
-        private int _department_id = 0;
-
-
-        public int DepartmentID
-        {
-            get
-            {
-                return _department_id;
-            }
-            set
-            {
-                _department_id = value;
-            }
-        }
-
-        public int ProjectID
-        {
-            get
-            {
-                return _project_id;
-            }
-            set
-            {
-                _project_id = value;
-            }
-        }
-
-        public int ManagerID
-        {
-            get
-            {
-                return _manager_id;
-            }
-            set
-            {
-                _manager_id = value;
-            }
-        }
-
-        public String Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                _title = value;
-            }
-        }
-
-
-        public String Manager
-        {
-            get
-            {
-                return _managerTitle;
-            }
-            set
-            {
-                _managerTitle = value;
-            }
-        }
-
-        public String ManagerDepartment
-        {
-            get
-            {
-                return _managerDepartment;
-            }
-            set
-            {
-                _managerDepartment = value;
-            }
-        }
-
-        public MonthOfYear Started
-        {
-            get
-            {
-                return _started;
-            }
-            set
-            {
-                _started = value;
-            }
-        }
-
-        public MonthOfYear Ended
-        {
-            get
-            {
-                return _ended;
-            }
-            set
-            {
-                _ended = value;
-            }
-        }
-
-        public int TotalWorked
-        {
-            get
-            {
-                return _totalWorked;
-            }
-            set
-            {
-                _totalWorked = value;
-            }
-        }
-
-        public int DepartmentWorkersWorked
-        {
-            get
-            {
-                return _worked;
-            }
-            set
-            {
-                _worked = value;
-            }
-        }
-
-        public int OthersWorked
-        {
-            get
-            {
-                return TotalWorked - DepartmentWorkersWorked;
-            }
-        }
-    }
-
-
-    public class MyDepartmentFirstComparer : IComparer<Project>
-    {
-
-        private int department_id = 0;
-        public MyDepartmentFirstComparer(int department)
-        {
-            department_id = department;
-        }
-
-        public int Compare(Project x, Project y)
-        { 
-            if ((x.Worker.department_id == department_id) && (y.Worker.department_id != department_id))
-            {
-                return -1;
-            }
-            else if ((x.Worker.department_id != department_id) && (y.Worker.department_id == department_id))
-            {
-                return 1;
-            }
-            else if ((x.Worker.department_id != department_id) && (y.Worker.department_id != department_id))
-            {
-                if (x.Worker.department_id > y.Worker.department_id)
-                {
-                    return -1;
-                }
-                else if (x.Worker.department_id < y.Worker.department_id)
-                {
-                    return 1;
-                }
-                else
-                {
-                    if (x.id > y.id)
-                    {
-                        return -1;
-                    }
-                    else if (x.id < y.id)
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return 0;
-                    }
-                }
-            }
-            else
-            {
-                if (x.id > y.id)
-                {
-                    return -1;
-                }
-                else if (x.id < y.id)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-
-        }
-    }
-
-}
 
 namespace mvc.Controllers
 {
@@ -581,8 +20,7 @@ namespace mvc.Controllers
         }
         
         public ActionResult Index()
-        {
-            // Add action logic here
+        {            
             return RedirectToAction("List");
         }
 
@@ -841,9 +279,18 @@ namespace mvc.Controllers
 
         public ActionResult New()
         {
-            Department department = ((Department)TempData["department"] ?? new Department());
-            ViewData["TitleWindow"] = "Kuriamas naujas skyrius";
-            return View(department);
+            if (Department.administrationNew())
+            {
+                Department department = ((Department)TempData["department"] ?? new Department());
+                ViewData["TitleWindow"] = "Kuriamas naujas skyrius";
+                return View(department);
+            }
+            else
+            {
+                string[] errors = { "Neturite teisių kurti naują skyrių" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
         }
 
         public ActionResult Insert()
@@ -868,7 +315,9 @@ namespace mvc.Controllers
         public ActionResult List(int? page)
         {
             ViewData["Title"] = "Skyrių sąrašas";
-            return View(DBDataContext.Departments.Where(w => (w.deleted.HasValue == false)).ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
+            List<Department> departments = DBDataContext.Departments.Where(w => (w.deleted.HasValue == false)).ToList();
+            departments = departments.Where(d => d.administationView()).ToList();
+            return View(departments.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 
         public ActionResult Edit(int? id)
@@ -885,8 +334,17 @@ namespace mvc.Controllers
                 }
                 if (department != null)
                 {
-                    ViewData["TitleWindow"] = "Koreguojamas skyrius #" + department.id.ToString() + "(" + department.title + ")";
-                    return View(department);
+                    if (department.administrationEdit())
+                    {
+                        ViewData["TitleWindow"] = "Koreguojamas skyrius #" + department.id.ToString() + "(" + department.title + ")";
+                        return View(department);
+                    }
+                    else
+                    {
+                        string[] errors = { "Neturite teisių koreguoti šį skyrių" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {
@@ -943,12 +401,18 @@ namespace mvc.Controllers
                 }
                 if (department != null)
                 {
-                    department.deleted = DateTime.Today;
-                    if (userSession.userId != 0)
+                    if (department.administrationDelete())
                     {
-                        department.deleted_by_id = userSession.userId;
+                        department.makeBackup(userSession.userId);
+                        DBDataContext.Departments.DeleteOnSubmit(department);
+                        DBDataContext.SubmitChanges();
                     }
-                    DBDataContext.SubmitChanges();
+                    else
+                    {
+                        string[] errors = { "Neturite teisių ištrinti šio skyriaus" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
                 }
                 else
                 {

@@ -310,50 +310,6 @@ namespace mvc.Models
         }
     }
 
-    public partial class Department
-    {
-        public ErrorSummary Validate()
-        {
-            ValidatorRunner vr = new ValidatorRunner(true, new CachedValidationRegistry());
-            if (!vr.IsValid(this))
-                return vr.GetErrorSummary(this);
-            else
-                return null;
-        }
-
-        public bool canBeSeen()
-        {
-            mvc.Common.UserSession userSession = new mvc.Common.UserSession();
-            if (userSession.isAntanas() || userSession.isAdministrator())
-            {
-                return true;
-            }
-            else if (userSession.isSimpleUser())
-            {
-                return false;
-            }
-            else if (userSession.isDepartmentMaster())
-            {
-                if (this.Worker == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return this.Worker.id == userSession.workerID;
-                }
-            }
-            return false;
-        }
-
-
-        public Models.Department getDepartment(int workerId)
-        {
-            POADataModelsDataContext data = new POADataModelsDataContext();
-            return data.Workers.Where(Worker => (Worker.id == workerId)).First().Department;
-        }
-    }
-
     public class ProjectIntensivity
     {
         private MonthOfYear _period;
