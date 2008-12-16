@@ -138,6 +138,7 @@ namespace mvc.Models
                 backup.login_name = this.login_name;
                 backup.password = this.password;
                 backup.worker_id = this.worker_id;
+                backupDataContext.BackupUsers.InsertOnSubmit(backup);
                 backupDataContext.SubmitChanges();
             }
         }

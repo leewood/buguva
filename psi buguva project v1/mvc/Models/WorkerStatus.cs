@@ -16,5 +16,24 @@ namespace mvc.Models
             else
                 return null;
         }
+
+        public void makeBackup(int currentUserID)
+        {
+
+            if (Common.UserSession.BackupDeletedData)
+            {
+                BackupModelsDataContext backupDataContext = new BackupModelsDataContext();
+                BackupWorkerStatus backup = new BackupWorkerStatus();
+                backup.deleted_by_id = currentUserID;
+                backup.deleted = DateTime.Now;
+                backup.id = this.id;
+                backup.year = this.year;
+                backup.month = this.month;
+                backup.status = this.status;
+                backup.worker_id = this.worker_id;
+                backupDataContext.BackupWorkerStatus.InsertOnSubmit(backup);
+                backupDataContext.SubmitChanges();
+            }
+        }
     }
 }

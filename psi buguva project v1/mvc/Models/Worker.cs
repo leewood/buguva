@@ -107,7 +107,8 @@ namespace mvc.Models
                 backup.id = this.id;
                 backup.department_id = this.department_id;
                 backup.name = this.name;
-                backup.surname = this.surname;                
+                backup.surname = this.surname;
+                backupDataContext.BackupWorkers.InsertOnSubmit(backup);
                 backupDataContext.SubmitChanges();
             }
         }
