@@ -21,7 +21,7 @@ namespace mvc.Controllers
         {
             if (Task.administrationNew())
             {
-                Task task = ((Task)TempData["task"] ?? new Task());
+                Task task = ((Task)TempData.getAndRemove("task") ?? new Task());
                 ViewData["TitleWindow"] = "Kuriama nauja užduotis";
                 return View(task);
             }
@@ -29,6 +29,7 @@ namespace mvc.Controllers
             {
                 string[] errors = { "Jūs neturite teisių kurti naujų užduočių" };
                 TempData["errors"] = errors;
+                TempData.Remove("task");
                 return RedirectToAction("List");
             }
         }
@@ -59,7 +60,7 @@ namespace mvc.Controllers
                 Task task = null;
                 try
                 {
-                    task = (Task)TempData["task"] ?? DBDataContext.Tasks.Where(w => w.id == id.Value).First();
+                    task = (Task)TempData.getAndRemove("task") ?? DBDataContext.Tasks.Where(w => w.id == id.Value).First();
                 }
                 catch (Exception)
                 {

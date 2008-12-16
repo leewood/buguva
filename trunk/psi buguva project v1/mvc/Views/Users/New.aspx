@@ -8,7 +8,7 @@
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
    	</div> 
     <div class = "errors">
-      <%= Html.ErrorSummary("Įvyko klaida:", (string[])TempData["errors"])%>
+      <%= Html.ErrorSummary("Įvyko klaida:", TempData)%>
     </div>
     <% Html.BeginForm("Insert", "Users", new {}, FormMethod.Post); %>
     <% { %>

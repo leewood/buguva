@@ -4,11 +4,12 @@
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class = "path">
-   	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
+   	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["TitleWindow"]%></span>
    	</div> 
     <div class = "errors">
-        <%= Html.ErrorSummary("Klaidų sąrašas:", (string[])TempData["errors"]) %>
+        <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>
+    <% Page.Title = ViewData["TitleWindow"].ToString(); %>
     <% Html.BeginForm("Insert", "Projects", new {}, FormMethod.Post); %>
     <% { %>
           <fieldset>
@@ -29,7 +30,7 @@
             <% if (userSession.isSimpleUser() || userSession.isAntanas())
                { %>
             <%= Html.Hidden("project_manager_id", mySelf.worker_id ?? 0) %>
-            <%= (mySelf.Worker != null)?mySelf.Worker.Fullname %>
+            <%= (mySelf.Worker != null)?mySelf.Worker.Fullname:"" %>
             <% }
                else
                { %>
