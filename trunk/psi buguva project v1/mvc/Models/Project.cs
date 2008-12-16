@@ -107,6 +107,7 @@ namespace mvc.Models
                 backup.id = this.id;
                 backup.project_manager_id = this.project_manager_id;
                 backup.title = this.title;
+                backupDataContext.BackupProjects.InsertOnSubmit(backup);
                 backupDataContext.SubmitChanges();
             }
         }

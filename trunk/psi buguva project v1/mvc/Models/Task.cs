@@ -99,6 +99,7 @@ namespace mvc.Models
                 backup.project_id = this.project_id;
                 backup.project_participant_id = this.project_participant_id;
                 backup.worked_hours = this.worked_hours;
+                backupDataContext.BackupTasks.InsertOnSubmit(backup);
                 backupDataContext.SubmitChanges();
             }
         }

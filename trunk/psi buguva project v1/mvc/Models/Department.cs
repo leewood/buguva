@@ -162,6 +162,7 @@ namespace mvc.Models
                 backup.id = this.id;
                 backup.headmaster_id = this.headmaster_id;
                 backup.title = this.title;
+                backupDataContext.BackupDepartments.InsertOnSubmit(backup);
                 backupDataContext.SubmitChanges();
             }
         }
