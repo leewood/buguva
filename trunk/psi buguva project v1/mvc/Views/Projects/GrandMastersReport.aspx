@@ -84,12 +84,16 @@
     <tr>
       <th style="width:145px">Skyrius</th>
       <th style="width:145px">Išdirbtas laikas (val.)</th>
+      <th style="width:145px">Galėjo išdirbti (val.)</th>
+      <th style="width:145px">Nedirbo (val.)</th>
     </tr>
   <% foreach (AssociatedWorkedHours hours in ViewData.Model.WorkedHoursOfOthers) %>
   <% { %>
         <tr>
            <td style="width:145px"><%= Html.ActionLink("Skyrius: " + hours.Title, "DepartmentManagerReport", new { controller = "Departments", department_id = hours.AssociationID })%></td>
            <td style="text-align:right;width:70px"><%= hours.Hours%></td>
+           <td style="text-align:right;width:70px"><%= hours.CouldWorked%></td>
+           <td style="text-align:right;width:70px"><%= hours.NotWorked%></td>
         </tr>            
   <% } %>
  </table>

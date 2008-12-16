@@ -137,11 +137,27 @@ namespace mvc.Models
             }
         }
 
+        public int CouldTotalWorked
+        {
+            get
+            {
+                if (DepartmentInfo != null)
+                {
+                    return DepartmentInfo.Workers.ToList().Sum(w => w.workedMonthsInPeriod(Period)) * 160;
+                }
+                else
+                {
+                    POADataModelsDataContext dbDataContext = new POADataModelsDataContext();
+                    return dbDataContext.Workers.ToList().Sum(w => w.workedMonthsInPeriod(Period)) * 160;                    
+                }
+            }
+        }
+
         public int WorkedNoWhere
         {
             get
             {
-                return (Period.TotalWorkHoursInPeriod * WorkersCount) - TotalDepartmentWorked;
+                return /*(Period.TotalWorkHoursInPeriod * WorkersCount)*/ CouldTotalWorked - TotalDepartmentWorked;
             }
         }
 
@@ -149,9 +165,11 @@ namespace mvc.Models
         {
             get
             {
-                if (Period.TotalWorkHoursInPeriod != 0)
+                //if (Period.TotalWorkHoursInPeriod != 0 && WorkersCount != 0)
+                if (CouldTotalWorked != 0)
                 {
-                    return (((double)WorkedNoWhere / ((double)Period.TotalWorkHoursInPeriod * WorkersCount)) * (double)100).ToString("0.00") + "%";
+                    //return (((double)WorkedNoWhere / ((double)Period.TotalWorkHoursInPeriod * WorkersCount)) * (double)100).ToString("0.00") + "%";
+                    return (((double)WorkedNoWhere / ((double)CouldTotalWorked)) * (double)100).ToString("0.00") + "%";
                 }
                 else
                 {

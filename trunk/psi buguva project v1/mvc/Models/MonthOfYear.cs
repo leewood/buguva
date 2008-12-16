@@ -68,6 +68,20 @@ namespace mvc.Models
             return new SelectList(list, "Value", "Key", selected);
         }
 
+        public int UniqueID
+        {
+            get
+            {
+                return Year * 12 + Month;
+            }
+            set
+            {
+                int month = (value - 1) % 12 + 1;
+                int year = (value - 1) / 12;
+                Year = year;
+                Month = month;
+            }
+        }
 
         public int Year
         {
@@ -111,6 +125,19 @@ namespace mvc.Models
         {
             Year = year;
             Month = month;
+        }
+
+        public MonthOfYear(int uniqueID, bool useUniqueID)
+        {
+            if (useUniqueID)
+            {
+                UniqueID = uniqueID;
+            }
+            else
+            {
+                Year = DateTime.Today.Year;
+                Month = uniqueID;
+            }
         }
 
         public MonthOfYear(int month)

@@ -26,6 +26,29 @@ namespace mvc.Models
             }
         }
 
+        public int _couldWork = 0;
+
+        public int CouldWorked
+        {
+            get
+            {
+                return _couldWork;
+            }
+            set
+            {
+                _couldWork = value;
+            }
+        }
+
+        public int NotWorked
+        {
+            get
+            {
+                int total = CouldWorked - Hours;
+                return (total > 0) ? total : 0;
+            }
+        }
+
         public string Title
         {
             get
@@ -59,6 +82,15 @@ namespace mvc.Models
             Hours = hours;
             AssociationID = associationID;
         }
+
+        public AssociatedWorkedHours(string title, int hours, int total, int associationID)
+        {
+            Title = title;
+            Hours = hours;
+            CouldWorked = total;
+            AssociationID = associationID;
+        }
+
 
     }
 }

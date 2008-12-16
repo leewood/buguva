@@ -214,6 +214,7 @@ namespace mvc.Controllers
                             return View(report);
                         }
                         report.WorkersCount = currentDepartment.Workers.Count;
+
                         List<Models.Project> myProjects = new List<Project>();
                         if (currentDepartment.Worker != null)
                         {

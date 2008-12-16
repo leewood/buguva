@@ -488,7 +488,7 @@ namespace mvc.Controllers
                     if (department.Workers.Any())
                     {
                         IEnumerable<Models.Task> tasks = myTasks.Where(t => (department.Workers.Contains(t.Worker)));
-                        report.WorkedHoursOfOthers.Add(new mvc.Models.AssociatedWorkedHours(department.title, tasks.Sum(t => t.worked_hours), department.id));
+                        report.WorkedHoursOfOthers.Add(new mvc.Models.AssociatedWorkedHours(department.title, tasks.Sum(t => t.worked_hours), department.couldWorkedInPeriod(period), department.id));
                     }
                 }
             }

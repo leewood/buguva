@@ -16,7 +16,7 @@ namespace mvc.Models
         private MonthOfYear _end;
         List<string> errors = new List<string>();
 
-        private MonthOfYear PeriodStart
+        public MonthOfYear PeriodStart
         {
             get
             {
@@ -28,7 +28,7 @@ namespace mvc.Models
             }
         }
 
-        private MonthOfYear PeriodEnd
+        public MonthOfYear PeriodEnd
         {
             get
             {
@@ -140,7 +140,8 @@ namespace mvc.Models
             return diff;
         }
 
-        public int TotalWorkHoursInPeriod
+
+        public int TotalMonthsInPeriod
         {
             get
             {
@@ -148,7 +149,15 @@ namespace mvc.Models
                 int days = DateTime.DaysInMonth(PeriodEnd.Year, PeriodEnd.Month);
                 DateTime end = new DateTime(PeriodEnd.Year, PeriodEnd.Month, days);
                 int result = (int)DateDiff("month", start, end) + 1;
-                return result * 160;
+                return result;
+            }
+        }
+
+        public int TotalWorkHoursInPeriod
+        {
+            get
+            {
+                return TotalMonthsInPeriod * 160;
             }
         }
 
