@@ -384,8 +384,9 @@ namespace mvc.Controllers
 
                     List<Task> periodTasks = DBDataContext.Tasks.Where(t => (department.Workers.Contains(t.Project.Worker) && ((t.year * 12 + t.month) >= pStart) && ((t.year * 12 + t.month) <= pEnd))).ToList();
                     OvertimeReportCell cell = new OvertimeReportCell();
+       
                     cell.TimeSum = periodTasks.Sum(t => t.worked_hours);
-                    cell.TimeNormal = 0;
+                    cell.TimeNormal = department.Workers.ToList().Sum(w => w.workedMonthsInPeriod(new Period((periodStart - 1) / 12, (periodStart - 1) % 12, (periodsCount + periodStart - 1) / 12, (periodsCount + periodStart - 1) % 12))); ;
 
                     row.Cells.Add(cell);
                     totalRow.Cells[j].TimeSum += cell.TimeSum;
