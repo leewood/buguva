@@ -386,7 +386,7 @@ namespace mvc.Controllers
                     OvertimeReportCell cell = new OvertimeReportCell();
        
                     cell.TimeSum = periodTasks.Sum(t => t.worked_hours);
-                    cell.TimeNormal = 130 * department.Workers.ToList().Sum(w => w.workedMonthsInPeriod(new Period((pStart - 1) / 12, (pStart - 1) % 12, (pEnd - 1) / 12, (pEnd - 1) % 12))); ;
+                    cell.TimeNormal = 130 * department.Workers.ToList().Sum(w => w.workedMonthsInPeriod(new Period((pStart - 1) / 12, (pStart - 1) % 12 + 1, (pEnd - 1) / 12, (pEnd - 1) % 12 + 1))); ;
 
                     row.Cells.Add(cell);
                     //totalRow.Cells[j].TimeSum += cell.TimeSum;
