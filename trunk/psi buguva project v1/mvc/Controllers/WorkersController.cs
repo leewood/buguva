@@ -56,7 +56,39 @@ namespace mvc.Controllers
                 if (worker != null)
                 {
                     if (worker.administrationDelete())
-                    {
+                    {                        
+                        if (worker.Projects.Count > 0)
+                        {
+                            string[] errors = { "Šis darbuotojas vadovauja keliems projektams. Pirma ištrinkite tuos projektus." };
+                            TempData["errors"] = errors;
+                            return RedirectToAction("List");
+                        }
+                        if (worker.Departments.Count > 0)
+                        {
+                            string[] errors = { "Šis darbuotojas vadovauja skyriams. Pirma ištrinkite tuos skyrius." };
+                            TempData["errors"] = errors;
+                            return RedirectToAction("List");
+                        }
+                        if (worker.Tasks.Count > 0)
+                        {
+                            string[] errors = { "Šis darbuotojas turi jam priskirtų užduočių. Pirma ištrinkite tas užduotis." };
+                            TempData["errors"] = errors;
+                            return RedirectToAction("List");                            
+                        }
+                        if (worker.Users.Count > 0)
+                        {
+                            string[] errors = { "Šis darbuotojas susietas su vienu ar daugiau sistemos vartotojų. Pirma pakeiskite šį susiejimą" };
+                            TempData["errors"] = errors;
+                            return RedirectToAction("List");                            
+
+                        }
+                        if (worker.WorkerStatus.Count > 0)
+                        {
+                            foreach (WorkerStatus status in worker.WorkerStatus)
+                            {
+                                worker.WorkerStatus.Remove(status);
+                            }
+                        }
                         worker.makeBackup(userSession.userId);
                         DBDataContext.Workers.DeleteOnSubmit(worker);
                         DBDataContext.SubmitChanges();

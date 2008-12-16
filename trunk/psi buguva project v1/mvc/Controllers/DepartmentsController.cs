@@ -405,7 +405,13 @@ namespace mvc.Controllers
                 {
                     if (department.administrationDelete())
                     {
-                        department.makeBackup(userSession.userId);
+                        if (department.Workers.Count > 0)
+                        {
+                            string[] errors = { "Negalima ištrinti, nes šis skyrius turi jam priklausančių darbuotojų." };
+                            TempData["errors"] = errors;
+                            return RedirectToAction("List");
+                        }
+                        department.makeBackup(userSession.userId);                        
                         DBDataContext.Departments.DeleteOnSubmit(department);
                         DBDataContext.SubmitChanges();
                     }
