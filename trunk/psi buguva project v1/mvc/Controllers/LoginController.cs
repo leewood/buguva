@@ -11,11 +11,13 @@ namespace mvc.Controllers
     public class LoginController : Controller
     {
         public ActionResult Index()
-        {
+        {                        
             Authentication auth = new Authentication();
-
             UserSession userSession = new UserSession();
-
+            mvc.Models.POADataModelsDataContext dbDataContext = new mvc.Models.POADataModelsDataContext();
+            bool installResult = dbDataContext.Install();
+            string[] errors = { "Duomenų bazė nerasta ir jos sukurti nepavyko. Pasitikrinkite nustatymus." };
+            TempData["errors"] = errors;
             if (auth.loginWithCookie())
             {
                 ViewData["Title"] = "Perkeliama...";
