@@ -26,15 +26,23 @@ namespace mvc.Models
         }
 
 
-        public void Install()
+        public bool Install()
         {
-            if (mvc.Common.UserSession.BackupDeletedData)
+            try
             {
-                BackupDB.Install();
+                if (mvc.Common.UserSession.BackupDeletedData)
+                {
+                    BackupDB.Install();
+                }
+                if (!DatabaseExists())
+                {
+                    CreateDatabase();
+                }
+                return true;
             }
-            if (!DatabaseExists())
+            catch (Exception)
             {
-                CreateDatabase();
+                return false;
             }
         }
         

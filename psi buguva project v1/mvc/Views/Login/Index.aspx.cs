@@ -9,6 +9,23 @@ namespace mvc.Views.Login
 {
     public partial class Index : ViewPage
     {
+        public string initCaption = "";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            initCaption = "<img src='../../Content/Images/prisijungimas.png' alt='logo' /><span>Prisijungimas</span>";
+            if (TempData.ContainsKey("errors"))
+            {
+                string[] errors = (string[])TempData["errors"];
+                TempData.Remove("errors");
+                if (errors.Length > 0)
+                {
+                    initCaption = String.Format("<img src='../../Content/Images/nepavyko.png' alt='logo' /><span>%s</span>", errors[0]);
+                }
+            }
+            Label4.Text = initCaption;
+        }
+
         protected void loginbutton_Click(object sender, EventArgs e)
         {
             Label4.Text = "Jungiamasi...";

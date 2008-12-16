@@ -10,10 +10,11 @@ namespace mvc.Controllers
     {
         public ActionResult Index()
         {
-            ViewData["Title"] = "Home Page";
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
-
-            return View();
+            bool installResult = DBDataContext.Install();
+            string[] errors = { "Duomenų bazė nerasta ir jos sukurti nepavyko. Pasitikrinkite nustatymus." };
+            TempData["errors"] = errors;            
+            //ViewData["Message"] = "Welcome to ASP.NET MVC!";
+            return RedirectToAction("ListMyProjects", "Projects");
         }
 
         public ActionResult NoPermissions()
