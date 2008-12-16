@@ -5,11 +5,18 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.IO;
+using mvc.Common;
 
 namespace System.Web.Mvc // Honest!
 {
     public static class ErrorSummaryHelper
     {
+        public static string ErrorSummary(this HtmlHelper html, string caption, TempDataDictionary dict)
+        {
+            string[] errors = (string[])dict.getAndRemove("errors");
+            return ErrorSummary(html, caption, errors);
+        }
+
         public static string ErrorSummary(this HtmlHelper html, string caption, string[] errors)
         {
             if (errors != null)

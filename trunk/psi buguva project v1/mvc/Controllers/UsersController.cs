@@ -83,7 +83,7 @@ namespace mvc.Controllers
                 User user = null;
                 try
                 {
-                    user = (User)TempData["user"] ?? DBDataContext.Users.Where(w => w.id == id.Value).First();
+                    user = (User)TempData.getAndRemove("user") ?? DBDataContext.Users.Where(w => w.id == id.Value).First();
                 }
                 catch (Exception)
                 {
@@ -124,7 +124,7 @@ namespace mvc.Controllers
                 User user = null;
                 try
                 {
-                    user = (User)TempData["user"] ?? DBDataContext.Users.Where(w => w.id == id.Value).First();
+                    user = (User)TempData.getAndRemove("user") ?? DBDataContext.Users.Where(w => w.id == id.Value).First();
                 }
                 catch (Exception)
                 {
@@ -163,12 +163,13 @@ namespace mvc.Controllers
         {
             if (Models.User.administrationNew())
             {
-                User user = ((User)TempData["user"] ?? new User());
+                User user = ((User)TempData.getAndRemove("user") ?? new User());
                 ViewData["Title"] = "Kuriamas naujas vartotojas";
                 return View(user);
             }
             else
-            {
+            {                
+                TempData.Remove("user");
                 string[] errors = { "Neturite teisių kurti naujus vartotojus" };
                 TempData["errors"] = errors;
                 return RedirectToAction("List");
@@ -183,13 +184,12 @@ namespace mvc.Controllers
             {
                 TempData["errors"] = errors.ErrorMessages;
                 TempData["user"] = user;
-
                 return RedirectToAction("New");
             }
             else
             {
                 DBDataContext.Users.InsertOnSubmit(user);
-                DBDataContext.SubmitChanges();
+                DBDataContext.SubmitChanges();                
             }
             return RedirectToAction("List");
         }
