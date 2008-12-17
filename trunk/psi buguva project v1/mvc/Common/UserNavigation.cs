@@ -31,8 +31,11 @@ namespace mvc.Common
         public bool isInAdmin()
         {
             return (
-                
-                controller == "Users" ||
+                (
+                controller == "Users" &&
+                action != "EditProfile"
+                )
+                ||
                 controller == "Workers" ||
                 controller == "Import" ||
                 (

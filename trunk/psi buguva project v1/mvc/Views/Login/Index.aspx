@@ -31,7 +31,9 @@
     
 </div>
 
-
+        <script type="text/javascript">
+            $(".header span").hide().fadeIn("slow");
+        </script>
 
 
 
