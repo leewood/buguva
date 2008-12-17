@@ -16,6 +16,8 @@ namespace LinqToSqlExtensions
             return dataContext.GetTable<TEntity>();
         }
 
+
+
         public static TEntity Get<TEntity>(this DataContext dataContext, object id) where TEntity : class, new()
         {
             return Get<TEntity>(dataContext, id, "id");

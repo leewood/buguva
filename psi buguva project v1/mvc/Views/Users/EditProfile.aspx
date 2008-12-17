@@ -9,7 +9,11 @@
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>
-    <% Html.BeginForm("UpdatePassword", "Users", new { id = ViewData.Model.id }, FormMethod.Post); %>
+    <div class = "messages">
+      <%= Html.ErrorSummary("", (string[])TempData.getAndRemove("message")) %>
+    </div>
+    
+    <% Html.BeginForm("UpdatePassword", "Users", new { id = ViewData.Model.id, toEditProfile = true }, FormMethod.Post); %>
     <% { %>
         <fieldset>
         <legend>Slaptažodžio keitimas</legend>
