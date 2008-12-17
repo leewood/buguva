@@ -72,6 +72,17 @@ namespace mvc.Common
             //DynamicLinq.ParseToFunction<T, Boolean>(filterClause);
 		}
 
+        public static List<T> Filter<T>(this IEnumerable<T> source, string filterClause)
+        {
+            object[] parameters = new object[0];
+            return source.AsQueryable().Where(filterClause, parameters).ToList();
+            
+
+
+            //DynamicLinq.ParseToFunction<T, Boolean>(filterClause);
+        }
+
+
 
 		public static IPagedList<T> ToPagedList<T>(this IQueryable<T> source, int pageIndex, int pageSize, int totalCount)
 		{
