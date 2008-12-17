@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using mvc.Models;
 using LinqToSqlExtensions;
+using System.Linq.Dynamic;
 using mvc.Common;
 
 namespace mvc.Controllers
@@ -23,12 +24,17 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List(int? page)
+        public ActionResult List(int? page, string filter)
         {
             ViewData["Title"] = "Vartotojų sąrašas";
             List<Models.User> realUsers = DBDataContext.Users.Where(w => (w.deleted.HasValue == false)).ToList();
             Models.User myUser = DBDataContext.Users.First(u => u.id == userSession.userId);
             realUsers = realUsers.Where(u => u.administationView()).ToList();
+            ViewData["filter"] = filter;
+            if (filter != null)
+            {
+                realUsers = realUsers.Filter(filter);
+            }
             IPagedList<Models.User> users = realUsers.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage);
             return View(users);
         }

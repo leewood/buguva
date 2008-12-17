@@ -33,11 +33,16 @@ namespace mvc.Controllers
         }
 
 
-        public ActionResult List(int? page)
+        public ActionResult List(int? page, string filter)
         {
             ViewData["Title"] = "Darbuotojų sąrašas";
             List<Worker> workers = DBDataContext.Workers.Where(w => (w.deleted.HasValue == false)).ToList();
             workers = workers.Where(w => w.administationView()).ToList();
+            ViewData["filter"] = filter;
+            if (filter != null)
+            {
+                workers = workers.Filter(filter);
+            }
             return View(workers.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));                        
         }
 

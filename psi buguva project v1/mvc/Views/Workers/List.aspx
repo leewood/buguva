@@ -35,6 +35,16 @@
 	        </td>
 	      </tr>
 	   <% } %>
+	   <tr>
+	      <td colspan="5">
+	        <% Html.BeginForm("List", "Workers", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <input type="submit" value="Filtruoti" />
+	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>
 	</table>
 	<% if (mvc.Models.Worker.administrationNew())
     { %>
