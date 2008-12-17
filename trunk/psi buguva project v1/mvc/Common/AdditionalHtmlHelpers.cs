@@ -258,6 +258,7 @@ namespace mvc.Common
                 chart.DataLabels.ShowValue = false;
                 chart.DataLabels.Visible = false;
             }
+            //test
             foreach (T line in data)
             {
                 string value = GetMemberValue(line, YAxe);
