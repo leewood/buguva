@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using System.Linq.Dynamic;
 
 namespace mvc.Common
 {
@@ -62,6 +62,16 @@ namespace mvc.Common
 		{
 			return new PagedList<T>(source, pageIndex, pageSize);
 		}
+
+        public static List<T> Filter<T>(this IQueryable<T> source, string filterClause)
+		{
+            object[] parameters = new object[0];
+            return source.Where(filterClause, parameters).ToList();
+           
+
+            //DynamicLinq.ParseToFunction<T, Boolean>(filterClause);
+		}
+
 
 		public static IPagedList<T> ToPagedList<T>(this IQueryable<T> source, int pageIndex, int pageSize, int totalCount)
 		{

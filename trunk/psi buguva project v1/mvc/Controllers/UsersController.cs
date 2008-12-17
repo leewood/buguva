@@ -119,6 +119,7 @@ namespace mvc.Controllers
 
         public ActionResult EditProfile(int? id)
         {
+            
             if (id.HasValue)
             {
                 User user = null;
@@ -237,10 +238,12 @@ namespace mvc.Controllers
         }
 
 
-        public ActionResult UpdatePassword(int? id)
+        public ActionResult UpdatePassword(int? id, bool? toEditProfile)
         {
+            bool toReturn = toEditProfile ?? false;
             if (id.HasValue)
             {
+                
                 User user = DBDataContext.Get<User>(id.Value, "id");
                 User tempUser = DBDataContext.CreateEntityFromForm<User>(Request.Form);
                 user.repeated_password = tempUser.repeated_password;
@@ -260,7 +263,14 @@ namespace mvc.Controllers
                     }
                     TempData["errors"] = errorsList;
                     TempData["user"] = user;
-                    return RedirectToAction("ChangePassword", new { id = user.id });
+                    if (toReturn)
+                    {
+                        return RedirectToAction("EditProfile", new { id = user.id });
+                    }
+                    else
+                    {
+                        return RedirectToAction("ChangePassword", new { id = user.id });
+                    }
                 }
                 else
                 {
@@ -268,7 +278,18 @@ namespace mvc.Controllers
                     user.repeated_password = user.password;
                     user.new_password = "";
                     user.new_repeated_password = "";
-                    DBDataContext.SubmitChanges(); 
+                    DBDataContext.SubmitChanges();
+                    if (toReturn)
+                    {
+                        string[] messages = new string[1];
+                        messages[0] = "Slaptažodis pakeistas sėkmingai";
+                        TempData["message"] = messages;
+                        return RedirectToAction("EditProfile", new { id = user.id });
+                    }
+                    else
+                    {
+                        return RedirectToAction("List");
+                    }
                 }
             }
             else
@@ -276,6 +297,7 @@ namespace mvc.Controllers
                 string[] errors = { "Nenurodytas joks vartotojas" };
                 TempData["errors"] = errors;
             }
+            
             return RedirectToAction("List");
         }
 
