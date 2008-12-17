@@ -198,14 +198,13 @@ namespace mvc.Common
                 string value = GetMemberValue(data, YAxes[i]);
                 total += int.Parse(value);
             }
-            if (total > 0)
-            {
+                chart.DataLabels.ShowValue = true;
+                chart.DataLabels.Visible = true;
                 chart.DataLabels.NumberFormat = "0.00%";
-            }
             for (int i = 0; i < YAxes.Length; i++)
             {
                 string value = GetMemberValue(data, YAxes[i]);
-                float realValue = (total != 0) ? float.Parse(value) / (float)total : 0;
+                float realValue = (total != 0) ? float.Parse(value) / (float)total : ((i == YAxes.Length - 1) ? 1 : 0);
                 WebChart.ChartPoint point = new WebChart.ChartPoint(prefix + legends[i], realValue);
                 chart.Data.Add(point);
                 
@@ -253,6 +252,11 @@ namespace mvc.Common
                 chart.DataLabels.ShowValue = true;
                 chart.DataLabels.Visible = true;
                 chart.DataLabels.NumberFormat = "0.00%";
+            }
+            else
+            {
+                chart.DataLabels.ShowValue = false;
+                chart.DataLabels.Visible = false;
             }
             foreach (T line in data)
             {

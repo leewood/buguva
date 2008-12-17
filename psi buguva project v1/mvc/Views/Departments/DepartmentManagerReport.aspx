@@ -68,7 +68,10 @@
 	<% System.Drawing.Color[] colors = { System.Drawing.Color.Red, System.Drawing.Color.Yellow, System.Drawing.Color.Green };  %>
 	<% System.Drawing.Color[] colors2 = { System.Drawing.Color.Red, System.Drawing.Color.Yellow, System.Drawing.Color.Green, System.Drawing.Color.YellowGreen, System.Drawing.Color.Khaki, System.Drawing.Color.Lavender };  %>
     <%= Html.PieChart<DepartmentManagerReport>(legends, ViewData.Model, "Period", yAxes, colors, System.Drawing.Color.White, "Skyriaus darbuotojų darbas", "", 90) %>
-    <%= Html.PieChart<AssociatedWorkedHours>(legends, ViewData.Model.WorkedHoursOfOthers, "Title", "Hours", colors, System.Drawing.Color.White, "Kitų skyrių darbuotojų darbas šio skyriaus projektuose", "Skyrius: ", 90)%>
+    <% List<mvc.Models.AssociatedWorkedHours> tempData = new List<AssociatedWorkedHours>(ViewData.Model.WorkedHoursOfOthers);
+       tempData.Add(new AssociatedWorkedHours("Šis skyrius", ((ViewData.Model.ThisDepartmentWorkersWorkedInDepartmentProjects >0)?ViewData.Model.ThisDepartmentWorkersWorkedInDepartmentProjects:1), 0));
+        %>
+    <%= Html.PieChart<AssociatedWorkedHours>(legends, tempData, "Title", "Hours", colors, System.Drawing.Color.White, "Kitų skyrių darbuotojų darbas šio skyriaus projektuose", "Skyrius: ", 90)%>
 <% } %>
 <% else %>
 <% { %>
