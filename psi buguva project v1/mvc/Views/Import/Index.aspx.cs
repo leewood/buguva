@@ -106,7 +106,7 @@ namespace mvc.Views.Import
 
                     FileUploadImport.PostedFile.SaveAs(path + "\\"+FileUploadImport.PostedFile.FileName);
 
-                    Span1.InnerHtml = "Upload Successful!";
+                    Span1.InnerHtml = "Duomenų importas sėkmingai įvykdytas!";
                 }
                 catch (Exception ex)
                 {
