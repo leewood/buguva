@@ -610,6 +610,12 @@
       <LastGenOutput>InstallationModels.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Content\jquery.js" />
+    <Content Include="Content\jquery.tooltip.css" />
+    <Content Include="Content\jquery.tooltip.js" />
+    <Content Include="Content\lib\jquery.bgiframe.js" />
+    <Content Include="Content\lib\jquery.delegate.js" />
+    <Content Include="Content\lib\jquery.dimensions.js" />
     <Content Include="Views\Projects\SwitchingReport.aspx" />
     <None Include="Models\BackupModels.dbml.layout">
       <DependentUpon>BackupModels.dbml</DependentUpon>

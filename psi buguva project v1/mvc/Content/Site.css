@@ -26,6 +26,13 @@ img
 	border: 0px;
 }
 
+div .errors li 
+{
+	color: Red;
+	font-weight: bold;
+}
+
+
 /* HEADINGS   
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6
@@ -594,6 +601,7 @@ form .radio_list label
 #years_form input,
 #years_form select,
 form input[type=text],
+form input[type=password],
 form select
 {
 	margin-bottom: 5px;
