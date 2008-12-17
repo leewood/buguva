@@ -450,6 +450,13 @@
     <Compile Include="Views\Users\New.aspx.designer.cs">
       <DependentUpon>New.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Users\EditProfile.aspx.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Users\EditProfile.aspx.designer.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Workers\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -617,6 +624,7 @@
     <Content Include="Content\lib\jquery.delegate.js" />
     <Content Include="Content\lib\jquery.dimensions.js" />
     <Content Include="Views\Projects\SwitchingReport.aspx" />
+    <Content Include="Views\Users\EditProfile.aspx" />
     <None Include="Models\BackupModels.dbml.layout">
       <DependentUpon>BackupModels.dbml</DependentUpon>
     </None>

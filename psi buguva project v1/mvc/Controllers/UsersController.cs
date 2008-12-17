@@ -117,6 +117,48 @@ namespace mvc.Controllers
             }
         }
 
+        public ActionResult EditProfile(int? id)
+        {
+            if (id.HasValue)
+            {
+                User user = null;
+                try
+                {
+                    user = (User)TempData.getAndRemove("user") ?? DBDataContext.Users.Where(w => w.id == id.Value).First();
+                }
+                catch (Exception)
+                {
+                }
+                if (user != null)
+                {
+                    if (user.administrationEdit() || user.id == userSession.userId)
+                    {
+                        ViewData["Title"] = "#" + user.id.ToString() + "(" + user.login_name + ") vartotojo slaptažodžio keitimas";
+                        return View(user);
+                    }
+                    else
+                    {
+                        string[] errors = { "Jūs neturite teisių keisti šio vartotojo slaptažodį" };
+                        TempData["errors"] = errors;
+                        return RedirectToAction("List");
+                    }
+                }
+                else
+                {
+                    string[] errors = { "Bandoma koreguoti neegzistuojantį vartotoją" };
+                    TempData["errors"] = errors;
+                    return RedirectToAction("List");
+                }
+            }
+            else
+            {
+                string[] errors = { "Nenurodytas joks vartotojas" };
+                TempData["errors"] = errors;
+                return RedirectToAction("List");
+            }
+
+        }
+
         public ActionResult ChangePassword(int? id)
         {
             if (id.HasValue)
