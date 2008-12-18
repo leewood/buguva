@@ -75,7 +75,30 @@ namespace mvc.Common
         public static List<T> Filter<T>(this IEnumerable<T> source, string filterClause)
         {
             object[] parameters = new object[0];
-            return source.AsQueryable().Where(filterClause, parameters).ToList();
+            try
+            {
+                return source.AsQueryable().Where(filterClause, parameters).ToList();
+            }
+            catch (Exception)
+            {
+
+                string newFilter = "";
+                string next = "";
+                System.Reflection.PropertyInfo[] properties = typeof(T).GetProperties();
+                foreach (System.Reflection.PropertyInfo info in properties)
+                {
+                    newFilter += next + "ExtensionMethods.Like(" + info.Name + ", \"" + filterClause + "\") ";
+                    next = " || ";
+                }
+                try
+                {
+                    return source.AsQueryable().Where(newFilter, parameters).ToList();
+                }
+                catch (Exception)
+                {
+                    return new List<T>();
+                }
+            }
             
 
 

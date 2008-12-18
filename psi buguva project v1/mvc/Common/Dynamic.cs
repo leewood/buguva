@@ -11,6 +11,112 @@ using System.Threading;
 
 namespace System.Linq.Dynamic
 {
+    public static class ExtensionMethods
+    {
+        public static bool Like(int value, string likeSentence)
+        {
+            try
+            {
+                return value == int.Parse(likeSentence);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+
+        public static bool Like(DateTime? value, string likeSentence)
+        {
+            if (value.HasValue)
+            {
+                try
+                {
+                    return value.Value.Equals(DateTime.Parse(likeSentence));
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return likeSentence == "null";
+            }
+        }
+
+
+        public static bool Like(DateTime value, string likeSentence)
+        {
+            try
+            {
+                return value.Equals(DateTime.Parse(likeSentence));
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public static bool Like(int? value, string likeSentence)
+        {
+            try
+            {
+                if (value.HasValue)
+                {
+                    return value.Value == int.Parse(likeSentence);
+                }
+                else
+                {
+                    if (likeSentence == "null")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool Like(string realString, string likeSentence)
+        {
+            return realString.IndexOf(likeSentence) >= 0;
+        }
+        public static bool Like(object value, string likeSentence)
+        {
+            if (value != null)
+            {
+                if (value.GetType() == typeof(int))
+                {
+                    try
+                    {
+                        return ((int)value == int.Parse(likeSentence));
+                    }
+                    catch (Exception)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return Like(value.ToString(), likeSentence);
+                }
+            }
+            else
+            {
+                return likeSentence == "null";
+            }
+        }
+    }
+
     public static class DynamicQueryable
     {
         public static IQueryable<T> Where<T>(this IQueryable<T> source, string predicate, params object[] values) {
@@ -562,6 +668,7 @@ namespace System.Linq.Dynamic
             typeof(TimeSpan),
             typeof(Guid),
             typeof(Math),
+            typeof(ExtensionMethods),
             typeof(Convert)
         };
 
