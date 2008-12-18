@@ -500,7 +500,7 @@ namespace mvc.Controllers
             return View(report);
         }
         
-        public ActionResult AllProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart, int? page, int? pageSize)
+        public ActionResult AllProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart, int? page, int? pageSize, string filter, string sorting)
         {
 
 
@@ -567,6 +567,7 @@ namespace mvc.Controllers
                 line.TotalWorked = project.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth)).Sum(t2 => t2.worked_hours);
                 result.Add(line);
             }
+            result = filteredAndSorted<Models.DepartmentProjectReport>(result, filter, sorting);
             IPagedList<Models.DepartmentProjectReport> paged = result.ToPagedList(currentPage - 1, currentPageSize);
             if (useChart)
             {
