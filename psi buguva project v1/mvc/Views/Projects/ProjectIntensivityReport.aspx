@@ -6,6 +6,8 @@
 
     <div class = "path">
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
+<img src="../../Content/Images/Icons/Print30.png" onclick="printLandscapeTable()" class="print_image" alt="logo" style="float: right;" />  
+
    	</div> 
 <ul id="menu">
    <li class="simple">
