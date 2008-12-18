@@ -123,7 +123,7 @@
  </div>
  <table class="grid">   
 	<td colspan="5">
-	  <% Html.BeginForm("List", "Departments", FormMethod.Get); %>
+	  <% Html.BeginForm("DepartmentProjects", "Departments", FormMethod.Get); %>
 	        <%= Html.TextBox("filter", ViewData["filter"]) %>
             <%= Html.Hidden("department_id") %>
             <%= Html.Hidden("chart") %>
@@ -146,7 +146,7 @@
        <%= Html.SortingHeader("Pabaiga", "Ended", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
        <%= Html.SortingHeader("Viso dirbta", "TotolWorked", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
        <%= Html.SortingHeader("Skyriaus darbuotojų dirbta", "DepartmentWorkersWorked", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
-       <%= Html.SortingHeader("Kitų darbuotojų dirbta", "OthersWorked ", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+       <%= Html.SortingHeader("Kitų darbuotojų dirbta", "OthersWorked", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
     </tr>
   <% foreach (DepartmentProjectReport projectLine in ViewData.Model) %>
   <% { %>
