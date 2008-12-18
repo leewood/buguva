@@ -25,8 +25,7 @@
 	      </td>
 	    </tr>
 	
-	   <tr>
-	      <th>ID</th>
+	   <tr>	      
 	      <%= Html.SortingHeader("ID", "id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
 	      <%= Html.SortingHeader("Projektas", "ProjectCode", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
 	      <%= Html.SortingHeader("Dalyvis", "ParticipantName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
