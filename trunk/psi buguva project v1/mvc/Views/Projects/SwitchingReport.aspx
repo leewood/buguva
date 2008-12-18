@@ -6,6 +6,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <div class = "path">
    	  <img src="../../Content/Images/Icons/Refresh_big.png" alt="logo"><span class="title"><%= ViewData["Title"]%></span>
+  	  <img src="../../Content/Images/Icons/Print30.png" onclick="printSimpleReport()" class="print_image" alt="logo" style="float: right;" />  
+
    	</div>   
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>

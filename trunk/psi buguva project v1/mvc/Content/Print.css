@@ -2,7 +2,7 @@
         {
 
             #header, #footer, #left_meniu, #menu2, #menu, input[type=submit], 
-            .path img, .description, td img, .pager
+            .path img, .description, td img, .pager, .noprint
             {
             	display: none;
             }
