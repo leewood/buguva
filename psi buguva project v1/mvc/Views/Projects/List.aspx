@@ -21,7 +21,7 @@
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>   	
    	<div class="pager">   	
-   	<% string s; s.IndexOf("Test");%>
+   	
 	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
 	</div>   
 	<table class = "grid">
