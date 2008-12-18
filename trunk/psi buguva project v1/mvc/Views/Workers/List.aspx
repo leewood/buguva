@@ -10,7 +10,7 @@
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>   	
    	<div class="pager">   	
-	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
+	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, , new { sorting = ViewData["sorting"], filter = ViewData["filter"] }) %>
 	</div>   
 	<table class = "grid">
 		   <tr>
@@ -18,6 +18,7 @@
 	        <% Html.BeginForm("List", "Workers", FormMethod.Get); %>
 	           <%= Html.TextBox("filter", ViewData["filter"]) %>
 	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
 	           <input type="submit" value="Filtruoti" />
 	           
 	        <% Html.EndForm(); %>
@@ -25,10 +26,10 @@
 	    </tr>
 
 	   <tr>	      
-	      <%= Html.SortingHeader("ID", "id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
-	      <%= Html.SortingHeader("Vardas", "name", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
-	      <%= Html.SortingHeader("Pavardė", "surname", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
-	      <%= Html.SortingHeader("Skyrius", "department_id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
+	      <%= Html.SortingHeader("ID", "id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Vardas", "name", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Pavardė", "surname", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Skyrius", "department_id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
 	      <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (Worker worker in ViewData.Model) %>

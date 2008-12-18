@@ -24,7 +24,7 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List(int? page, string filter)
+        public ActionResult List(int? page, string filter, string sorting)
         {
             ViewData["Title"] = "Vartotojų sąrašas";
             List<Models.User> realUsers = DBDataContext.Users.Where(w => (w.deleted.HasValue == false)).ToList();
@@ -35,6 +35,14 @@ namespace mvc.Controllers
             {
                 realUsers = realUsers.Filter(filter);
             }
+            Common.Sortings sorter = new Sortings(sorting);
+            string sortCommand = sorter.getSortString();
+            ViewData["sorting"] = sorting;
+            if (sortCommand != "")
+            {
+                realUsers = realUsers.Sort(sortCommand);
+            }
+
             IPagedList<Models.User> users = realUsers.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage);
             return View(users);
         }

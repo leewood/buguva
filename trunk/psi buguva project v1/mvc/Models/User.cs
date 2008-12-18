@@ -187,8 +187,22 @@ namespace mvc.Models
             }
         }
 
+        public bool HasWorker
+        {
+            get
+            {
+                return Worker != null;
+            }
+        }
 
 
+        public string WorkerName
+        {
+            get
+            {
+                return (HasWorker) ? Worker.Fullname : "";
+            }
+        }
 
         public string LevelName
         {
