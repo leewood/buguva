@@ -1,0 +1,30 @@
+        @media print 
+        {
+
+            #header, #footer, #left_meniu, #menu2, #menu, input[type=submit], 
+            .path img, .description, td img, .pager
+            {
+            	display: none;
+            }
+            
+            input, select, #startYear, #startMonth, #endYear, #endMonth, fieldset, .years
+            {
+            	border: 0px solid #FFFFFF;
+            }            
+            
+            #middle, #main
+            {
+            	margin: 0px;
+            }
+            
+            #content
+            {
+            	border: 0px solid #FFFFFF;
+            	margin: 0px;
+            }
+            
+            body
+            {
+            	background-color: White;
+            }
+        }

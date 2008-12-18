@@ -16,6 +16,8 @@
 %>
     <div class = "path">
    	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+ <img src="../../Content/Images/Icons/Print30.png" onclick="printLandscapeTable()" class="print_image" alt="logo" style="float: right;" />  
+
    	</div> 
    	<div class="pager">   	
 		<%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
