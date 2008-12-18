@@ -75,6 +75,10 @@ namespace mvc.Common
         public static List<T> Filter<T>(this IEnumerable<T> source, string filterClause)
         {
             object[] parameters = new object[0];
+            if ((filterClause == null) || (filterClause == ""))
+            {
+                return source.ToList();
+            }
             try
             {
                 return source.AsQueryable().Where(filterClause, parameters).ToList();

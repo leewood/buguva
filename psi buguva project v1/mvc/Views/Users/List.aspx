@@ -15,7 +15,7 @@
 	<table class = "grid">
 	   <tr>
 	     <td colspan="5">
-	        <% Html.BeginForm("List", "Workers", FormMethod.Get); %>
+	        <% Html.BeginForm("List", "Users", FormMethod.Get); %>
 	           <%= Html.TextBox("filter", ViewData["filter"]) %>
 	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
 	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>

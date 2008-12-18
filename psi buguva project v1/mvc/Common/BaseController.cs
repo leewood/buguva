@@ -35,6 +35,23 @@ namespace mvc.Common
             this.road = new RoadHelper();
         }
 
+        public List<T> filteredAndSorted<T>(List<T> source, string filter, string sorting)
+        {
+            ViewData["filter"] = filter;
+            if (filter != null)
+            {
+                source = source.Filter(filter);
+            }
+            Common.Sortings sorter = new Sortings(sorting);
+            string sortCommand = sorter.getSortString();
+            ViewData["sorting"] = sorting;
+            if (sortCommand != "")
+            {
+                source = source.Sort(sortCommand);
+            }
+            return source;
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             filterContext.Controller.ViewData["MyWorkerID"] = userSession.workerID;            
