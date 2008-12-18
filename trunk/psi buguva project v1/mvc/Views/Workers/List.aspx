@@ -15,7 +15,7 @@
 	<table class = "grid">
 	   <tr>
 	      <th>ID</th>
-	      <th>Vardas</th>
+	      <%= Html.SortingHeader("Vardas", "name", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
 	      <th>Pavardė</th>
 	      <th>Skyrius</th>
 	      <th>Veiksmai</th>

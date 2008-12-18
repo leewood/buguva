@@ -26,7 +26,8 @@ namespace mvc.Common
 
         /**
          * konstruktorius
-         */ 
+         */
+
         public BaseController()
         {
             this.userSession = new UserSession();

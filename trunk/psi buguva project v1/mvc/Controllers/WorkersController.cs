@@ -33,15 +33,23 @@ namespace mvc.Controllers
         }
 
 
-        public ActionResult List(int? page, string filter)
+        public ActionResult List(int? page, string filter, string sorting)
         {
             ViewData["Title"] = "Darbuotojų sąrašas";
             List<Worker> workers = DBDataContext.Workers.Where(w => (w.deleted.HasValue == false)).ToList();
             workers = workers.Where(w => w.administationView()).ToList();
+            Common.Sortings sorter = new Sortings(sorting);
+            string sortCommand = sorter.getSortString();
             ViewData["filter"] = filter;
+
             if (filter != null)
             {
                 workers = workers.Filter(filter);
+            }
+            ViewData["sorting"] = sorting;
+            if (sortCommand != "")
+            {
+                workers = workers.Sort(sortCommand);
             }
             return View(workers.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));                        
         }
