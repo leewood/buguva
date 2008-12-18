@@ -928,11 +928,12 @@ namespace mvc.Controllers
             }
         }
 
-        public ActionResult List(int? page)
+        public ActionResult List(int? page, string filter, string sorting)
         {
             ViewData["Title"] = "Projektų sąrašas";
             List<Project> projects = DBDataContext.Projects.Where(w => (w.deleted.HasValue == false)).ToList();
             projects = projects.Where(p => p.administationView()).ToList();
+            projects = filteredAndSorted<Project>(projects, filter, sorting);
             return View(projects.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 
