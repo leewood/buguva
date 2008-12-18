@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <div class = "path">
-   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	  <img src="../../Content/Images/Icons/Refresh_big.png" alt="logo"><span class="title"><%= ViewData["Title"]%></span>
    	</div>   
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>

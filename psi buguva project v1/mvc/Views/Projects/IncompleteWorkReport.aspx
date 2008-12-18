@@ -5,7 +5,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
    
     <div class = "path">
-   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	  <img src="../../Content/Images/Icons/Ini_big.png" alt="logo" /><span class="title"><%= ViewData["Title"]%></span>
+   	  <img src="../../Content/Images/Icons/Print30.png" onclick="printLandscapeTable()" class="print_image" alt="logo" style="float: right;" />  
+   	    
    	</div>   
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
@@ -51,9 +53,9 @@
      }
  
  </script>
- 
+
  <div id="monthChoose">
- <label style="">Paslinkti sąrašą: </label>
+ <label style="width: 100px;">Paslinkti sąrašą: </label>
  <a href="javascript:scrool(-10);">< į kairę</a>
  <a href="javascript:scrool(10);">į dešinę ></a>
  </div>

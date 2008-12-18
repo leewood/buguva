@@ -24,6 +24,58 @@
     <script src="../../Content/livevalidation.js" type="text/javascript"></script>
     <script src="../../Content/jquery.js" type="text/javascript"></script>
     <script src="../../Content/jquery.tooltip.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        
+        function printLandscapeTable() {
+            $("div").hide();
+            $("img").css("display", "none");
+            $("#middle").show("fast");
+            $("#middle").css("margin", "0");
+            $("#main").show("fast");
+            $("#main").css("margin", "0");
+            $("#content").show("fast");
+            $("#content").css("margin", "0");
+            $("#scrool_container").show("fast");
+            $("#scrool_container").css("margin", "0");
+            $("body").css("background-color", "white");
+            $("td").css("font-size", "8px");
+            $("th").css("font-size", "8px");
+
+            $("input").attr("disabled", "disabled");
+
+            $("#content img").show();
+
+            window.print();
+        }
+
+        function printSimpleReport() {
+            $("div").hide();
+            $("img").css("display", "none");
+            $("#menu2").hide();
+            $("#menu").hide();
+            $("ul").hide();
+            $("#middle").show("fast");
+            $("#middle").css("margin", "0");
+            $("#main").show("fast");
+            $("#main").css("margin", "0");
+            $("#content").show("fast");
+            $("#content").css("margin", "0");
+            $("#scrool_container").show("fast");
+            $("#scrool_container").css("margin", "0");
+            $("#years_form").show("fast");
+
+            $("body").css("background-color", "white");
+            
+            $("td").css("font-size", "10px");
+            $("th").css("font-size", "10px");
+
+            $("#content img").show();
+
+            $("input").attr("disabled","disabled");
+
+            window.print();
+        } 
+    </script>
 </head>
 
 <body>
@@ -113,15 +165,15 @@
                     <%=userNav.getLink("/Projects/GrandMastersReport/", "Vadovybės ataskaita", controller_name == "Projects" && action_name == "GrandMastersReport")%>
                 </li>      
                 <li>
-                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
-                    <%=userNav.getLink("/Projects/IncompleteWorkReport/", "Nebaigtas darbas", controller_name == "Projects" && action_name == "IncompleteWorkReport")%>
+                    <img src="/Content/Images/Icons/Ini.png" alt="-" />
+                    <%=userNav.getLink("/Projects/IncompleteWorkReport/", "Nebaigto darbo vertė", controller_name == "Projects" && action_name == "IncompleteWorkReport")%>
                 </li>   
                 <li>
-                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
+                    <img src="/Content/Images/Icons/Refresh.png" alt="-" />
                     <%=userNav.getLink("/Projects/SwitchingReport/", "Projektų perjingimas", controller_name == "Projects" && action_name == "SwitchingReport")%>
                 </li>     
                 <li>
-                    <img src="/Content/Images/Icons/AllProjects.png" alt="-" />
+                    <img src="/Content/Images/Icons/scheduledtasks.png" alt="-" />
                     <%=userNav.getLink("/Projects/OvertimeReport/", "Darbo laiko išnaudojimas projektams", controller_name == "Projects" && action_name == "OvertimeReport")%>
                 </li>   
                 <%} %>
@@ -139,7 +191,7 @@
             <% { %>
                 <li>
                     <img src="/Content/Images/Icons/Department.png" alt="-" />                    
-                    <%=userNav.getLink("/Departments/DepartmentProjects?department_id=" + department.id, department.title, controller_name == "Departments" && department.id.ToString() == Request.Params.Get("department_id"))%>
+                    <%=userNav.getLink("/Departments/DepartmentManagerReport?department_id=" + department.id, department.title, controller_name == "Departments" && department.id.ToString() == Request.Params.Get("department_id"))%>
                 </li>            
             <% } %>
             
