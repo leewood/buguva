@@ -50,7 +50,7 @@
      }
  
  </script>
- <div id="monthChoose">
+ <div id="monthChoose" class="noprint">
  <label style="width: 100px;">Paslinkti sąrašą: </label>
  <a href="javascript:scrool(-10);">< į kairę</a>
  <a href="javascript:scrool(10);">į dešinę ></a>
