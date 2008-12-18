@@ -10,7 +10,7 @@
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>   	
    	<div class="pager">   	
-	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, , new { sorting = ViewData["sorting"], filter = ViewData["filter"] }) %>
+	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, new { sorting = ViewData["sorting"], filter = ViewData["filter"] }) %>
 	</div>   
 	<table class = "grid">
 		   <tr>

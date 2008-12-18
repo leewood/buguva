@@ -30,6 +30,7 @@ namespace mvc.Controllers
             List<Models.User> realUsers = DBDataContext.Users.Where(w => (w.deleted.HasValue == false)).ToList();
             Models.User myUser = DBDataContext.Users.First(u => u.id == userSession.userId);
             realUsers = realUsers.Where(u => u.administationView()).ToList();
+            /*
             ViewData["filter"] = filter;
             if (filter != null)
             {
@@ -42,7 +43,8 @@ namespace mvc.Controllers
             {
                 realUsers = realUsers.Sort(sortCommand);
             }
-
+            */
+            realUsers = filteredAndSorted<User>(realUsers, filter, sorting);
             IPagedList<Models.User> users = realUsers.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage);
             return View(users);
         }

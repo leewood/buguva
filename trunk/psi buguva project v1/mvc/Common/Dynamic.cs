@@ -25,6 +25,29 @@ namespace System.Linq.Dynamic
             }
         }
 
+        public static bool Like(bool value, string likeSentence)
+        {
+            try
+            {
+                return value == bool.Parse(likeSentence);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool Like(bool? value, string likeSentence)
+        {
+            if (value.HasValue)
+            {
+                return Like(value.Value, likeSentence);
+            }
+            else
+            {
+                return likeSentence == "null";
+            }
+        }
 
 
         public static bool Like(DateTime? value, string likeSentence)
@@ -88,7 +111,14 @@ namespace System.Linq.Dynamic
 
         public static bool Like(string realString, string likeSentence)
         {
-            return realString.IndexOf(likeSentence) >= 0;
+            if (realString != null)
+            {
+                return realString.IndexOf(likeSentence) >= 0;
+            }
+            else
+            {
+                return likeSentence == "null";
+            }
         }
         public static bool Like(object value, string likeSentence)
         {
