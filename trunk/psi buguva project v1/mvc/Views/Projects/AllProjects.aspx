@@ -23,10 +23,10 @@
 <% className2 = ((bool)ViewData["chart"])? "selected" : "simple"; %>
 <ul id="menu2">
    <li class='<%= className.ToString() %>'>
-      <%= Html.ActionLink("Ataskaita", "AllProjects", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] })%>
+      <%= Html.ActionLink("Ataskaita", "AllProjects", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] , filter = ViewData["filter"], sorting=ViewData["sorting"] })%>
    </li>
    <li class='<%= className2.ToString() %>'>
-      <%= Html.ActionLink("Grafikas", "AllProjects", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true, page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"] })%>                    
+      <%= Html.ActionLink("Grafikas", "AllProjects", new { startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true, page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"], filter = ViewData["filter"], sorting = ViewData["sorting"] })%>                    
    </li>
 </ul>
 
@@ -49,7 +49,8 @@
   <div style="width: 70px; float: left; text-align: center;">Mėnuo:</div>
   
   <%=Html.DropDownList("endMonth", MonthOfYear.monthsList((int)ViewData["startMonth"])) %>
-  
+  <%= Html.Hidden("filter", ViewData["filter"]) %>
+  <%= Html.Hidden("sorting", ViewData["sorting"]) %>
   <br />
   <input type="submit" value="Pasirinkti" /> 
   
@@ -110,16 +111,33 @@
 <% else %>
 <% { %>
  <div class="pager">
-   <%= Html.Pager((int)ViewData["pageSize"], (int)ViewData["page"], (int)ViewData["pageCount"])%>
+   <%= Html.Pager((int)ViewData["pageSize"], (int)ViewData["page"], (int)ViewData["pageCount"], new { startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, page = (int)ViewData["page"], pageSize = (int)ViewData["pageSize"], filter = ViewData["filter"], sorting=ViewData["sorting"]})%>
  </div>
  <table class="grid">   
+	   <tr>
+	     <td colspan="5">
+	        <% Html.BeginForm("AllProjects", "Projetcs", FormMethod.Get); %>	         
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("startYear", ViewData["startYear"]) %>
+	           <%= Html.Hidden("endYear", ViewData["endYear"])%>
+	           <%= Html.Hidden("startMonth", ViewData["startMonth"])%>
+	           <%= Html.Hidden("endMonth", ViewData["endMonth"])%>
+	           <%= Html.Hidden("chart", ViewData["chart"])%>
+	           <%= Html.Hidden("pageSize", ViewData["pageSize"]) %>
+	           <%= Html.Hidden("page", ViewData["page"])%>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr> 
     <tr>
-       <td>Projekto kodas</td>
-       <td>Vadovas</td>
-       <td>Skyrius</td>
-       <td>Pradžia</td>
-       <td>Pabaiga</td>
-       <td>Viso dirbta</td>
+       
+       <%= Html.SortingHeader("Projekto kodas", "Title", "", 0, new { page = ViewData["page"], sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSize"] })%>
+       <%= Html.SortingHeader("Vadovas", "Manager", "", 0, new { page = ViewData["page"], sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSize"] })%>       
+       <%= Html.SortingHeader("Skyrius", "ManagerDepartment", "", 0, new { page = ViewData["page"], sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSize"] })%>
+       <%= Html.SortingHeader("Pradžia", "Started", "", 0, new { page = ViewData["page"], sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSize"] })%>
+       <%= Html.SortingHeader("Pabaiga", "Ended", "", 0, new { page = ViewData["page"], sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSize"] })%>
+       <%= Html.SortingHeader("Viso dirbta", "TotalWorked", "", 0, new { page = ViewData["page"], sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSize"] })%>       
     </tr>
   <% foreach (DepartmentProjectReport projectLine in ViewData.Model) %>
   <% { %>
@@ -146,7 +164,8 @@
    <%= Html.Hidden("startMonth")%>
    <%= Html.Hidden("endYear")%>
    <%= Html.Hidden("endMonth")%>
-
+   <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+   <%= Html.Hidden("filter", ViewData["filter"]) %>
    <% List<int> pageSizes = new List<int>(); %>
    <% for (int i = 5; i <= 50; i += 5) pageSizes.Add(i); %>
    <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSize"]), new { onChange = "javascript: form.submit();" })%>
