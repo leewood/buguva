@@ -40,7 +40,7 @@
             $("body").css("background-color", "white");
             $("td").css("font-size", "8px");
             $("th").css("font-size", "8px");
-
+            
             $("input").attr("disabled", "disabled");
 
             $("#content img").show();
@@ -235,7 +235,7 @@
         
             <ul>
                 <li>
-                
+                Norėdami pakeisti išsamesnė informaciją, kreipkitės į sistemos administratorių.
                 </li>
                 
             </ul>
