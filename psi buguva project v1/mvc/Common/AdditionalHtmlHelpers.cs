@@ -118,24 +118,34 @@ namespace mvc.Common
             List<LineChart> lineCharts = new List<LineChart>();
             chartControl.ChartTitle.Text = caption;
             chartControl.XTitle.Text = titleX;
-            chartControl.XTitle.StringFormat.LineAlignment = System.Drawing.StringAlignment.Far;
+            chartControl.XTitle.StringFormat.LineAlignment = System.Drawing.StringAlignment.Near;
             chartControl.XTitle.StringFormat.Alignment = System.Drawing.StringAlignment.Far;
-            chartControl.XTitle.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.FitBlackBox;
+            chartControl.XTitle.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.NoClip;
+            chartControl.XTitle.StringFormat.Trimming = System.Drawing.StringTrimming.None;
+            chartControl.XTicksInterval = 0;
             chartControl.YTitle.Text = titleY;
+            chartControl.Padding = 10;
+            
+            chartControl.TopChartPadding = 40;
+            chartControl.LeftChartPadding = 10;
+            chartControl.ChartPadding = 30;
             chartControl.YTitle.StringFormat.LineAlignment = System.Drawing.StringAlignment.Near;            
             chartControl.YTitle.StringFormat.Alignment = System.Drawing.StringAlignment.Near;
-            chartControl.YTitle.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.NoWrap;
+            chartControl.YTitle.StringFormat.FormatFlags = System.Drawing.StringFormatFlags.FitBlackBox;
+            chartControl.Legend.Position = LegendPosition.Left;
+            chartControl.Legend.Border.Width = 0;
             chartControl.ShowTitlesOnBackground = false;
             //chartControl.
             chartControl.YValuesInterval = 20;
-            chartControl.BottomChartPadding = 0;
-
+            chartControl.BottomChartPadding = 20;
+           
             chartControl.TopChartPadding = 0;
             float maxValue = 0;
             for (int i = 0; i < legends.Length; i++)
             {
                 LineChart chart = new LineChart();
-                chart.Legend = legends[i];
+                chart.Legend = legends[i];                
+                
                 chart.Line.Color = colors[i];
                 chart.Fill.Color = colors[i];
                 chart.Fill.ForeColor = System.Drawing.Color.Black;
