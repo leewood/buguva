@@ -11,7 +11,7 @@ namespace mvc.Models
     {
         private string _period = "";
         private List<int> _swsum = new List<int>();
-
+        //naujina
         public string Period
         {
             get
