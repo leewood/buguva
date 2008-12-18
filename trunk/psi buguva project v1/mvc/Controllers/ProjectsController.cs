@@ -320,6 +320,8 @@ namespace mvc.Controllers
 
         public ActionResult OvertimeReport(int? page, int? type)
         {
+            
+            
             int currentPage = page ?? 1;
             int pType = type ?? 1;
             List<Department> departments = DBDataContext.Departments.Where(d => d.deleted.HasValue == false).ToList();
@@ -423,6 +425,7 @@ namespace mvc.Controllers
             ViewData["total"] = periodsCount;
             ViewData["totalPages"] = periodsCount / itemsPerPage + ((periodsCount % itemsPerPage > 0) ? 1 : 0);
             ViewData["size"] = itemsPerPage;
+
             return View(report);
         }
         

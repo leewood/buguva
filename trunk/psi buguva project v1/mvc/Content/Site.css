@@ -32,6 +32,12 @@ div .errors li
 	font-weight: bold;
 }
 
+.print_image 
+{
+	float: right;
+	cursor: pointer;
+}
+
 
 /* HEADINGS   
 ----------------------------------------------------------*/
@@ -575,7 +581,7 @@ form .years input
 .grid  tr td {
 	font: 12px Arial, Helvetica, sans-serif;
 	border-right: 1px solid #eeeeee;
-	border-bottom: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;	
 	padding: 0px 4px 0px 4px;
 	height: 20px;
 	/*padding: 6px 4px 6px 4px;*/	

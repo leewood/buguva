@@ -6,7 +6,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 <div class = "path">
-   	  <%= ViewData["Image"] %><span class="title"><%= ViewData["Title"]%></span>
+   	  <img src="../../Content/Images/Icons/scheduledtasks_big.png" alt="logo" /><span class="title"><%= ViewData["Title"]%></span>
+ <img src="../../Content/Images/Icons/Print30.png" onclick="printLandscapeTable()" class="print_image" alt="logo" style="float: right;" />  
+   	 
    	</div>   
     <div class = "errors">
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
@@ -20,9 +22,40 @@
        <% types.Add(new KeyValuePair<string,int>("Pusmečiai", 2));%>
        <% types.Add(new KeyValuePair<string,int>("Ketvirčiai", 3));%>
        <% types.Add(new KeyValuePair<string,int>("Mėnesiai", 4));%>
-   
+    <fieldset class="years">
+     <legend>Ataskaitos laikotarpis</legend>   
    <label>Periodo tipas:</label><%= Html.DropDownList("type", new SelectList(types, "Value", "Key", ViewData["type"]), new { onChange = "javascript: form.submit();"})%>
  <% Html.EndForm(); %>
+</fieldset>
+ <script type="text/javascript">
+
+     var scrool_by = 5;
+
+     var scrooled = 100;
+
+     function scroolBy() {
+         var element = document.getElementById("scrool_container");
+         element.scrollLeft = element.scrollLeft + scrool_by;
+         
+         if (scrooled > 0)
+            setTimeout("scroolBy()", 5);
+
+        scrooled = scrooled - 1; 
+     }
+
+     function scrool(left) {
+         scrool_by = left;
+         scrooled = 25;
+         scroolBy();
+     }
+ 
+ </script>
+ <div id="monthChoose">
+ <label style="width: 100px;">Paslinkti sąrašą: </label>
+ <a href="javascript:scrool(-10);">< į kairę</a>
+ <a href="javascript:scrool(10);">į dešinę ></a>
+ </div>
+	<div style="display: run-in; overflow : auto;" id="scrool_container">
 	
 	<table class = "grid">
 	   <tr>
@@ -91,5 +124,6 @@
 	   <% } %>
 	</table>
 
+    </div>
 
 </asp:Content>

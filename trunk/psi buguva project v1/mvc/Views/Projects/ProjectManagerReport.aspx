@@ -9,6 +9,7 @@
 
     <div class = "path">
    	  <%= ViewData["Image"] %><%=ViewData["Base"] %> <span class="title"><%= ViewData["Title"]%></span>
+
    	</div> 
 <ul id="menu">
    <li class="selected">
