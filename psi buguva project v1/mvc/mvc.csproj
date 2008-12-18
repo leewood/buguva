@@ -618,6 +618,18 @@
       <LastGenOutput>InstallationModels.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Content\Images\Icons\Ini.png" />
+    <Content Include="Content\Images\Icons\Ini_big.png" />
+    <Content Include="Content\Images\Icons\Ini__.png" />
+    <Content Include="Content\Images\Icons\Print.png" />
+    <Content Include="Content\Images\Icons\Print30.png" />
+    <Content Include="Content\Images\Icons\Print__.png" />
+    <Content Include="Content\Images\Icons\Refresh.png" />
+    <Content Include="Content\Images\Icons\Refresh_big.png" />
+    <Content Include="Content\Images\Icons\Refresh__.png" />
+    <Content Include="Content\Images\Icons\scheduledtasks.png" />
+    <Content Include="Content\Images\Icons\scheduledtasks_big.png" />
+    <Content Include="Content\Images\Icons\scheduledtasks__.png" />
     <Content Include="Content\jquery.js" />
     <Content Include="Content\jquery.tooltip.css" />
     <Content Include="Content\jquery.tooltip.js" />

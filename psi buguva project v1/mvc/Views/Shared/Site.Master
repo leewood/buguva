@@ -260,18 +260,9 @@
 
 
 
-/*
-        $("img").hover(
-            function() {
-                if (this.alt == "Koreguoti") {
-                    this.title = "Koreguoti";
-                }
 
-            }
-        );
-
-            $("img").tooltip();
-  */          
+       // $(".path img").hide().fadeIn("slow");
+          
     </script>
 </body>
 </html>
