@@ -104,16 +104,16 @@ namespace mvc.Common
             }
         }
 
-        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, string titleX, string titleY)
+        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, string titleX, string titleY, int width, int height)
         {
-            return helper.LineChart<T>(legends, data, XAxeName, YAxes, colors, System.Drawing.Color.White, "", titleX, titleY);
+            return helper.LineChart<T>(legends, data, XAxeName, YAxes, colors, System.Drawing.Color.White, "", titleX, titleY, width, height);
         }
 
-        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string titleX, string titleY)
+        public static string LineChart<T>(this HtmlHelper helper, string[] legends, List<T> data, string XAxeName, string[] YAxes, System.Drawing.Color[] colors, System.Drawing.Color background, string caption, string titleX, string titleY, int width, int height)
         {
             WebChart.ChartControl chartControl = new ChartControl();
-            chartControl.Width = new System.Web.UI.WebControls.Unit("600px");
-            chartControl.Height = new System.Web.UI.WebControls.Unit("400px");
+            chartControl.Width = width;
+            chartControl.Height = height;
             ChartPointCollection chartPoints = new ChartPointCollection();
             List<LineChart> lineCharts = new List<LineChart>();
             chartControl.ChartTitle.Text = caption;
@@ -157,7 +157,77 @@ namespace mvc.Common
                     lineCharts[i].Data.Add(new WebChart.ChartPoint(xAxe, yValue));
                 }
             }
-            chartControl.YCustomEnd = ((maxValue / 20) + ((maxValue % 20 > 0) ? 1 : 0)) * 20 + 20;
+            
+            int max = (int)maxValue;
+            float interval = 25;
+            int val = (max / 10) + ((max % 10 > 0) ? 1 : 0);
+            if (val <= 25)
+            {
+                interval = 25;
+            }
+            else if (val <= 50)
+            {
+                interval = 50;
+            }
+            else if (val <= 100)
+            {
+                interval = 100;
+            }
+            else if (val <= 200)
+            {
+                interval = 200;
+            }
+            else if (val <= 250)
+            {
+                interval = 250;
+            }
+            else if (val <= 400)
+            {
+                interval = 400;
+            }
+            else if (val <= 500)
+            {
+                interval = 100;
+            }
+            else if (val <= 1000)
+            {
+                interval = 1000;
+            }
+            else if (val <= 2000)
+            {
+                interval = 2000;
+            }
+            else if (val <= 2500)
+            {
+                interval = 2500;
+            }
+            else if (val <= 5000)
+            {
+                interval = 5000;
+            }
+            else if (val <= 10000)
+            {
+                interval = 10000;
+            }
+            else if (val <= 20000)
+            {
+                interval = 20000;
+            }
+            else if (val <= 25000)
+            {
+                interval = 25000;
+            }
+            else if (val <= 50000)
+            {
+                interval = 50000;
+            }
+            else if (val <= 100000)
+            {
+                interval = 100000;
+            }
+            chartControl.YValuesInterval = interval;
+            chartControl.YCustomEnd = interval * 10;
+
             foreach (LineChart chart in lineCharts)
             {
                 chartControl.Charts.Add(chart);
