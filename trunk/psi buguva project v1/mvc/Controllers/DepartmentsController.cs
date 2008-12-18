@@ -314,11 +314,12 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List(int? page)
+        public ActionResult List(int? page, string filter, string sorting)
         {
             ViewData["Title"] = "Skyrių sąrašas";
             List<Department> departments = DBDataContext.Departments.Where(w => (w.deleted.HasValue == false)).ToList();
             departments = departments.Where(d => d.administationView()).ToList();
+            departments = filteredAndSorted<Department>(departments, filter, sorting);
             return View(departments.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 

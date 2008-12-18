@@ -11,21 +11,32 @@
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>   	
    	<div class="pager">   	
-	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
+	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, new { sorting = ViewData["sorting"], filter = ViewData["filter"] }) %>
 	</div>   
 	<table class = "grid">
 	   <tr>
-	      <th style="display:none">ID</th>
-	      <th style="width: 150px">Skyriaus kodas</th>
-	      <th>Vadovas</th>
-	      <th>Veiksmai</th>
+	     <td colspan="5">
+	        <% Html.BeginForm("List", "Departments", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>
+	
+	   <tr>
+	      <%= Html.SortingHeader("ID", "id", "display:none", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Kodas", "title", "width: 150px", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+          <%= Html.SortingHeader("Vadovas", "ManagerName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>	      	      
+	   	  <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (Department department in ViewData.Model) %>
 	   <% { %>
 	      <tr>
 	        <td style="display:none"><%= department.id %></td>
 	        <td><%= department.title %></td>
-	        <td><%= ((department.Worker != null) && (department.Worker.deleted.HasValue == false))?department.Worker.Fullname:"Nepaskirtas" %></td>
+	        <td><%= department.ManagerName %></td>
 	        <td width="60">
 	         <% if (department.administrationEdit()) %>
 	          <%= Html.ActionImageLink("../Content/edit.png", "Koreguoti", "Edit", new {id = department.id}) %>

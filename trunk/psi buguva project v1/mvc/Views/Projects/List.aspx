@@ -22,13 +22,24 @@
     </div>   	
    	<div class="pager">   	
    	
-	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
+	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, new { sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
 	</div>   
 	<table class = "grid">
 	   <tr>
-	      <th style="display:none">ID</th>
-	      <th style="width: 100px">Kodas</th>
-	      <th>Vadovas</th>
+	     <td colspan="5">
+	        <% Html.BeginForm("List", "Projects", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>
+	
+	   <tr>	      
+	      <%= Html.SortingHeader("ID", "id", "display:none", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Kodas", "title", "width: 100px", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+          <%= Html.SortingHeader("Vadovas", "ManagerName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>	      	      
 	      <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (Project project in ViewData.Model) %>

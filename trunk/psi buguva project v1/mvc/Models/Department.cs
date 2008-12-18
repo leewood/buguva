@@ -106,6 +106,14 @@ namespace mvc.Models
             return false;
         }
 
+        public string ManagerName
+        {
+            get
+            {
+                return ((Worker != null) && (Worker.deleted.HasValue == false)) ? Worker.Fullname : "Nepaskirtas";
+            }
+        }
+
         public bool administationView()
         {
             return canBeSeen();
