@@ -16,6 +16,22 @@ namespace mvc.Models
             }
         }
 
+        public string ParticipantName
+        {
+            get
+            {
+                return (Worker != null) ? Worker.Fullname : "";
+            }
+        }
+
+        public string ProjectCode
+        {
+            get
+            {
+                return (Project != null) ? Project.title : "";
+            }
+        }
+
         public bool canBeSeen()
         {
             mvc.Common.UserSession userSession = new mvc.Common.UserSession();
