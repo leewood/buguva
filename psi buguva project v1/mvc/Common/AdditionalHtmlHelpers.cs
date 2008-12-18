@@ -51,6 +51,44 @@ namespace mvc.Common
             return String.Format("<label{0}>{1}</label>", className, value.ToString("0.00"));
         }
 
+        public static string SortingHeader(this HtmlHelper helper, string caption, string name, string style, int colspan, object values)
+        {
+            Dictionary<string, int> sorts = (Dictionary<string, int>)helper.ViewData["sortings"];
+            RouteValueDictionary dict = new RouteValueDictionary(values);
+            
+            string sortCommand = (dict.ContainsKey("sorting") && (dict["sorting"] != null)) ?dict["sorting"].ToString() : "";
+            Common.Sortings sort1 = new Sortings(sortCommand);
+            Common.Sortings sort2 = new Sortings(sortCommand);
+            int sort = sort1.getSorting(name);
+            sort1.setSorting(name, 1);
+            sort2.setSorting(name, 2);
+
+            dict["sorting"] = sort1.toParam();
+            var virtualPathData = RouteTable.Routes.GetVirtualPath(helper.ViewContext, dict);            
+            string path1 = "";
+            if (virtualPathData != null)
+            {
+                path1 = virtualPathData.VirtualPath;
+            }
+            string path2 = "";
+            dict = new RouteValueDictionary(values);
+            
+            dict["sorting"] = sort2.toParam();
+            virtualPathData = RouteTable.Routes.GetVirtualPath(helper.ViewContext, dict);            
+            if (virtualPathData != null)
+            {
+                path2 = virtualPathData.VirtualPath;
+            }
+            string additional = "";
+            string imageStart = "../Content/";
+            
+            
+            string asc = imageStart + "asc" + ((sort == 1)?"fill":"clear") + ".png";
+            string desc = imageStart + "desc" + ((sort == 2)?"fill":"clear") + ".png";
+            additional = String.Format("<a href='{0}' style='float:right;'><img src='{1}' alt='' /></a><a href='{2}' style='float:right;'><img src='{3}' alt='' /></a>", path1, asc, path2, desc);
+            return String.Format("<th {0}{1}><label style='display:inline;float:left;'>{2}</label>{3}</th>", (style != "") ? String.Format("style='{0}' ", style) : "", (colspan > 1) ? String.Format("colspan='{0}'", colspan) : "", caption, additional);
+        }
+
         public static string Path(this HtmlHelper helper)
         {
             return "";

@@ -85,6 +85,7 @@
     <Compile Include="Common\PagingExtensions.cs" />
     <Compile Include="Common\RoadHelper.cs" />
     <Compile Include="Common\SiteMap.cs" />
+    <Compile Include="Common\Sortings.cs" />
     <Compile Include="Common\UserCookie.cs" />
     <Compile Include="Common\UserNavigation.cs" />
     <Compile Include="Common\UserSession.cs" />
@@ -618,6 +619,8 @@
       <LastGenOutput>InstallationModels.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Content\ascclear.png" />
+    <Content Include="Content\descclear.png" />
     <Content Include="Content\Images\Icons\Ini.png" />
     <Content Include="Content\Images\Icons\Ini_big.png" />
     <Content Include="Content\Images\Icons\Ini__.png" />
