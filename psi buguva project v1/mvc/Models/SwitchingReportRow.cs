@@ -10,7 +10,7 @@ namespace mvc.Models
     public class SwitchingReportRow 
     {
         private string _period = "";
-        private int _swsum = 0;
+        private List<int> _swsum = new List<int>();
 
         public string Period
         {
@@ -24,7 +24,7 @@ namespace mvc.Models
             }
         }
 
-        public int Swsums
+        public List<int> Swsums
         {
             get
             {

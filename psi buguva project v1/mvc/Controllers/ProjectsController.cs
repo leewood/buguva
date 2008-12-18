@@ -198,9 +198,9 @@ namespace mvc.Controllers
                         int index = (workerTasks.Count > 0)?workerAllTasks.IndexOf(workerTasks[0]):-1;
                         for (int k = 1; k < workerTasks.Count; k++)
                         {
-                            if (index + k < workerAllTasks.Count)
+                            if (index + k - 1< workerAllTasks.Count)
                             {
-                                if (workerAllTasks[index + k].Project != workerAllTasks[index + k + 1].Project)
+                                if (workerAllTasks[index + k - 1].Project != workerAllTasks[index + k].Project)
                                 {
                                     List<Task> tempTaskList = workerAllTasks.Where(tas => tas.Project == workerTasks[k].Project).ToList();
                                     if (tempTaskList[tempTaskList.Count - 1] != workerTasks[k])
