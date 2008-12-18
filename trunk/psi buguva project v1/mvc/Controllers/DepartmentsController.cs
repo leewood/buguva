@@ -24,7 +24,7 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult DepartmentProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, int? department_id, bool? chart, int? page, int? pageSize, bool? showOnlyMyProjects)
+        public ActionResult DepartmentProjects(int? startYear, int? startMonth, int? endMonth, int? endYear, int? department_id, bool? chart, int? page, int? pageSize, bool? showOnlyMyProjects, string filter, string sorting)
         {
             if (department_id.HasValue)
             {
@@ -120,7 +120,7 @@ namespace mvc.Controllers
                             line.DepartmentWorkersWorked = project.Tasks.Where(t => (t.year * 12 + t.month >= stYear * 12 + stMonth) && (t.year * 12 + t.month <= endYear * 12 + endMonth) && (currentDepartment.Workers.Contains(t.Worker))).Sum(t2 => t2.worked_hours);
                             result.Add(line);
                         }
-
+                        result = filteredAndSorted<Models.DepartmentProjectReport>(result, filter, sorting);
                         IPagedList<Models.DepartmentProjectReport> paged = null;
                         if (result.Count > 0)
                         {
