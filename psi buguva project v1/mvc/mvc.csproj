@@ -620,7 +620,9 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\ascclear.png" />
+    <Content Include="Content\ascfill.png" />
     <Content Include="Content\descclear.png" />
+    <Content Include="Content\descfill.png" />
     <Content Include="Content\Images\Icons\Ini.png" />
     <Content Include="Content\Images\Icons\Ini_big.png" />
     <Content Include="Content\Images\Icons\Ini__.png" />
