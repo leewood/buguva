@@ -11,15 +11,27 @@
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>   	
    	<div class="pager">   	
-	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
+	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, new { sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
 	</div>   
 	<table class = "grid" style="max-width: 400px;text-align:left;">
 	   <tr>
+	     <td colspan="5">
+	        <% Html.BeginForm("List", "Tasks", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>
+	
+	   <tr>
 	      <th>ID</th>
-	      <th>Projektas</th>
-	      <th>Dalyvis</th>
-	      <th>Mėnuo</th>
-	      <th style="text-align:right">Dirbtos valandos</th>
+	      <%= Html.SortingHeader("ID", "id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Projektas", "ProjectCode", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Dalyvis", "ParticipantName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Mėnuo", "FullMonthName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Dirbtos valandos", "worked_hours", "text-align:right", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
 	      <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (Task task in ViewData.Model) %>
@@ -28,7 +40,7 @@
 	        <td style="text-align:right"><%= task.id %></td>
 	        <td><%= (task.Project != null)?task.Project.title:"Nepaskirtas" %></td>
 	        <td><%= (task.Worker != null)?task.Worker.Fullname:"Nepaskirtas" %></td>
-	        <td><%= (new MonthOfYear(task.year, task.month)).ToString() %></td>
+	        <td><%= task.FullMonthName %></td>
 	        <td style="text-align:right"><%= task.worked_hours %></td>
 	        <td>
 	        <% if (task.administrationEdit()) %>
