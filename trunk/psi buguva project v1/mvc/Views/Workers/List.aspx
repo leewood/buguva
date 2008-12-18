@@ -13,11 +13,22 @@
 	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
 	</div>   
 	<table class = "grid">
-	   <tr>
-	      <th>ID</th>
+		   <tr>
+	      <td colspan="5">
+	        <% Html.BeginForm("List", "Workers", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <input type="submit" value="Filtruoti" />
+	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>
+
+	   <tr>	      
+	      <%= Html.SortingHeader("ID", "id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
 	      <%= Html.SortingHeader("Vardas", "name", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
-	      <th>Pavardė</th>
-	      <th>Skyrius</th>
+	      <%= Html.SortingHeader("Pavardė", "surname", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
+	      <%= Html.SortingHeader("Skyrius", "department_id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"] })%>
 	      <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (Worker worker in ViewData.Model) %>
@@ -35,16 +46,6 @@
 	        </td>
 	      </tr>
 	   <% } %>
-	   <tr>
-	      <td colspan="5">
-	        <% Html.BeginForm("List", "Workers", FormMethod.Get); %>
-	           <%= Html.TextBox("filter", ViewData["filter"]) %>
-	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
-	           <input type="submit" value="Filtruoti" />
-	           
-	        <% Html.EndForm(); %>
-	      </td>
-	    </tr>
 	</table>
 	<% if (mvc.Models.Worker.administrationNew())
     { %>
