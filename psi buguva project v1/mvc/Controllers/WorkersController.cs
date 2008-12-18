@@ -41,7 +41,6 @@ namespace mvc.Controllers
             Common.Sortings sorter = new Sortings(sorting);
             string sortCommand = sorter.getSortString();
             ViewData["filter"] = filter;
-
             if (filter != null)
             {
                 workers = workers.Filter(filter);

@@ -10,14 +10,24 @@
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>   	
    	<div class="pager">   	
-	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount) %>
+	  <%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, new { sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
 	</div>   
 	<table class = "grid">
 	   <tr>
-	      <th>ID</th>
-	      <th>Prisijungimo vardas</th>
-	      <th>Teisė</th>
-	      <th>Susietas su darbuotoju</th>
+	     <td colspan="5">
+	        <% Html.BeginForm("List", "Workers", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>
+	   <tr>
+	      <%= Html.SortingHeader("ID", "id", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter= ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Prisijungimo vardas", "login_name", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Teisė", "LevelName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Susietas su darbuotoju", "WorkerName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
 	      <th>Veiksmai</th>
 	   </tr>    
 	   <% foreach (User user in ViewData.Model) %>
