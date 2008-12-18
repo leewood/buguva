@@ -39,6 +39,18 @@ namespace mvc.Common
             return String.Format("<label for='{0}'>{1}</label>", target, text); 
         }
 
+        public static string NumberLabel(this HtmlHelper helper, int value)
+        {
+            string className = (value >= 0) ? "" : " style='color:red;'";
+            return String.Format("<label{0}>{1}</label>", className, value.ToString()); 
+        }
+
+        public static string NumberLabel(this HtmlHelper helper, double value)
+        {
+            string className = (value >= 0) ? "" : " style='color:red;'";
+            return String.Format("<label{0}>{1}</label>", className, value.ToString("0.00"));
+        }
+
         public static string Path(this HtmlHelper helper)
         {
             return "";

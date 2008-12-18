@@ -101,9 +101,9 @@
          </td>
          <% for (int i = 0; i < row.Cells.Count; i++)
             { %>
-            <td style="text-align:right;"><%= tempRow.Cells[i].Value.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].Value.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].Difference.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(tempRow.Cells[i].Value)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].Value)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].Difference)%></td>
             <td style="text-align:right;"><%= row.Cells[i].Percent%></td>
          <% } %>
           
@@ -115,9 +115,9 @@
          </td>
          <% for (int i = 0; i < row.Cells.Count; i++)
             { %>
-            <td style="text-align:right;"><%= row.Cells[i].Value.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].Income.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].Difference.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].Value)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].Income)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].Difference)%></td>
             <td style="text-align:right;"><%= row.Cells[i].Percent%></td>
          <% }
           } %>

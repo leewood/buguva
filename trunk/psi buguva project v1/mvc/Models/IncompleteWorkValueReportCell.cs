@@ -46,7 +46,10 @@ namespace mvc.Models
             {
                 if (Value > 0)
                 {
-                    return (((double)(Difference) / ((double)Value)) * 100.00).ToString("0.00");
+                    double value = (((double)(Difference) / ((double)Value)) * 100.00);
+                    string className = (value >= 0) ? "" : " style='color:red;'";
+                    return String.Format("<label{0}>{1}</label>", className, value.ToString("0.00"));
+                    
                 }
                 else
                 {
