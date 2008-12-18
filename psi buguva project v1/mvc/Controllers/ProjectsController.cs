@@ -127,6 +127,7 @@ namespace mvc.Controllers
         public ActionResult SwitchingReport(int ? page)
         {
             int currentPage = page ?? 1;
+            int pType = 1;
             List<Department> departments = DBDataContext.Departments.Where(d => d.deleted.HasValue == false).ToList();
             SwitchingReport report = new SwitchingReport();
             report.Captions.Add("Laikotarpis");
@@ -149,26 +150,96 @@ namespace mvc.Controllers
             }
             report.Captions.Add("Visa įmonė");
             System.Web.Routing.RouteValueDictionary dict2 = new System.Web.Routing.RouteValueDictionary();
-            dict2.Add("controller", "Departments");
+            dict2.Add("controller", "Projects");
+            int total = 0;
             if (!(userSession.isAdministrator() || userSession.isAntanas()))
             {
                 dict2 = null;
             }
             report.Redirections.Add(dict2);
             report.Actions.Add("GrandMastersReport");
-            int total = 0;
-            if (!(userSession.isAdministrator() || userSession.isAntanas()))
+
+            List<Task> tasks = DBDataContext.Tasks.OrderBy(t => t.year * 12 + t.month).ToList();
+            int start = 0;
+            int end = 0;
+            if (tasks.Count > 0)
             {
-                dict2 = null;
+                start = tasks[0].year * 12 + tasks[0].month;
+                end = tasks[tasks.Count - 1].year * 12 + tasks[tasks.Count - 1].month;
+            }
+            int periodsCount = getPeriodsCount(pType, start, end);
+            int periodStart = getPeriodStart(pType, start);
+            SwitchingReportRow totalRow = new SwitchingReportRow();
+            SwitchingReportRow totalRow2 = new SwitchingReportRow();
+            for (int i = 0; i < departments.Count + 1; i++)
+                {
+                    totalRow.Swsums.Add(new int());
+                    totalRow2.Swsums.Add(new int());
+            }
+            int itemsPerPage = userSession.ItemsPerPage;
+            int endCycle = (periodsCount <= itemsPerPage) ? periodsCount + periodStart - 1 : periodStart + ((currentPage - 1) * itemsPerPage) + itemsPerPage - 1;
+            for (int i = periodStart; i <= periodsCount + periodStart - 1; i++)
+            {
+                int pStart = constructPeriodStart(pType, i);
+                int pEnd = constructPeriodEnd(pType, i);
+                SwitchingReportRow row = new SwitchingReportRow();
+                row.Period = periodString(pType, i);
+                int j = 0;
+                foreach (Department department in departments)
+                {
+                    List<Task> periodTasks = DBDataContext.Tasks.Where(t => (department.Workers.Contains(t.Project.Worker) && ((t.year * 12 + t.month) >= pStart) && ((t.year * 12 + t.month) <= pEnd))).ToList();
+                    int cell = new int();
+                    cell = 0;
+                    List<Worker> departmentWorkers = DBDataContext.Workers.Where(w => w.Department == department).ToList();
+                    foreach (Worker departmentWorker in departmentWorkers)
+                    {
+                        List<Task> workerTasks = periodTasks.Where(wp => wp.Worker == departmentWorker).OrderBy(at2 => at2.year * 12 + at2.month).ToList();
+                        List<Task> workerAllTasks = DBDataContext.Tasks.Where(at => at.Worker == departmentWorker).OrderBy(at2 => at2.year * 12 + at2.month).ToList();
+                        int index = (workerTasks.Count > 0)?workerAllTasks.IndexOf(workerTasks[0]):-1;
+                        for (int k = 1; k < workerTasks.Count; k++)
+                        {
+                            if (index + k < workerAllTasks.Count)
+                            {
+                                if (workerAllTasks[index + k].Project != workerAllTasks[index + k + 1].Project)
+                                {
+                                    List<Task> tempTaskList = workerAllTasks.Where(tas => tas.Project == workerTasks[k].Project).ToList();
+                                    if (tempTaskList[tempTaskList.Count - 1] != workerTasks[k])
+                                    {
+                                        cell++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    row.Swsums.Add(cell);
+                    totalRow.Swsums[j] += cell;
+                    j++;
+                }
+                int totalCell = new int();
+                totalCell = row.Swsums.Sum(c => c);
+                row.Swsums.Add(totalCell);
+                totalRow.Swsums[departments.Count] += totalCell;
+                report.Rows.Add(row);
+            }
+            totalRow.Period = "";
+            totalRow2.Period = "Viso ";
+            
+            for (int i = 0; i < totalRow2.Swsums.Count; i++)
+            {
+                totalRow2.Swsums[i] = report.Rows.Sum(r => r.Swsums[i]);
             }
 
+            report.Rows = report.Rows.ToPagedList(currentPage - 1, itemsPerPage).ToList();
+            report.Rows.Add(totalRow);
+            report.Rows.Add(totalRow2);
 
-            int itemsPerPage = userSession.ItemsPerPage;
+
             ViewData["Title"] = "\"Persijungimo\" ataskaita";
             ViewData["page"] = currentPage;
             ViewData["total"] = total;
             ViewData["size"] = itemsPerPage;
             return View(report);
+
         }
 
         public ActionResult IncompleteWorkReport(int? page, int? type)
@@ -201,7 +272,7 @@ namespace mvc.Controllers
             }
             report.Captions.Add("Visa įmonė");
             System.Web.Routing.RouteValueDictionary dict2 = new System.Web.Routing.RouteValueDictionary();
-            dict2.Add("controller", "Departments");
+            dict2.Add("controller", "Projects");
             if (!(userSession.isAdministrator() || userSession.isAntanas()))
             {
                 dict2 = null;
