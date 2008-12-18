@@ -23,6 +23,14 @@ namespace mvc.Models
             }
         }
 
+        public string ManagerName
+        {
+            get
+            {
+                return (Worker != null) ? Worker.Fullname : "";
+            }
+        }
+
         public bool canBeSeen()
         {
             mvc.Common.UserSession userSession = new mvc.Common.UserSession();
