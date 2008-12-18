@@ -636,6 +636,7 @@
     <Content Include="Content\lib\jquery.bgiframe.js" />
     <Content Include="Content\lib\jquery.delegate.js" />
     <Content Include="Content\lib\jquery.dimensions.js" />
+    <Content Include="Content\Print.css" />
     <Content Include="Views\Projects\SwitchingReport.aspx" />
     <Content Include="Views\Users\EditProfile.aspx" />
     <None Include="Models\BackupModels.dbml.layout">
