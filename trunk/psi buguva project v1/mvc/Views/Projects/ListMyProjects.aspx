@@ -68,9 +68,9 @@
 	        <% if (userSession.canEditProjects()) %>
 	        <% { %>	        
 	          <% if (project.administrationEdit()) %>
-	          <%= Html.ActionImageLink("/Content/edit.png", "Koreguoti", "Edit", new { id = project.id })%>
+	          <%= Html.ActionImageLink("/Content/edit.png", "Koreguoti", "Edit", new { id = project.id, back = true })%>
 	          <% if (project.administrationDelete()) %>
-	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new { id = project.id}, true, "Ar tikrai norite ištrinti šį projektą?")%>	          
+	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new { id = project.id, bakc = true}, true, "Ar tikrai norite ištrinti šį projektą?")%>	          
 	        <% } %>
              </td>
           </tr>
@@ -82,7 +82,11 @@
 	      </tr>
 	   <% } %>
 	</table>
-	
+		<% if (mvc.Models.Project.administrationNew())
+    { %>
+	<%= Html.ActionImageLink("/Content/new.png", "", "New", new {back = true})%><%= Html.ActionLink("Naujas projektas", "New", new { back = true})%>
+    <% } %>
+
 	<div class="description">
 	    <img src="../../Content/Images/Icons/Tasks.png" alt="img" /> - Projekte esančios užduotys <br />
 	    <img src="../../Content/Images/Icons/ManagerReport.png" alt="img" /> - Vadovaujamo projekto ataskaita

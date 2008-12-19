@@ -26,7 +26,7 @@ namespace mvc.Models
                 case 9: return "Rugsėjis";
                 case 10: return "Spalis";
                 case 11: return "Lapkritis";
-                case 12: return "Groudis";
+                case 12: return "Gruodis";
 
             }
             return "";
