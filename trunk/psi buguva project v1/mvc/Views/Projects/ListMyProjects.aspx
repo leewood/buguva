@@ -24,11 +24,22 @@
 	</div>
 	<table class = "grid">
 	   <tr>
-	      <th>Kodas/Pavadinimas</th>	      
-	      <th>Vadovas</th>
-	      <th>Pradėta dalyvauti</th>
-	      <th>Baigta dalyvauti</th>
-	      <th>Išdirbta(val.)</th>
+	     <td colspan="6">
+	        <% Html.BeginForm("ListMyProjects", "Projects", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>
+	           <%= Html.Hidden("id", ViewData["currentWorkerID"]) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>	
+	   <tr>
+	      <%= Html.SortingHeader("Kodas", "title", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>
+	      <%= Html.SortingHeader("Vadovas", "ManagerName", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>
+	      <%= Html.SortingHeader("Pradėta dalyvauti", "StartedAt", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>
+	      <%= Html.SortingHeader("Baigta dalyvauti", "EndedAt", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>
+	      <%= Html.SortingHeader("Išdirbta(val.)", "TotalWorkedHours", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>	      
 	      <th>Peržiūra</th>
 	   </tr>	  
 	   
@@ -52,8 +63,15 @@
                  <% if (project.canBeSeen())
                     { %>
                  <%= Html.ActionImageLink("/Content/Images/Icons/ManagerReport.png", "Vadovo Ataskaita", "ProjectManagerReport", new { project_id = project.id })%>
-                 <%} %>
-               <% } %>
+                 <%}
+                  }%>
+	        <% if (userSession.canEditProjects()) %>
+	        <% { %>	        
+	          <% if (project.administrationEdit()) %>
+	          <%= Html.ActionImageLink("/Content/edit.png", "Koreguoti", "Edit", new { id = project.id })%>
+	          <% if (project.administrationDelete()) %>
+	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new { id = project.id}, true, "Ar tikrai norite ištrinti šį projektą?")%>	          
+	        <% } %>
              </td>
           </tr>
 	   <% } %>

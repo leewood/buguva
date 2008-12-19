@@ -26,7 +26,7 @@
 	</div>   
 	<table class = "grid">
 	   <tr>
-	     <td colspan="5">
+	     <td colspan="4">
 	        <% Html.BeginForm("List", "Projects", FormMethod.Get); %>
 	           <%= Html.TextBox("filter", ViewData["filter"]) %>
 	           <%= Html.Hidden("page", ViewData.Model.PageNumber) %>

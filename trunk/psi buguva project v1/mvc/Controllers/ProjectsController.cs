@@ -577,7 +577,7 @@ namespace mvc.Controllers
             return View(result);
         }
 
-        public ActionResult GrandMastersReport(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart)
+        public ActionResult GrandMastersReport(int? startYear, int? startMonth, int? endMonth, int? endYear, bool? chart, string filter, string sorting)
         {
             ViewData["Title"] = "Vadovybės ataskaita";
             Models.DepartmentManagerReport report = new mvc.Models.DepartmentManagerReport();
@@ -616,7 +616,7 @@ namespace mvc.Controllers
                     }
                 }
             }
-
+            report.WorkedHoursOfOthers = filteredAndSorted<mvc.Models.AssociatedWorkedHours>(report.WorkedHoursOfOthers, filter, sorting);
             return View(report);
         }
 
@@ -626,7 +626,7 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult ListMyProjects(int? page, int? id)
+        public ActionResult ListMyProjects(int? page, int? id, string filter, string sorting)
         {
 
             ViewData["Image"] = road.img("MyProjects");            
@@ -660,12 +660,14 @@ namespace mvc.Controllers
             {
                 currentPage = 1;
             }
+            ViewData["page"] = currentPage;            
             IEnumerable<Models.Project> projects = DBDataContext.Projects;
             if (projects.Count() > 0)
             {
                 projects = projects.Where(project => ((project.Tasks.Count > 0) && (project.Tasks.Any(task => task.project_participant_id == workerID))) || (project.project_manager_id == workerID));
             }
-            return View(projects.ToPagedList(currentPage - 1, 25));
+            List<Project> result = filteredAndSorted<Project>(projects.ToList(), filter, sorting);
+            return View(result.ToPagedList(currentPage - 1, 25));
         }
 
         public ActionResult ProjectIntensivityReport(int? project_id, int? page)

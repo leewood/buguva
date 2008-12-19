@@ -22,10 +22,10 @@
 <% className2 = ((bool)ViewData["chart"])? "selected" : "simple"; %>
 <ul id="menu2">
    <li class='<%= className.ToString() %>'>
-      <%= Html.ActionLink("Ataskaita", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, page = (int)ViewData["pageExt"], pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"] })%>
+      <%= Html.ActionLink("Ataskaita", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, page = (int)ViewData["pageExt"], pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], filter=ViewData["filter"], sorting=ViewData["sorting"] })%>
    </li>
    <li class='<%= className2.ToString() %>'>
-      <%= Html.ActionLink("Grafikas", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true, page = (int)ViewData["pageExt"], pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"] })%>                    
+      <%= Html.ActionLink("Grafikas", "DepartmentProjects", new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true, page = (int)ViewData["pageExt"], pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], filter = ViewData["filter"], sorting = ViewData["sorting"] })%>                    
    </li>
 </ul>
 
@@ -61,6 +61,9 @@
   <%= Html.Hidden("department_id") %>
   <%= Html.Hidden("chart") %>
   <%= Html.Hidden("pageSize") %>
+     <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+   <%= Html.Hidden("filter", ViewData["filter"]) %>
+
   </fieldset>
 <% Html.EndForm(); %>
 </div>
@@ -121,8 +124,9 @@
  <div class="pager">
    <%= Html.Pager((int)ViewData["pageSizeExt"], (int)ViewData["pageExt"], (int)ViewData["pageCountExt"] * (int)ViewData["pageSizeExt"], new { department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
  </div>
- <table class="grid">   
-	<td colspan="5">
+ <table class="grid"> 
+  <tr>
+	<td colspan="8">
 	  <% Html.BeginForm("DepartmentProjects", "Departments", FormMethod.Get); %>
 	        <%= Html.TextBox("filter", ViewData["filter"]) %>
             <%= Html.Hidden("department_id") %>
@@ -138,7 +142,8 @@
 	        <% Html.EndForm(); %>
 	</td>
  
-    <tr>
+</tr>      
+   <tr>
        <%= Html.SortingHeader("Projekto kodas", "Title", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
        <%= Html.SortingHeader("Vadovas", "Manager", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
        <%= Html.SortingHeader("Skyrius", "ManagerDepartment", "", 0, new { page = ViewData["pageExt"], department_id = (int)ViewData["department_id"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false, pageSize = (int)ViewData["pageSizeExt"], showOnlyMyProjects = (bool)ViewData["viewOnlyMy"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
@@ -181,6 +186,8 @@
    <%= Html.Hidden("endYear") %>
    <%= Html.Hidden("endMonth") %>
    <%= Html.Hidden("showOnlyMyProjects") %>
+   <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+   <%= Html.Hidden("filter", ViewData["filter"]) %>
    <% List<int> pageSizes = new List<int>(); %>
    <% for (int i = 5; i <= 50; i += 5) pageSizes.Add(i); %>
    <label>Įrašų per puslapį</label><%= Html.DropDownList("pageSize", new SelectList(pageSizes, ViewData["pageSizeExt"]), new { onChange = "javascript: form.submit();"})%>

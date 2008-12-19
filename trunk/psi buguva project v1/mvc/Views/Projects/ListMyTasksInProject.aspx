@@ -71,7 +71,7 @@
 	<% } %>
 	<table class = "grid">
 	   <tr>
-	      <th>Pavadinimas</th>
+	      <th>Kodas</th>
 	      <th>Išdirbta(val.)</th>
 	   </tr>
 	   <% foreach (Task task in ViewData.Model.Tasks) %>

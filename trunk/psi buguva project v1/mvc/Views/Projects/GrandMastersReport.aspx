@@ -22,10 +22,10 @@
 <% className2 = ((bool)ViewData["chart"])? "selected" : "simple"; %>
 <ul id="menu2">
    <li class='<%= className.ToString() %>'>
-      <%= Html.ActionLink("Ataskaita", "GrandMastersReport", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false })%>
+      <%= Html.ActionLink("Ataskaita", "GrandMastersReport", new {filter= ViewData["filter"], sorting=ViewData["sorting"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false })%>
    </li>
    <li class='<%= className2.ToString() %>'>
-      <%= Html.ActionLink("Grafikas", "GrandMastersReport", new {startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true })%>                    
+      <%= Html.ActionLink("Grafikas", "GrandMastersReport", new { filter = ViewData["filter"], sorting = ViewData["sorting"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = true })%>                    
    </li>
 </ul>
 
@@ -53,6 +53,8 @@
   <input type="submit" value="Pasirinkti" />  
   
   <%= Html.Hidden("chart") %>
+   <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+    <%= Html.Hidden("filter", ViewData["filter"]) %>
 </fieldset>  
 <% Html.EndForm(); %>
 
@@ -82,12 +84,27 @@
    <td>Nedirbta jokiame projekte</td><td><%= ViewData.Model.WorkedNoWhere%> val.( <%=ViewData.Model.PercentNotWorked%> viso įmonės darbo laiko per laikotarpį) </td>
  </tr>
 </table>  
- <table class="grid" style="width:290px;">   
+ <table class="grid" style="width:290px;">  
+	   <tr>
+	     <td colspan="4">
+	        <% Html.BeginForm("GrandMastersReport", "Projetcs", FormMethod.Get); %>	         
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("startYear", ViewData["startYear"]) %>
+	           <%= Html.Hidden("endYear", ViewData["endYear"])%>
+	           <%= Html.Hidden("startMonth", ViewData["startMonth"])%>
+	           <%= Html.Hidden("endMonth", ViewData["endMonth"])%>
+	           <%= Html.Hidden("chart", ViewData["chart"])%>	           	           
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>   
     <tr>
-      <th style="width:145px">Skyrius</th>
-      <th style="width:145px">Išdirbtas laikas (val.)</th>
-      <th style="width:145px">Galėjo išdirbti (val.)</th>
-      <th style="width:145px">Nedirbo (val.)</th>
+      
+      <%= Html.SortingHeader("Skyrius", "Title", "width:145px", 0, new { sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false })%>
+      <%= Html.SortingHeader("Išdirbtas laikas (val.)", "Hours", "width:145px", 0, new { sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false })%>
+      <%= Html.SortingHeader("Galėjo išdirbti (val.)", "CouldWorked", "width:145px", 0, new { sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false })%>
+      <%= Html.SortingHeader("Nedirbo (val.)", "NotWorked", "width:145px", 0, new { sorting = ViewData["sorting"], filter = ViewData["filter"], startYear = (int)ViewData["startYear"], endYear = (int)ViewData["endYear"], startMonth = (int)ViewData["startMonth"], endMonth = (int)ViewData["endMonth"], chart = false })%>
     </tr>
   <% foreach (AssociatedWorkedHours hours in ViewData.Model.WorkedHoursOfOthers) %>
   <% { %>
@@ -95,7 +112,7 @@
            <td style="width:145px"><%= Html.ActionLink("Skyrius: " + hours.Title, "DepartmentManagerReport", new { controller = "Departments", department_id = hours.AssociationID })%></td>
            <td style="text-align:right;width:70px"><%= hours.Hours%></td>
            <td style="text-align:right;width:70px"><%= hours.CouldWorked%></td>
-           <td style="text-align:right;width:70px"><%= hours.NotWorked%></td>
+           <td style="text-align:right;width:70px"><%= Html.NumberLabel(hours.NotWorked)%></td>
         </tr>            
   <% } %>
  </table>
