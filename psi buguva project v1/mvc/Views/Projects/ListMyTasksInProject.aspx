@@ -113,7 +113,7 @@
 	</table>
 	<% if (mvc.Models.Task.administrationNew())
     { %>
-	<%= Html.ActionImageLink("/Content/new.png", "", "New", new { })%><%= Html.ActionLink("Nauja užduotis", "New", new { project_id = ViewData["project_id"], controller = "Tasks", year = ViewData["year"], month = ViewData["month"], back = true })%>
+	<%= Html.ActionImageLink("/Content/new.png", "", "New", new { project_id = ViewData["project_id"], controller = "Tasks", year = ViewData["year"], month = ViewData["month"], back = true })%><%= Html.ActionLink("Nauja užduotis", "New", new { project_id = ViewData["project_id"], controller = "Tasks", year = ViewData["year"], month = ViewData["month"], back = true })%>
 	<% } %>
 	
 </asp:Content>
