@@ -40,7 +40,7 @@
 	      <%= Html.SortingHeader("Pradėta dalyvauti", "StartedAt", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>
 	      <%= Html.SortingHeader("Baigta dalyvauti", "EndedAt", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>
 	      <%= Html.SortingHeader("Išdirbta(val.)", "TotalWorkedHours", "", 0, new { page = ViewData.Model.PageNumber, sorting = ViewData["sorting"], filter = ViewData["filter"], id = ViewData["currentWorkerID"] })%>	      
-	      <th>Peržiūra</th>
+	      <th style="width:90px">Peržiūra</th>
 	   </tr>	  
 	   
 	   <% Worker worker = (Worker)ViewData["worker"];

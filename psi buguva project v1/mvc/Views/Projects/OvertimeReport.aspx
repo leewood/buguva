@@ -97,10 +97,10 @@
          </td>
          <% for (int i = 0; i < row.Cells.Count; i++)
             { %>
-            <td style="text-align:right;"><%= tempRow.Cells[i].TimeSum.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].TimeSum.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].TimeNormal.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].TimeOvertime.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(tempRow.Cells[i].TimeSum)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].TimeSum)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].TimeNormal)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].TimeOvertime)%></td>
             <td style="text-align:right;"><%= row.Cells[i].PercentUndertime%></td>
             <td style="text-align:right;"><%= row.Cells[i].PercentOvertime%></td>
          <% } %>
@@ -113,9 +113,9 @@
          </td>
          <% for (int i = 0; i < row.Cells.Count; i++)
             { %>
-            <td style="text-align:right;"><%= row.Cells[i].TimeSum.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].TimeNormal.ToString("0.00")%></td>
-            <td style="text-align:right;"><%= row.Cells[i].TimeOvertime.ToString("0.00")%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].TimeSum)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].TimeNormal)%></td>
+            <td style="text-align:right;"><%= Html.NumberLabel(row.Cells[i].TimeOvertime)%></td>
             <td style="text-align:right;"><%= row.Cells[i].PercentUndertime%></td>
             <td style="text-align:right;"><%= row.Cells[i].PercentOvertime%></td>
          <% }

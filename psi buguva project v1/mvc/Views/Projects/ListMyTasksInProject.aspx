@@ -22,7 +22,7 @@
        <% }
           else
           { %>
-       <%= Html.ActionLink("Visos užduotys", "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber })%>       
+       <%= Html.ActionLink("Visos užduotys", "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber, filter = ViewData["filter"], sorting = ViewData["sorting"] })%>       
        <%} %>
        
    	  <% foreach (MonthOfYear monthOfYear in ViewData.Model.Months) %>
@@ -56,7 +56,7 @@
              <% }
                    else
                    { %>   
-   	            <%= Html.ActionLink(MonthOfYear.getMonthName(monthOfYear.Month), "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber, year = monthOfYear.Year, month = monthOfYear.Month })%>
+   	            <%= Html.ActionLink(MonthOfYear.getMonthName(monthOfYear.Month), "ListMyTasksInProject", new { project_id = ViewData.Model.ProjectID, page = ViewData.Model.Tasks.PageNumber, year = monthOfYear.Year, month = monthOfYear.Month, filter=ViewData["filter"], sorting = ViewData["sorting"] })%>
    	     <% }
                 } %>
    	  <% } %>
@@ -66,19 +66,42 @@
    	<% if (ViewData.Model.Tasks.PageCount > 1)
        { %>
    	<div class="pager">   	
-		<%= Html.Pager(ViewData.Model.Tasks.PageSize, ViewData.Model.Tasks.PageNumber, ViewData.Model.Tasks.TotalItemCount)%>
+		<%= Html.Pager(ViewData.Model.Tasks.PageSize, ViewData.Model.Tasks.PageNumber, ViewData.Model.Tasks.TotalItemCount, new { filter = ViewData["filter"], sorting = ViewData["sorting"],  year = ViewData["year"], month = ViewData["month"], id=ViewData["workedID"], project_id=ViewData["project_id"]})%>
 	</div>
 	<% } %>
 	<table class = "grid">
 	   <tr>
-	      <th>Kodas</th>
-	      <th>Išdirbta(val.)</th>
+	     <td colspan="3">
+	        <% Html.BeginForm("ListMyTasksInProject", "Projects", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", ViewData.Model.Tasks.PageNumber) %>
+	           <%= Html.Hidden("id", ViewData["workerID"]) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <%= Html.Hidden("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("project_id", ViewData["project_id"]) %>
+	           <%= Html.Hidden("year", ViewData["year"])%>
+	           <%= Html.Hidden("month", ViewData["month"])%>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>	
+	
+	   <tr>
+	      <%= Html.SortingHeader("Kodas", "id", "", 0, new { page = ViewData.Model.Tasks.PageNumber, filter = ViewData["filter"], sorting = ViewData["sorting"], year = ViewData["year"], month = ViewData["month"], id = ViewData["workedID"], project_id = ViewData["project_id"] })%>
+	      <%= Html.SortingHeader("Išdirbta(val.)", "worked_hours", "", 0, new { page = ViewData.Model.Tasks.PageNumber, filter = ViewData["filter"], sorting = ViewData["sorting"], year = ViewData["year"], month = ViewData["month"], id = ViewData["workedID"], project_id = ViewData["project_id"] })%>	      	      
+	      <th>Veiksmai</th>
 	   </tr>
 	   <% foreach (Task task in ViewData.Model.Tasks) %>
        <% { %>
             <tr class=''>
              <td><%= task.id.ToString() %></td>
              <td style="text-align:right"><%= task.worked_hours.ToString() %></td>
+             <td> 
+	        <% if (task.administrationEdit()) %>
+	          <%= Html.ActionImageLink("/Content/edit.png", "Koreguoti", "Edit", new {controller = "Tasks", id = task.id, back = true}) %>
+            <% if (task.administrationDelete()) %>	          
+	          <%= Html.ActionImageLink("/Content/delete.png", "Trinti", "Delete", new {controller = "Tasks", id = task.id, back = true}, true, "Ar tikrai norite ištrinti šią užduotį?") %>	          
+             </td>
           </tr>
 	   <% } %>
 	   <% if (ViewData.Model.Tasks.Count == 0) %>
@@ -88,4 +111,9 @@
 	      </tr>
 	   <% } %>
 	</table>
+	<% if (mvc.Models.Task.administrationNew())
+    { %>
+	<%= Html.ActionImageLink("/Content/new.png", "", "New", new { })%><%= Html.ActionLink("Nauja užduotis", "New", new { project_id = ViewData["project_id"], controller = "Tasks", year = ViewData["year"], month = ViewData["month"], back = true })%>
+	<% } %>
+	
 </asp:Content>

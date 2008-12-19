@@ -64,10 +64,23 @@
     
 	<table class = "grid">
 	   <tr>
-	      <th>Laikotarpis</th>
-	      <th>Viso dirbta</th>
-	      <th>Projekto skyriaus darbuotojų dirbta</th>
-	      <th>Darbuotojų iš kitų skyrių dirbta</th>
+	     <td colspan="4">
+	        <% Html.BeginForm("List", "Tasks", FormMethod.Get); %>
+	           <%= Html.TextBox("filter", ViewData["filter"]) %>
+	           <%= Html.Hidden("page", pagedModel.PageNumber) %>
+	           <%= Html.Hidden("sorting", ViewData["sorting"]) %>
+	           <%= Html.Hidden("project_id", ViewData["project_id"]) %>
+	           <input type="submit" value="Filtruoti" />	           
+	        <% Html.EndForm(); %>
+	      </td>
+	    </tr>
+	
+	   <tr>
+	      <%= Html.SortingHeader("Laikotarpis", "Period", "", 0, new { page = pagedModel.PageNumber, project_id = ViewData["project_id"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Viso dirbta", "TotalWorkedHours", "", 0, new { page = pagedModel.PageNumber, project_id = ViewData["project_id"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Projekto skyriaus darbuotojų dirbta", "ProjectsWorkersWorkedHours", "", 0, new { page = pagedModel.PageNumber, project_id = ViewData["project_id"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      <%= Html.SortingHeader("Darbuotojų iš kitų skyrių dirbta", "OthersWorkedHours", "", 0, new { page = pagedModel.PageNumber, project_id = ViewData["project_id"], sorting = ViewData["sorting"], filter = ViewData["filter"] })%>
+	      
 	   </tr>	  	  
 	   <% foreach (ProjectIntensivity projectIntensivity in pagedModel) %>
        <% { %>            

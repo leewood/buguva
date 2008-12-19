@@ -17,11 +17,24 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult New()
+        public ActionResult New(int? project_id, int? year, int? month, bool? back)
         {
             if (Task.administrationNew())
             {
                 Task task = ((Task)TempData.getAndRemove("task") ?? new Task());
+                if (project_id.HasValue)
+                {
+                    task.project_id = project_id.Value;
+                }
+                if (year.HasValue)
+                {
+                    task.year = year.Value;
+                }
+                if (month.HasValue)
+                {
+                    task.month = month.Value;
+                }
+                ViewData["back"] = back;
                 ViewData["TitleWindow"] = "Kuriama nauja užduotis";
                 return View(task);
             }
@@ -34,7 +47,7 @@ namespace mvc.Controllers
             }
         }
 
-        public ActionResult Insert()
+        public ActionResult Insert(bool? back)
         {
             Task task = DBDataContext.CreateEntityFromForm<Task>(Request.Form);
             var errors = task.Validate();
@@ -48,12 +61,20 @@ namespace mvc.Controllers
             else
             {
                 DBDataContext.Tasks.InsertOnSubmit(task);
-                DBDataContext.SubmitChanges();
+                DBDataContext.SubmitChanges();            
             }
-            return RedirectToAction("List");
+            if ((back.HasValue) && (back.Value))
+            {
+                return RedirectToAction("ListMyTasksInProject", "Projects", new { project_id = task.project_id, year = task.year, month = task.month, id = task.project_participant_id });
+            }
+            else
+            {
+                return RedirectToAction("List");
+            }
+
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, bool? back)
         {
             if (id.HasValue)
             {
@@ -70,6 +91,7 @@ namespace mvc.Controllers
                     if (task.administrationEdit())
                     {
                         ViewData["TitleWindow"] = "Koreguojama užduotis #" + task.id.ToString() /*+ "(" + task.title + ")"*/;
+                        ViewData["back"] = back;
                         return View(task);
                     }
                     else
@@ -103,11 +125,12 @@ namespace mvc.Controllers
             return View(tasks.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 
-        public ActionResult Update(int? id)
+        public ActionResult Update(int? id, bool? back)
         {
+            Task task = null;
             if (id.HasValue)
             {
-                Task task = DBDataContext.CreateEntityFromForm<Task>(Request.Form);
+                task = DBDataContext.CreateEntityFromForm<Task>(Request.Form);
                 task.id = id.Value;
                 var errors = task.Validate();
                 if (errors != null)
@@ -126,11 +149,23 @@ namespace mvc.Controllers
                 string[] errors = { "Nenurodyta jokia užduotis" };
                 TempData["errors"] = errors;
             }
-            return RedirectToAction("List");
+            if ((back.HasValue) && (back.Value))
+            {
+                return RedirectToAction("ListMyTasksInProject", "Projects", new { project_id = task.project_id, year = task.year, month = task.month, id = task.project_participant_id });
+            }
+            else
+            {
+                return RedirectToAction("List");
+            }
+
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? back)
         {
+            int aproject_id = 0;
+            int ayear = 0;
+            int amonth = 0;
+            int aworker_id = 0;
             if (id.HasValue)
             {
                 Task task = null;
@@ -143,11 +178,24 @@ namespace mvc.Controllers
                 }
                 if (task != null)
                 {
+                    aproject_id = task.project_id;
+                    aworker_id = task.project_participant_id;
+                    ayear = task.year;
+                    amonth = task.month;
                     if (task.administrationDelete())
                     {
                         task.makeBackup(userSession.userId);
                         DBDataContext.Tasks.DeleteOnSubmit(task);
                         DBDataContext.SubmitChanges();
+                        if ((back.HasValue) && (back.Value))
+                        {
+                            return RedirectToAction("ListMyTasksInProject", "Projects", new { project_id = aproject_id, id = aworker_id, year = ayear, month = amonth});
+                        }
+                        else
+                        {
+
+                            return RedirectToAction("List");
+                        }
                     }
                     else
                     {
