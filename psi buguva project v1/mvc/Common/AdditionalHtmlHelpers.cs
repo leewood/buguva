@@ -80,7 +80,7 @@ namespace mvc.Common
                 path2 = virtualPathData.VirtualPath;
             }
             string additional = "";
-            string imageStart = "../Content/";
+            string imageStart = "/Content/";
             
             
             string asc = imageStart + "asc" + ((sort == 1)?"fill":"clear") + ".png";

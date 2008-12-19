@@ -115,7 +115,7 @@
  </div>
  <table class="grid">   
 	   <tr>
-	     <td colspan="5">
+	     <td colspan="6">
 	        <% Html.BeginForm("AllProjects", "Projetcs", FormMethod.Get); %>	         
 	           <%= Html.TextBox("filter", ViewData["filter"]) %>
 	           <%= Html.Hidden("startYear", ViewData["startYear"]) %>
