@@ -196,7 +196,7 @@ namespace mvc.Controllers
                         List<Task> workerTasks = periodTasks.Where(wp => wp.Worker == departmentWorker).OrderBy(at2 => at2.year * 12 + at2.month).ToList();
                         List<Task> workerAllTasks = DBDataContext.Tasks.Where(at => at.Worker == departmentWorker).OrderBy(at2 => at2.year * 12 + at2.month).ToList();
                         int index = (workerTasks.Count > 0)?workerAllTasks.IndexOf(workerTasks[0]):-1;
-                        for (int k = 1; k < workerTasks.Count; k++)
+                        for (int k = 1; k < workerTasks.Count - 1; k++)
                         {
                             if (index + k - 1< workerAllTasks.Count)
                             {
