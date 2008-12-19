@@ -89,7 +89,10 @@
 
 	<div class="description">
 	    <img src="../../Content/Images/Icons/Tasks.png" alt="img" /> - Projekte esančios užduotys <br />
-	    <img src="../../Content/Images/Icons/ManagerReport.png" alt="img" /> - Vadovaujamo projekto ataskaita
+	    <img src="../../Content/Images/Icons/ManagerReport.png" alt="img" /> - Vadovaujamo projekto ataskaita <br />
+	    <img src="../../Content/delete.png" alt="img" /> - Ištrinti įrašą <br />
+	    <img src="../../Content/edit.png" alt="img" /> - Redaguoti įrašą
+
 	</div>
 	
 </asp:Content>

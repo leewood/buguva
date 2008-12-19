@@ -115,5 +115,9 @@
     { %>
 	<%= Html.ActionImageLink("/Content/new.png", "", "New", new { project_id = ViewData["project_id"], controller = "Tasks", year = ViewData["year"], month = ViewData["month"], back = true })%><%= Html.ActionLink("Nauja užduotis", "New", new { project_id = ViewData["project_id"], controller = "Tasks", year = ViewData["year"], month = ViewData["month"], back = true })%>
 	<% } %>
-	
+	<div class="description">
+	    <img src="../../Content/delete.png" alt="img" /> - Ištrinti įrašą <br />
+	    <img src="../../Content/edit.png" alt="img" /> - Redaguoti įrašą
+
+	</div>	
 </asp:Content>
