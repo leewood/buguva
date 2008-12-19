@@ -124,7 +124,7 @@ namespace mvc.Controllers
             return "";
         }
 
-        public ActionResult SwitchingReport(int ? page)
+        public ActionResult SwitchingReport(int? page)
         {
             int currentPage = page ?? 1;
             int pType = 1;
@@ -172,9 +172,9 @@ namespace mvc.Controllers
             SwitchingReportRow totalRow = new SwitchingReportRow();
             SwitchingReportRow totalRow2 = new SwitchingReportRow();
             for (int i = 0; i < departments.Count + 1; i++)
-                {
-                    totalRow.Swsums.Add(new int());
-                    totalRow2.Swsums.Add(new int());
+            {
+                totalRow.Swsums.Add(new int());
+                totalRow2.Swsums.Add(new int());
             }
             int itemsPerPage = userSession.ItemsPerPage;
             int endCycle = (periodsCount <= itemsPerPage) ? periodsCount + periodStart - 1 : periodStart + ((currentPage - 1) * itemsPerPage) + itemsPerPage - 1;
@@ -195,12 +195,12 @@ namespace mvc.Controllers
                     {
                         List<Task> workerTasks = periodTasks.Where(wp => wp.Worker == departmentWorker).OrderBy(at2 => at2.year * 12 + at2.month).ToList();
                         List<Task> workerAllTasks = DBDataContext.Tasks.Where(at => at.Worker == departmentWorker).OrderBy(at2 => at2.year * 12 + at2.month).ToList();
-                        int index = (workerTasks.Count > 0)?workerAllTasks.IndexOf(workerTasks[0]):-1;
-                        for (int k = 1; k < workerTasks.Count - 1; k++)
+                        int index = (workerTasks.Count > 0) ? workerAllTasks.IndexOf(workerTasks[0]) : -1;
+                        for (int k = 2; k < workerTasks.Count - 1; k++)
                         {
-                            if (index + k - 1< workerAllTasks.Count)
+                            if (index + k - 1 < workerAllTasks.Count)
                             {
-                                if (workerAllTasks[index + k - 1].Project != workerAllTasks[index + k].Project)
+                                if (workerAllTasks[index + k - 2].Project != workerAllTasks[index + k - 1].Project)
                                 {
                                     List<Task> tempTaskList = workerAllTasks.Where(tas => tas.Project == workerTasks[k].Project).ToList();
                                     if (tempTaskList[tempTaskList.Count - 1] != workerTasks[k])
@@ -223,7 +223,7 @@ namespace mvc.Controllers
             }
             totalRow.Period = "";
             totalRow2.Period = "Viso ";
-            
+
             for (int i = 0; i < totalRow2.Swsums.Count; i++)
             {
                 totalRow2.Swsums[i] = report.Rows.Sum(r => r.Swsums[i]);
