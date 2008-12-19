@@ -6,7 +6,7 @@
     <div class = "errors">
         <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>
-    <% Html.BeginForm("Insert", "Tasks", new {}, FormMethod.Post); %>
+    <% Html.BeginForm("Insert", "Tasks", new {back= ViewData["back"]}, FormMethod.Post); %>
     <% { %>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
         <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.id); %>

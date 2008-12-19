@@ -7,7 +7,7 @@
       <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>
     <% Page.Title = ViewData["TitleWindow"].ToString(); %>
-    <% Html.BeginForm("Update", "Tasks", new {id = ViewData.Model.id}, FormMethod.Post); %>
+    <% Html.BeginForm("Update", "Tasks", new {id = ViewData.Model.id, back= ViewData["back"]}, FormMethod.Post); %>
     <% { %>
         <% POADataModelsDataContext data = new POADataModelsDataContext(); %>
         <% SelectList list = new SelectList(data.Workers.ToList(), "id", "Fullname", ViewData.Model.project_participant_id); %>

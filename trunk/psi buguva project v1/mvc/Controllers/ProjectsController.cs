@@ -670,7 +670,7 @@ namespace mvc.Controllers
             return View(result.ToPagedList(currentPage - 1, 25));
         }
 
-        public ActionResult ProjectIntensivityReport(int? project_id, int? page)
+        public ActionResult ProjectIntensivityReport(int? project_id, int? page, string filter, string sorting)
         {
             if (project_id.HasValue)
             {
@@ -704,6 +704,7 @@ namespace mvc.Controllers
                     }
                     result.Add(new mvc.Models.ProjectIntensivity(month, myProject.id, total, myWorkersWorked));
                 }
+                result = filteredAndSorted<mvc.Models.ProjectIntensivity>(result, filter, sorting);
                 return View(result);
             }
             else
@@ -788,7 +789,7 @@ namespace mvc.Controllers
             }
         }
 
-        public ActionResult ListMyTasksInProject(int? page, int? project_id, int? year, int? month, int? id)
+        public ActionResult ListMyTasksInProject(int? page, int? project_id, int? year, int? month, int? id, string filter, string sorting)
         {
             if (project_id.HasValue)
             {
@@ -810,6 +811,8 @@ namespace mvc.Controllers
                 {
                     ViewData["Title"] = "Darbuotojo " + id.Value.ToString() + " užduotys projekte";
                 }
+                ViewData["workerID"] = workerID;
+                ViewData["project_id"] = project_id.Value;
                 
                 int project = project_id.Value;
                 
@@ -836,7 +839,10 @@ namespace mvc.Controllers
                 {
                     monthToUse = month.Value;
                     yearToUse = year.Value;
+                
                 }
+                ViewData["year"] = yearToUse;
+                ViewData["month"] = monthToUse;
                 if (monthToUse + yearToUse > 0)
                 {
                     tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.year == yearToUse) && (task.month == monthToUse) && (task.project_participant_id == workerID))).ToList();
@@ -846,6 +852,7 @@ namespace mvc.Controllers
                     tasks = DBDataContext.Tasks.Where(task => ((task.project_id == project_id) && (task.project_participant_id == workerID))).ToList();
                 }
                 if (tasks == null) tasks = new List<mvc.Models.Task>();
+                tasks = filteredAndSorted<mvc.Models.Task>(tasks, filter, sorting);
                 return View(new Models.TasksAndMonths(tasks.ToPagedList(currentPage - 1, 25), months, ((yearToUse + monthToUse > 0)?new Models.MonthOfYear(yearToUse, monthToUse):null), project));
             }
             else
@@ -854,11 +861,16 @@ namespace mvc.Controllers
             }
         }
 
-        public ActionResult New()
+        public ActionResult New(int? worker_id, bool? back)
         {
             if (Project.administrationNew())
             {
                 Project project = ((Project)TempData.getAndRemove("project") ?? new Project());
+                if (worker_id.HasValue)
+                {
+                    project.project_manager_id = worker_id.Value;
+                }
+                ViewData["back"] = back;
                 ViewData["TitleWindow"] = "Kuriamas naujas projektas";
                 return View(project);
             }
@@ -871,7 +883,7 @@ namespace mvc.Controllers
             }
         }
 
-        public ActionResult Insert()
+        public ActionResult Insert(bool? back)
         {
             Project project = DBDataContext.CreateEntityFromForm<Project>(Request.Form);
             var errors = project.Validate();
@@ -879,6 +891,7 @@ namespace mvc.Controllers
             {
                 TempData["errors"] = errors.ErrorMessages;
                 TempData["project"] = project;
+                ViewData["back"] = back;
 
                 return RedirectToAction("New");
             }
@@ -887,10 +900,17 @@ namespace mvc.Controllers
                 DBDataContext.Projects.InsertOnSubmit(project);
                 DBDataContext.SubmitChanges();
             }
-            return RedirectToAction("List");
+            if ((back.HasValue) && (back.Value))
+            {
+                return RedirectToAction("ListMyProjects");
+            }
+            else
+            {
+                return RedirectToAction("List");
+            }
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, bool? back)
         {
             if (id.HasValue)
             {
@@ -907,6 +927,7 @@ namespace mvc.Controllers
                     if (project.administrationEdit())
                     {
                         ViewData["TitleWindow"] = "Koreguojamas projektas #" + project.id.ToString() + "(" + project.title + ")";
+                        ViewData["back"] = back;
                         return View(project);
                     }
                     else
@@ -940,7 +961,7 @@ namespace mvc.Controllers
             return View(projects.ToPagedList(((page.HasValue) ? page.Value : 1) - 1, userSession.ItemsPerPage));
         }
 
-        public ActionResult Update(int? id)
+        public ActionResult Update(int? id, bool? back)
         {
             if (id.HasValue)
             {
@@ -951,6 +972,7 @@ namespace mvc.Controllers
                 {
                     TempData["errors"] = errors.ErrorMessages;
                     TempData["project"] = project;
+                    ViewData["back"] = back;
                     return RedirectToAction("Edit", new { id = project.id });
                 }
                 else
@@ -963,10 +985,19 @@ namespace mvc.Controllers
                 string[] errors = { "Nenurodytas joks projektas" };
                 TempData["errors"] = errors;
             }
-            return RedirectToAction("List");
+
+            if ((back.HasValue) && (back.Value))
+            {
+                return RedirectToAction("ListMyProjects");
+            }
+            else
+            {
+                return RedirectToAction("List");
+            }
+
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? back)
         {
             if (id.HasValue)
             {
@@ -986,7 +1017,15 @@ namespace mvc.Controllers
                         {
                             string[] errors = { "Negalima ištrinti, nes šis projektas dar turi užduočių." };
                             TempData["errors"] = errors;
-                            return RedirectToAction("List");
+                            if ((back.HasValue) && (back.Value))
+                            {
+                                return RedirectToAction("ListMyProjects");
+                            }
+                            else
+                            {
+                                return RedirectToAction("List");
+                            }
+
                         }
                         project.makeBackup(userSession.userId);
                         DBDataContext.Projects.DeleteOnSubmit(project);

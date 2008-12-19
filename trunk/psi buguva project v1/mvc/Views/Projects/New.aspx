@@ -10,7 +10,7 @@
         <%= Html.ErrorSummary("Įvyko klaida:", TempData) %>
     </div>
     <% Page.Title = ViewData["TitleWindow"].ToString(); %>
-    <% Html.BeginForm("Insert", "Projects", new {}, FormMethod.Post); %>
+    <% Html.BeginForm("Insert", "Projects", new {back = ViewData["back"]}, FormMethod.Post); %>
     <% { %>
           <fieldset>
         <legend>Projektas</legend>
