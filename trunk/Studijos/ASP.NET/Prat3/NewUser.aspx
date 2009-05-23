@@ -13,7 +13,11 @@
         <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" BackColor="#F7F6F3" CssClass="popupbox"
             BorderColor="#E6E2D8" BorderStyle="Solid" BorderWidth="1px" 
             ContinueDestinationPageUrl="~/Login.aspx" Font-Names="Verdana" 
-            Font-Size="0.8em" meta:resourcekey="CreateUserWizard1Resource1">
+            Font-Size="0.8em" meta:resourcekey="CreateUserWizard1Resource1" 
+            oncontinuebuttonclick="CreateUserWizard1_ContinueButtonClick" 
+            oncreateduser="CreateUserWizard1_CreatedUser" 
+            oncreatinguser="CreateUserWizard1_CreatingUser" 
+            onfinishbuttonclick="CreateUserWizard1_FinishButtonClick">
             <SideBarStyle BackColor="#5D7B9D" BorderWidth="0px" Font-Size="0.9em" 
                 VerticalAlign="Top" />
             <SideBarButtonStyle BorderWidth="0px" Font-Names="Verdana" ForeColor="White" />
@@ -135,7 +139,44 @@
                                         ValidationGroup="CreateUserWizard1" 
                                         meta:resourcekey="PasswordCompareResource1"></asp:CompareValidator>
                                 </td>
+                            </tr>                            
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="NameLabel" runat="server">Name:</asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="Name" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                        ControlToValidate="Name" ErrorMessage="Name required." 
+                                        ToolTip="Name required." 
+                                        ValidationGroup="CreateUserWizard1" >*</asp:RequiredFieldValidator>
+                                </td>
                             </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="Label5" runat="server">Surname:</asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="Surname" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                                        ControlToValidate="Surname" ErrorMessage="Surname required." 
+                                        ToolTip="Surname required." 
+                                        ValidationGroup="CreateUserWizard1" >*</asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="Label6" runat="server">City:</asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="City" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                                        ControlToValidate="City" ErrorMessage="City required." 
+                                        ToolTip="City required." 
+                                        ValidationGroup="CreateUserWizard1" >*</asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+                            
                             <tr>
                                 <td align="center" colspan="2" style="color:Red;">
                                     <asp:Literal ID="ErrorMessage" runat="server" EnableViewState="False" 

@@ -3,27 +3,28 @@
     ContextTypeName="Backet" Select="new (Price, Name, Count, OnePrice, RowIndex)" 
     TableName="BacketLines">
 </asp:LinqDataSource>
-<asp:ListView ID="ListView1" runat="server" DataSourceID="LinqDataSource1">
+<asp:ListView ID="ListView1" runat="server" DataSourceID="LinqDataSource1" 
+    onitemcommand="ListView1_ItemCommand">
     <ItemTemplate>
         <tr style="">
             <td>
                 <asp:Label ID="NameLabel" runat="server" Text='<%# Eval("Name") %>' />
             </td>
-            <td>                                
+            <td style="white-space:nowrap; width: 50px">                                
                 <asp:Label ID="OnePriceLabel" runat="server" Text='<%# Eval("OnePrice") %>' /> 
-                <%= " " + Backet.MyActiveCurrency %>               
+                <asp:Label ID="CurrencyLabel" runat="server" Text='<%# " " + Backet.MyActiveCurrency %>' />                
                 <asp:Label ID="MulLable" runat="server" Text=" x " />
                 <asp:Label ID="CountLabel" runat="server" Text='<%# Eval("Count") %>' />
                 <asp:Label ID="Label1" runat="server" Text=" = " />
             </td>
             <td>
                 <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price") %>' />                
-                <%= " " + Backet.MyActiveCurrency %>                               
+                <asp:Label ID="Label2" runat="server" Text='<%# " " + Backet.MyActiveCurrency %>' />                                
             </td>
             <td>
-              <asp:ImageButton ID="IncreaseButton" CommandName="Increase" runat="server" CommandArgument='<%# Eval("RowIndex") %>' />
-              <asp:ImageButton ID="DecreaseButton" CommandName="Decrease" runat="server" CommandArgument='<%# Eval("RowIndex") %>' />
-              <asp:ImageButton ID="DeleteButton" CommandName="DeleteItem" runat="server" CommandArgument='<%# Eval("RowIndex") %>' />
+              <asp:ImageButton ID="IncreaseButton" CommandName="Increase" runat="server" CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketIncreaseImageButton"/>
+              <asp:ImageButton ID="DecreaseButton" CommandName="Decrease" runat="server" CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketDecreaseImageButton"/>
+              <asp:ImageButton ID="DeleteButton" CommandName="DeleteItem" runat="server" CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketDeleteImageButton"/>
             </td>
         </tr>
     </ItemTemplate>    
@@ -36,7 +37,9 @@
             </tr>
             <tr>
               <td colspan="2"><asp:Label ID="TotalLabel" runat="server" Text="Total:" /></td>
-              <td><%= Backet.Total.ToString("0.00") + " " + Backet.MyActiveCurrency %></td>
+              <td>
+              <asp:Label runat="server" ID="TotalValueLabel" Text="0 LTL" OnDataBinding="LabelDataBind" OnInit="LabelDataBind" />                    
+              </td>
               <td></td>
             </tr>
             <tr>

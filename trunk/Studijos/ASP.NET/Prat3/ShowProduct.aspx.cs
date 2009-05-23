@@ -45,7 +45,7 @@ public partial class ShowProduct : ExtendedPage
     {
         switch (e.CommandName)
         {
-            case "Order": e.ToString(); break;
+            case "Order": Backet.CurrentBacket.OrderProduct(int.Parse(e.CommandArgument.ToString())); break;
             case "New": Page.Response.Redirect("~/LoggedIn/AdminZone/NewProduct.aspx"); break;
             case "Edit": Page.Response.Redirect("~/LoggedIn/AdminZone/EditProduct.aspx?id=" + e.CommandArgument); break;
         }

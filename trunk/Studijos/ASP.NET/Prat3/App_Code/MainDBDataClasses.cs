@@ -9,17 +9,21 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Data.Services;
 
 /// <summary>
 /// Summary description for MainDBDataClasses
 /// </summary>
+///
+
+
 public partial class MainDBDataClassesDataContext : System.Data.Linq.DataContext
 {
-
 }
 
+
 public partial class New
-{
+{    
     public int CommentsCount
     {
         get
@@ -36,6 +40,7 @@ public partial class New
     }
 }
 
+[IgnoreProperties(new string[] { "ProductName", "ProductPrice" })]
 public partial class OrderLine
 {
     public string ProductName
@@ -69,8 +74,10 @@ public partial class OrderLine
     }
 }
 
+[IgnoreProperties(new string[] { "NewsCount", "Title" })]
 public partial class Category
-{
+{    
+    
     public int NewsCount
     {
         get
@@ -86,6 +93,7 @@ public partial class Category
         }
     }
 
+    
     public string Title
     {
         get
