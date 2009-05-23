@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="false" CodeFile="AdminZone.master.cs" Inherits="LoggedIn_AdminZone_AdminZone" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="leftMenu">
+    <asp:Label ID="CategoriesLabel" Text="Menu:" CssClass="headerbar" runat="server" 
+            meta:resourcekey="CategoriesLabelResource1"></asp:Label>
+    <div class="menu2">
+    <asp:Menu ID="Menu1" runat="server" Width="130px" OnInit="Menu1_Init"
+     StaticHoverStyle-CssClass="hoverMenuItem"
+     StaticMenuItemStyle-CssClass="menuItem"
+     StaticSelectedStyle-CssClass="selectedMenuItem" 
+            meta:resourcekey="Menu1Resource1" >
+<StaticSelectedStyle CssClass="selectedMenuItem"></StaticSelectedStyle>
+
+<StaticMenuItemStyle CssClass="menuItem"></StaticMenuItemStyle>
+
+<StaticHoverStyle CssClass="hoverMenuItem"></StaticHoverStyle>
+    <Items>
+        <asp:MenuItem NavigateUrl="ManageCategories.aspx" Text="Manage Categories" 
+            Value="Manage Categories" meta:resourcekey="MenuItemResource1"></asp:MenuItem>
+        <asp:MenuItem NavigateUrl="ManageNews.aspx" Text="Manage News" 
+            Value="Manage News" meta:resourcekey="MenuItemResource2"></asp:MenuItem>
+        <asp:MenuItem NavigateUrl="~/PublicNews.aspx" Text="Back to Public zone" 
+            Value="Back to Public zone" meta:resourcekey="MenuItemResource3"></asp:MenuItem>
+    </Items>
+    </asp:Menu>
+    </div>
+  </div>
+  <div class="mainContent">
+    <asp:ContentPlaceHolder ID="AdminContentPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+  </div>
+</asp:Content>
+
