@@ -1,0 +1,46 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="false" CodeFile="PreferencesMaster.master.cs" Inherits="LoggedIn_PreferencesMaster" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class ="tabs">
+    <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal" CssClass="tabMenu"  
+       StaticSelectedStyle-CssClass="selectedTab"
+       StaticMenuItemStyle-CssClass="normalTab"
+       DynamicSelectedStyle-CssClass="selectedTab"
+       DynamicMenuItemStyle-CssClass="normalTab"
+       StaticHoverStyle-CssClass="hoverTab"
+       DynamicHoverStyle-CssClass="hoverTab" oninit="Menu1_Init" meta:resourcekey="Menu1Resource1"
+       >
+<StaticSelectedStyle CssClass="selectedTab"></StaticSelectedStyle>
+
+<StaticMenuItemStyle CssClass="normalTab"></StaticMenuItemStyle>
+
+<DynamicHoverStyle CssClass="hoverTab"></DynamicHoverStyle>
+
+        <DynamicItemTemplate>
+            <%# Eval("Text") %>
+        </DynamicItemTemplate>
+
+<DynamicSelectedStyle CssClass="selectedTab"></DynamicSelectedStyle>
+
+<DynamicMenuItemStyle CssClass="normalTab"></DynamicMenuItemStyle>
+
+<StaticHoverStyle CssClass="hoverTab"></StaticHoverStyle>
+        <Items>
+            <asp:MenuItem NavigateUrl="ChangePassword.aspx" Text="Change Password" 
+                Value="Change Password" meta:resourcekey="MenuItemResource1"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="Personalization.aspx" Text="Personalization" 
+                Value="Personalization" meta:resourcekey="MenuItemResource2"></asp:MenuItem>
+        </Items>
+    </asp:Menu>
+        <asp:HyperLink ID="HyperLink5" runat="server" CssClass="tabsBack" 
+            NavigateUrl="~/PublicNews.aspx" meta:resourcekey="HyperLink5Resource1">Back to news</asp:HyperLink>
+  </div>
+  <br />
+  <div class="form" style="display: block">
+    <asp:ContentPlaceHolder ID="PrefPlaceHolder" runat="server" >
+    </asp:ContentPlaceHolder>
+  </div>
+</asp:Content>
+
