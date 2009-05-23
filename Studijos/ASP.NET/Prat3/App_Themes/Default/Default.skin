@@ -15,6 +15,9 @@ Default skin template. The following skins are provided as examples only.
 --%>
 <asp:ImageButton ImageUrl="Images/delete.png" runat="server" SkinID="DeleteImageButton"/>
 <asp:ImageButton ImageUrl="Images/cart_add.png" runat="server" SkinID="CartAddImageButton"/>
+<asp:ImageButton ImageUrl="Images/bullet_add.png" runat="server" SkinID="BacketIncreaseImageButton"/>
+<asp:ImageButton ImageUrl="Images/bullet_delete.png" runat="server" SkinID="BacketDecreaseImageButton"/>
+<asp:ImageButton ImageUrl="Images/basket_delete.png" runat="server" SkinID="BacketDeleteImageButton"/>
 <asp:ImageButton ImageUrl="Images/add.png" runat="server" SkinID="InsertImageButton"/>
 <asp:ImageButton ImageUrl="Images/script_edit.png" runat="server" SkinID="EditImageButton"/>
 <asp:ImageButton ImageUrl="Images/accept.png" runat="server" SkinID="AcceptImageButton"/>
@@ -23,5 +26,7 @@ Default skin template. The following skins are provided as examples only.
 <asp:ImageButton ImageUrl="Images/descending.PNG" runat="server" SkinID="DescendingButton"/>
 <asp:ImageButton ImageUrl="Images/ascending.PNG" runat="server" SkinID="AscendingButton"/>
 <asp:ImageButton ImageUrl="Images/nosort.PNG" runat="server" SkinID="NoSortButton"/>
+<asp:ImageButton ImageUrl="Images/resultset_previous.png" runat="server" SkinID="GoBackButton"/>
+
 <asp:ListView runat="server" SkinID="grid" />
 <asp:FormView runat="server" Width="1000" SkinID="form" />

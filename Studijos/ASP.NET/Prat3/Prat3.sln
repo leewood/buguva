@@ -3,16 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Prat3", ".", "{07CB71D5-9075-47B3-8BF6-435E615A7B80}"
 	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "Svn"
+		SccAuxPath = "Svn"
+		SccLocalPath = "Svn"
+		SccProvider = "SubversionScc"
 		TargetFramework = "3.5"
 		Debug.AspNetCompiler.VirtualPath = "/Prat3"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Studijos\ASP.NET\Prat3\"
+		Debug.AspNetCompiler.PhysicalPath = "..\Prat3\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Prat3\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/Prat3"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Studijos\ASP.NET\Prat3\"
+		Release.AspNetCompiler.PhysicalPath = "..\Prat3\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Prat3\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
@@ -22,6 +26,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Prat3", ".", "{07CB71D5-907
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection

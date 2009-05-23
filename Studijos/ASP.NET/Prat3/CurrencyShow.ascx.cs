@@ -8,9 +8,6 @@ using System.Web.UI.WebControls;
 public partial class CurrencyShow : System.Web.UI.UserControl, System.Web.UI.IBindableControl
 {
 
-    private string _realCurrency = "";
-
-
     [System.ComponentModel.Bindable(true, System.ComponentModel.BindingDirection.TwoWay)]
     [System.ComponentModel.Browsable(true)]    
     public string RealCurrency
@@ -49,8 +46,6 @@ public partial class CurrencyShow : System.Web.UI.UserControl, System.Web.UI.IBi
             RealPrice = decimal.Parse(_rPS);
         }
     }
-
-    private decimal _realPrice = 0;
 
     [System.ComponentModel.Bindable(true)]
     [System.ComponentModel.Browsable(true)]

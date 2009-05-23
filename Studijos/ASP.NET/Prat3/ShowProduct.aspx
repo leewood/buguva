@@ -50,7 +50,7 @@
              <label class="separator" runat="server">|</label>
              <div class="extButton">
                <asp:ImageButton ID="ImageButton3" runat="server" CommandName="Order" 
-                      SkinID="CartAddImageButton" CssClass="simpleImageClear" 
+                      SkinID="CartAddImageButton" CssClass="simpleImageClear" CommandArgument='<%# Bind("id") %>'
                      meta:resourcekey="ImageButton3Resource1" />             
              <asp:Button ID="Button1" runat="server" CausesValidation="False"  CssClass="simpleClear" 
                 CommandName="Order" Text="Add to backet" meta:resourcekey="Button1Resource2" CommandArgument='<%# Bind("id") %>' />

@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="false" CodeFile="NewsCategories.master.cs" Inherits="NewsCategories" %>
 <%@ Import Namespace="System.Data.Linq" %>
 <%@ Import Namespace="System.Linq" %>
+<%@ Register src="BacketControl.ascx" tagname="BacketControl" tagprefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -23,6 +24,7 @@
                 meta:resourcekey="MenuItemResource1"></asp:MenuItem>
         </Items>
     </asp:Menu>
+       <uc1:BacketControl ID="BacketControl1" runat="server" />
     </div>
 </div>
 <div class="mainContent">

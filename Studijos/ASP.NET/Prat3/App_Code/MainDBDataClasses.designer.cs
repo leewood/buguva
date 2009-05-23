@@ -50,6 +50,9 @@ public partial class MainDBDataClassesDataContext : System.Data.Linq.DataContext
   partial void InsertOrderLine(OrderLine instance);
   partial void UpdateOrderLine(OrderLine instance);
   partial void DeleteOrderLine(OrderLine instance);
+  partial void InsertUserPersonalInfo(UserPersonalInfo instance);
+  partial void UpdateUserPersonalInfo(UserPersonalInfo instance);
+  partial void DeleteUserPersonalInfo(UserPersonalInfo instance);
   #endregion
 	
 	public MainDBDataClassesDataContext() : 
@@ -1506,8 +1509,10 @@ public partial class OrderLine : INotifyPropertyChanging, INotifyPropertyChanged
 }
 
 [Table(Name="dbo.UserPersonalInfo")]
-public partial class UserPersonalInfo
+public partial class UserPersonalInfo : INotifyPropertyChanging, INotifyPropertyChanged
 {
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 	
 	private string _UserName;
 	
@@ -1519,8 +1524,29 @@ public partial class UserPersonalInfo
 	
 	private string _EMail;
 	
+	private int _id;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSurnameChanging(string value);
+    partial void OnSurnameChanged();
+    partial void OnCityChanging(string value);
+    partial void OnCityChanged();
+    partial void OnEMailChanging(string value);
+    partial void OnEMailChanged();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    #endregion
+	
 	public UserPersonalInfo()
 	{
+		OnCreated();
 	}
 	
 	[Column(Storage="_UserName", DbType="VarChar(256) NOT NULL", CanBeNull=false)]
@@ -1534,7 +1560,11 @@ public partial class UserPersonalInfo
 		{
 			if ((this._UserName != value))
 			{
+				this.OnUserNameChanging(value);
+				this.SendPropertyChanging();
 				this._UserName = value;
+				this.SendPropertyChanged("UserName");
+				this.OnUserNameChanged();
 			}
 		}
 	}
@@ -1550,7 +1580,11 @@ public partial class UserPersonalInfo
 		{
 			if ((this._Name != value))
 			{
+				this.OnNameChanging(value);
+				this.SendPropertyChanging();
 				this._Name = value;
+				this.SendPropertyChanged("Name");
+				this.OnNameChanged();
 			}
 		}
 	}
@@ -1566,7 +1600,11 @@ public partial class UserPersonalInfo
 		{
 			if ((this._Surname != value))
 			{
+				this.OnSurnameChanging(value);
+				this.SendPropertyChanging();
 				this._Surname = value;
+				this.SendPropertyChanged("Surname");
+				this.OnSurnameChanged();
 			}
 		}
 	}
@@ -1582,7 +1620,11 @@ public partial class UserPersonalInfo
 		{
 			if ((this._City != value))
 			{
+				this.OnCityChanging(value);
+				this.SendPropertyChanging();
 				this._City = value;
+				this.SendPropertyChanged("City");
+				this.OnCityChanged();
 			}
 		}
 	}
@@ -1598,8 +1640,52 @@ public partial class UserPersonalInfo
 		{
 			if ((this._EMail != value))
 			{
+				this.OnEMailChanging(value);
+				this.SendPropertyChanging();
 				this._EMail = value;
+				this.SendPropertyChanged("EMail");
+				this.OnEMailChanged();
 			}
+		}
+	}
+	
+	[Column(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this.OnidChanging(value);
+				this.SendPropertyChanging();
+				this._id = value;
+				this.SendPropertyChanged("id");
+				this.OnidChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }

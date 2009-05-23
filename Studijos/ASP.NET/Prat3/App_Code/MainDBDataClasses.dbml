@@ -78,6 +78,7 @@
       <Column Name="Surname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="EMail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

@@ -57,11 +57,18 @@ public class Backet
 	}
 
     private Order _tempOrder;
+    private string _currency = "LTL";
 
     public string Currency
     {
-        get;
-        set;
+        get
+        {
+            return _currency;
+        }
+        set
+        {
+            _currency = value;
+        }
     }
 
 
@@ -89,6 +96,10 @@ public class Backet
         get
         {
             var d = (from h in OrderLines select new BacketLine() { Product = h.Product, Count = h.Count ?? 0, OnePrice = Rates.PriceInCurrency(h.ProductPrice, "LTL", MyActiveCurrency), Name = h.ProductName }).ToList();
+            for (int i = 0; i < d.Count; i++)
+            {
+                d[i].RowIndex = 0;
+            }
             return d;
         }
     }
@@ -123,6 +134,9 @@ public class Backet
         OrderLine line = new OrderLine();
         line.Count = 0;
         line.ProductID = id;
+        line.Count = 1;
+        MainDBDataClassesDataContext context = new MainDBDataClassesDataContext();
+        line.Product = (from d in context.Products where d.id == id select d).First();
         if (TempOrder.OrderLines == null)
         {
             TempOrder.OrderLines = new System.Data.Linq.EntitySet<OrderLine>();
