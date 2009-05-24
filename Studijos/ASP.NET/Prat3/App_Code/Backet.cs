@@ -170,6 +170,17 @@ public class Backet
         }
     }
 
+    public void OrderIt(string description, string userName)
+    {
+        TempOrder.OrderDate = DateTime.Now;
+        TempOrder.Status = 1;
+        TempOrder.Person = userName;
+        TempOrder.Description = description;
+        MainDBDataClassesDataContext context = new MainDBDataClassesDataContext();
+        context.Orders.InsertOnSubmit(TempOrder);
+        context.SubmitChanges();
+        _tempOrder = null;
+    }
 
     public void OrderIt(string description)
     {
