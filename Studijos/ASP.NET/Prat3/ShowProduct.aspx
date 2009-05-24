@@ -10,8 +10,6 @@
             <asp:QueryStringParameter Name="id" QueryStringField="id" Type="Int32" />
         </WhereParameters>
     </asp:LinqDataSource>
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
     <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" 
         DataSourceID="LinqDataSource1" meta:resourcekey="FormView1Resource1" 
         onitemcommand="FormView1_ItemCommand" onitemdeleted="FormView1_ItemDeleted"> 

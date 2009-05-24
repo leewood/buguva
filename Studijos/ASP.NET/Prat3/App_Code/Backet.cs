@@ -71,6 +71,10 @@ public class Backet
         }
     }
 
+    public void Clear()
+    {
+        this._tempOrder = null;
+    }
 
 
     public Order TempOrder
