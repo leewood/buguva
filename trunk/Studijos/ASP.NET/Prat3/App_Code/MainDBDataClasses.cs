@@ -103,3 +103,60 @@ public partial class Category
     }
 
 }
+
+public partial class Order
+{
+    public void Confirm()
+    {
+        this.Status = 2;
+        this.ConfirmDate = DateTime.Now;
+    }
+
+    public void Reject()
+    {
+        this.Status = 3;
+    }
+
+    public void Complete()
+    {
+        this.Status = 4;
+    }
+
+    public bool SpecButtonsVisible
+    {
+        get
+        {
+            return ((this.Status == 1) && (HttpContext.Current.User.IsInRole("Admin")));
+        }
+    }
+
+
+
+    public string StatusString
+    {
+        get
+        {
+            switch (Status)
+            {
+                case 0: return "New";
+                case 1: return "Ordered";
+                case 2: return "Confirmed";
+                case 3: return "Rejected";
+                case 4: return "Done";
+                default: return "";
+            }
+        }
+    }
+
+}
+
+public partial class Product
+{
+    public decimal ActivePrice
+    {
+        get
+        {
+            return Rates.PriceInCurrency(this.Price, this.Currency, Backet.MyActiveCurrency);
+        }
+    }
+}

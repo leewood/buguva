@@ -35,6 +35,8 @@
               meta:resourcekey="HyperLink2Resource1" Text="Logout"></asp:HyperLink>                                  
               </LoggedInTemplate>
           </asp:LoginView>
+          <asp:ScriptManager ID="ScriptManager1" runat="server">
+          </asp:ScriptManager>
     </div>
     <div>
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">

@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="NewsContentHolder" Runat="Server">
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
         ContextTypeName="MainDBDataClassesDataContext" 
-        Select="new (Status, Person, OrderDate, ConfirmDate, Description)" 
+        Select="new (id, Status, StatusString, SpecButtonsVisible, Person, OrderDate, ConfirmDate, Description)" 
         TableName="Orders" Where="id == @id">
         <WhereParameters>
             <asp:QueryStringParameter Name="id" QueryStringField="id" Type="Int32" />
@@ -17,23 +17,24 @@
             <asp:QueryStringParameter Name="OrderID" QueryStringField="id" Type="Int32" />
         </WhereParameters>
     </asp:LinqDataSource>
-    <asp:FormView ID="FormView1" runat="server" DataSourceID="LinqDataSource1">
+    <asp:FormView ID="FormView1" runat="server" DataSourceID="LinqDataSource1" 
+        onitemcommand="FormView1_ItemCommand">
         <ItemTemplate>
            <div class="toolbar" runat="server" id = "toolbarContainer">
               <div class="extButton" runat="server" id="SpecButton1">
-               <asp:ImageButton ID="ConfirmImg" runat="server" CommandName="Confirm" 
-                      SkinID="AcceptImageButton" CssClass="simpleImageClear" />
-               <asp:Button ID="Button1" runat="server" 
-                 CommandName="Confirm" Text="Confirm"  CssClass="simpleClear" />                
+               <asp:ImageButton ID="ConfirmImg" runat="server" CommandName="Confirm"  Visible='<%# Eval("SpecButtonsVisible") %>'
+                      SkinID="AcceptImageButton" CssClass="simpleImageClear" CommandArgument='<%# Eval("id") %>' />
+               <asp:Button ID="Button1" runat="server"  Visible='<%# Eval("SpecButtonsVisible") %>' 
+                 CommandName="Confirm" Text="Confirm"  CssClass="simpleClear" CommandArgument='<%# Eval("id") %>' />                
               </div>                
-              <label class="separator">|</label>
+              <asp:Label runat ="server" ID="SepLabel1" CssClass="separator"  Visible='<%# Eval("SpecButtonsVisible") %>'>|</asp:Label>
               <div class="extButton" runat="server" id="SpecButton2">
-               <asp:ImageButton ID="ImageButton2" runat="server" CommandName="Reject" 
-                      SkinID="CancelImageButton" CssClass="simpleImageClear" />
-               <asp:Button ID="Button3" runat="server" 
-                 CommandName="Reject" Text="Reject"  CssClass="simpleClear" />                
+               <asp:ImageButton ID="ImageButton2" runat="server" CommandName="Reject"  Visible='<%# Eval("SpecButtonsVisible") %>'
+                      SkinID="CancelImageButton" CssClass="simpleImageClear" CommandArgument='<%# Eval("id") %>' />
+               <asp:Button ID="Button3" runat="server"  Visible='<%# Eval("SpecButtonsVisible") %>'
+                 CommandName="Reject" Text="Reject"  CssClass="simpleClear" CommandArgument='<%# Eval("id") %>' />                
               </div>                
-              <label class="separator">|</label>
+              <asp:Label runat ="server" ID="Label6" CssClass="separator"  Visible='<%# Eval("SpecButtonsVisible") %>'>|</asp:Label>
               
               <div class="extButton">
                 <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Back" 
@@ -44,7 +45,7 @@
            </div>       
            <div class="form">
             <asp:Label runat="server" ID="LLabel1" Text="Status:" class="title" />
-            <asp:Label ID="StatusLabel" runat="server" Text='<%# Bind("Status") %>' />
+            <asp:Label ID="StatusLabel" runat="server" Text='<%# Bind("StatusString") %>' />
             <label class="separator"></label>
             <asp:Label runat="server" ID="Label1" Text="Person:" class="title" />            
             <asp:Label ID="PersonLabel" runat="server" Text='<%# Bind("Person") %>' />

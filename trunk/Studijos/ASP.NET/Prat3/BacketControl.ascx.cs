@@ -15,9 +15,11 @@ public partial class BacketControl : System.Web.UI.UserControl
     {
         switch (e.CommandName)
         {
-            case "Increase": Backet.CurrentBacket.Increase(int.Parse(e.CommandArgument.ToString())); break;
-            case "Decrease": Backet.CurrentBacket.Descrease(int.Parse(e.CommandArgument.ToString())); break;
-            case "DeleteItem": Backet.CurrentBacket.RemoveLine(int.Parse(e.CommandArgument.ToString())); break;
+            case "Increase": Backet.CurrentBacket.Increase(int.Parse(e.CommandArgument.ToString())); this.DataBind();  break;
+            case "Decrease": Backet.CurrentBacket.Descrease(int.Parse(e.CommandArgument.ToString())); this.DataBind(); break;
+            case "DeleteItem": Backet.CurrentBacket.RemoveLine(int.Parse(e.CommandArgument.ToString())); this.DataBind(); break;
+            case "Clear": Backet.CurrentBacket.Clear(); this.DataBind(); break;
+            case "Order": Backet.CurrentBacket.OrderIt(""); this.DataBind(); break;
         }
     }
 

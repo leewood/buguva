@@ -3,9 +3,6 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="NewsContentHolder" Runat="Server">
-    <cc1:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" 
-        CombineScripts="True">
-    </cc1:ToolkitScriptManager>
     <asp:Panel ID="Panel1" runat="server" CssClass="toolbar" 
         meta:resourcekey="Panel1Resource1">
         <asp:Label ID="CreateDateFromLabel" runat="server" Text="Create date from:" 
