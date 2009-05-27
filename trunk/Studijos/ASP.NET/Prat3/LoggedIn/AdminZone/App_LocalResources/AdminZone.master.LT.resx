@@ -162,4 +162,16 @@
   <data name="MenuItemResource3.Value" xml:space="preserve">
     <value>Grįžti į viešą zoną</value>
   </data>
+  <data name="MenuItemResource4.Text" xml:space="preserve">
+    <value>Visi užsakymai</value>
+  </data>
+  <data name="MenuItemResource4.Value" xml:space="preserve">
+    <value>Visi užsakymai</value>
+  </data>
+  <data name="MenuItemResource5.Text" xml:space="preserve">
+    <value>Naujas produktas</value>
+  </data>
+  <data name="MenuItemResource5.Value" xml:space="preserve">
+    <value>Naujas produktas</value>
+  </data>
 </root>

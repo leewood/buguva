@@ -35,7 +35,7 @@
         </Items>
     </asp:Menu>
         <asp:HyperLink ID="HyperLink5" runat="server" CssClass="tabsBack" 
-            NavigateUrl="~/PublicNews.aspx" meta:resourcekey="HyperLink5Resource1">Back to news</asp:HyperLink>
+            NavigateUrl="~/ProductsList.aspx" meta:resourcekey="HyperLink5Resource1">Back to news</asp:HyperLink>
   </div>
   <br />
   <div class="form" style="display: block">

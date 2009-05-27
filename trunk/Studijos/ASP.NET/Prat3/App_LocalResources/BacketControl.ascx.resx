@@ -150,6 +150,9 @@
   <data name="IncreaseButtonResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="MyOrders.Text" xml:space="preserve">
+    <value>My orders</value>
+  </data>
   <data name="NoDataLabelResource1.Text" xml:space="preserve">
     <value>Shopping cart is empty</value>
   </data>

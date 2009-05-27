@@ -29,6 +29,15 @@ public partial class LoggedIn_Personalization : ExtendedPage
         }
     }
 
+    public LoggedIn_Personalization()
+    {
+        this.PreRender += new EventHandler(LoggedIn_Personalization_PreRender);
+    }
+
+    void LoggedIn_Personalization_PreRender(object sender, EventArgs e)
+    {
+        DropDownList1.SelectedValue = Session["Theme"].ToString();
+    }
 
 
     protected void Page_Load(object sender, EventArgs e)
@@ -64,7 +73,7 @@ public partial class LoggedIn_Personalization : ExtendedPage
                 UserConfig confU = conf[0];
                 TextBox1.Text = confU.Language;
                 TextBox2.Text = confU.Culture;
-                DropDownList1.SelectedValue = confU.Theme;
+                //DropDownList1.SelectedValue = confU.Theme;
             }
         }
     }
@@ -80,5 +89,6 @@ public partial class LoggedIn_Personalization : ExtendedPage
         MyCulture = "";
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(MyCulture);
         Session["Theme"] = conf[0].Theme;
+        this.Response.Redirect("~/LoggedIn/Personalization.aspx");
     }
 }

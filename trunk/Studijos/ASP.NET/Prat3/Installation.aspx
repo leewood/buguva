@@ -16,7 +16,7 @@
         <br />
         <asp:Button ID="Button1" runat="server" PostBackUrl="~/Login.aspx"  CssClass="simpleButton"
             Text="Login" meta:resourcekey="Button1Resource1" />    
-        <asp:Button ID="Button2" runat="server" PostBackUrl="~/PublicNews.aspx" 
+        <asp:Button ID="Button2" runat="server" PostBackUrl="~/ProductsList.aspx" 
             CssClass="simpleButton" Text="To main page" Width="100px" 
             meta:resourcekey="Button2Resource1" />      
     </div>

@@ -29,9 +29,6 @@ public partial class MainDBDataClassesDataContext : System.Data.Linq.DataContext
 	
   #region Extensibility Method Definitions
   partial void OnCreated();
-  partial void InsertCategory(Category instance);
-  partial void UpdateCategory(Category instance);
-  partial void DeleteCategory(Category instance);
   partial void InsertComment(Comment instance);
   partial void UpdateComment(Comment instance);
   partial void DeleteComment(Comment instance);
@@ -53,6 +50,9 @@ public partial class MainDBDataClassesDataContext : System.Data.Linq.DataContext
   partial void InsertUserPersonalInfo(UserPersonalInfo instance);
   partial void UpdateUserPersonalInfo(UserPersonalInfo instance);
   partial void DeleteUserPersonalInfo(UserPersonalInfo instance);
+  partial void InsertCategory(Category instance);
+  partial void UpdateCategory(Category instance);
+  partial void DeleteCategory(Category instance);
   #endregion
 	
 	public MainDBDataClassesDataContext() : 
@@ -83,14 +83,6 @@ public partial class MainDBDataClassesDataContext : System.Data.Linq.DataContext
 			base(connection, mappingSource)
 	{
 		OnCreated();
-	}
-	
-	public System.Data.Linq.Table<Category> Categories
-	{
-		get
-		{
-			return this.GetTable<Category>();
-		}
 	}
 	
 	public System.Data.Linq.Table<Comment> Comments
@@ -148,119 +140,13 @@ public partial class MainDBDataClassesDataContext : System.Data.Linq.DataContext
 			return this.GetTable<UserPersonalInfo>();
 		}
 	}
-}
-
-[Table(Name="dbo.Categories")]
-public partial class Category : INotifyPropertyChanging, INotifyPropertyChanged
-{
 	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private string _Name;
-	
-	private string _Description;
-	
-	private EntitySet<New> _News;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    #endregion
-	
-	public Category()
-	{
-		this._News = new EntitySet<New>(new Action<New>(this.attach_News), new Action<New>(this.detach_News));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-	public string Name
+	public System.Data.Linq.Table<Category> Categories
 	{
 		get
 		{
-			return this._Name;
+			return this.GetTable<Category>();
 		}
-		set
-		{
-			if ((this._Name != value))
-			{
-				this.OnNameChanging(value);
-				this.SendPropertyChanging();
-				this._Name = value;
-				this.SendPropertyChanged("Name");
-				this.OnNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Description", DbType="VarChar(MAX)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this.OnDescriptionChanging(value);
-				this.SendPropertyChanging();
-				this._Description = value;
-				this.SendPropertyChanged("Description");
-				this.OnDescriptionChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Category_New", Storage="_News", ThisKey="Name", OtherKey="Category")]
-	public EntitySet<New> News
-	{
-		get
-		{
-			return this._News;
-		}
-		set
-		{
-			this._News.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_News(New entity)
-	{
-		this.SendPropertyChanging();
-		entity.Category1 = this;
-	}
-	
-	private void detach_News(New entity)
-	{
-		this.SendPropertyChanging();
-		entity.Category1 = null;
 	}
 }
 
@@ -671,7 +557,7 @@ public partial class New : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Category_New", Storage="_Category1", ThisKey="Category", OtherKey="Name", IsForeignKey=true, DeleteRule="CASCADE")]
+	[Association(Name="Category_New", Storage="_Category1", ThisKey="Category", OtherKey="Name", IsForeignKey=true)]
 	public Category Category1
 	{
 		get
@@ -892,6 +778,8 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<OrderLine> _OrderLines;
 	
+	private EntityRef<Category> _Category1;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -913,6 +801,7 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	public Product()
 	{
 		this._OrderLines = new EntitySet<OrderLine>(new Action<OrderLine>(this.attach_OrderLines), new Action<OrderLine>(this.detach_OrderLines));
+		this._Category1 = default(EntityRef<Category>);
 		OnCreated();
 	}
 	
@@ -1027,6 +916,10 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._Category != value))
 			{
+				if (this._Category1.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
 				this.OnCategoryChanging(value);
 				this.SendPropertyChanging();
 				this._Category = value;
@@ -1046,6 +939,40 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._OrderLines.Assign(value);
+		}
+	}
+	
+	[Association(Name="Category_Product", Storage="_Category1", ThisKey="Category", OtherKey="Name", IsForeignKey=true, DeleteRule="CASCADE")]
+	public Category Category1
+	{
+		get
+		{
+			return this._Category1.Entity;
+		}
+		set
+		{
+			Category previousValue = this._Category1.Entity;
+			if (((previousValue != value) 
+						|| (this._Category1.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Category1.Entity = null;
+					previousValue.Products.Remove(this);
+				}
+				this._Category1.Entity = value;
+				if ((value != null))
+				{
+					value.Products.Add(this);
+					this._Category = value.Name;
+				}
+				else
+				{
+					this._Category = default(string);
+				}
+				this.SendPropertyChanged("Category1");
+			}
 		}
 	}
 	
@@ -1687,6 +1614,148 @@ public partial class UserPersonalInfo : INotifyPropertyChanging, INotifyProperty
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+}
+
+[Table(Name="dbo.Categories")]
+public partial class Category : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _Name;
+	
+	private string _Description;
+	
+	private EntitySet<New> _News;
+	
+	private EntitySet<Product> _Products;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    #endregion
+	
+	public Category()
+	{
+		this._News = new EntitySet<New>(new Action<New>(this.attach_News), new Action<New>(this.detach_News));
+		this._Products = new EntitySet<Product>(new Action<Product>(this.attach_Products), new Action<Product>(this.detach_Products));
+		OnCreated();
+	}
+	
+	[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this.OnNameChanging(value);
+				this.SendPropertyChanging();
+				this._Name = value;
+				this.SendPropertyChanged("Name");
+				this.OnNameChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Description", DbType="VarChar(MAX)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this.OnDescriptionChanging(value);
+				this.SendPropertyChanging();
+				this._Description = value;
+				this.SendPropertyChanged("Description");
+				this.OnDescriptionChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Category_New", Storage="_News", ThisKey="Name", OtherKey="Category")]
+	public EntitySet<New> News
+	{
+		get
+		{
+			return this._News;
+		}
+		set
+		{
+			this._News.Assign(value);
+		}
+	}
+	
+	[Association(Name="Category_Product", Storage="_Products", ThisKey="Name", OtherKey="Category")]
+	public EntitySet<Product> Products
+	{
+		get
+		{
+			return this._Products;
+		}
+		set
+		{
+			this._Products.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_News(New entity)
+	{
+		this.SendPropertyChanging();
+		entity.Category1 = this;
+	}
+	
+	private void detach_News(New entity)
+	{
+		this.SendPropertyChanging();
+		entity.Category1 = null;
+	}
+	
+	private void attach_Products(Product entity)
+	{
+		this.SendPropertyChanging();
+		entity.Category1 = this;
+	}
+	
+	private void detach_Products(Product entity)
+	{
+		this.SendPropertyChanging();
+		entity.Category1 = null;
 	}
 }
 #pragma warning restore 1591

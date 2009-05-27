@@ -13,7 +13,7 @@ public partial class LoggedIn_AdminZone_NewProduct : ExtendedPage
     }
     protected void InsertCancelButton_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/PublicNews.aspx?category=" + Request.Params["category"]);
+        Response.Redirect("~/ProductsList.aspx?category=" + Request.Params["category"]);
     }
     protected void FormView1_ItemInserting(object sender, FormViewInsertEventArgs e)
     {
@@ -39,5 +39,6 @@ public partial class LoggedIn_AdminZone_NewProduct : ExtendedPage
             product.Picture = imgByte;            
             context.SubmitChanges();
         }
+        Response.Redirect("~/ProductsList.aspx?category=" + Request.Params["category"]);
     }
 }

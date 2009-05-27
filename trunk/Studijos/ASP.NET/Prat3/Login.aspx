@@ -22,7 +22,7 @@
             Font-Size="0.8em" ForeColor="#333333" onauthenticate="Login1_Authenticate" 
             PasswordRecoveryText="Forgot your password?" 
             PasswordRecoveryUrl="~/PasswordRecovery.aspx" 
-            DestinationPageUrl="PublicNews.aspx" meta:resourcekey="Login1Resource1">
+            DestinationPageUrl="ProductsList.aspx" meta:resourcekey="Login1Resource1">
             <TextBoxStyle Font-Size="0.8em" />
             <LoginButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" 
                 BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284775" />

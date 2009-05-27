@@ -41,6 +41,13 @@
                    <asp:Label runat="server" ID="NoDataLabel" Text="Shopping cart is empty" 
                         meta:resourcekey="NoDataLabelResource1" />
                 </li>
+        <asp:LoginView ID="LoginView1" runat="server">
+<LoggedInTemplate>                      <li>
+                            <asp:LinkButton ID="LinkButton1" runat="server" Text="My orders" 
+                      CommandName = "MyOrders" meta:resourcekey="MyOrders" />                      
+                      </li>
+                  </LoggedInTemplate>
+                    </asp:LoginView>
                 </ul>
               </div>
             </EmptyDataTemplate>
@@ -67,6 +74,16 @@
                             <asp:LinkButton ID="ClearButton" runat="server" Text="Clear" 
                       CommandName = "Clear" meta:resourcekey="ClearButtonResource1" />
                       </li>
+        <asp:LoginView ID="LoginView1" runat="server">
+              <LoggedInTemplate>
+              
+
+                      <li>
+                            <asp:LinkButton ID="LinkButton1" runat="server" Text="My orders" 
+                      CommandName = "MyOrders" meta:resourcekey="MyOrders" />                      
+                      </li>
+</LoggedInTemplate>                    
+</asp:LoginView>
                     </ul>                
                    </div>
             </LayoutTemplate>

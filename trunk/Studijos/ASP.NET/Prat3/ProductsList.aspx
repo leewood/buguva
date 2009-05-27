@@ -13,7 +13,7 @@
         <asp:TextBox ID="NameTextBox" runat="server" 
             meta:resourcekey="NameTextBoxResource1"></asp:TextBox>        
         <label class="separator">|</label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label3" runat="server" Text="Price between:" 
+        &nbsp;<asp:Label ID="Label3" runat="server" Text="Price between:" 
             meta:resourcekey="Label3Resource1"></asp:Label>
         <asp:TextBox ID="LowPrice" runat="server" meta:resourcekey="LowPriceResource1"></asp:TextBox>        
         <asp:Label ID="Label4" runat="server" Text="and" 
@@ -22,7 +22,7 @@
             meta:resourcekey="HighPriceResource1"></asp:TextBox>     
         <asp:Label ID="Label5" runat="server" meta:resourcekey="Label5Resource1"></asp:Label>
         <label class="separator">|</label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="DateFilterButton" runat="server" 
+        &nbsp;<asp:Button ID="DateFilterButton" runat="server" 
             Text="Update list" meta:resourcekey="DateFilterButtonResource1" />
     </asp:Panel>
     

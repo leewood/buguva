@@ -27,7 +27,7 @@ public class ThemesModel
             System.IO.FileInfo finfo = new System.IO.FileInfo(HttpContext.Current.Request.PhysicalPath);
             System.IO.DirectoryInfo dinfo = new System.IO.DirectoryInfo(finfo.Directory.Parent.FullName + "\\App_Themes");
             DirectoryInfo[] list = dinfo.GetDirectories();
-            var res = (from a in list select new ThemeDef() { Name = a.Name }).ToList();
+            var res = (from a in list where a.Name[0] != '.' select new ThemeDef() { Name = a.Name }).ToList();
             return res;
         }
     }

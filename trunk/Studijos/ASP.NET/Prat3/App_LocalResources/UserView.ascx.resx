@@ -117,40 +117,184 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HyperLink5Resource1.Text" xml:space="preserve">
-    <value>Grižti į pagrindinį puslapį</value>
-  </data>
-  <data name="HyperLink5Resource1.ToolTip" xml:space="preserve">
+  <data name="CityLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="Menu1Resource1.ScrollDownText" xml:space="preserve">
-    <value>Slinkti žemyn</value>
-  </data>
-  <data name="Menu1Resource1.ScrollUpText" xml:space="preserve">
-    <value>Slinkti aukštyn</value>
-  </data>
-  <data name="Menu1Resource1.SkipLinkText" xml:space="preserve">
-    <value>Praleisti navigacijos nuorodas</value>
-  </data>
-  <data name="Menu1Resource1.ToolTip" xml:space="preserve">
+  <data name="CreationDateLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="MenuItemResource1.Text" xml:space="preserve">
-    <value>Keisti slaptažodį</value>
-  </data>
-  <data name="MenuItemResource1.ToolTip" xml:space="preserve">
+  <data name="CultureLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="MenuItemResource1.Value" xml:space="preserve">
-    <value>Keisti slaptažodį</value>
-  </data>
-  <data name="MenuItemResource2.Text" xml:space="preserve">
-    <value>Pritaikymas sau</value>
-  </data>
-  <data name="MenuItemResource2.ToolTip" xml:space="preserve">
+  <data name="EmailLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="MenuItemResource2.Value" xml:space="preserve">
-    <value>Pritaikymas sau</value>
+  <data name="FormView1Resource1.Caption" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.EmptyDataText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.FooterText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.HeaderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label10Resource1.Text" xml:space="preserve">
+    <value>Last Activity Date:</value>
+  </data>
+  <data name="Label10Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label11Resource1.Text" xml:space="preserve">
+    <value>Last Login Date:</value>
+  </data>
+  <data name="Label11Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label12Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label12Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label13Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label13Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label14Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label14Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label15Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label15Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label16Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label16Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label17Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label17Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label18Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label18Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label19Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label19Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label1Resource1.Text" xml:space="preserve">
+    <value>UserName:</value>
+  </data>
+  <data name="Label1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label20Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label20Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label21Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label21Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label22Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label22Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label2Resource1.Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="Label2Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label3Resource1.Text" xml:space="preserve">
+    <value>Surname:</value>
+  </data>
+  <data name="Label3Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label4Resource1.Text" xml:space="preserve">
+    <value>City:</value>
+  </data>
+  <data name="Label4Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label5Resource1.Text" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="Label5Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label6Resource1.Text" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="Label6Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label7Resource1.Text" xml:space="preserve">
+    <value>Culture:</value>
+  </data>
+  <data name="Label7Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label8Resource1.Text" xml:space="preserve">
+    <value>Theme:</value>
+  </data>
+  <data name="Label8Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label9Resource1.Text" xml:space="preserve">
+    <value>Creation Date:</value>
+  </data>
+  <data name="Label9Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LanguageLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LastActivityDateLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LastLoginDateLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameLabelResource2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SurnameLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThemeLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserNameLabelResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>
