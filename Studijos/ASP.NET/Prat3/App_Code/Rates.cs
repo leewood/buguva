@@ -87,7 +87,7 @@ public class Rates
     //
     // TODO: Add constructor logic here
     //
-    private static string getLang()
+    public static string getLang()
     {
         string name = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
         int index = name.IndexOf("-");

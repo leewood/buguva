@@ -117,49 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HyperLink1Resource1.Text" xml:space="preserve">
-    <value>Nuostatos</value>
+  <data name="BasketTitleResource1.Text" xml:space="preserve">
+    <value>Pirkinių krepšelis</value>
+  </data>
+  <data name="BasketTitleResource2.Text" xml:space="preserve">
+    <value>Pirkinių krepšelis</value>
+  </data>
+  <data name="ClearButtonResource1.Text" xml:space="preserve">
+    <value>Išvalyti</value>
+  </data>
+  <data name="ClearButtonResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DecreaseButtonResource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DecreaseButtonResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteButtonResource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteButtonResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="HyperLink1Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink2Resource1.Text" xml:space="preserve">
-    <value>Atsijungti</value>
-  </data>
-  <data name="HyperLink2Resource1.ToolTip" xml:space="preserve">
+  <data name="IncreaseButtonResource1.AlternateText" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink3Resource1.Text" xml:space="preserve">
-    <value>Prisijungti</value>
-  </data>
-  <data name="HyperLink3Resource1.ToolTip" xml:space="preserve">
+  <data name="IncreaseButtonResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink4Resource1.Text" xml:space="preserve">
-    <value>Admino zona</value>
+  <data name="NoDataLabelResource1.Text" xml:space="preserve">
+    <value>Pirkinių krepšelis tuščias</value>
   </data>
-  <data name="HyperLink4Resource1.ToolTip" xml:space="preserve">
+  <data name="NoDataLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="Label1Resource1.Text" xml:space="preserve">
-    <value>Prisijungta kaip </value>
+  <data name="OrderButtonResource1.Text" xml:space="preserve">
+    <value>Užsakyti</value>
   </data>
-  <data name="Label1Resource1.ToolTip" xml:space="preserve">
+  <data name="OrderButtonResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="Label2Resource1.Text" xml:space="preserve">
-    <value>Naudojama valiuta:</value>
+  <data name="PriceTitleLiteralResource1.Text" xml:space="preserve">
+    <value>Kaina:</value>
   </data>
-  <data name="LoginName1LabelResource1.Text" xml:space="preserve">
-    <value>Neprisijungta</value>
-  </data>
-  <data name="LoginName1LabelResource1.ToolTip" xml:space="preserve">
-    <value> </value>
-  </data>
-  <data name="LoginName1Resource1.FormatString" xml:space="preserve">
-    <value>{0}</value>
-  </data>
-  <data name="LoginName1Resource1.ToolTip" xml:space="preserve">
+  <data name="PriceValueCentsLabelResource1.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="TotalLabelResource1.Text" xml:space="preserve">
+    <value>Viso:</value>
+  </data>
+  <data name="TotalLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TotalValueLabelResource1.Text" xml:space="preserve">
+    <value>0 LTL</value>
   </data>
 </root>

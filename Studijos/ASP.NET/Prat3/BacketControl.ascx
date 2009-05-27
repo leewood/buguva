@@ -1,68 +1,78 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BacketControl.ascx.cs" Inherits="BacketControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BacketControl.ascx.cs" Inherits="BacketControl" EnableTheming="true" %>
+
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+
     <ContentTemplate>
-        <asp:ListView ID="ListView1" runat="server" DataSourceID="LinqDataSource1" 
-    onitemcommand="ListView1_ItemCommand">
-            <ItemTemplate>
-                <tr style="">
-                    <td>
-                        <asp:Label ID="NameLabel" runat="server" Text='<%# Eval("Name") %>' />
-                    </td>
-                    <td style="white-space:nowrap; width: 50px">
-                        <asp:Label ID="OnePriceLabel" runat="server" Text='<%# Eval("OnePrice") %>' />
-                        <asp:Label ID="CurrencyLabel" runat="server" 
-                    Text='<%# " " + Backet.MyActiveCurrency %>' />
-                        <asp:Label ID="MulLable" runat="server" Text=" x " />
-                        <asp:Label ID="CountLabel" runat="server" Text='<%# Eval("Count") %>' />
-                        <asp:Label ID="Label1" runat="server" Text=" = " />
-                    </td>
-                    <td>
-                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price") %>' />
-                        <asp:Label ID="Label2" runat="server" 
-                    Text='<%# " " + Backet.MyActiveCurrency %>' />
-                    </td>
-                    <td>
+    
+        <asp:ListView ID="ListView1" runat="server" DataSourceID="LinqDataSource1" onitemcommand="ListView1_ItemCommand">
+            <ItemTemplate>     
+                <dl>
+                <dt>                  
+                  <asp:HyperLink ID="HyperLink1" runat="server" 
+                        Text='<%# Eval("Count") + " x " + Eval("Name") %>' 
+                        NavigateUrl = '<%# Eval("ProductID", "~/ShowProduct.aspx?id={0}") %>' 
+                        meta:resourcekey="HyperLink1Resource1" />                  
+                </dt>
+                <dd>
+                  <asp:Literal ID="PriceTitleLiteral" runat="server" Text="Price: " 
+                        meta:resourcekey="PriceTitleLiteralResource1"></asp:Literal>
+                  <asp:Literal ID="PriceValueLiteral" runat="server" Text='<%# Eval("PriceLits", "{0}") %>'></asp:Literal>                  
+                  <asp:Label ID="PriceValueCentsLabel" runat="server" 
+                        Text='<%# Eval("PriceCents", "{0}") %>' CssClass="price_cents" 
+                        meta:resourcekey="PriceValueCentsLabelResource1"></asp:Label>
                         <asp:ImageButton ID="IncreaseButton" CommandName="Increase" runat="server" 
-                    CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketIncreaseImageButton"/>
+                    CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketIncreaseImageButton" 
+                        meta:resourcekey="IncreaseButtonResource1"/>
                         <asp:ImageButton ID="DecreaseButton" CommandName="Decrease" runat="server" 
-                    CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketDecreaseImageButton"/>
+                    CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketDecreaseImageButton" 
+                        meta:resourcekey="DecreaseButtonResource1"/>
                         <asp:ImageButton ID="DeleteButton" CommandName="DeleteItem" runat="server" 
-                    CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketDeleteImageButton"/>
-                    </td>
-                </tr>
+                    CommandArgument='<%# Eval("RowIndex") %>'  SkinID="BacketDeleteImageButton" 
+                        meta:resourcekey="DeleteButtonResource1"/>                  
+                </dd>
+                </dl>          
             </ItemTemplate>
             <EmptyDataTemplate>
-                <asp:Label runat="server" ID="NoDataLabel" Text="No products in backet" />
+              <div class="catalog_basket_block" ID="itemPlaceholderContainer" runat="server">
+                <h2 class="empty_basket_icon" title=""><asp:Literal runat="server" ID="BasketTitle" 
+                        Text="Shopping cart" meta:resourcekey="BasketTitleResource1" /></h2>
+                <ul>
+                <li>
+                   <asp:Label runat="server" ID="NoDataLabel" Text="Shopping cart is empty" 
+                        meta:resourcekey="NoDataLabelResource1" />
+                </li>
+                </ul>
+              </div>
             </EmptyDataTemplate>
             <LayoutTemplate>
-                <table ID="itemPlaceholderContainer" runat="server" border="0" style="">
-                    <tr ID="itemPlaceholder" runat="server">
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <asp:Label ID="TotalLabel" runat="server" 
-                      Text="Total:" />
-                        </td>
-                        <td>
-                            <asp:Label runat="server" ID="TotalValueLabel" Text="0 LTL" 
-                      OnDataBinding="LabelDataBind" OnInit="LabelDataBind" />
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
+                 <div class="catalog_basket_block" ID="itemPlaceholderContainer" runat="server">
+                    <h2 class="full_basket_icon" title=""><asp:Literal runat="server" ID="BasketTitle" 
+                            Text="Shopping cart" meta:resourcekey="BasketTitleResource2" /></h2>                    
+                    <dl ID="itemPlaceholder" runat="server">
+                    </dl>
+                    <p>
+                            <asp:Label ID="TotalLabel" runat="server" Text="Total:" 
+                                meta:resourcekey="TotalLabelResource1" />
+                            <asp:Literal runat="server" ID="TotalValueLabel" Text="0 LTL" 
+                                     OnInit="LabelDataBind" meta:resourcekey="TotalValueLabelResource1" />
+
+                    </p>
+                    
+                    <ul>
+                      <li>
                             <asp:LinkButton ID="OrderButton" runat="server" Text="Order" 
-                      CommandName = "Order" />
+                      CommandName = "Order" meta:resourcekey="OrderButtonResource1" />
+                      </li>
+                      <li>
                             <asp:LinkButton ID="ClearButton" runat="server" Text="Clear" 
-                      CommandName = "Clear" />
-                        </td>
-                    </tr>
-                </table>
+                      CommandName = "Clear" meta:resourcekey="ClearButtonResource1" />
+                      </li>
+                    </ul>                
+                   </div>
             </LayoutTemplate>
         </asp:ListView>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
-            ContextTypeName="Backet" Select="new (Price, Name, Count, OnePrice, RowIndex)" 
+            ContextTypeName="Backet" Select="new (Price, Name, Count, OnePrice, RowIndex, ProductID, PriceCents, PriceLits)" 
             TableName="BacketLines">
         </asp:LinqDataSource>
     </ContentTemplate>

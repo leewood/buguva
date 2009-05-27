@@ -13,6 +13,16 @@
 <body>
     <form id="form1" runat="server">
     <div class="top">
+         <div class="currencyChoose">
+          <asp:Label ID="Label2" runat="server" Text="Active currency:" 
+                 meta:resourcekey="Label2Resource1"></asp:Label>
+          <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" 
+              DataSourceID="LinqDataSource1" DataTextField="Description" 
+              DataValueField="Code" 
+              onselectedindexchanged="DropDownList1_SelectedIndexChanged" 
+                 meta:resourcekey="DropDownList1Resource1">
+          </asp:DropDownList>
+         </div>
           <asp:LoginView ID="LoginView1" runat="server">
               <AnonymousTemplate>
                   <asp:Label ID="LoginName1Label" runat = "server" Text="Not logged in" 
@@ -20,7 +30,9 @@
                   <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Login.aspx" 
                        meta:resourcekey="HyperLink3Resource1" Text="Login"></asp:HyperLink>                
               </AnonymousTemplate>
-              <LoggedInTemplate>
+              <RoleGroups>
+                  <asp:RoleGroup Roles="Admin">
+                      <ContentTemplate>
                   <asp:Label ID="Label1" runat = "server" Text="Logged as " 
                        meta:resourcekey="Label1Resource1"></asp:Label>
                   <asp:LoginName ID="LoginName1" runat="server" 
@@ -30,13 +42,29 @@
                       meta:resourcekey="HyperLink1Resource1" Text="Preferences"></asp:HyperLink>
              <asp:HyperLink ID="HyperLink4" runat="server" 
               NavigateUrl="~/LoggedIn/AdminZone/ManageCategories.aspx" 
-                      meta:resourcekey="HyperLink4Resource1">Admin zone</asp:HyperLink>
+                      meta:resourcekey="HyperLink4Resource1" Text="Admin zone"></asp:HyperLink>
+             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Logout.aspx" 
+              meta:resourcekey="HyperLink2Resource1" Text="Logout"></asp:HyperLink>                                                        
+                      </ContentTemplate>
+                  </asp:RoleGroup>
+              </RoleGroups>
+              <LoggedInTemplate>
+                  <asp:Label ID="Label1" runat = "server" Text="Logged as " 
+                       meta:resourcekey="Label1Resource1"></asp:Label>
+                  <asp:LoginName ID="LoginName1" runat="server" 
+                       meta:resourcekey="LoginName1Resource1" />
+              <asp:HyperLink ID="HyperLink1" runat="server" 
+                       NavigateUrl="~/LoggedIn/Personalization.aspx" 
+                      meta:resourcekey="HyperLink1Resource1" Text="Preferences"></asp:HyperLink>
              <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Logout.aspx" 
               meta:resourcekey="HyperLink2Resource1" Text="Logout"></asp:HyperLink>                                  
               </LoggedInTemplate>
           </asp:LoginView>
           <asp:ScriptManager ID="ScriptManager1" runat="server">
           </asp:ScriptManager>
+          <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="Rates" 
+              OrderBy="Code" Select="new (Code, Description)" TableName="RatesList">
+          </asp:LinqDataSource>
     </div>
     <div>
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">

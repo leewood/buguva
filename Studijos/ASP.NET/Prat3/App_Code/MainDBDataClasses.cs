@@ -136,14 +136,35 @@ public partial class Order
     {
         get
         {
-            switch (Status)
+            switch (Rates.getLang())
             {
-                case 0: return "New";
-                case 1: return "Ordered";
-                case 2: return "Confirmed";
-                case 3: return "Rejected";
-                case 4: return "Done";
-                default: return "";
+                case "en":
+                    {
+                        switch (Status)
+                        {
+                            case 0: return "New";
+                            case 1: return "Ordered";
+                            case 2: return "Confirmed";
+                            case 3: return "Rejected";
+                            case 4: return "Done";
+                            default: return "";
+                        }
+                    } 
+                    break;
+                default:
+                    {
+                        switch (Status)
+                        {
+                            case 0: return "Naujas";
+                            case 1: return "Užsakytas";
+                            case 2: return "Patvirtintas";
+                            case 3: return "Atmestas";
+                            case 4: return "Įvykdytas";
+                            default: return "";
+                        }
+                    }
+                    break;
+
             }
         }
     }
