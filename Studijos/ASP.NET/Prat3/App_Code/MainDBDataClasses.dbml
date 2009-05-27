@@ -1,13 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="Prat2" Class="MainDBDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=KUOSIS;Initial Catalog=Prat2;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Prat2ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Categories" Member="Categories">
-    <Type Name="Category">
-      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Association Name="Category_New" Member="News" ThisKey="Name" OtherKey="Category" Type="New" />
-    </Type>
-  </Table>
   <Table Name="dbo.Comments" Member="Comments">
     <Type Name="Comment">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -28,7 +21,7 @@
       <Column Name="Creator" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
       <Column Name="Category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="New_Comment" Member="Comments" ThisKey="id" OtherKey="NewID" Type="Comment" />
-      <Association Name="Category_New" Member="Category1" ThisKey="Category" OtherKey="Name" Type="Category" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Category_New" Member="Category1" ThisKey="Category" OtherKey="Name" Type="Category" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.UserConfigs" Member="UserConfigs">
@@ -48,6 +41,7 @@
       <Column Name="Picture" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="Product_OrderLine" Member="OrderLines" ThisKey="id" OtherKey="ProductID" Type="OrderLine" />
+      <Association Name="Category_Product" Member="Category1" ThisKey="Category" OtherKey="Name" Type="Category" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
   <Table Name="dbo.[Order]" Member="Orders">
@@ -79,6 +73,14 @@
       <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="EMail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Categories" Member="Categories">
+    <Type Name="Category">
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Category_New" Member="News" ThisKey="Name" OtherKey="Category" Type="New" />
+      <Association Name="Category_Product" Member="Products" ThisKey="Name" OtherKey="Category" Type="Product" />
     </Type>
   </Table>
 </Database>

@@ -162,4 +162,22 @@
   <data name="MenuItemResource3.Value" xml:space="preserve">
     <value>Back to Public zone</value>
   </data>
+  <data name="MenuItemResource4.Text" xml:space="preserve">
+    <value>All orders</value>
+  </data>
+  <data name="MenuItemResource4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MenuItemResource4.Value" xml:space="preserve">
+    <value>All orders</value>
+  </data>
+  <data name="MenuItemResource5.Text" xml:space="preserve">
+    <value>New product</value>
+  </data>
+  <data name="MenuItemResource5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MenuItemResource5.Value" xml:space="preserve">
+    <value>New product</value>
+  </data>
 </root>

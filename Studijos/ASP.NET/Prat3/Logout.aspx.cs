@@ -16,6 +16,7 @@ public partial class Logout : ExtendedPage
     protected void Page_Load(object sender, EventArgs e)
     {
         Session["Theme"] = null;
+        Backet.CurrentBacket.Clear();
         if (Page.User.Identity.IsAuthenticated)
         {
             FormsAuthentication.SignOut();   

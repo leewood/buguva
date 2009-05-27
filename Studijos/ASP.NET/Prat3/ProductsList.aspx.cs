@@ -98,20 +98,20 @@ public partial class ProductsList : ExtendedPage
         LinqDataSource1.DataBind();
         ListView1.DataBind();
         //this.DataBind();
-
+        this.Response.Redirect(String.Format("~/ProductsList.aspx?category={1}", id, Request.Params["category"]));
     }
 
     protected void EditButtonClick(object sender, EventArgs e)
     {
         int id = int.Parse(((ImageButton)sender).CommandArgument.ToString());
-        this.Response.Redirect(String.Format("~/LoggedIn/AdminZone/EditProduct.aspx?id={0}", id));
+        this.Response.Redirect(String.Format("~/LoggedIn/AdminZone/EditProduct.aspx?id={0}&category={1}", id, Request.Params["category"]));
 
     }
 
     protected void NewButtonClick(object sender, EventArgs e)
     {
         int id = int.Parse(((ImageButton)sender).CommandArgument.ToString());
-        this.Response.Redirect("~/LoggedIn/AdminZone/NewProduct.aspx");
+        this.Response.Redirect("~/LoggedIn/AdminZone/NewProduct.aspx?category=" + Request.Params["category"]);
 
     }
 

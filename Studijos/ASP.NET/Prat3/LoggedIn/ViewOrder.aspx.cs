@@ -47,4 +47,13 @@ public partial class LoggedIn_ViewOrder : ExtendedPage
         }
         
     }
+    protected void PersonLabel_DataBinding(object sender, EventArgs e)
+    {
+        Control cnt = FormView1.FindControl("UserView1");
+        if (cnt != null)
+        {
+            UserView view = (UserView)cnt;
+            view.ViewUserName = DataBinder.Eval(FormView1.DataItem, "Person").ToString();
+        }
+    }
 }

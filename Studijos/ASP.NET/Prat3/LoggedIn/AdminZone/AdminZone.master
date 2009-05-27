@@ -22,8 +22,13 @@
             Value="Manage Categories" meta:resourcekey="MenuItemResource1"></asp:MenuItem>
         <asp:MenuItem NavigateUrl="ManageNews.aspx" Text="Manage News" 
             Value="Manage News" meta:resourcekey="MenuItemResource2"></asp:MenuItem>
-        <asp:MenuItem NavigateUrl="~/PublicNews.aspx" Text="Back to Public zone" 
+        <asp:MenuItem NavigateUrl="~/LoggedIn/OrdersList.aspx?mode=all" Text="All orders" 
+            Value="All orders" meta:resourcekey="MenuItemResource4"></asp:MenuItem>
+        <asp:MenuItem NavigateUrl="~/LoggedIn/AdminZone/NewProduct.aspx" Text="New product" 
+            Value="New product" meta:resourcekey="MenuItemResource5"></asp:MenuItem>            
+        <asp:MenuItem NavigateUrl="~/ProductsList.aspx" Text="Back to Public zone" 
             Value="Back to Public zone" meta:resourcekey="MenuItemResource3"></asp:MenuItem>
+            
     </Items>
     </asp:Menu>
     </div>

@@ -18,7 +18,7 @@
     <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" 
         DataSourceID="LinqDataSource1" DefaultMode="Edit" 
         onitemupdated="FormView1_ItemUpdated" 
-        meta:resourcekey="FormView1Resource1">
+    meta:resourcekey="FormView1Resource1">
         <EditItemTemplate>
            <div class="toolbar">
               <div class="extButton">

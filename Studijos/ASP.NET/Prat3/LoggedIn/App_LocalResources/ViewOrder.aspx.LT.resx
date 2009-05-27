@@ -117,40 +117,145 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HyperLink5Resource1.Text" xml:space="preserve">
-    <value>Grižti į pagrindinį puslapį</value>
+  <data name="Button1Resource1.Text" xml:space="preserve">
+    <value>Patvirtinti</value>
   </data>
-  <data name="HyperLink5Resource1.ToolTip" xml:space="preserve">
+  <data name="Button1Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="Menu1Resource1.ScrollDownText" xml:space="preserve">
-    <value>Slinkti žemyn</value>
+  <data name="Button2Resource2.Text" xml:space="preserve">
+    <value>Grįžti</value>
   </data>
-  <data name="Menu1Resource1.ScrollUpText" xml:space="preserve">
-    <value>Slinkti aukštyn</value>
-  </data>
-  <data name="Menu1Resource1.SkipLinkText" xml:space="preserve">
-    <value>Praleisti navigacijos nuorodas</value>
-  </data>
-  <data name="Menu1Resource1.ToolTip" xml:space="preserve">
+  <data name="Button2Resource2.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="MenuItemResource1.Text" xml:space="preserve">
-    <value>Keisti slaptažodį</value>
+  <data name="Button3Resource1.Text" xml:space="preserve">
+    <value>Atmesti</value>
   </data>
-  <data name="MenuItemResource1.ToolTip" xml:space="preserve">
+  <data name="Button3Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="MenuItemResource1.Value" xml:space="preserve">
-    <value>Keisti slaptažodį</value>
-  </data>
-  <data name="MenuItemResource2.Text" xml:space="preserve">
-    <value>Pritaikymas sau</value>
-  </data>
-  <data name="MenuItemResource2.ToolTip" xml:space="preserve">
+  <data name="ConfirmDateLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="MenuItemResource2.Value" xml:space="preserve">
-    <value>Pritaikymas sau</value>
+  <data name="ConfirmImgResource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmImgResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CountLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DescriptionLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.Caption" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.EmptyDataText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.FooterText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.HeaderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormView1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageButton1Resource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageButton1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageButton2Resource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageButton2Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Item1LiteralResource1.Text" xml:space="preserve">
+    <value>Produkto pavadinimas:</value>
+  </data>
+  <data name="Label1Resource2.Text" xml:space="preserve">
+    <value>Asmuo:</value>
+  </data>
+  <data name="Label1Resource2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label2Resource1.Text" xml:space="preserve">
+    <value>Užsakymo data:</value>
+  </data>
+  <data name="Label2Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label3Resource1.Text" xml:space="preserve">
+    <value>Patvirtinimo data:</value>
+  </data>
+  <data name="Label3Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label4Resource1.Text" xml:space="preserve">
+    <value>Aprašas:</value>
+  </data>
+  <data name="Label4Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label5Resource1.Text" xml:space="preserve">
+    <value>Užsakyti produktai:</value>
+  </data>
+  <data name="Label5Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label6Resource1.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="Label6Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Literal1Resource1.Text" xml:space="preserve">
+    <value>Produkto kaina:</value>
+  </data>
+  <data name="Literal2Resource1.Text" xml:space="preserve">
+    <value>Kiekis:</value>
+  </data>
+  <data name="LLabel1Resource1.Text" xml:space="preserve">
+    <value>Būsena:</value>
+  </data>
+  <data name="LLabel1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoDataLabelResource1.Text" xml:space="preserve">
+    <value>Nėra jokių produktų užsakyme</value>
+  </data>
+  <data name="NoDataLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderDateLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PageResource1.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PersonLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductNameLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductPriceLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SepLabel1Resource1.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="SepLabel1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StatusLabelResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

@@ -72,6 +72,15 @@ public partial class OrderLine
             }
         }
     }
+
+    public decimal ActivePrice
+    {
+        get
+        {
+            return Rates.PriceInCurrency(ProductPrice, "LTL", Backet.MyActiveCurrency);
+        }
+    }
+
 }
 
 [IgnoreProperties(new string[] { "NewsCount", "Title" })]

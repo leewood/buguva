@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/LoggedIn/PreferencesMaster.master" AutoEventWireup="true" CodeFile="Personalization.aspx.cs" Inherits="LoggedIn_Personalization" Title="Personalization" Theme="Default" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/LoggedIn/PreferencesMaster.master" AutoEventWireup="true" CodeFile="Personalization.aspx.cs" Inherits="LoggedIn_Personalization" Title="Personalization" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="PrefPlaceHolder" Runat="Server">
 <h3><asp:Literal ID="headerLabel" runat="server" 
