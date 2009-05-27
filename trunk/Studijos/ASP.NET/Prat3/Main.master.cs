@@ -13,9 +13,24 @@ using System.Xml.Linq;
 
 public partial class Main : System.Web.UI.MasterPage
 {
+    public Main()
+    {
+        this.PreRender += new EventHandler(Main_PreRender);
+    }
+
+    void Main_PreRender(object sender, EventArgs e)
+    {  
+            DropDownList1.SelectedValue = Backet.MyActiveCurrency;        
+    }
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+    }
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string s = DropDownList1.SelectedValue;
+        Backet.MyActiveCurrency = s;
+        this.DataBind();
     }
 }

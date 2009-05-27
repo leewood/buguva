@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NewsCategories.master" AutoEventWireup="true" CodeFile="OrdersList.aspx.cs" Inherits="LoggedIn_OrdersList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NewsCategories.master" AutoEventWireup="true" CodeFile="OrdersList.aspx.cs" Inherits="LoggedIn_OrdersList" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="NewsContentHolder" Runat="Server">
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
@@ -11,29 +11,39 @@
         <ItemTemplate>
             <tr class="simpleRow" style="margin:0px;">
                 <td>
-                    <asp:Label ID="idLabel" runat="server" Text='<%# Eval("id") %>' />
+                    <asp:Label ID="idLabel" runat="server" Text='<%# Eval("id") %>' 
+                        meta:resourcekey="idLabelResource1" />
                 </td>            
                 <td>
-                   <asp:Label ID="Label2" runat="server" Text='<%# Eval("Person") %>' />
+                   <asp:Label ID="Label2" runat="server" Text='<%# Eval("Person") %>' 
+                        meta:resourcekey="Label2Resource1" />
                 </td>
                 <td>
-                  <asp:Label ID="StatusStringLabel" runat="server" Text='<%# Eval("StatusString") %>' />
+                  <asp:Label ID="StatusStringLabel" runat="server" 
+                        Text='<%# Eval("StatusString") %>' 
+                        meta:resourcekey="StatusStringLabelResource1" />
                 </td>
                 <td>
-                    <asp:Label ID="OrderDateLabel" runat="server" Text='<%# Eval("OrderDate") %>' />
+                    <asp:Label ID="OrderDateLabel" runat="server" Text='<%# Eval("OrderDate") %>' 
+                        meta:resourcekey="OrderDateLabelResource1" />
                 </td>
                 <td>
-                    <asp:Label ID="ConfirmDateLabel" runat="server" Text='<%# Eval("ConfirmDate") %>' />
+                    <asp:Label ID="ConfirmDateLabel" runat="server" 
+                        Text='<%# Eval("ConfirmDate") %>' 
+                        meta:resourcekey="ConfirmDateLabelResource1" />
                 </td>
                 <td>
-                    <asp:ImageButton ID="EditButton" runat="server" CommandName="Preview" CssClass="imageButton" SkinID="EditImageButton" CommandArgument='<%# Eval("id") %>' OnClick="PreviewButtonClick"/>                                        
+                    <asp:ImageButton ID="EditButton" runat="server" CommandName="Preview" 
+                        CssClass="imageButton" SkinID="EditImageButton" 
+                        CommandArgument='<%# Eval("id") %>' OnClick="PreviewButtonClick" 
+                        meta:resourcekey="EditButtonResource1"/>                                        
                 </td>                  
             </tr>
         </ItemTemplate>        
         <EmptyDataTemplate>
             <table runat="server" style="">
-                <tr>
-                    <td><asp:Label Text="No data was returned." runat="server" ID="NoDataLabel"></asp:Label></td>
+                <tr runat="server">
+                    <td runat="server"><asp:Label Text="No data was returned." runat="server" ID="NoDataLabel" meta:resourcekey="NoData"></asp:Label></td>
                 </tr>
             </table>
         </EmptyDataTemplate>        
@@ -41,17 +51,17 @@
                         <table ID="itemPlaceholderContainer" runat="server" border="0" cellspacing="0" cellpadding="0" style="width:80%">
                             <tr runat="server" class="header">
                                 <th runat="server">
-                                    <asp:Label  runat="server" ID="HeaderLabel1" Text="id" /></th>
+                                    <asp:Label  runat="server" ID="HeaderLabel1" Text="id" meta:resourcekey="Header1"/></th>
                                 <th id="Th2" runat="server">
-                                    <asp:Label Text="Person" runat="server" ID="Label3" /></th>                                    
+                                    <asp:Label Text="Person" runat="server" ID="Label3" meta:resourcekey="Header2" /></th>                                    
                                 <th id="Th1" runat="server">
-                                    <asp:Label Text="Status" runat="server" ID="HeaderLabel2" /></th>                                    
+                                    <asp:Label Text="Status" runat="server" ID="HeaderLabel2" meta:resourcekey="Header3" /></th>                                    
                                 <th runat="server">
-                                    <asp:Label Text="Order Date" runat="server" ID="HeaderLabel3" /></th>
+                                    <asp:Label Text="Order Date" runat="server" ID="HeaderLabel3" meta:resourcekey="Header4" /></th>
                                 <th runat="server">
-                                    <asp:Label Text="Confirm Date" runat="server" ID="HeaderLabel4" /></th>
+                                    <asp:Label Text="Confirm Date" runat="server" ID="HeaderLabel4" meta:resourcekey="Header5" /></th>
                                 <th runat="server">
-                                    <asp:Label Text="Actions" runat="server" ID="Label1" /></th>                          
+                                    <asp:Label Text="Actions" runat="server" ID="Label1" meta:resourcekey="Header6" /></th>                          
                             </tr>
                             <tr ID="itemPlaceholder" runat="server">
                             </tr>

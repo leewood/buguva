@@ -15,6 +15,21 @@ public class BacketLine
         set;
     }
 
+    public int ProductID
+    {
+        get
+        {
+            if (Product != null)
+            {
+                return Product.id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+
     public decimal Price
     {
         get
@@ -22,6 +37,23 @@ public class BacketLine
             return OnePrice * Count;
         }
         
+    }
+
+    public int PriceCents
+    {
+        get
+        {
+            
+            return ((int)(Price * 100)) % 100;
+        }
+    }
+
+    public int PriceLits
+    {
+        get
+        {
+            return ((int)(Price * 100)) / 100; 
+        }
     }
 
     public String Name
@@ -102,7 +134,7 @@ public class Backet
             var d = (from h in OrderLines select new BacketLine() { Product = h.Product, Count = h.Count ?? 0, OnePrice = Rates.PriceInCurrency(h.ProductPrice, "LTL", MyActiveCurrency), Name = h.ProductName }).ToList();
             for (int i = 0; i < d.Count; i++)
             {
-                d[i].RowIndex = 0;
+                d[i].RowIndex = i;
             }
             return d;
         }
@@ -114,6 +146,10 @@ public class Backet
         {
             return CurrentBacket.Currency;
         }
+        set
+        {
+            CurrentBacket.Currency = value;
+        }
     }
 
     public static decimal Total
@@ -121,6 +157,22 @@ public class Backet
         get
         {
             return BacketLines.Sum(d => d.Price);
+        }
+    }
+
+    public static int TotalCents
+    {
+        get
+        {
+            return ((int)(Total * 100)) % 100;
+        }
+    }
+
+    public static int TotalLits
+    {
+        get
+        {
+            return ((int)(Total * 100)) / 100;
         }
     }
 
@@ -145,7 +197,16 @@ public class Backet
         {
             TempOrder.OrderLines = new System.Data.Linq.EntitySet<OrderLine>();
         }
-        TempOrder.OrderLines.Add(line);        
+        var h = (from i in TempOrder.OrderLines where i.ProductID == id select i).ToList();
+
+        if (h.Count > 0)
+        {
+            h[0].Count++;
+        }
+        else
+        {
+            TempOrder.OrderLines.Add(line);
+        }
     }
 
     public void RemoveLine(int lineNo)

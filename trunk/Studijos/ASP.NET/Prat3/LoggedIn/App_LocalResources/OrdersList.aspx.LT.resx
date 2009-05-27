@@ -117,49 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HyperLink1Resource1.Text" xml:space="preserve">
-    <value>Nuostatos</value>
-  </data>
-  <data name="HyperLink1Resource1.ToolTip" xml:space="preserve">
+  <data name="ConfirmDateLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink2Resource1.Text" xml:space="preserve">
-    <value>Atsijungti</value>
-  </data>
-  <data name="HyperLink2Resource1.ToolTip" xml:space="preserve">
+  <data name="EditButtonResource1.AlternateText" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink3Resource1.Text" xml:space="preserve">
-    <value>Prisijungti</value>
-  </data>
-  <data name="HyperLink3Resource1.ToolTip" xml:space="preserve">
+  <data name="EditButtonResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink4Resource1.Text" xml:space="preserve">
-    <value>Admino zona</value>
-  </data>
-  <data name="HyperLink4Resource1.ToolTip" xml:space="preserve">
+  <data name="idLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="Label1Resource1.Text" xml:space="preserve">
-    <value>Prisijungta kaip </value>
-  </data>
-  <data name="Label1Resource1.ToolTip" xml:space="preserve">
+  <data name="Label2Resource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="Label2Resource1.Text" xml:space="preserve">
-    <value>Naudojama valiuta:</value>
-  </data>
-  <data name="LoginName1LabelResource1.Text" xml:space="preserve">
-    <value>Neprisijungta</value>
-  </data>
-  <data name="LoginName1LabelResource1.ToolTip" xml:space="preserve">
-    <value> </value>
-  </data>
-  <data name="LoginName1Resource1.FormatString" xml:space="preserve">
-    <value>{0}</value>
-  </data>
-  <data name="LoginName1Resource1.ToolTip" xml:space="preserve">
+  <data name="OrderDateLabelResource1.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="PageResource1.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StatusStringLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Header1.Text" xml:space="preserve">
+    <value>id</value>
+  </data>
+  <data name="Header2.Text" xml:space="preserve">
+    <value>Asmuo</value>
+  </data>
+  <data name="Header3.Text" xml:space="preserve">
+    <value>Būsena</value>
+  </data>
+  <data name="Header4.Text" xml:space="preserve">
+    <value>Užsakymo data</value>
+  </data>
+  <data name="Header5.Text" xml:space="preserve">
+    <value>Patvirtinimo data</value>
+  </data>
+  <data name="Header6.Text" xml:space="preserve">
+    <value>Veiksmai</value>
+  </data>
+  <data name="NoData.Text" xml:space="preserve">
+    <value>Jokių užsakymų nėra</value>
   </data>
 </root>

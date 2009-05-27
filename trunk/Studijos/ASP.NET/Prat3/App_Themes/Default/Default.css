@@ -790,3 +790,140 @@ background-color: #F3F3F3;
     font-weight: bolder;
     font-size: larger;
 }
+
+.tablePicture
+{
+    max-width: 100px;    
+    max-height: 100px;
+}
+
+.catalog_basket_block
+{
+background:#F9F8F8 none repeat scroll 0 0;
+border-bottom:2px solid #EDEDEE;
+clear:both;
+margin-left: 20px;
+margin-right: 10px;
+margin-bottom:3px;
+position:relative;
+width:auto;
+}
+
+.catalog_basket_block h2.full_basket_icon
+{
+    background-position: 0;
+    background: #4B4A51 url(Images/h2-block-right-basket-a.gif) no-repeat scroll 0 0;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size:smaller;
+    margin-top: 10px;
+    padding-left: 35px;
+}
+
+.catalog_basket_block h2.empty_basket_icon
+{
+    background-position: 0;
+    background: #4B4A51 url(Images/h2-block-right-basket.gif) no-repeat scroll 0 0;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size:smaller;
+    margin-top: 10px;
+    padding-left: 35px;
+}
+
+
+.catalog_basket_block p
+{
+    color: #000000;
+    font-size: 0.9em;
+    margin: 0;
+    margin-left: 0px;
+    padding: 7px 40px 7px 10px;
+}
+
+h2 
+{
+border-bottom:2px solid #C0BEC0;
+color:#FFFFFF;
+font-size:1em;
+padding:7px 12px;
+}
+
+
+h1, h2, h3, h4, h5, h6, form, dl, ul 
+{
+margin:0;
+}
+
+.catalog_basket_block dl
+{
+background:#F1F0F0 none repeat scroll 0 0;
+border-bottom:1px solid #E7E5E5;
+font-size:0.9em;
+line-height:15px;
+padding:10px;
+margin-left: 0px;
+position:relative;
+width:130px;
+}
+
+.catalog_basket_block dt a
+{
+color:#000000;
+text-decoration:none;
+}
+
+.catalog_basket_block dd
+{
+color:#838387;
+margin:0;
+}
+
+.price_cents 
+{
+font-size:0.75em;
+font-weight:normal;
+vertical-align:super;
+}
+
+.catalog_basket_block ul 
+{
+background:#E7E5E5 none repeat scroll 0 0;
+border-bottom:1px solid #C2C2C2;
+border-top:1px solid #E0DEDE;
+font-size:0.9em;
+font-weight:bold;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+padding:4px 0;
+width:150px;
+margin-left: 0px;
+}
+
+.catalog_basket_block li
+{
+display:block;
+}
+
+.catalog_basket_block li a
+{
+color:#1396C7;
+display:block;
+padding:1px 10px;
+text-decoration:none;
+}
+
+.catalog_basket_block li span
+{
+color:#1396C7;
+display:block;
+padding:1px 10px;
+text-decoration:none;
+}
+
+.currencyChoose
+{
+    float: left;
+    display: inline;
+}

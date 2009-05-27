@@ -23,10 +23,10 @@ public partial class NewsCategories : System.Web.UI.MasterPage
     {
 
             MainDBDataClassesDataContext context = new MainDBDataClassesDataContext();
-            var dataSource = (from a in context.Categories select new MenuItem() { Text = a.Title, NavigateUrl = "~/PublicNews.aspx?category=" + a.Name }).ToList();
+            var dataSource = (from a in context.Categories select new MenuItem() { Text = a.Name, NavigateUrl = "~/ProductsList.aspx?category=" + a.Name }).ToList();
             this.Menu1.Items.Clear();
             string allText = GetLocalResourceObject("All").ToString();
-            dataSource.Add(new MenuItem() { Text = allText, NavigateUrl = "~/PublicNews.aspx" });
+            dataSource.Add(new MenuItem() { Text = allText, NavigateUrl = "~/ProductsList.aspx" });
             foreach (MenuItem item in dataSource)
             {
                 Menu1.Items.Add(item);

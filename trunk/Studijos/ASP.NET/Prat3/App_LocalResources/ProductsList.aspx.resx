@@ -117,49 +117,127 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HyperLink1Resource1.Text" xml:space="preserve">
-    <value>Nuostatos</value>
-  </data>
-  <data name="HyperLink1Resource1.ToolTip" xml:space="preserve">
+  <data name="CategoryLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink2Resource1.Text" xml:space="preserve">
-    <value>Atsijungti</value>
-  </data>
-  <data name="HyperLink2Resource1.ToolTip" xml:space="preserve">
+  <data name="CurrencyLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink3Resource1.Text" xml:space="preserve">
-    <value>Prisijungti</value>
+  <data name="DateFilterButtonResource1.Text" xml:space="preserve">
+    <value>Update list</value>
   </data>
-  <data name="HyperLink3Resource1.ToolTip" xml:space="preserve">
+  <data name="DateFilterButtonResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="HyperLink4Resource1.Text" xml:space="preserve">
-    <value>Admino zona</value>
-  </data>
-  <data name="HyperLink4Resource1.ToolTip" xml:space="preserve">
+  <data name="DeleteButtonResource1.AlternateText" xml:space="preserve">
     <value />
   </data>
-  <data name="Label1Resource1.Text" xml:space="preserve">
-    <value>Prisijungta kaip </value>
+  <data name="DeleteButtonResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="Label1Resource1.ToolTip" xml:space="preserve">
+  <data name="EditButtonResource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditButtonResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditButtonResource2.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditButtonResource2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Header1.Text" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="Header2.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Header3.Text" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Header4.Text" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Header5.Text" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="HighPriceResource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HighPriceResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageButton1Resource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageButton1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InsertButtonResource1.Text" xml:space="preserve">
+    <value>Insert</value>
+  </data>
+  <data name="InsertButtonResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="Label2Resource1.Text" xml:space="preserve">
-    <value>Naudojama valiuta:</value>
+    <value>Name:</value>
   </data>
-  <data name="LoginName1LabelResource1.Text" xml:space="preserve">
-    <value>Neprisijungta</value>
+  <data name="Label2Resource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="LoginName1LabelResource1.ToolTip" xml:space="preserve">
-    <value> </value>
+  <data name="Label3Resource1.Text" xml:space="preserve">
+    <value>Price between:</value>
   </data>
-  <data name="LoginName1Resource1.FormatString" xml:space="preserve">
-    <value>{0}</value>
+  <data name="Label3Resource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="LoginName1Resource1.ToolTip" xml:space="preserve">
+  <data name="Label4Resource1.Text" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="Label4Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label5Resource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label5Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LowPriceResource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LowPriceResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameTextBoxResource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameTextBoxResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoData.Text" xml:space="preserve">
+    <value>No data was returned.</value>
+  </data>
+  <data name="PageResource1.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Panel1Resource1.GroupingText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Panel1Resource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductImageResource1.AlternateText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductImageResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
 </root>
