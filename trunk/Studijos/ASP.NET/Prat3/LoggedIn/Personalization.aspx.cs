@@ -36,7 +36,10 @@ public partial class LoggedIn_Personalization : ExtendedPage
 
     void LoggedIn_Personalization_PreRender(object sender, EventArgs e)
     {
-        DropDownList1.SelectedValue = Session["Theme"].ToString();
+        if (Session["Theme"] != null)
+        {
+            DropDownList1.SelectedValue = Session["Theme"].ToString();
+        }
     }
 
 
