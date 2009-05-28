@@ -158,8 +158,7 @@ public partial class Order
                             case 4: return "Done";
                             default: return "";
                         }
-                    } 
-                    break;
+                    }                     
                 default:
                     {
                         switch (Status)
@@ -171,9 +170,7 @@ public partial class Order
                             case 4: return "Įvykdytas";
                             default: return "";
                         }
-                    }
-                    break;
-
+                    }                    
             }
         }
     }
