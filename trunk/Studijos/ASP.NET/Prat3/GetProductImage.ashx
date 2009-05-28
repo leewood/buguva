@@ -30,7 +30,7 @@ public class GetProductImage : IHttpHandler {
     public System.IO.Stream ShowAlbumImage(int picid)
     {
         MainDBDataClassesDataContext context = new MainDBDataClassesDataContext();
-        var d = (from g in context.Products where g.id == picid select g.Picture).First();        
+        var d = (from g in context.Products where g.id == picid select g.Picture).First();    
         try
         {
             return new System.IO.MemoryStream(d.ToArray());
