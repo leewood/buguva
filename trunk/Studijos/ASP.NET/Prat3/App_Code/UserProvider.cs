@@ -57,7 +57,7 @@ public class UserProvider
                         info.Name = item2[0].Name;
                         info.Surname = item2[0].Surname;
                     }
-                    result.Add(info);
+                    result.Add(info);                    
                 }
             }
             catch (Exception)

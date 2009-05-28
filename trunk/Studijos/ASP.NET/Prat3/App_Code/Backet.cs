@@ -233,12 +233,22 @@ public class Backet
 
     public void OrderIt(string description, string userName)
     {
-        TempOrder.OrderDate = DateTime.Now;
-        TempOrder.Status = 1;
-        TempOrder.Person = userName;
-        TempOrder.Description = description;
+        Order TempOrder2 = new Order();
+        TempOrder2.OrderDate = DateTime.Now;
+        TempOrder2.Status = 1;
+        TempOrder2.Person = HttpContext.Current.User.Identity.Name;
+        TempOrder2.Description = description;
+        TempOrder2.OrderLines = new System.Data.Linq.EntitySet<OrderLine>();
         MainDBDataClassesDataContext context = new MainDBDataClassesDataContext();
-        context.Orders.InsertOnSubmit(TempOrder);
+
+        foreach (OrderLine line in TempOrder.OrderLines)
+        {
+            int id = line.ProductID.Value;
+            OrderLine line2 = new OrderLine() { Count = line.Count, ProductID = line.ProductID, Product = (from d in context.Products where d.id == id select d).First() };
+            TempOrder2.OrderLines.Add(line2);
+        }
+
+        context.Orders.InsertOnSubmit(TempOrder2);
         context.SubmitChanges();
         _tempOrder = null;
     }
@@ -247,12 +257,22 @@ public class Backet
     {
         if (HttpContext.Current.User.Identity.IsAuthenticated)
         {
-            TempOrder.OrderDate = DateTime.Now;
-            TempOrder.Status = 1;
-            TempOrder.Person = HttpContext.Current.User.Identity.Name;
-            TempOrder.Description = description;
+            Order TempOrder2 = new Order();            
+            TempOrder2.OrderDate = DateTime.Now;
+            TempOrder2.Status = 1;
+            TempOrder2.Person = HttpContext.Current.User.Identity.Name;
+            TempOrder2.Description = description;
+            TempOrder2.OrderLines = new System.Data.Linq.EntitySet<OrderLine>();
             MainDBDataClassesDataContext context = new MainDBDataClassesDataContext();
-            context.Orders.InsertOnSubmit(TempOrder);
+            
+            foreach (OrderLine line in TempOrder.OrderLines)
+            {
+                int id = line.ProductID.Value;           
+                OrderLine line2 = new OrderLine() { Count = line.Count, ProductID = line.ProductID, Product = (from d in context.Products where d.id == id select d).First() };
+                TempOrder2.OrderLines.Add(line2);
+            }
+            
+            context.Orders.InsertOnSubmit(TempOrder2);
             context.SubmitChanges();
             _tempOrder = null;
         }

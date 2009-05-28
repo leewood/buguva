@@ -73,7 +73,7 @@
                </asp:Panel>
                <cc1:CollapsiblePanelExtender ID="Panel1_CollapsiblePanelExtender" 
                    runat="server" CollapseControlID="PersonLabel" Collapsed="True" Enabled="True" 
-                   ExpandControlID="PersonLabel" SuppressPostBack="True" TargetControlID="Panel1">
+                   ExpandControlID="PersonLabel" SuppressPostBack="True" TargetControlID="Panel1" ExpandedSize="400" ScrollContents="True">
                </cc1:CollapsiblePanelExtender>
             <label class="separator"></label>
             <asp:Label runat="server" ID="Label2" Text="Order date:" class="title" 
