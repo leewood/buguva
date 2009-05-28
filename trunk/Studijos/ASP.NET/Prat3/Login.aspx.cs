@@ -15,6 +15,10 @@ public partial class Login : ExtendedPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Backet.CurrentBacket != null)
+        {
+            Backet.CurrentBacket.Clear();
+        }
 
     }
     protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
