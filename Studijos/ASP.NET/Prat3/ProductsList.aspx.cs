@@ -110,7 +110,7 @@ public partial class ProductsList : ExtendedPage
 
     protected void NewButtonClick(object sender, EventArgs e)
     {
-        int id = int.Parse(((ImageButton)sender).CommandArgument.ToString());
+        
         this.Response.Redirect("~/LoggedIn/AdminZone/NewProduct.aspx?category=" + Request.Params["category"]);
 
     }
