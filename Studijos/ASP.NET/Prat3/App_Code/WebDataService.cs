@@ -21,6 +21,7 @@ public class WebDataService : DataService<ServiceModel.Entities>
         // Examples:
         //config.SetEntitySetAccessRule("*", EntitySetRights.All);
         config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
+        config.SetEntitySetAccessRule("*", EntitySetRights.All);
         config.SetEntitySetAccessRule("Product", EntitySetRights.AllRead);
         
         config.SetEntitySetAccessRule("Categories", EntitySetRights.AllRead);
