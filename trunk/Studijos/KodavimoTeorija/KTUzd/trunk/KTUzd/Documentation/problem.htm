@@ -1,0 +1,180 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="lt">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1257">
+<title>Užduotys</title>
+</head>
+
+<body>
+
+<h3 align="center">Užduotys B</h3>
+<h4> Programa programuotojo požiūriu</h4>
+<p>Programuotojo požiūriu turėtų būti realizuoti tokie moduliai (klasės):</p>
+<ol>
+  <li>(Jei q nėra pirminis) Baigtinis kūnas F<sub>q</sub>,
+    veiksmai su jo elementais: sudėtis, daugyba ir t.t.</li>
+  <li>(Jei reikia) Veiksmai su matricomis, sudarytomis iš baigtinio kūno F<sub>q</sub> 
+    elementų.</li>
+  <li>(Jei reikia) Veiksmai su polinomais virš baigtinio kūno F<sub>q</sub>.</li>
+	<li>Duotos užduoties realizacija.</li>
+</ol>
+<h4>Užduotys</h4>
+<p>Pateikiame uždavinių sąrašą. Stulpelyje &quot;Pastabos&quot; pateikiame numerius 
+pastabų, į kurias reikia atsižvelgti. Pačios pastabos pateiktos po lentele. 
+Stulpelyje &quot;Parametrai&quot; pateikti parametrai, kuriuos programa turi leisti 
+nurodyti vartotojui.</p>
+<table border="1">
+  <tr>
+    <td><b>Užd. nr.</b></td>
+    <td><b>Kūnas F<sub>q</sub></b></td>
+    <td><b>Užduotis</b></td>
+    <td><b>Parametrai</b></td>
+    <td><b>Literatūra</b></td>
+    <td><b>Pastabos</b></td>
+  </tr>
+  <tr>
+    <td>B1</td>
+    <td>q = p<sup>m</sup>, p -
+pirminis, m&gt;=1</td>
+    <td>
+<p>Duotas tiesinis kodas C[n,k] virš F<sub>q</sub>. Apskaičiuoti jo svorių
+skirstinį:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a)&nbsp;&nbsp; tiesioginio
+perrinkimo būdu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b)&nbsp;&nbsp; apskaičiuoti
+dualaus kodo svorių skirstinį tiesioginio perrinkimo būdu ir panaudoti MacWilliams tapatybę.</p>
+<p>Kuriuo būdu programa turi skaičiuoti, pasirenka vartotojas.</p>
+    </td>
+    <td>q, n, k, G, skaičiavimo būdas</td>
+    <td>[Sta02, §2.5, p. 16–18] arba [Sta07, §9.9]</td>
+    <td>3, 4, 6, 8, 9</td>
+  </tr>
+  <tr>
+    <td>B2</td>
+    <td>q = p<sup>m</sup>, p -
+pirminis, m&gt;=1</td>
+    <td>
+<p>Egzistuoja abipusis ryšys tarp ilgio n
+ciklinių kodų virš baigtinio kūno F<sub>q</sub> ir polinomo x<sup>n</sup>-1
+virš F<sub>q</sub> daliklių. Todėl, norint rasti visus ciklinius kodus, svarbu 
+mokėti faktorizuoti šitą polinomą. Parašyti programą, kuri faktorizuoja x<sup>n</sup>-1 virš F<sub>q</sub> būdu, aprašytu [VO89,
+§5.9, ypač Pvz. 28, p. 191–192].</p>
+    </td>
+    <td>q, n (n &gt;= 1)</td>
+    <td> <a href="../../../doc/ktkt/literatura24.pdf">
+[VO89, §5.8–5.9, p. 181–192]</a></td>
+    <td>3, 5, 6, 7</td>
+  </tr>
+</table>
+<p><i>Pastabos</i></p>
+<ol>
+  <li>Kūne F<sub>q</sub>, kur
+q – pirminis, skaičiavimai vyksta tiesiog moduliu q.</li>
+  <li>
+    <p align="left">Reikėtų, kad programa veiktų su visais baigtiniais kūnais F<sub>2</sub><sup>m</sup>, kuriems
+    <a href="../../../doc/ktkt/prim_pol.pdf">čia</a>  duoti polinomai.
+    Šiame uždavinyje skaičiavimai vyks virš F<sub>2</sub><sup>m</sup>, todėl reikės prisiminti
+    <a href="../../../doc/ktkt/baigtiniai_kunai.pdf">baigtinių kūnų F<sub>q</sub>
+    sandarą</a>.</li>
+  <li>
+<p> 
+Reikėtų, kad programa veiktų su visais baigtiniais kūnais F<sub>q</sub>, kur
+q –
+pirminis, ir su tais F<sub>q</sub>, kur q =
+p<sup>m</sup>, p – pirminis, m&gt;1, kuriems
+<a href="../../../doc/ktkt/prim_pol.pdf">čia</a> duoti polinomai. Plačiau apie 
+baigtinius kūnus galite pasiskaityti
+<a href="../../../doc/ktkt/baigtiniai_kunai.pdf">čia</a>.</p>
+  </li>
+  <li>
+<p>Jei vartotojas pageidauja,
+jis turi turėti galimybę suvesti generuojančią matricą G pats, priešingu
+atveju programa turi sugeneruoti atsitiktinę generuojančią matricą (pavyzdžiui,
+standartinio pavidalo).</p>
+
+  </li>
+  <li>
+Apie ciklinius kodus plačiau galite pasiskaityti mano konspektuose arba [Sta96, 6 skyrius].</li>
+  <li>
+Apie tiesinius kodus plačiau galite pasiskaityti mano konspektuose arba [Sta02, §1.1 ir §2.1-2.2] 
+(arba [Sta96, §3.2, §4.1, §5.1-5.3]).</li>
+  <li>
+Programos testavimui pateikiame <a href="gen_pol_pvz.htm">ciklinių kodų generuojančių polinomų 
+pavyzdžius</a>.</li>
+	<li>
+<i>Komentaras.</i> Kai <i>k &gt; n/2</i>, tai kodo <i>C</i> dualus kodas (pažymėkime jį 
+<i>C'</i>) yra 
+mažesnis už duotą kodą <i>C</i>, todėl tiesioginio perrinkimo būdu yra lengviau rasti 
+jo svorių skirstinį, negu pradinio kodo <i>C</i> svorių skirstinį. Pavyzdžiui, tarkime, 
+turime dvinarį (<i>q=2</i>) kodą <i>C</i>, kurio ilgis <i>100</i> (<i>n=100</i>), dimensija 
+<i>90</i> (<i>k=90</i>), ir 
+norime rasti jo svorių skirstinį. Jei skaičiuotume kodo <i>C</i> svorių skirstinį 
+tiesioginio perrinkimo būdu, reikėtų sudaryti <i>2<sup>90</sup></i> kodo <i>C</i> žodžių ir 
+išmatuoti jų svorius. O tai su šiuolaikinėmis technologijomis yra <b>neįmanoma</b>. 
+Todėl mes geriau apskaičiuokime dualaus kodo <i>C'</i> svorių skirstinį, o tada, 
+pritaikę MacWilliams tapatybę, nesunkiai gausime pradinio kodo <i>C</i> svorių 
+skirstinį. Dualaus kodo <i>C'</i> ilgis <i>n=100</i>, dimensija <i>k'=n-k=100-90=10</i>, todėl reikės 
+sudaryti tik <i>2<sup>10</sup>=1024</i> žodžius, išmatuoti jų svorius ir gausime 
+dualaus kodo <i>C'</i> svorių skirstinį. Tada sudarome dualaus kodo <i>C'</i> svorių funkciją
+<i>w<sub>C'</sub>(x,y)</i> ir apskaičiuojame pradinio kodo <i>C</i> svorių funkciją
+<i>w<sub>C</sub>(x,y)</i> 
+pagal MacWilliams tapatybę:
+<p align="center"><i>w<sub>C</sub>(x,y) = w<sub>C'</sub> (x+(q-1)y, x-y) / |C'|</i>.</p>
+<p>Gauto daugianario <i>w<sub>C</sub>(x,y)</i> koeficientas prie <i>x<sup>n-i</sup>y<sup>i</sup></i> ir bus kodo 
+<i>C</i> svorių 
+skirstinio elementas <i>A<sub>i</sub></i>, čia <i>i=0,...,n</i>. Gauname pradinio kodo 
+<i>C</i> svorių 
+skirstinį <i>(A_0,A_1,...,A_n)</i>, kurį ir norėjome gauti. Ir kurio tiesioginio 
+perrinkimo būdu gauti šiuo metu yra neįmanoma.</p></li>
+	<li><i>Vertinimas.</i> (Žr. t. p. skyrelį „Vertinimas“ šiame puslapyje) 
+	Klaidas taisantys kodai - 85%:<br>
+	a) 30%: 
+	<ul>
+		<li>kodo žodžių generavimas (pavyzdžiui, generuojant visus galimus pranešimus 
+		ir dauginant juos iš kodo generuojančios matricos, arba skaičiuojant 
+		generuojančios matricos eilučių visas galimas tiesines kombinacijas), </li>
+		<li>jų svorio matavimas. </li>
+	</ul>
+	b) 55%: 
+	<ul>
+		<li>dualaus kodo 
+	generuojančios matricos radimas - 15%, </li>
+		<li>dualaus kodo žodžių generavimas ir jų svorio 
+	matavimas (faktiškai to realizuoti nereikia, reikia pasinaudoti tomis pačiomis funkcijomis, realizuotomis a) punktui),
+		</li>
+		<li>MacWilliams tapatybė (aišku, įskaitant veiksmų su polinomais 
+		realizavimą) - 40%.</li>
+	</ul>
+	</p></li>
+</ol>
+
+    <h4>Vertinimas</h4>
+<p>Pateikiamas vertinimas yra 
+orientacinis ir gali kažkiek keistis. Vertinimą reikėtų interpretuoti taip: jei, 
+pavyzdžiui, kurios nors dalies vertinimas yra 10%, tai už klaidas ar 
+trūkumus toje dalyje galiu atimti iki 10% balų.</p>
+<ul>
+	<li>Klaidas taisantys kodai - 85%,</li>
+	<li>Kita - 15%:<ul>
+		<li>Aprašymas: 10%,</li>
+		<li>Išeities tekstai (komentarai juose, kodo tvarkingumas ir skaitomumas ir t.t.): 10%.</li>
+	</ul>
+	</li>
+</ul>
+
+    <h4>Literatūra </h4>
+<ul>
+	<li>[Sta02] <a href="http://www.mif.vu.lt/matinf/asm/vs/pask/cdth/cdth.htm">V.Stakėnas.
+Kodavimo teorija. Paskaitų kursas, 2002.</a></li>
+	<li>[Sta07] <a href="http://www.mif.vu.lt/lmd/kodai_sifrai.pdf">V. Stakėnas. 
+Kodai ir šifrai. Vilnius, 2007.</a></li>
+	<li>[VO89] S.A.Vanstone, P.C. van Oorschot. An introduction to error correcting
+codes with applications. Kluwer Academic Publishers, Boston, 1989.</li>
+</ul>
+
+</body>
+
+</html>

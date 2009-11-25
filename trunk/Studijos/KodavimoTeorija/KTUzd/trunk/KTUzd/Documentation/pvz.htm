@@ -1,0 +1,709 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1257">
+<title>Generuojančių polinomų pavyzdžiai</title>
+</head>
+
+<body>
+
+<h3 align="center">Ciklinių kodų generuojančių polinomų pavyzdžiai</h3>
+<h4>Bendroji dalis</h4>
+<p>Tegu p - pirminis, m&gt;=1, q=p<sup>m</sup>. Tegu n&gt;=1. Nagrinėsime ilgio n 
+ciklinius kodus virš baigtinio kūno F<sub>q</sub>. Tokių ciklinių kodų 
+generuojantys polinomai yra polinomo x<sup>n</sup>-1 dalikliai. Žinodami 
+polinomo x<sup>n</sup>-1 skaidinį, mes galime rasti visus jo daliklius, o tuo 
+pačiu - ir visus generuojančius polinomus. Pavyzdžiui, polinomo x<sup>7</sup>-1 
+skaidinys virš F<sub>2</sub> yra</p>
+
+<p align="center">x<sup>7</sup>-1 = (x-1)(x<sup>3</sup>+x+1)(x<sup>3</sup>+x<sup>2</sup>+1),</p>
+
+<p>todėl yra 8 jo dalikliai:</p>
+<ul>
+  <li>1,</li>
+  <li>x-1,</li>
+  <li>x<sup>3</sup>+x+1,</li>
+  <li>x<sup>3</sup>+x<sup>2</sup>+1,</li>
+  <li>(x-1)(x<sup>3</sup>+x+1) = x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+1,</li>
+  <li>(x-1)(x<sup>3</sup>+x<sup>2</sup>+1) = x<sup>4</sup>+x<sup>2</sup>+x+1,</li>
+  <li>(x<sup>3</sup>+x+1)(x<sup>3</sup>+x<sup>2</sup>+1) = x<sup>6</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1,</li>
+  <li>x<sup>7</sup>-1.</li>
+</ul>
+<p>Pirmas ir paskutinis yra trivialūs (mums neįdomūs), o kiti gali būti 
+naudojami kaip generuojantys polinomai.</p>
+<h4><b>Polinomo x<sup>n</sup>-1 skaidiniai</b></h4>
+<p>Pateikiame polinomo x<sup>n</sup>-1 skaidinius virš F<sub>q</sub> kai kuriems q 
+ir n. Čia <font face="Times New Roman">&#945; yra kūno </font>F<sub>q</sub> 
+primityvus elementas (baigtiniams kūnams sudaryti naudojame
+<a href="../../../doc/ktkt/prim_pol.pdf">čia</a> pateiktus polinomus).</p>
+<table border="1" id="AutoNumber1">
+  <tr>
+    <td align="center"><b>p</b></td>
+    <td align="center"><b>m</b></td>
+    <td align="center"><b>n</b></td>
+    <td>
+    <p align="center"><b>Polinomo x<sup>n</sup>-1 skaidinys</b></td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="20">2</td>
+    <td align="right" rowspan="4">1</td>
+    <td align="right">7</td>
+    <td>&nbsp;(x-1)(x<sup>3</sup>+x+1)(x<sup>3</sup>+x<sup>2</sup>+1)</td>
+  </tr>
+  <tr>
+    <td align="right">9</td>
+    <td>&nbsp;(x-1)(x<sup>2</sup>+x+1)(x<sup>6</sup>+x<sup>3</sup>+1)</td>
+  </tr>
+  <tr>
+    <td align="right">15</td>
+    <td>&nbsp;(x-1)(x<sup>2</sup>+x+1)(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+  </tr>
+  <tr>
+    <td align="right">17</td>
+    <td>&nbsp;(x-1)(x<sup>8</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup>+1)(x<sup>8</sup>+x<sup>7</sup>+x<sup>6</sup>+x<sup>4</sup>+x<sup>2</sup>+x+1)</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="6">2</td>
+    <td align="right">5</td>
+    <td>&nbsp;(x-1)(x<sup>2</sup>+<font face="Times New Roman">&#945;x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">7</td>
+    <td>&nbsp;(x-1)(x<sup>3</sup>+x+1)(x<sup>3</sup>+x<sup>2</sup>+1)</td>
+  </tr>
+  <tr>
+    <td align="right">9</td>
+    <td>&nbsp;(x-1)(x-<font face="Times New Roman">&#945;)(x-&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x<sup>3</sup>+<font face="Times New Roman">&#945;)(</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td>&nbsp;(x-1)(x<sup>5</sup>+<font face="Times New Roman">&#945;</font>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)(</font>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+<font face="Times New Roman">&#945;</font><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td>&nbsp;(x-1)(x<sup>6</sup>+<font face="Times New Roman">&#945;</font>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x</font><sup>3</sup>+<font face="Times New Roman">&#945;x+1)</font>(x<sup>6</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>5</sup>+<font face="Times New Roman">&#945;x</font><sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">15</td>
+    <td>&nbsp;(x-1)(x-<font face="Times New Roman">&#945;)(x-&#945;</font><sup>2</sup><font face="Times New Roman">)(</font>x<sup>2</sup>+x+<font face="Times New Roman">&#945;)(</font>x<sup>2</sup>+x+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;x+&#945;)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+&#945;</font><sup>2</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="4">3</td>
+    <td align="right">7</td>
+    <td>&nbsp;(x-1)(x-<font face="Times New Roman">&#945;)(x-&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>3</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>4</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>5</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>6</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right">9</td>
+    <td>&nbsp;(x-1)(x<sup>2</sup>+x+1)(x<sup>2</sup>+<font face="Times New Roman">&#945;x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>4</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td>&nbsp;(x-1)(x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>5</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>3</sup><font face="Times New Roman">x+1)(</font>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>6</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>5</sup><font face="Times New Roman">x+1)(</font>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>3</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>6</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">15</td>
+    <td>&nbsp;(x-1)(x<sup>2</sup>+x+1)(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="6">4</td>
+    <td align="right">5</td>
+    <td><font face="Times New Roman">&nbsp;</font>(x-1)(x-<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">)(x-&#945;</font><sup>6</sup><font face="Times New Roman">)(x-&#945;</font><sup>9</sup><font face="Times New Roman">)(x-&#945;</font><sup>12</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right">7</td>
+    <td>&nbsp;(x-1)(x<sup>3</sup>+x+1)(x<sup>3</sup>+x<sup>2</sup>+1)</td>
+  </tr>
+  <tr>
+    <td align="right">9</td>
+    <td>&nbsp;(x-1)(x-<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">)(x-&#945;</font><sup>10</sup><font face="Times New Roman">)</font>(x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">)(</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>10</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td>&nbsp;(x-1)(x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>10</sup><font face="Times New Roman">x+1)(</font>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>10</sup>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td><font face="Times New Roman">&nbsp;</font>(x-1)(x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>13</sup><font face="Times New Roman">x+1)</font>(x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>11</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>14</sup><font face="Times New Roman">x+1)</font>(x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>13</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>7</sup><font face="Times New Roman">x+1)</font>(x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>14</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>11</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">15</td>
+    <td>&nbsp;(x-1)(x-<font face="Times New Roman">&#945;)(x-&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>3</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>4</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>5</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>6</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>7</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>8</sup><font face="Times New Roman">)(x-&#945;</font><sup>9</sup><font face="Times New Roman">)(x-&#945;</font><sup>10</sup><font face="Times New Roman">)(x-&#945;</font><sup>11</sup><font face="Times New Roman">)(x-&#945;</font><sup>12</sup><font face="Times New Roman">)(x-&#945;</font><sup>13</sup><font face="Times New Roman">)(x-&#945;</font><sup>14</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="13">3</td>
+    <td align="right" rowspan="5">1</td>
+    <td align="right">4</td>
+    <td><font face="Times New Roman">&nbsp;(x-1)(x+1)(</font>x<sup>2</sup>+1)</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td><font face="Times New Roman">&nbsp;(x-1)(x+1)(</font>x<sup>2</sup>+1)(x<sup>2</sup>+x-1)(x<sup>2</sup>-x-1)</td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td><font face="Times New Roman">&nbsp;(x-1)(x+1)</font>(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)(x<sup>4</sup>-x<sup>3</sup>+x<sup>2</sup>-x+1)</td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td><font face="Times New Roman">&nbsp;(x-1)</font>(x<sup>5</sup>-x<sup>3</sup>+x<sup>2</sup>-x-1)(x<sup>5</sup>+x<sup>4</sup>-x<sup>3</sup>+x<sup>2</sup>-1)</td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td><font face="Times New Roman">&nbsp;(x-1)</font>(x<sup>3</sup>-x-1)(x<sup>3</sup>+x<sup>2</sup>-1)(x<sup>3</sup>+x<sup>2</sup>+x-1)(x<sup>3</sup>-x<sup>2</sup>-x-1)</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="7">2</td>
+    <td align="right">4</td>
+    <td>&nbsp;<font face="Times New Roman">(x-1)(x+1)(x+&#945;</font><sup>2</sup><font face="Times New Roman">)(x+&#945;</font><sup>6</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right">5</td>
+    <td>&nbsp;<font face="Times New Roman">(x-1)(</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">7</td>
+    <td>&nbsp;(x-1)(x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">x-1)(</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;x-1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td>&nbsp;(x-1)(<font face="Times New Roman">x+1)</font>(x+<font face="Times New Roman">&#945;)</font>(x+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>6</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>7</sup><font face="Times New Roman">)</font></td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td>&nbsp;(x-1)(<font face="Times New Roman">x+1)(</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup><font face="Times New Roman">x+1)(</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">x+1)</font></td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td>&nbsp;(x-1)(x<sup>5</sup><font face="Times New Roman">-</font>x<sup>3</sup>+x<sup>2</sup><font face="Times New Roman">-</font>x-1)(x<sup>5</sup>+x<sup>4</sup><font face="Times New Roman">-</font>x<sup>3</sup>+x<sup>2</sup><font face="Times New Roman">-1</font>)</td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td>&nbsp;(x-1)(x<sup>3</sup><font face="Times New Roman">-</font>x-1)(x<sup>3</sup>+x<sup>2</sup>-1)(x<sup>3</sup>+x<sup>2</sup><font face="Times New Roman">+</font>x-1)(x<sup>3</sup>-x<sup>2</sup><font face="Times New Roman">-</font>x-1)</td>
+  </tr>
+  <tr>
+    <td align="right">3</td>
+    <td align="right">10</td>
+    <td>&nbsp;<font face="Times New Roman">(x-1)(x+1)</font>(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)(x<sup>4</sup>-x<sup>3</sup>+x<sup>2</sup>-x+1)</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="3">5</td>
+    <td align="right" rowspan="2">1</td>
+    <td align="right">8</td>
+    <td>&nbsp;(x+1)(x+2)(x-1)(x+3)(x<sup>2</sup>+2)(x<sup>2</sup>+3)</td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td>&nbsp;(x-1)(x<sup>4</sup>+x<sup>3</sup>-x<sup>2</sup>+x+1)(x<sup>4</sup>+2x<sup>3</sup>+x<sup>2</sup>+2x+1)(x<sup>4</sup>+3x<sup>3</sup>+3x+1)</td>
+  </tr>
+  <tr>
+    <td align="right">2</td>
+    <td align="right">8</td>
+    <td>&nbsp;(x+1)(x+2)(x-1)(x+3)(x+<font face="Times New Roman">&#945;</font><sup>15</sup>)(x+<font face="Times New Roman">&#945;</font><sup>21</sup>)(x+<font face="Times New Roman">&#945;</font><sup>3</sup>)(x+<font face="Times New Roman">&#945;</font><sup>9</sup>)</td>
+  </tr>
+  </table>
+
+<h4>Ciklinių polinomų pavyzdžiai</h4>
+<p>Taip pat pateikiame ciklinių kodų pavyzdžių. Kiekvienam cikliniam kodui virš 
+baigtinio kūno F<sub>q</sub>, q=p<sup>m</sup>,&nbsp; nurodome ilgį n, 
+generuojančio polinomo laipsnį r, dimensiją k, generuojantį polinomą, jo 
+skaidinį, ir minimalų atstumą d. </p>
+<table border="1" id="AutoNumber2">
+  <tr>
+    <td align="center"><b>p</b></td>
+    <td align="center"><b>m</b></td>
+    <td align="center"><b>n</b></td>
+    <td align="center"><b>r</b></td>
+    <td align="center"><b>k</b></td>
+    <td align="center"><b>Generuojantis polinomas</b></td>
+    <td align="center"><b>Generuojančio polinomo skaidinys</b></td>
+    <td align="center"><b>d</b></td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="33">2</td>
+    <td align="right" rowspan="13">1</td>
+    <td align="right" rowspan="2">7</td>
+    <td align="right">3</td>
+    <td align="right">4</td>
+    <td>x<sup>3</sup>+x+1</td>
+    <td>x<sup>3</sup>+x+1</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="right">3</td>
+    <td>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+1</td>
+    <td>(x-1)(x<sup>3</sup>+x+1)</td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">9</td>
+    <td align="right">6</td>
+    <td align="right">3</td>
+    <td>x<sup>6</sup>+x<sup>3</sup>+1</td>
+    <td>x<sup>6</sup>+x<sup>3</sup>+1</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">7</td>
+    <td align="right">2</td>
+    <td>x<sup>7</sup>+x<sup>6</sup>+x<sup>4</sup>+x<sup>3</sup>+x+1</td>
+    <td>(x-1)(x<sup>6</sup>+x<sup>3</sup>+1)</td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="7">15</td>
+    <td align="right">6</td>
+    <td align="right">9</td>
+    <td>x<sup>6</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup>+1</td>
+    <td>(x<sup>2</sup>+x+1)(x<sup>4</sup>+x+1)</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td align="right">7</td>
+    <td>x<sup>8</sup>+x<sup>7</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup>+x+1</td>
+    <td>(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+1)</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td align="right">5</td>
+    <td>x<sup>10</sup>+x<sup>5</sup>+1</td>
+    <td>(x<sup>2</sup>+x+1)(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+1)</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td align="right">7</td>
+    <td>x<sup>8</sup>+x<sup>7</sup>+x<sup>6</sup>+x<sup>4</sup>+1</td>
+    <td>(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">12</td>
+    <td align="right">3</td>
+    <td>x<sup>12</sup>+x<sup>9</sup>+x<sup>6</sup>+x<sup>3</sup>+1</td>
+    <td>(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td align="right">5</td>
+    <td>x<sup>10</sup>+x<sup>8</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>2</sup>+x+1</td>
+    <td>(x<sup>2</sup>+x+1)(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">7</td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td align="right">2</td>
+    <td>x<sup>13</sup>+x<sup>12</sup>+x<sup>10</sup>+x<sup>9</sup>+x<sup>7</sup>+x<sup>6</sup>+x<sup>4</sup>+x<sup>3</sup>+x+1</td>
+    <td>(x-1)(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">10</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">17</td>
+    <td align="right">8</td>
+    <td align="right">9</td>
+    <td>x<sup>8</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup>+1</td>
+    <td>x<sup>8</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup>+1</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">9</td>
+    <td align="right">8</td>
+    <td>x<sup>9</sup>+x<sup>8</sup>+x<sup>6</sup>+x<sup>3</sup>+x+1</td>
+    <td>(x-1)(x<sup>8</sup>+x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup>+1)</td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="9">2</td>
+    <td align="right">5</td>
+    <td align="right">2</td>
+    <td align="right">3</td>
+    <td>x<sup>2</sup>+<font face="Times New Roman">&#945;x+1</font></td>
+    <td>x<sup>2</sup>+<font face="Times New Roman">&#945;x+1</font></td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">7</td>
+    <td align="right">3</td>
+    <td align="right">4</td>
+    <td>x<sup>3</sup>+x+1</td>
+    <td>x<sup>3</sup>+x+1</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">9</td>
+    <td align="right">6</td>
+    <td align="right">3</td>
+    <td>x<sup>6</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font></td>
+    <td>(x-1)(x-<font face="Times New Roman">&#945;)(x-&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x<sup>3</sup>+<font face="Times New Roman">&#945;)</font></td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">7</td>
+    <td align="right">2</td>
+    <td>x<sup>7</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>6</sup>+x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>3</sup>+x+<font face="Times New Roman">&#945;</font><sup>2</sup></td>
+    <td><font face="Times New Roman">(x-&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x<sup>3</sup>+<font face="Times New Roman">&#945;)(</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font></td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td align="right">5</td>
+    <td align="right">6</td>
+    <td>x<sup>5</sup>+<font face="Times New Roman">&#945;</font>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1</font></td>
+    <td>x<sup>5</sup>+<font face="Times New Roman">&#945;</font>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1</font></td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">13</td>
+    <td align="right">6</td>
+    <td align="right">7</td>
+    <td>x<sup>6</sup>+<font face="Times New Roman">&#945;</font>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x</font><sup>3</sup>+<font face="Times New Roman">&#945;x+1</font></td>
+    <td>x<sup>6</sup>+<font face="Times New Roman">&#945;</font>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x</font><sup>3</sup>+<font face="Times New Roman">&#945;x+1</font></td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="3">15</td>
+    <td align="right">6</td>
+    <td align="right">9</td>
+    <td>x<sup>6</sup>+<font face="Times New Roman">&#945;x</font><sup>3</sup>+<font face="Times New Roman">1</font></td>
+    <td><font face="Times New Roman">(</font>x<sup>2</sup>+x+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;x+&#945;)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font></td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td align="right">5</td>
+    <td>x<sup>10</sup>+x<sup>9</sup>+x<sup>8</sup>+<font face="Times New Roman">&#945;</font>x<sup>6</sup>+<font face="Times New Roman">&#945;</font>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>3</sup>+x+<font face="Times New Roman">&#945;</font><sup>2</sup></td>
+    <td>(x-<font face="Times New Roman">&#945;)(x-&#945;</font><sup>2</sup><font face="Times New Roman">)(</font>x<sup>2</sup>+x+<font face="Times New Roman">&#945;)(</font>x<sup>2</sup>+x+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+&#945;</font><sup>2</sup><font face="Times New Roman">)</font></td>
+    <td align="right">8</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td align="right">7</td>
+    <td>x<sup>8</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x</font><sup>7</sup>+<font face="Times New Roman">&#945;</font>x<sup>6</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>5</sup>+<font face="Times New Roman">&#945;</font>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x+1</td>
+    <td>(x-1)<font face="Times New Roman">(x-&#945;</font><sup>2</sup><font face="Times New Roman">)(</font>x<sup>2</sup>+x+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+&#945;</font><sup>2</sup><font face="Times New Roman">)</font></td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="11">3</td>
+    <td align="right" rowspan="2">7</td>
+    <td align="right">4</td>
+    <td align="right">3</td>
+    <td>x<sup>4</sup>+<font face="Times New Roman">&#945;</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup>x+<font face="Times New Roman">&#945;</font><sup>2</sup></td>
+    <td>(x-1)<font face="Times New Roman">(x-&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>3</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>4</sup><font face="Times New Roman">)</font></td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">5</td>
+    <td align="right">2</td>
+    <td>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x+<font face="Times New Roman">&#945;</font><sup>2</sup></td>
+    <td>(x-1)(x-<font face="Times New Roman">&#945;)</font>(<font face="Times New Roman">x-&#945;</font><sup>4</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>5</sup><font face="Times New Roman">)</font>(<font face="Times New Roman">x-&#945;</font><sup>6</sup><font face="Times New Roman">)</font></td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="3">9</td>
+    <td align="right">7</td>
+    <td align="right">2</td>
+    <td>x<sup>7</sup>+<font face="Times New Roman">&#945;</font>x<sup>6</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;</font>x+1</td>
+    <td>(x-1)(x<sup>2</sup>+x+1)(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>4</sup><font face="Times New Roman">x+1)</font></td>
+    <td align="right">8</td>
+  </tr>
+  <tr>
+    <td align="right">5</td>
+    <td align="right">4</td>
+    <td>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x+1</td>
+    <td>(x-1)(x<sup>2</sup>+x+1)(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font></td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">3</td>
+    <td align="right">6</td>
+    <td>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x+1</td>
+    <td>(x-1)(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">x+1)</font></td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="3">13</td>
+    <td align="right">5</td>
+    <td align="right">8</td>
+    <td>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>4</sup>x<sup>4</sup>+<font face="Times New Roman">&#945;</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>4</sup>x+1</td>
+    <td>(x-1)<font face="Times New Roman">(</font>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>6</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>5</sup><font face="Times New Roman">x+1)</font></td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="right">9</td>
+    <td>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>5</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>3</sup><font face="Times New Roman">x+1</font></td>
+    <td>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>5</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>3</sup><font face="Times New Roman">x+1</font></td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td align="right">5</td>
+    <td>x<sup>8</sup>+<font face="Times New Roman">&#945;</font><sup>4</sup>x<sup>7</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>5</sup>+<font face="Times New Roman">&#945;</font>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>4</sup>x+1</td>
+    <td>(x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>5</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>3</sup><font face="Times New Roman">x+1)(</font>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup><font face="Times New Roman">x</font><sup>3</sup><font face="Times New Roman">+&#945;</font><sup>3</sup><font face="Times New Roman">x</font><sup>2</sup><font face="Times New Roman">+&#945;</font><sup>6</sup><font face="Times New Roman">x+1)</font></td>
+    <td align="right">7</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="3">15</td>
+    <td align="right">7</td>
+    <td align="right">8</td>
+    <td>x<sup>7</sup>+x<sup>3</sup>+x+1</td>
+    <td>(x-1)(x<sup>2</sup>+x+1)(x<sup>4</sup>+x+1)</td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td align="right">7</td>
+    <td>x<sup>8</sup>+x<sup>7</sup>+x<sup>6</sup>+x<sup>4</sup>+1</td>
+    <td>(x<sup>4</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td align="right">4</td>
+    <td>x<sup>11</sup>+x<sup>8</sup>+x<sup>7</sup>+x<sup>5</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1</td>
+    <td>(x-1)(x<sup>2</sup>+x+1)(x<sup>4</sup>+x<sup>3</sup>+1)(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">8</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="25">3</td>
+    <td align="right" rowspan="10">1</td>
+    <td align="right">4</td>
+    <td align="right">3</td>
+    <td align="right">1</td>
+    <td>x<sup>3</sup>+x<sup>2</sup>+x+1</td>
+    <td><font face="Times New Roman">(x+1)(</font>x<sup>2</sup>+1)</td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">8</td>
+    <td align="right">5</td>
+    <td align="right">3</td>
+    <td>x<sup>5</sup>+x<sup>4</sup>+x<sup>3</sup><font face="Times New Roman">-</font>x<sup>2</sup>+1</td>
+    <td><font face="Times New Roman">(x-1)(</font>x<sup>2</sup>+1)(x<sup>2</sup>-x-1)</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">3</td>
+    <td align="right">5</td>
+    <td>x<sup>3</sup>+x+1</td>
+    <td><font face="Times New Roman">(x-1)</font>(x<sup>2</sup>+x-1)</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">10</td>
+    <td align="right">5</td>
+    <td align="right">5</td>
+    <td>x<sup>5</sup>-x<sup>4</sup>-x<sup>3</sup>-x<sup>2</sup>-x+1</td>
+    <td><font face="Times New Roman">(x+1)</font>(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">8</td>
+    <td align="right">2</td>
+    <td>x<sup>8</sup>+x<sup>6</sup>+x<sup>4</sup>+x<sup>2</sup>+1</td>
+    <td>(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)(x<sup>4</sup>-x<sup>3</sup>+x<sup>2</sup>-x+1)</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td align="right">5</td>
+    <td align="right">6</td>
+    <td>x<sup>5</sup>-x<sup>3</sup>+x<sup>2</sup>-x-1</td>
+    <td>x<sup>5</sup>-x<sup>3</sup>+x<sup>2</sup>-x-1</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="4">13</td>
+    <td align="right">3</td>
+    <td align="right">10</td>
+    <td>x<sup>3</sup>-x<sup>2</sup>-x-1</td>
+    <td>x<sup>3</sup>-x<sup>2</sup>-x-1</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">6</td>
+    <td align="right">7</td>
+    <td>x<sup>6</sup>-x<sup>4</sup>-x<sup>3</sup>-x<sup>2</sup>+1</td>
+    <td>(x<sup>3</sup>+x<sup>2</sup>+x-1)(x<sup>3</sup>-x<sup>2</sup>-x-1)</td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right">9</td>
+    <td align="right">4</td>
+    <td>x<sup>9</sup>+x<sup>8</sup><font face="Times New Roman">-</font>x<sup>7</sup>+x<sup>5</sup><font face="Times New Roman">-</font>x<sup>3</sup><font face="Times New Roman">-</font>x<sup>2</sup>-1</td>
+    <td>(x<sup>3</sup>+x<sup>2</sup>-1)(x<sup>3</sup>+x<sup>2</sup>+x-1)(x<sup>3</sup>-x<sup>2</sup>-x-1)</td>
+    <td align="right">7</td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td align="right">3</td>
+    <td>x<sup>10</sup>+x<sup>8</sup>+x<sup>7</sup>+x<sup>6</sup><font face="Times New Roman">-</font>x<sup>5</sup><font face="Times New Roman">-</font>x<sup>4</sup>+x<sup>2</sup><font face="Times New Roman">-</font>x+1</td>
+    <td><font face="Times New Roman">(x-1)</font>(x<sup>3</sup>+x<sup>2</sup>-1)(x<sup>3</sup>+x<sup>2</sup>+x-1)(x<sup>3</sup>-x<sup>2</sup>-x-1)</td>
+    <td align="right">9</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="14">2</td>
+    <td align="right">4</td>
+    <td align="right">2</td>
+    <td align="right">2</td>
+    <td>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup>x+<font face="Times New Roman">&#945;</font><sup>2</sup></td>
+    <td><font face="Times New Roman">(x-1)(x+&#945;</font><sup>6</sup><font face="Times New Roman">)</font></td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">5</td>
+    <td align="right">2</td>
+    <td align="right">3</td>
+    <td>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup>x+1</td>
+    <td>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup><font face="Times New Roman">x+1</font></td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">7</td>
+    <td align="right">3</td>
+    <td align="right">4</td>
+    <td>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;x-1</font></td>
+    <td>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;x-1</font></td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="right">3</td>
+    <td>x<sup>4</sup>+<font face="Times New Roman">&#945;</font>x<sup>3</sup><font face="Times New Roman">-</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup>x+1</td>
+    <td>(x-1)<font face="Times New Roman">(</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>7</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;x-1)</font></td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="3">8</td>
+    <td align="right">5</td>
+    <td align="right">3</td>
+    <td>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>4</sup>+<font face="Times New Roman">&#945;</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup>x+<font face="Times New Roman">&#945;</font><sup>5</sup></td>
+    <td>(x-1)(x+<font face="Times New Roman">&#945;)</font>(x+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>6</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>7</sup><font face="Times New Roman">)</font></td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="right">4</td>
+    <td>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup>x<sup>2</sup><font face="Times New Roman">-</font>x+<font face="Times New Roman">&#945;</font><sup>5</sup></td>
+    <td>(<font face="Times New Roman">x+1)</font>(x+<font face="Times New Roman">&#945;)</font>(x+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>7</sup><font face="Times New Roman">)</font></td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">6</td>
+    <td align="right">2</td>
+    <td>x<sup>6</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>5</sup>+<font face="Times New Roman">&#945;</font><sup>2</sup>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font>x<sup>2</sup>+x+<font face="Times New Roman">&#945;</font><sup>5</sup></td>
+    <td>(x-1)(x+<font face="Times New Roman">&#945;)</font>(x+<font face="Times New Roman">&#945;</font><sup>2</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">)</font>(x+<font face="Times New Roman">&#945;</font><sup>6</sup><font face="Times New Roman">)</font></td>
+    <td align="right">7</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">10</td>
+    <td align="right">4</td>
+    <td align="right">6</td>
+    <td>x<sup>4</sup>+<font face="Times New Roman">&#945;</font>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup>x-1</td>
+    <td>(x-1)(<font face="Times New Roman">x+1)(</font>x<sup>2</sup>+<font face="Times New Roman">&#945;x+1)</font></td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">5</td>
+    <td align="right">5</td>
+    <td>x<sup>5</sup>+<font face="Times New Roman">&#945;</font>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>6</sup>x<sup>2</sup>+<font face="Times New Roman">&#945;</font>x+1</td>
+    <td>(<font face="Times New Roman">x+1)(</font>x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>5</sup><font face="Times New Roman">x+1)</font>(x<sup>2</sup>+<font face="Times New Roman">&#945;</font><sup>3</sup><font face="Times New Roman">x+1)</font></td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right">11</td>
+    <td align="right">5</td>
+    <td align="right">6</td>
+    <td>x<sup>5</sup>+x<sup>4</sup><font face="Times New Roman">-</font>x<sup>3</sup>+x<sup>2</sup><font face="Times New Roman">-1</font></td>
+    <td>x<sup>5</sup>+x<sup>4</sup><font face="Times New Roman">-</font>x<sup>3</sup>+x<sup>2</sup><font face="Times New Roman">-1</font></td>
+    <td align="right">5</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="4">13</td>
+    <td align="right">7</td>
+    <td align="right">6</td>
+    <td>x<sup>7</sup>+x<sup>5</sup>+x<sup>4</sup><font face="Times New Roman">-</font>x<sup>3</sup><font face="Times New Roman">-</font>x<sup>2</sup>-1</td>
+    <td>(x-1)(x<sup>3</sup><font face="Times New Roman">-</font>x-1)(x<sup>3</sup>+x<sup>2</sup>-1)</td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="right">9</td>
+    <td>x<sup>4</sup><font face="Times New Roman">-</font>x<sup>3</sup><font face="Times New Roman">-</font>x<sup>2</sup>+1</td>
+    <td>(x-1)(x<sup>3</sup><font face="Times New Roman">-</font>x-1)</td>
+    <td align="right">3</td>
+  </tr>
+  <tr>
+    <td align="right">9</td>
+    <td align="right">4</td>
+    <td>x<sup>9</sup><font face="Times New Roman">-</font>x<sup>8</sup>+x<sup>7</sup><font face="Times New Roman">-</font>x<sup>6</sup>+x<sup>4</sup>+x<sup>3</sup>-1</td>
+    <td>(x<sup>3</sup><font face="Times New Roman">-</font>x-1)(x<sup>3</sup>+x<sup>2</sup>-1)(x<sup>3</sup>+x<sup>2</sup><font face="Times New Roman">+</font>x-1)</td>
+    <td align="right">7</td>
+  </tr>
+  <tr>
+    <td align="right">10</td>
+    <td align="right">3</td>
+    <td>x<sup>10</sup>+x<sup>9</sup><font face="Times New Roman">-</font>x<sup>8</sup>+x<sup>7</sup>+x<sup>6</sup>+x<sup>5</sup><font face="Times New Roman">-</font>x<sup>3</sup><font face="Times New Roman">-</font>x+1</td>
+    <td>(x-1)(x<sup>3</sup><font face="Times New Roman">-</font>x-1)(x<sup>3</sup>+x<sup>2</sup>-1)(x<sup>3</sup>+x<sup>2</sup><font face="Times New Roman">+</font>x-1)</td>
+    <td align="right">9</td>
+  </tr>
+  <tr>
+    <td align="right">3</td>
+    <td align="right">10</td>
+    <td align="right">6</td>
+    <td align="right">4</td>
+    <td>x<sup>6</sup>+x<sup>5</sup>-x-1</td>
+    <td><font face="Times New Roman">(x-1)(x+1)</font>(x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1)</td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="5">5</td>
+    <td align="right" rowspan="4">1</td>
+    <td align="right" rowspan="2">8</td>
+    <td align="right">5</td>
+    <td align="right">3</td>
+    <td>x<sup>5</sup>+x<sup>4</sup>+x+1</td>
+    <td>(x+1)(x<sup>2</sup>+2)(x<sup>2</sup>+3)</td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">6</td>
+    <td align="right">2</td>
+    <td>x<sup>6</sup>+3x<sup>5</sup>+2x<sup>4</sup>+x<sup>2</sup>+3x+2</td>
+    <td>(x+1)(x+2)(x<sup>2</sup>+2)(x<sup>2</sup>+3)</td>
+    <td align="right">6</td>
+  </tr>
+  <tr>
+    <td align="right" rowspan="2">13</td>
+    <td align="right">8</td>
+    <td align="right">5</td>
+    <td>x<sup>8</sup>-x<sup>7</sup>+2x<sup>6</sup>+x<sup>5</sup>+3x<sup>4</sup>+x<sup>3</sup>+2x<sup>2</sup>-x+1</td>
+    <td>(x<sup>4</sup>+x<sup>3</sup>-x<sup>2</sup>+x+1)(x<sup>4</sup>+3x<sup>3</sup>+3x+1)</td>
+    <td align="right">7</td>
+  </tr>
+  <tr>
+    <td align="right">4</td>
+    <td align="right">9</td>
+    <td>x<sup>4</sup>+3x<sup>3</sup>+3x+1</td>
+    <td>x<sup>4</sup>+3x<sup>3</sup>+3x+1</td>
+    <td align="right">4</td>
+  </tr>
+  <tr>
+    <td align="right">2</td>
+    <td align="right">8</td>
+    <td align="right">4</td>
+    <td align="right">4</td>
+    <td>x<sup>4</sup>+<font face="Times New Roman">&#945;</font><sup>9</sup>x<sup>3</sup>+<font face="Times New Roman">&#945;</font><sup>9</sup>x-1</td>
+    <td>(x+2)(x+3)(x+<font face="Times New Roman">&#945;</font><sup>15</sup>)(x+<font face="Times New Roman">&#945;</font><sup>21</sup>)</td>
+    <td align="right">4</td>
+  </tr>
+  </table>
+
+</body>
+
+</html>
