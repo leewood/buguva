@@ -1,0 +1,35 @@
+﻿0610364	B2(p)
+
+Programa programuotojo požiūriu
+
+Programuotojo požiūriu turėtų būti realizuoti tokie moduliai (klasės):
+(Jei q nėra pirminis) Baigtinis kūnas Fq, veiksmai su jo elementais: sudėtis, daugyba ir t.t.
+(Jei reikia) Veiksmai su matricomis, sudarytomis iš baigtinio kūno Fq elementų.
+(Jei reikia) Veiksmai su polinomais virš baigtinio kūno Fq.
+Duotos užduoties realizacija.
+
+Kunas:	q = pm, p - pirminis, m>=1	
+Uzduotis:
+Egzistuoja abipusis ryšys tarp ilgio n ciklinių kodų virš baigtinio kūno Fq ir polinomo xn-1 virš Fq daliklių. Todėl, norint rasti visus ciklinius kodus, svarbu mokėti faktorizuoti šitą polinomą. Parašyti programą, kuri faktorizuoja xn-1 virš Fq būdu, aprašytu [VO89, §5.9, ypač Pvz. 28, p. 191–192].	
+Parametrai:
+q, n (n >= 1)	
+
+http://uosis.mif.vu.lt/~skersys/doc/ktkt/literatura24.pdf 5.8-5.9 p. 181-192
+[VO89, §5.8–5.9, p. 181–192]
+
+Pastabos:
+
+1. Reikėtų, kad programa veiktų su visais baigtiniais kūnais Fq, kur q – pirminis, ir su tais Fq, kur q = pm, p – pirminis, m>1, kuriems čia (http://uosis.mif.vu.lt/~skersys/doc/ktkt/prim_pol.pdf) duoti polinomai. 
+   Plačiau apie baigtinius kūnus galite pasiskaityti čia (http://uosis.mif.vu.lt/~skersys/doc/ktkt/baigtiniai_kunai.pdf).
+2. Apie ciklinius kodus plačiau galite pasiskaityti mano konspektuose arba [Sta96, 6 skyrius].
+3. Apie tiesinius kodus plačiau galite pasiskaityti mano konspektuose arba [Sta02, §1.1 ir §2.1-2.2] (arba [Sta96, §3.2, §4.1, §5.1-5.3]).
+4. Programos testavimui pateikiame ciklinių kodų generuojančių polinomų pavyzdžius:
+http://uosis.mif.vu.lt/~skersys/09r/ktkt/uzduotys/gen_pol_pvz.htm
+
+Vertinimas
+
+Pateikiamas vertinimas yra orientacinis ir gali kažkiek keistis. Vertinimą reikėtų interpretuoti taip: jei, pavyzdžiui, kurios nors dalies vertinimas yra 10%, tai už klaidas ar trūkumus toje dalyje galiu atimti iki 10% balų.
+Klaidas taisantys kodai - 85%,
+Kita - 15%:
+Aprašymas: 10%,
+Išeities tekstai (komentarai juose, kodo tvarkingumas ir skaitomumas ir t.t.): 10%.
