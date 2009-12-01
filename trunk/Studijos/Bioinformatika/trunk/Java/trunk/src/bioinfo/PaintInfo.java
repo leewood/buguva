@@ -36,42 +36,42 @@ public class PaintInfo
     return color;
   }
 
-     public int compareTo(Object o)
-     {
-         if (o  instanceof PaintInfo)
-         {
-            PaintInfo pi = (PaintInfo)o;
-            if (this.getStart() > pi.getStart())
-            {
-              return 1;
-            }
-            else if (this.getStart() < pi.getStart())
-            {
-              return -1;
-            }
-            else if (this.getEnd() > pi.getEnd())
-            {
-              return 1;
-            }
-            else if (this.getEnd() < pi.getEnd())
-            {
-              return -1;
-            }
-            else
-            {
-              return 0;
-            }
-         }
-         return 1;
-     }
+   public int compareTo(Object o)
+   {
+       if (o  instanceof PaintInfo)
+       {
+          PaintInfo pi = (PaintInfo)o;
+          if (this.getStart() > pi.getStart())
+          {
+            return 1;
+          }
+          else if (this.getStart() < pi.getStart())
+          {
+            return -1;
+          }
+          else if (this.getEnd() > pi.getEnd())
+          {
+            return 1;
+          }
+          else if (this.getEnd() < pi.getEnd())
+          {
+            return -1;
+          }
+          else
+          {
+            return 0;
+          }
+       }
+       return 1;
+   }
 
-     public String getSubSeq(String seq)
-     {
-       return seq.substring(start, end - start + 1);
-     }
+   public String getSubSeq(String seq)
+   {
+     return seq.substring(start, end - start + 1);
+   }
 
-     public boolean inside(int x)
-     {
-       return start <= x && end >= x;
-     }
+   public boolean inside(int x)
+   {
+     return start <= x && end >= x;
+   }
 }
