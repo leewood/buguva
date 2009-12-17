@@ -60,9 +60,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\CyclotomicCoset.cs" />
-    <Compile Include="Models\FiniteBody.cs" />
-    <Compile Include="Models\MathTools.cs" />
-    <Compile Include="Models\Matrix.cs" />
+    <Compile Include="Solution\MathTools.cs" />
     <Compile Include="Models\Polynomial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
