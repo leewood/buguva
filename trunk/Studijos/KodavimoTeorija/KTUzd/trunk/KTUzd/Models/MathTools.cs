@@ -26,13 +26,28 @@ namespace KTUzd.Models
 
         private static int _lastPower;
         private static int _lastPrimary;
+        public static int LastPower
+        {
+            get
+            {
+                return _lastPower;
+            }
+        }
+
+        public static int LastPrimary
+        {
+            get
+            {
+                return _lastPrimary;
+            }
+        }
 
         public static bool IsPrimaryPower(int num)
         {
             _lastPrimary = FirstPrimaryDivider(num);
             _lastPower = 1;
             int value = _lastPrimary;
-            while (value < _lastPrimary)
+            while (value < num)
             {
                 value *= _lastPrimary;
                 _lastPower++;
@@ -41,6 +56,7 @@ namespace KTUzd.Models
             {
                 return true;
             }
+            return false;
         }
     }
 }
