@@ -5,34 +5,44 @@ using System.Text;
 
 namespace KTUzd.Models
 {
+    /// <summary>
+    /// Polinomą apibrėžianti klasė.
+    /// </summary>
     public class Polynomial
     {
+        /// <summary>
+        /// Sąrašas saugoti polinomo elementams
+        /// </summary>
         List<PolynomialElement> _elements = new List<PolynomialElement>();
-
-        private const decimal Rounding = (decimal)0.000000001;
-
-        public Polynomial()
-        {
-            
-        }
-        
+                
+        /// <summary>
+        /// Metodas skirtas polinomo klasės turinį pavaizduoti žmogui suprantamu tekstiniu formatu
+        /// </summary>
+        /// <returns>
+        /// Grąžina polinomą atitinkantį tekstinį formatą.
+        /// Rezultato pavyzdys, pvz gali būti x^4 + a^2x^2 + 1. 
+        /// Šis užrašas rodo, jog polinomas sudarytas iš 3 elementų, pirmasis yra x pakeltas 
+        /// 4 laipsniu, antrasis - x pakeltas 2 laipsniu ir padaugintas primityviojo elemento pakelto
+        /// 2 laipsniu. Na o trečiasis - konstanta  1. Kitaip tariant šiame užraše kėlimas
+        /// laipsniu vaizduojamas simboliu ^, o primityvusis elementas nurodomas simboliu a.
+        /// </returns>
         public override string ToString()
         {
             if (this == 0)
-            {
-                //return "f(x) = 0";
+            {                
                 return "0";
             }
-            var b = new StringBuilder();
-            //b.Append("f(x) = ");
+            var b = new StringBuilder();            
             bool separ = false;
             foreach (var elem in _elements.OrderByDescending(e => e.Power))
             {
-                b.Append(elem.ToString(separ, this.Q));
+                b.Append(elem.ToString(separ, Q));
                 separ = true;                
             }
             return b.ToString();
         }
+
+        #region <Klasės konstruktoriai>
 
         public Polynomial(Polynomial pol, int p, int m)
         {
@@ -45,11 +55,9 @@ namespace KTUzd.Models
             P = p;
             M = m;
         }
-
         public Polynomial(string textRepresentation, int p, int m): this(PolynomialParser.Parse(textRepresentation), p, m) {}
         public Polynomial(string text, int q): this(text, q, 1) {}
         public Polynomial(string text): this(text, 0) {}
-
         public Polynomial(decimal i, int p, int m)
         {
             this[0] = i;
@@ -57,14 +65,14 @@ namespace KTUzd.Models
             P = p;
             M = m;
         }
-
-
         public Polynomial(List<int> coset, int p, int m): this(new CyclotomicCoset(coset), p, m) {}
         public Polynomial(List<int> coset, int q): this(coset, q, 1) {}
         public Polynomial(List<int> coset): this(coset, 0) {}
         public Polynomial(decimal i, int q): this(i, q, 1) { }
         public Polynomial(decimal i): this(i, 0) { }
+        public Polynomial(): this(0) { }
         public Polynomial(CyclotomicCoset coset): this(coset, 0) { }
+        public Polynomial(CyclotomicCoset coset, int q) : this(coset, q, 1) { }
         public Polynomial(CyclotomicCoset coset, int p, int m)
         {
             for (int i = 0; i < coset.Items.Count; i++)
@@ -75,9 +83,22 @@ namespace KTUzd.Models
             P = p;
             M = m;
         }
-        
-        public Polynomial(CyclotomicCoset coset, int q): this(coset, q, 1) { }
 
+        #endregion
+
+        /// <summary>
+        /// Perrašytas masyvo elemento [] operatorius, kad būtų galima pasiekti polinomo 
+        /// atskirus elementus naudojant tą pačią notaciją kaip ir pasiekiant įprastų masyvų elementus        
+        /// </summary>
+        /// <param name="power">
+        /// Parametru "power" nurodome, kurio laipsnio polinomo narį norime gauti.
+        /// Jei nario su tokiu laipsniu nėra, jis sukuriamas su koeficientu 0.
+        /// </param>
+        /// <returns>
+        /// Gražinamas koeficientas, kurį turi nurodyto laipsnio narys. Jei nario nėra - 0.
+        /// Pvz. Jei turime polinomą poly = 2x^3 + x + 3, tai bus tokie rezultatai:
+        /// poly[3] = 2; poly[2] = 0; poly[1] = 1, poly[0] = 3.
+        /// </returns>
         public decimal this[int power]
         {
             get
@@ -92,11 +113,14 @@ namespace KTUzd.Models
             }
         }
 
+        /// <summary>
+        /// Metodas skirtas tru
+        /// </summary>
         public void OptimizeElements()
         {
             if (_elements != null)
             {
-                _elements = (from elem in _elements where Math.Abs(elem.Coefficient) > Rounding select elem).ToList();
+                _elements = (from elem in _elements where elem.Coefficient == 0 select elem).ToList();
             }
         }
         
@@ -140,7 +164,7 @@ namespace KTUzd.Models
                 }
                 if (_elements.Count > 0)
                 {
-                    var sorted = _elements.Where(e => Math.Abs(e.Coefficient) > Rounding).OrderBy(elem => elem.Power);
+                    var sorted = _elements.Where(e => e.Coefficient == 0).OrderBy(elem => elem.Power);
                     if (sorted.Count() > 0)
                     {
                         return sorted.Last().Power;

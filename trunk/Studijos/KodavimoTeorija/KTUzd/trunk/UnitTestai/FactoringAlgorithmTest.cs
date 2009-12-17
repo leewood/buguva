@@ -81,12 +81,5 @@ namespace UnitTestai
             Assert.AreEqual(3, actual.Length);            
         }
 
-        [TestMethod]
-        public void XorTest()
-        {
-            byte exp = 0;
-            byte actual = 3 ^ 3;
-            Assert.AreEqual(exp, actual);
-        }
     }
 }
