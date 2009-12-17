@@ -1,66 +1,27 @@
-﻿using KTUzd.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using KTUzd.Models;
+
 namespace UnitTestai
 {
     
     
     /// <summary>
-    ///This is a test class for PolynomialTest and is intended
-    ///to contain all PolynomialTest Unit Tests
+    ///Polinomo klasės testai
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class PolynomialTest
     {
 
-
-        private TestContext testContextInstance;
-
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
+        ///Polinomo matametinės operacijos testas
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+        [TestMethod]
+        public void PolynomialConstructorTest()
+        {            
+            var target = new Polynomial("x^5-1", 2, 1);
+            var target2 = new Polynomial("x^5", 2, 1);
+            var t2 = target - target2;
+            Assert.IsTrue(t2 == 1);            
         }
-
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
-
     }
 }
