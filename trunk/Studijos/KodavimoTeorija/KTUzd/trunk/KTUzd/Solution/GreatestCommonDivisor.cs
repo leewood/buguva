@@ -17,15 +17,16 @@ namespace KTUzd.Solution
         public static Polynomial FindGCD(Polynomial p1, Polynomial p2)
         {
             // Jei bent vienas iš narių lygus nuliui baigiame
+            int q = Math.Max(p1.Q, p2.Q);
             if ((p1.PolynomialDegree == 0) && (p1[0] == 0) ||
                 (p2.PolynomialDegree == 0) && (p2[0] == 0))
             {
                 var result = p1 + p2;
-                result.Q = p1.Q;
+                result.Q = q;
                 return result;
             }
             // kitu atveju randame liekaną ir kviečiame rekursiškai
-            return p1 > p2 ? FindGCD((p1 % p2).Modus(p1.Q), p2) : FindGCD(p1, (p2 % p1).Modus(p2.Q));
+            return p1 > p2 ? FindGCD((p1 % p2).Modus(q), p2) : FindGCD(p1, (p2 % p1).Modus(q));
         }
     }
 }
