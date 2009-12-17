@@ -10,12 +10,18 @@ namespace KTUzd.Models
         public int S { get; private set; }
         public int I { get; private set; }
 
+        public CyclotomicCoset() {}
+        public CyclotomicCoset(List<int> values)
+        {
+            Items = values;
+        }
+
         public static CyclotomicCoset Calculate(int n, int q, int i)
         {
             int s = 1;
-            var result = new CyclotomicCoset {N = n, Q = q, I = i, Items = new List<int> {i}};
+            var result = new CyclotomicCoset { N = n, Q = q, I = i, Items = new List<int> { i } };
 
-            int qGrade = q;            
+            int qGrade = q;
             while ((i * qGrade) % n != i)
             {
                 if ((i * qGrade) % n == 0)
@@ -24,9 +30,9 @@ namespace KTUzd.Models
                     result.S = 0;
                     return result;
                 }
-                result.Items.Add((qGrade*i)%n);
+                result.Items.Add((qGrade * i) % n);
                 qGrade *= q;
-                s++;                
+                s++;
             }
             result.S = s;
             return result;
@@ -52,11 +58,11 @@ namespace KTUzd.Models
         {
             if (obj is CyclotomicCoset)
             {
-                return ListEqual(Items, ((CyclotomicCoset) obj).Items);
+                return ListEqual(Items, ((CyclotomicCoset)obj).Items);
             }
             if (obj is IList<int>)
             {
-                return ListEqual(Items, (List<int>) obj);
+                return ListEqual(Items, (List<int>)obj);
             }
             return false;
         }
@@ -66,10 +72,10 @@ namespace KTUzd.Models
             unchecked
             {
                 int result = (Items != null ? Items.GetHashCode() : 0);
-                result = (result*397) ^ N;
-                result = (result*397) ^ Q;
-                result = (result*397) ^ S;
-                result = (result*397) ^ I;
+                result = (result * 397) ^ N;
+                result = (result * 397) ^ Q;
+                result = (result * 397) ^ S;
+                result = (result * 397) ^ I;
                 return result;
             }
         }
@@ -101,6 +107,6 @@ namespace KTUzd.Models
         }
     }
 
-    
+
 
 }

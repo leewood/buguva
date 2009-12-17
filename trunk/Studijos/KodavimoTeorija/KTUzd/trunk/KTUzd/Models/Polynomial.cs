@@ -9,82 +9,74 @@ namespace KTUzd.Models
     {
         List<PolynomialElement> _elements = new List<PolynomialElement>();
 
-        private decimal _rounding = (decimal)0.000000001;
+        private const decimal Rounding = (decimal)0.000000001;
 
         public Polynomial()
         {
             
         }
-
+        
         public override string ToString()
         {
             if (this == 0)
             {
-                return "f(x) = 0";
+                //return "f(x) = 0";
+                return "0";
             }
-            else
+            var b = new StringBuilder();
+            //b.Append("f(x) = ");
+            bool separ = false;
+            foreach (var elem in _elements.OrderByDescending(e => e.Power))
             {
-
-                StringBuilder b = new StringBuilder();
-                b.Append("f(x) = ");
-                string separ = "";
-                foreach (var elem in _elements.OrderByDescending(e => e.Power))
-                {
-                    if (elem.Coefficient != 0)
-                    {
-
-                        if (elem.Power > 0)
-                        {
-                            if (elem.Coefficient == -1)
-                            {
-                                b.Append(" - x^" + elem.Power);
-                            }
-                            else if (elem.Coefficient == 1)
-                            {
-                                b.Append(separ + "x^" + elem.Power);
-                            }
-                            else if (elem.Coefficient > 0)
-                            {
-                                b.Append(separ + elem.Coefficient + "x^" + elem.Power);
-                            }
-                            else
-                            {
-                                b.Append(" - " + Math.Abs(elem.Coefficient) + "x^" + elem.Power);
-                            }
-
-
-                        }
-                        else
-                        {
-                            if (elem.Coefficient > 0)
-                            {
-                                b.Append(separ + elem.Coefficient);
-                            }
-                            else if (elem.Coefficient < 0)
-                            {
-                                b.Append(" - " + Math.Abs(elem.Coefficient));
-                            }
-
-                        }
-                        separ = " + ";
-                    }
-                }
-                return b.ToString();
+                b.Append(elem.ToString(separ, this.Q));
+                separ = true;                
             }
+            return b.ToString();
         }
 
-        public Polynomial(decimal i)
+        public Polynomial(Polynomial pol, int p, int m)
+        {
+            _elements.Clear();
+            for (int i = 0; i <= pol.PolynomialGrade; i++)
+            {
+                this[i] = pol[i];
+            }
+            Q = (int)Math.Pow(p, m);
+            P = p;
+            M = m;
+        }
+
+        public Polynomial(string textRepresentation, int p, int m): this(PolynomialParser.Parse(textRepresentation), p, m) {}
+        public Polynomial(string text, int q): this(text, q, 1) {}
+        public Polynomial(string text): this(text, 0) {}
+
+        public Polynomial(decimal i, int p, int m)
         {
             this[0] = i;
+            Q = (int) Math.Pow(p, m);
+            P = p;
+            M = m;
         }
 
-        public Polynomial(CyclotomicCoset coset)
+
+        public Polynomial(List<int> coset, int p, int m): this(new CyclotomicCoset(coset), p, m) {}
+        public Polynomial(List<int> coset, int q): this(coset, q, 1) {}
+        public Polynomial(List<int> coset): this(coset, 0) {}
+        public Polynomial(decimal i, int q): this(i, q, 1) { }
+        public Polynomial(decimal i): this(i, 0) { }
+        public Polynomial(CyclotomicCoset coset): this(coset, 0) { }
+        public Polynomial(CyclotomicCoset coset, int p, int m)
         {
             for (int i = 0; i < coset.Items.Count; i++)
             {
                 this[coset.Items[i]] = 1;
             }
+            Q = (int)Math.Pow(p, m);
+            P = p;
+            M = m;
         }
+        
+        public Polynomial(CyclotomicCoset coset, int q): this(coset, q, 1) { }
 
         public decimal this[int power]
         {
@@ -104,7 +96,7 @@ namespace KTUzd.Models
         {
             if (_elements != null)
             {
-                _elements = (from elem in _elements where Math.Abs(elem.Coefficient) > _rounding select elem).ToList();
+                _elements = (from elem in _elements where Math.Abs(elem.Coefficient) > Rounding select elem).ToList();
             }
         }
         
@@ -130,7 +122,13 @@ namespace KTUzd.Models
             return element;
         }
 
-        public int Q { get; set; }
+
+        public int P { get; set; }
+        public int M { get; set; }        
+        public int Q
+        {
+            get; set;
+        }
 
         public int PolynomialGrade
         {
@@ -142,7 +140,7 @@ namespace KTUzd.Models
                 }
                 if (_elements.Count > 0)
                 {
-                    var sorted = _elements.Where(e => Math.Abs(e.Coefficient) > _rounding).OrderBy(elem => elem.Power);
+                    var sorted = _elements.Where(e => Math.Abs(e.Coefficient) > Rounding).OrderBy(elem => elem.Power);
                     if (sorted.Count() > 0)
                     {
                         return sorted.Last().Power;
@@ -159,21 +157,43 @@ namespace KTUzd.Models
             int last = Math.Max(pol1.PolynomialGrade, pol2.PolynomialGrade);
             for (int i = 0; i <= last; i++)
             {
-                result[i] = pol1[i] + pol2[i];
+                if (pol1.Q == 0)
+                {
+                    result[i] = pol1[i] + pol2[i];
+                }
+                else
+                {
+                    int p1 = ((pol1[i] >= 0) ? (int) pol1[i] : pol1.Q - (int) pol1[i]) % pol1.Q;
+                    int p2 = ((pol2[i] >= 0) ? (int)pol2[i] : pol1.Q - (int)pol2[i]) % pol1.Q;
+                    result[i] = p1 ^ p2;
+                }
             }
             result.Q = pol1.Q;
+            result.M = pol1.M;
+            result.P = pol1.P;
             return result.Modus(pol1.Q);
+        }
+
+
+        private static int Mlt(decimal a, decimal b, int q)
+        {
+            var aI = (int) Math.Abs(a);
+            var bI = (int) Math.Abs(b);
+            if ((aI == 0) || (bI == 0))
+            {
+                return 0;
+            }
+            int newPower = ((aI + bI - 2)%(q - 1)) + 1;
+            if (a * b < 0)
+            {
+                return -newPower;
+            }
+            return newPower;
         }
 
         public static Polynomial operator *(Polynomial pol, decimal coeff)
         {
-            var result = new Polynomial();
-            for (int i = 0; i <= pol.PolynomialGrade; i++)
-            {
-                result[i] = pol[i]*coeff;
-            }
-            result.Q = pol.Q;
-            return result.Modus(pol.Q);
+            return pol*new Polynomial(coeff);
         }
 
         public static Polynomial operator *(Polynomial pol, int coeff)
@@ -194,19 +214,26 @@ namespace KTUzd.Models
                 var item = new Polynomial();
                 for (int j = 0; j <= pol2.PolynomialGrade; j++)
                 {
-                    item[i + j] = pol2[j] * pol1[i];
+                    if (pol1.Q == 0)
+                    {
+                        item[i + j] = pol2[j]*pol1[i];
+                    }
+                    else
+                    {
+                        item[i + j] = Mlt(pol1[i], pol2[j], pol1.Q);
+                    }
                 }
                 result += item;
             }
             result.Q = pol1.Q;
-            return result;
+            result.M = pol1.M;
+            result.P = pol1.P;
+            return result.Modus(pol1.Q);
         }
 
         public static Polynomial operator +(Polynomial pol, decimal num)
         {
-            var temp = new Polynomial();
-            temp[0] = num;
-            return pol + temp;
+            return pol + new Polynomial(num);
         }
 
 
@@ -238,6 +265,8 @@ namespace KTUzd.Models
         {
             var result = Divide(pol1, pol2);
             result.Q = pol1.Q;
+            result.M = pol1.M;
+            result.P = pol1.P;
             return result.Modus(pol1.Q);
         }
 
@@ -245,7 +274,35 @@ namespace KTUzd.Models
         {
             Divide(pol1, pol2);
             _divisionRemainder.Q = pol1.Q;
+            _divisionRemainder.M = pol1.M;
+            _divisionRemainder.P = pol1.P;
             return _divisionRemainder.Modus(pol1.Q);
+        }
+
+        private static decimal  CalculateCoeff(decimal coeff1, decimal coeff2, int q)
+        {
+            if (q == 0)
+            {
+                return -coeff1/coeff2;
+            }
+            int k = 1;
+            int add = (int) coeff2;
+            int c1 = ((int) coeff1) % q;
+            if (c1 < 0)
+            {
+                c1 = c1 + q;
+            }
+            int c2 = ((int) coeff2) % q;
+            if (c2 < 0)
+            {
+                c2 = c2 + q;
+            }
+            while ((c1 ^ c2) != 0)
+            {
+                k++;
+                c2 = (c2 + add)%q;
+            }
+            return k;
         }
 
         private static Polynomial Divide(Polynomial pol1, Polynomial pol2)
@@ -255,18 +312,16 @@ namespace KTUzd.Models
                 _divisionRemainder = pol1;
                 return new Polynomial();
             }
-            decimal coeff = pol2[pol2.PolynomialGrade];
-            decimal coeff2 = pol1[pol1.PolynomialGrade];
-            /*
-            if (Math.Abs(coeff) > Math.Abs(coeff2))
-            {
-                _divisionRemainder = pol1;
-                return new Polynomial();                
-            }
-             */
+            decimal coeff2 = pol2[pol2.PolynomialGrade];
+            decimal coeff = pol1[pol1.PolynomialGrade];
             var mult = new Polynomial();
-            mult[pol1.PolynomialGrade - pol2.PolynomialGrade] = coeff2 / coeff;
-            Polynomial next = pol1 - (pol2*mult);                
+            if ((pol1.Q % coeff2 == 0) && (coeff % coeff2 != 0))
+            {
+                pol1 = pol1*coeff2;
+                coeff = pol1[pol1.PolynomialGrade];
+            }
+            mult[pol1.PolynomialGrade - pol2.PolynomialGrade] = CalculateCoeff(coeff, coeff2, pol1.Q);
+            Polynomial next = pol1 + (pol2*mult);                
             return mult + Divide(next, pol2);            
         }
 
@@ -275,6 +330,17 @@ namespace KTUzd.Models
             Polynomial pol = pol1 - pol2;
             return ((pol.PolynomialGrade == 0) && (pol[0] == 0));
         }
+
+        public static bool operator ==(Polynomial pol, string text)
+        {
+            return pol == new Polynomial(text);
+        }
+
+        public static bool operator !=(Polynomial pol, string text)
+        {
+            return pol != new Polynomial(text);
+        }
+
 
         public static bool operator ==(Polynomial pol1, decimal num)
         {
@@ -310,13 +376,17 @@ namespace KTUzd.Models
 
         public Polynomial Modus(int q)
         {
-            Polynomial result = new Polynomial();
-            for (int i = 0; i <= PolynomialGrade; i++)
+            if (q > 0)
             {
-                result[i] = (this[i] >= 0) ? (this[i]%q) : q - (this[i]%q);
+                var result = new Polynomial();
+                for (int i = 0; i <= PolynomialGrade; i++)
+                {
+                    result[i] = (this[i] >= 0) ? (this[i]%q) : q + (this[i]%q);
+                }
+                result.Q = q;
+                return result;
             }
-            result.Q = q;
-            return result;
+            return this;
         }
 
         public static bool operator >(Polynomial pol1, decimal num)
@@ -408,11 +478,204 @@ namespace KTUzd.Models
                 return CosetsSet.Count;
             }
         }
+
+        public static class PolynomialParser
+        {
+            public static Polynomial Parse(string s)
+            {
+               Polynomial result = new Polynomial();
+                string checkedS = s.Replace(" ", "").Replace("+-", "-").Replace("-+", "-").Replace("f(x)=", "") + "+";
+                int mode = -1;
+                int currentCoeff = 0;
+                int calculatedCoeff = 0;
+                int currentPower = 0;
+                int currentCoeffPower = 0;
+                int value = 0;
+                int sign = 1;
+                for (int i = 0; i < checkedS.Length; i++)
+                {
+                    switch (checkedS[i])
+                    {
+                        case 'x':                            
+                            currentPower = 1;
+                            currentCoeffPower = 0;
+                            if (mode == 0)
+                            {
+                                calculatedCoeff = value;
+                            }
+                            else if (mode == 2)
+                            {
+                                calculatedCoeff = value + 2;
+                            }
+                            else if (mode == 4)
+                            {
+                                calculatedCoeff = 1;
+                            }
+                            else
+                            {
+                                calculatedCoeff = 1;
+                            }
+                            mode = 1;
+                            value = 0;
+                            currentCoeff = 0;
+                            break;
+                        case '-':
+                            if ((mode == 1) || (mode == 3))
+                            {
+                                result[currentPower] += sign*calculatedCoeff;
+                            }         
+                            else if (mode == 0)
+                            {
+                                result[0] += sign*value;
+                            }
+                            sign = -1;
+                            mode = -1;
+                            value = 0;
+                            break;
+                        case '+':
+                            if ((mode == 1) || (mode == 3))
+                            {
+                                result[currentPower] += sign * calculatedCoeff;
+                            }
+                            else if (mode == 0)
+                            {
+                                result[0] += sign * value;
+                            }
+                            sign = 1;
+                            mode = -1;
+                            value = 0;
+                            break;
+                        case '^':
+                            if (mode == 4)
+                            {
+                                mode = 2;
+                                value = 0;
+                                currentCoeffPower = 0;
+                            }
+                            else
+                            {
+                                mode = 3;
+                                value = 0;
+                                currentPower = 0;
+                            }
+                            break;
+                        case 'a':
+                            value = 0;
+                            mode = 4;
+                            break;
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            if (mode == -1)
+                            {
+                                mode = 0;
+                                calculatedCoeff = 0;
+                                value = 0;
+                            }
+                            value = value*10 + int.Parse(checkedS[i].ToString());
+                            if (mode == 3)
+                            {
+                                currentPower = currentPower * 10 + int.Parse(checkedS[i].ToString());
+                            }
+                            break;
+                    }
+                }
+
+                return result;
+            }
+        }
     }
 
     public class PolynomialElement
     {
         public decimal Coefficient { get; set; }
         public int Power { get; set; }
+
+
+        private string CoefficientToString(bool useSeparator, int q)
+        {
+            if (Coefficient == 0)
+            {
+                return "";
+            }
+             string start = "";
+             if (Coefficient < 0)
+             {
+                 start = " - ";
+             }
+             else if (useSeparator)
+             {
+                 start = " + ";
+             }
+
+            string number = "";
+            int nr = ((int)Math.Abs(Coefficient));
+            if (q == 0)
+            {
+                if ((Power == 0) && (nr == 1))
+                {
+                    number = "1";
+                }
+                else if ((Power > 0) && (nr == 1))
+                {
+                    number = "";
+                }
+                else
+                {
+                    number = nr.ToString();                    
+                }
+                
+            }
+            else
+            {
+                if ((nr == 1) && (Power == 0))
+                {
+                    number = "1";
+                }
+                else if (nr == 1)
+                {
+                    number = "";
+                }
+                else if (nr == 2)
+                {
+                    number = "a";
+                }
+                else
+                {
+                    number = "a^" + (nr - 1).ToString();
+                }
+            }
+            return start + number;
+        }
+
+        public string ToString(bool useSeparator, int q)
+        {
+            if (Coefficient == 0)
+            {
+                return "";
+            }
+            string coeff = CoefficientToString(useSeparator, q);
+            if (Power == 0)
+            {
+                return coeff;
+            }
+            if (Power == 1)
+            {
+                return coeff + "x";
+            }
+            return coeff + "x^" + Power.ToString();
+        }
+
+        public override string ToString()
+        {
+            return ToString(false, 0);
+        }
     }
 }

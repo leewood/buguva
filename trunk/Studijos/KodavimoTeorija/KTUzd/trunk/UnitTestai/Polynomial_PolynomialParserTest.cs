@@ -1,17 +1,15 @@
-﻿using KTUzd.Solution;
+﻿using KTUzd.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KTUzd.Models;
-
 namespace UnitTestai
 {
     
     
     /// <summary>
-    ///This is a test class for FactoringAlgorithmTest and is intended
-    ///to contain all FactoringAlgorithmTest Unit Tests
+    ///This is a test class for Polynomial_PolynomialParserTest and is intended
+    ///to contain all Polynomial_PolynomialParserTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class FactoringAlgorithmTest
+    public class Polynomial_PolynomialParserTest
     {
 
 
@@ -65,28 +63,31 @@ namespace UnitTestai
 
 
         /// <summary>
-        ///A test for FullFactorization
+        ///A test for Parse
         ///</summary>
-        [TestMethod()]
-        public void FullFactorizationTest()
+        [TestMethod]
+        public void ParseTest()
         {
-            Polynomial poly = new Polynomial();
-            poly.Q = 5;
-            poly.P = 5;
-            poly.M = 1;
-            poly[8] = 1;
-            poly[0] = -1;
-            //Polynomial[] expected = null; // TODO: Initialize to an appropriate value
-            Polynomial[] actual = FactoringAlgorithm.FullFactorization(poly);
-            Assert.AreEqual(3, actual.Length);            
+            string s = "x^7+x+x-1"; 
+            Polynomial expected = new Polynomial();
+            expected[7] = 1;
+            expected[1] = 2;
+            expected[0] = -1;
+            Polynomial actual= Polynomial.PolynomialParser.Parse(s);            
+            Assert.IsTrue(expected == actual);                        
         }
 
         [TestMethod]
-        public void XorTest()
-        {
-            byte exp = 0;
-            byte actual = 3 ^ 3;
-            Assert.AreEqual(exp, actual);
+        public void ParseTwoWayTest()
+        {            
+            Polynomial expected = new Polynomial();
+            expected[7] = 1;
+            expected[1] = 2;
+            expected[0] = -1;
+            string s = expected.ToString();
+            Polynomial actual = Polynomial.PolynomialParser.Parse(s);
+            Assert.IsTrue(expected == actual);
         }
+
     }
 }

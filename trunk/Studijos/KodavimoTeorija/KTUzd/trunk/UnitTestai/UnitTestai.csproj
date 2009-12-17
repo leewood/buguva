@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="CyclotomicCosetTest.cs" />
     <Compile Include="FactoringAlgorithmTest.cs" />
+    <Compile Include="PolynomialTest.cs" />
+    <Compile Include="Polynomial_PolynomialParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
