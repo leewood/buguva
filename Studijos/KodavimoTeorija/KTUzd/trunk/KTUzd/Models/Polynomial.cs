@@ -165,7 +165,7 @@ namespace KTUzd.Models
             bool separ = false;
             foreach (var elem in _elements.OrderByDescending(e => e.Power))
             {
-                b.Append(elem.ToString(separ, Q));
+                b.Append(elem.ToString(separ, Q, M));
                 separ = true;
             }
             return b.ToString();
@@ -250,17 +250,17 @@ namespace KTUzd.Models
         /// <returns></returns>
         private static int Mlt(decimal a, decimal b, int q)
         {
-            var aI = (int)Math.Abs(a);
-            var bI = (int)Math.Abs(b);
+            if (q == 0)
+            {
+                return (int)(a*b);
+            }
+            var aI = (a >= 0)?((int)a) % q: q + (((int)a) % q);
+            var bI = (b >= 0) ? ((int)b) % q : q + (((int)b) % q);            
             if ((aI == 0) || (bI == 0))
             {
                 return 0;
             }
             int newPower = ((aI + bI - 2) % (q - 1)) + 1;
-            if (a * b < 0)
-            {
-                return -newPower;
-            }
             return newPower;
         }
 
@@ -290,10 +290,24 @@ namespace KTUzd.Models
             {
                 c2 = c2 + q;
             }
-            while ((c1 ^ c2) != 0)
+            if (MathTools.IsPrimary(q))
             {
-                k++;
-                c2 = (c2 + add) % q;
+                while ((c1 + c2) % q != 0)
+                {
+                    k++;
+                    //c2 = (c2 + add) % q;
+                    c2 = Mlt(add, k, q);
+                }
+
+            }
+            else
+            {
+                while ((c1 ^ c2) != 0)
+                {
+                    k++;
+                    //c2 = (c2 + add) % q;
+                    c2 = Mlt(add, k, q);
+                }
             }
             return k;
         }
@@ -308,6 +322,7 @@ namespace KTUzd.Models
         {
             // jei dalyba iš nulio arba daliklio laipsnis didenis už dalmens - baigiam 
             // ir grąžiname dalinį kaip liekaną.
+            int q = Math.Max(pol1.Q, pol2.Q);
             if ((pol1 == 0) || (pol1.PolynomialDegree < pol2.PolynomialDegree))
             {
                 _divisionRemainder = pol1;
@@ -317,13 +332,13 @@ namespace KTUzd.Models
             decimal coeff = pol1[pol1.PolynomialDegree];
             // pasidarome polinomą, iš kurio dauginsime daliklį
             var mult = new Polynomial();
-            if ((pol1.Q % coeff2 == 0) && (coeff % coeff2 != 0))
+            if ((q % coeff2 == 0) && (coeff % coeff2 != 0))
             {
                 pol1 = pol1 * coeff2;
                 coeff = pol1[pol1.PolynomialDegree];
             }
-            mult[pol1.PolynomialDegree - pol2.PolynomialDegree] = CalculateCoeff(coeff, coeff2, pol1.Q);
-            // apskaičiuojame, kiek dar liko polinomo neišdalintą
+            mult[pol1.PolynomialDegree - pol2.PolynomialDegree] = CalculateCoeff(coeff, coeff2, q);
+            // apskaičiuojame, kiek dar liko polinomo neišdalinta
             Polynomial next = pol1 + (pol2 * mult);
             // kartojame rekursiškai
             return mult + Divide(next, pol2);
@@ -363,7 +378,7 @@ namespace KTUzd.Models
         /// <returns>Daugybos rezultatas</returns>
         public static Polynomial operator *(Polynomial pol, decimal coeff)
         {
-            return pol * new Polynomial(coeff);
+            return pol * new Polynomial(coeff, pol.P, pol.M);
         }
 
         /// <summary>
@@ -376,27 +391,28 @@ namespace KTUzd.Models
         {
             // imamas kiekvienas elementas iš pirmo polinomo ir dauginamas iš kiekvieno antro polinomo nario
             var result = new Polynomial();
+            int q = Math.Max(pol1.Q, pol2.Q);
             for (int i = 0; i <= pol1.PolynomialDegree; i++)
             {
                 var item = new Polynomial();
                 for (int j = 0; j <= pol2.PolynomialDegree; j++)
                 {
-                    if (pol1.Q == 0)
+                    if (q == 0)
                     {
                         item[i + j] = pol2[j] * pol1[i];
                     }
                     else
                     {
                         //jei polinomas virš baigtinio kūno - atlieka daugyba pagal b.kūno taisykles
-                        item[i + j] = Mlt(pol1[i], pol2[j], pol1.Q);
+                        item[i + j] = Mlt(pol1[i], pol2[j], q);
                     }
                 }
                 result += item;
             }
-            result.Q = pol1.Q;
-            result.M = pol1.M;
-            result.P = pol1.P;
-            return result.Modus(pol1.Q);
+            result.Q = Math.Max(pol1.Q, pol2.Q);
+            result.M = Math.Max(pol1.M, pol2.M);
+            result.P = Math.Max(pol1.P, pol2.P);
+            return result.Modus(q);
         }
 
         /// <summary>
@@ -408,27 +424,35 @@ namespace KTUzd.Models
         public static Polynomial operator +(Polynomial pol1, Polynomial pol2)
         {
             var result = new Polynomial();
+            int q = Math.Max(pol1.Q, pol2.Q);
             int last = Math.Max(pol1.PolynomialDegree, pol2.PolynomialDegree);
             // prie kiekvieno pirmo nario elemento prideda atitinkamos pozicijos antro nario elementą
             for (int i = 0; i <= last; i++)
             {
-                if (pol1.Q == 0)
+                if (q == 0)
                 {
                     result[i] = pol1[i] + pol2[i];
                 }
                 else
                 {
                     // sutikrinamos b.kūno taisyklės
-                    int p1 = ((pol1[i] >= 0) ? (int)pol1[i] : pol1.Q - (int)pol1[i]) % pol1.Q;
-                    int p2 = ((pol2[i] >= 0) ? (int)pol2[i] : pol1.Q - (int)pol2[i]) % pol1.Q;
+                    int p1 = ((pol1[i] >= 0) ? (int)pol1[i] : q + (((int)pol1[i]) % q)) % q;
+                    int p2 = ((pol2[i] >= 0) ? (int)pol2[i] : q + (((int)pol1[i]) % q)) % q;
                     // xor sudėties taisyklė
-                    result[i] = p1 ^ p2;
+                    if (MathTools.IsPrimary(pol1.Q))
+                    {
+                        result[i] = (p1 + p2) % q;
+                    }
+                    else
+                    {
+                        result[i] = p1 ^ p2;
+                    }
                 }
             }
-            result.Q = pol1.Q;
-            result.M = pol1.M;
-            result.P = pol1.P;
-            return result.Modus(pol1.Q);
+            result.Q = Math.Max(pol1.Q, pol2.Q);
+            result.M = Math.Max(pol1.M, pol2.M);
+            result.P = Math.Max(pol1.P, pol2.P);
+            return result.Modus(result.Q);
         }
 
         /// <summary>
@@ -439,7 +463,7 @@ namespace KTUzd.Models
         /// <returns>Sudėties rezultatas</returns>
         public static Polynomial operator +(Polynomial pol, decimal num)
         {
-            return pol + new Polynomial(num);
+            return pol + new Polynomial(num, pol.P, pol.M);
         }
 
         /// <summary>
@@ -461,7 +485,7 @@ namespace KTUzd.Models
         /// <returns>Atimties rezultatas</returns>
         public static Polynomial operator -(Polynomial pol1, decimal num)
         {
-            return pol1 - new Polynomial(num);
+            return pol1 - new Polynomial(num, pol1.P, pol1.M);
         }
 
         private static Polynomial _divisionRemainder;
@@ -475,10 +499,10 @@ namespace KTUzd.Models
         public static Polynomial operator /(Polynomial pol1, Polynomial pol2)
         {
             var result = Divide(pol1, pol2);
-            result.Q = pol1.Q;
-            result.M = pol1.M;
-            result.P = pol1.P;
-            return result.Modus(pol1.Q);
+            result.Q = Math.Max(pol1.Q, pol2.Q);
+            result.M = Math.Max(pol1.M, pol2.M);
+            result.P = Math.Max(pol1.P, pol2.P);
+            return result.Modus(result.Q);
         }
 
         /// <summary>
@@ -490,10 +514,10 @@ namespace KTUzd.Models
         public static Polynomial operator %(Polynomial pol1, Polynomial pol2)
         {
             Divide(pol1, pol2);
-            _divisionRemainder.Q = pol1.Q;
-            _divisionRemainder.M = pol1.M;
-            _divisionRemainder.P = pol1.P;
-            return _divisionRemainder.Modus(pol1.Q);
+            _divisionRemainder.Q = Math.Max(pol1.Q, pol2.Q);
+            _divisionRemainder.M = Math.Max(pol1.M, pol2.M);
+            _divisionRemainder.P = Math.Max(pol1.P, pol2.P);
+            return _divisionRemainder.Modus(_divisionRemainder.Q);
         }
 
 
@@ -915,7 +939,7 @@ namespace KTUzd.Models
         /// <param name="useSeparator">Ar rodyti priekyje pliusą</param>
         /// <param name="q">q parametro reikšmė</param>
         /// <returns>Tekstinis pavidalas</returns>
-        private string CoefficientToString(bool useSeparator, int q)
+        private string CoefficientToString(bool useSeparator, int q, int m)
         {
             if (Coefficient == 0)
             {
@@ -959,13 +983,17 @@ namespace KTUzd.Models
                 {
                     number = "";
                 }
-                else if (nr == 2)
+                else if ((nr == 2) && (m > 1))
                 {
                     number = "a";
                 }
-                else
+                else if (m > 1)
                 {
                     number = "a^" + (nr - 1);
+                }
+                else
+                {
+                    number = nr.ToString();
                 }
             }
             return start + number;
@@ -977,13 +1005,13 @@ namespace KTUzd.Models
         /// <param name="useSeparator">Ar rodyti priekyje pliusą</param>
         /// <param name="q">q parametro reikšmė</param>
         /// <returns>Tekstinis pavidalas</returns>
-        public string ToString(bool useSeparator, int q)
+        public string ToString(bool useSeparator, int q, int m)
         {
             if (Coefficient == 0)
             {
                 return "";
             }
-            string coeff = CoefficientToString(useSeparator, q);
+            string coeff = CoefficientToString(useSeparator, q, m);
             if (Power == 0)
             {
                 return coeff;
@@ -1001,7 +1029,7 @@ namespace KTUzd.Models
         /// <returns>Tesktinis pavidalas</returns>
         public override string ToString()
         {
-            return ToString(false, 0);
+            return ToString(false, 0, 1);
         }
     }
 }
