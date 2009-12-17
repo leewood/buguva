@@ -64,7 +64,21 @@ namespace KTUzd.Interface
             if (!locked)
             {
                 locked = true;
-
+                int v = (int)numericUpDown4.Value;
+                int add = 1;
+                if (v < oldQ)
+                {
+                    add = -1;
+                }
+                while (!MathTools.IsPrimaryPower(v))
+                {
+                    v += add;
+                }
+                oldQ = v;
+                oldP = MathTools.LastPrimary;
+                numericUpDown2.Value = MathTools.LastPrimary;
+                numericUpDown3.Value = MathTools.LastPower;
+                numericUpDown4.Value = v;
                 locked = false;
             }
         }
