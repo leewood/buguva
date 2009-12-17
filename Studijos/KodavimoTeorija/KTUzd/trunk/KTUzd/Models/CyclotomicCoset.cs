@@ -2,6 +2,7 @@
 
 namespace KTUzd.Models
 {
+
     public class CyclotomicCoset
     {
         public List<int> Items { get; set; }
