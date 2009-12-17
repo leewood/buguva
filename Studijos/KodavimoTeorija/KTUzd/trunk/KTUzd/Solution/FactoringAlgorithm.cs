@@ -15,7 +15,7 @@ namespace KTUzd.Solution
             cosetPoly.Q = poly.Q;
             for (int s = 0; s < poly.Q; s++)
             {
-                Polynomial member = GreatestCommonDivisor.FindGCD(poly, cosetPoly - s);
+                Polynomial member = GreatestCommonDivisor.FindGCD(poly, cosetPoly + s);
                 member.Q = poly.Q;
                 if (member.PolynomialGrade > 0)
                 {
