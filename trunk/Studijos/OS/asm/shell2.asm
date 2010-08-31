@@ -1,0 +1,1 @@
+$ASMshell               $00     IN  0301PUSH0001PUSH0002ADD     POP 0101OUT 0102HALT    $01Test    $END

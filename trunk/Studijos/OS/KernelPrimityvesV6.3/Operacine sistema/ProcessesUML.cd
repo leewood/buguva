@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ConsoleApplication1.VirtualMachineRunner">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAgAAAAAAAAAAAAAABAAABAAAAAgAAAAAA=</HashCode>
+      <FileName>VirtualMachineRunner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.Process">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAaAAABACAYAAARAACAAAAAAAAAgAAAAEAAAAgAAAgM=</HashCode>
+      <FileName>Process.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.VirtualMachineLoader">
+    <Position X="5.75" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIEAAAAAAAAAAIEAAAAAgAAAAAAAAAAAAAEIAkAA=</HashCode>
+      <FileName>VirtualMachineLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.ProcessManager">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="ConsoleApplication1.Process" FixedFromPoint="true">
+      <Path>
+        <Point X="5.5" Y="2.5" />
+        <Point X="8" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABBAAAAAAAAEAAAAQEQAAAAAAAAAEAAAAIEAAAA=</HashCode>
+      <FileName>ProcessManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.FileSystem">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="ConsoleApplication1.Process" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="2.75" />
+        <Point X="5.668" Y="2.75" />
+        <Point X="5.668" Y="2.573" />
+        <Point X="7.877" Y="2.573" />
+        <Point X="7.877" Y="3.375" />
+        <Point X="8" Y="3.375" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAgAIAAAAAAAAAAAAAAQAAAAACBAAAAAAAAAAIUAAAA=</HashCode>
+      <FileName>FileSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.FileReadWrite">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAABAAAAAAAAAACAAAAAAAABBAIEQAAA=</HashCode>
+      <FileName>FileReadWrite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.SWAP">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="ConsoleApplication1.Process" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="0.5" />
+        <Point X="4.75" Y="0.26" />
+        <Point X="1.375" Y="0.26" />
+        <Point X="1.375" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAEAAAAAAAAAAAAAAQACAAIEAAAAABAAAAA=</HashCode>
+      <FileName>SWAP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.HDDDriver">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAEAAAAAAAAAAAAAAAAAAAQACAAIEAAAACAAAAAA=</HashCode>
+      <FileName>SWAP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.ConsoleDriver">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAEAAAIAgAAAAAAAAAACAACAIAABEBAAASEAAEAA=</HashCode>
+      <FileName>SWAP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication1.Init">
+    <Position X="2.25" Y="6" Width="1.5" />
+    <InheritanceLine Type="ConsoleApplication1.Process" FixedFromPoint="true">
+      <Path>
+        <Point X="4.125" Y="4.164" />
+        <Point X="4.125" Y="5.808" />
+        <Point X="3" Y="5.808" />
+        <Point X="3" Y="6" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAAAAIABAgA=</HashCode>
+      <FileName>Init.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

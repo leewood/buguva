@@ -1,0 +1,1 @@
+$ASMshell               $00     OUT 0201OUT 0101IN  0401PUTM0400CALL0000JUMP0000HALT    $01     #RUN?:  $02     OS shell        $END

@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C2443878-6710-44FD-A3D3-855E441BE93A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Operacine_sistema</RootNamespace>
+    <AssemblyName>Operacine sistema</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interface\ConsoleWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\ConsoleWindow.Designer.cs">
+      <DependentUpon>ConsoleWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NativeTypes\Block.cs" />
+    <Compile Include="Interface\ChangePriority.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\ChangePriority.Designer.cs">
+      <DependentUpon>ChangePriority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RealMachine\ChannelDevice.cs" />
+    <Compile Include="RealMachine\ConsoleDevice.cs" />
+    <Compile Include="Resources\ConsoleData.cs" />
+    <Compile Include="Processes\ConsoleDriver.cs" />
+    <Compile Include="SystemFunctions\ConsoleWriter.cs" />
+    <Compile Include="Interface\Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\Dialog.Designer.cs">
+      <DependentUpon>Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Kernel\ElementList.cs" />
+    <Compile Include="Resources\File.cs" />
+    <Compile Include="Utils\FileDescriptor.cs" />
+    <Compile Include="Resources\FileHandler.cs" />
+    <Compile Include="Processes\FileReadWrite.cs" />
+    <Compile Include="Processes\FileSystem.cs" />
+    <Compile Include="Processes\HddDriver.cs" />
+    <Compile Include="Interface\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interface\FilesEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\FilesEditor.Designer.cs">
+      <DependentUpon>FilesEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RealMachine\HardDiskDrive.cs" />
+    <Compile Include="Utils\HardDiskDriveUtils.cs" />
+    <Compile Include="Resources\HardDiskResource.cs" />
+    <Compile Include="Resources\HDDBlock.cs" />
+    <Compile Include="Processes\Init.cs" />
+    <Compile Include="RealMachine\InputDevice.cs" />
+    <Compile Include="Resources\InputDeviceResource.cs" />
+    <Compile Include="Resources\Interrupted.cs" />
+    <Compile Include="Processes\InterruptProcess.cs" />
+    <Compile Include="Resources\InterruptResource.cs" />
+    <Compile Include="Processes\JobControl.cs" />
+    <Compile Include="Kernel\Kernel.cs" />
+    <Compile Include="RealMachine\Memory.cs" />
+    <Compile Include="Interface\NewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\NewDialog.Designer.cs">
+      <DependentUpon>NewDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interface\NewResourceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\NewResourceDialog.Designer.cs">
+      <DependentUpon>NewResourceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RealMachine\OutputDevice.cs" />
+    <Compile Include="Resources\OutputDeviceResource.cs" />
+    <Compile Include="Processes\Process.cs" />
+    <Compile Include="Interface\ProcessesDebuger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\ProcessesDebuger.Designer.cs">
+      <DependentUpon>ProcessesDebuger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Kernel\ProcessList.cs" />
+    <Compile Include="Processes\ProcessManager.cs" />
+    <Compile Include="RealMachine\Processor.cs" />
+    <Compile Include="Resources\ProcEvent.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Interface\ChangePriority.resx">
+      <DependentUpon>ChangePriority.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\ConsoleWindow.resx">
+      <DependentUpon>ConsoleWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\Dialog.resx">
+      <DependentUpon>Dialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\FilesEditor.resx">
+      <DependentUpon>FilesEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\NewDialog.resx">
+      <DependentUpon>NewDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\NewResourceDialog.resx">
+      <DependentUpon>NewResourceDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\ProcessesDebuger.resx">
+      <DependentUpon>ProcessesDebuger.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\ResourcesList.resx">
+      <DependentUpon>ResourcesList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Resources\RAMResource.cs" />
+    <Compile Include="Resources\RAMResourceElement.cs" />
+    <Compile Include="Resources\readOK.cs" />
+    <Compile Include="Resources\readStatus.cs" />
+    <Compile Include="NativeTypes\Register2Bytes.cs" />
+    <Compile Include="NativeTypes\Register3Bytes.cs" />
+    <Compile Include="NativeTypes\Register4Bytes.cs" />
+    <Compile Include="Resources\Resource.cs" />
+    <Compile Include="Resources\ResourceElement.cs" />
+    <Compile Include="Interface\ResourcesList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\ResourcesList.Designer.cs">
+      <DependentUpon>ResourcesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Kernel\SavedRegisters.cs" />
+    <Compile Include="Resources\ShutDown.cs" />
+    <Compile Include="Kernel\SingleStep.cs" />
+    <Compile Include="Kernel\State.cs" />
+    <Compile Include="Processes\SWAP.cs" />
+    <Compile Include="Resources\SWAPBlock.cs" />
+    <Compile Include="Resources\SwapOK.cs" />
+    <Compile Include="Utils\ReleasePointer.cs" />
+    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="RealMachine\VirtualMachine.cs" />
+    <Compile Include="Processes\VirtualMachineLoader.cs" />
+    <Compile Include="Resources\VirtualMachineReady.cs" />
+    <Compile Include="Resources\VirtualMachineResource.cs" />
+    <Compile Include="Processes\VirtualMachineRunner.cs" />
+    <Compile Include="RealMachine\VirtualMemory.cs" />
+    <Compile Include="SystemFunctions\WinConsole.cs" />
+    <Compile Include="NativeTypes\Word.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

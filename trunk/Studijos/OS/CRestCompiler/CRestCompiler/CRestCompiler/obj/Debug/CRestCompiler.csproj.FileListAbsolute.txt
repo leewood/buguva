@@ -1,0 +1,16 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.Form1.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\bin\Debug\CRestCompiler.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\bin\Debug\CRestCompiler.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.pdb
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.exe
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.pdb
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\bin\Debug\CRestCompiler.exe
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.Form1.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.Properties.Resources.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\obj\Debug\CRestCompiler.csproj.GenerateResource.Cache
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\CRestCompiler\CRestCompiler\CRestCompiler\bin\Debug\CRestCompiler.pdb

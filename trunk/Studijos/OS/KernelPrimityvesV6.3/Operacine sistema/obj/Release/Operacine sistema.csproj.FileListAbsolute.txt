@@ -1,0 +1,10 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\bin\Release\Operacine sistema.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\bin\Release\Operacine sistema.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\Operacine sistema.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Release\Operacine sistema.pdb

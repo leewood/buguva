@@ -1,0 +1,19 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\obj\Debug\FilesManager.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\obj\Debug\FilesManager.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\bin\Debug\FilesManager.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\bin\Debug\FilesManager.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\obj\Debug\FilesManager.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\obj\Debug\FilesManager.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\OS\CC\FilesManager\FilesManager\obj\Debug\FilesManager.MainForm.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\obj\Debug\FilesManager.exe
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\obj\Debug\FilesManager.pdb
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\bin\Debug\HDDConfig.Designer.cs
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\bin\Debug\HDDConfig.settings
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\bin\Debug\FilesManager.exe.config
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\bin\Debug\FilesManager.exe
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\bin\Debug\FilesManager.pdb
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\obj\Debug\FilesManager.MainForm.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\obj\Debug\FilesManager.Properties.Resources.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\FilesManager\FilesManager\FilesManager\obj\Debug\FilesManager.csproj.GenerateResource.Cache
