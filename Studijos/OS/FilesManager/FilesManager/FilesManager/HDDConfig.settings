@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FilesManager" GeneratedClassName="HDDConfig">
+  <Profiles />
+  <Settings>
+    <Setting Name="HDDPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\bin\Debug\hdd</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

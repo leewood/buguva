@@ -1,0 +1,191 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Operacine sistema\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Operacine sistema\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Operacine sistema\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Operacine sistema\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.1\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\msimutis\Desktop\OS\KernelPrimityvesV5.2\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\KernelPrimityvesV5.3\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.3\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.4\KernelPrimityvesV5.5\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine sistema.exe
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine sistema.pdb
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\bin\Debug\Operacine sistema.exe
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\bin\Debug\Operacine sistema.pdb
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+D:\KernelPrimityvesV5.6\KernelPrimityvesV5.6\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.7\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\msimutis\Desktop\KernelPrimityvesV5.8\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV5.9.5\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\Mantas\Desktop\KernelPrimityvesV6.1\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine sistema.exe
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine sistema.pdb
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\bin\Debug\Operacine sistema.exe
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\bin\Debug\Operacine sistema.pdb
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.ChangePriority.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.Dialog.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.Form_OS.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.Form_FilesEditor.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.NewDialog.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.NewResourceDialog.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.ProcessesDebuger.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.Properties.Resources.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.ResourcesList.resources
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine sistema.csproj.GenerateResource.Cache
+C:\Documents and Settings\kuosis\My Documents\Downloads\OS\OS\KernelPrimityvesV6.3\Operacine sistema\obj\Debug\Operacine_sistema.Interface.ConsoleWindow.resources
