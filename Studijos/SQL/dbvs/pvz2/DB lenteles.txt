@@ -1,0 +1,62 @@
+DATA       SAVAITES_DIENA 
+---------- ---------------
+01/03/2002 penktadienis   
+20/03/2002 treciadienis   
+15/03/2002 penktadienis   
+10/04/2002 treciadienis   
+06/04/2002 sestadienis    
+29/05/2002 treciadienis   
+03/04/2002 treciadienis   
+04/04/2002 ketvirtadienis 
+05/04/2002 penktadienis   
+
+  9 record(s) selected.
+
+
+SRITIES_ID  SRITIS                         PRIORITETAS
+----------- ------------------------------ -----------
+          0 OOP                                      1
+          1 Duomenu bazes                            1
+          2 Matematika                               3
+          3 Programavimas Java                       1
+
+  4 record(s) selected.
+
+
+DARBO_ID    DARBAS                         AR_ATLIKTAS PRADZIA    PABAIGA   
+----------- ------------------------------ ----------- ---------- ----------
+          0 Multiple dispatching           taip        01/03/2002 10/04/2002
+          1 Logistinis modelis             taip        20/03/2002 06/04/2002
+          2 Duomenu baze                   ne          15/03/2002 29/05/2002
+
+  3 record(s) selected.
+
+
+DIRBIMO_ID  LAIKAS_VAL SRITIES_IDENT DARBO_IDENT
+----------- ---------- ------------- -----------
+          0          3             0           0
+          1          5             1           0
+          2         10             2           2
+          3          1             3           -
+
+  4 record(s) selected.
+
+
+FIKSAVIMO_ID DIRBIMO_IDENT DATOS_IDENT
+------------ ------------- -----------
+           0             0 03/04/2002 
+           1             1 03/04/2002 
+           2             2 04/04/2002 
+           3             3 05/04/2002 
+
+  4 record(s) selected.
+
+
+SRITIES_IDENT DARBO_IDENT
+------------- -----------
+            0           0
+            2           2
+            1           1
+
+  3 record(s) selected.
+

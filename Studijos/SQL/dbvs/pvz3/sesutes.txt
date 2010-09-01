@@ -1,0 +1,10 @@
+
+ID     VARDAS          PAVARDE              DIRBA_NUO  ALGA      TELEFONAS      
+------ --------------- -------------------- ---------- --------- ---------------
+     1 Karolina        Iesmantaviciute      2003.12.20    800,12 +37064111242   
+     2 Milda           Skaistute            2006.01.03    550,00 +37053251122   
+     3 Laura           Krisciunaite         2001.06.16    900,50 +37061155321   
+     4 Natasa          Miliute              1999.05.03   1000,00 +37062165342   
+     5 Viktorija       Karaliunaite         2000.10.30    950,43 +37063264212   
+
+  5 record(s) selected.

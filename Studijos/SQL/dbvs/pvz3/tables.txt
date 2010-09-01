@@ -1,0 +1,276 @@
+
+ID     VARDAS          PAVARDE              DIRBA_NUO  ALGA      TELEFONAS      
+------ --------------- -------------------- ---------- --------- ---------------
+     1 Karolina        Iesmantaviciute      2003.12.20    800,12 +37064111242   
+     2 Milda           Skaistute            2006.01.03    550,00 +37053251122   
+     3 Laura           Krisciunaite         2001.06.16    900,50 +37061155321   
+     4 Natasa          Miliute              1999.05.03   1000,00 +37062165342   
+     5 Viktorija       Karaliunaite         2000.10.30    950,43 +37063264212   
+
+  5 record(s) selected.
+
+
+NR     VIETU_SK SESUTE
+------ -------- ------
+    10        2      1
+    11        2      1
+    12        2      1
+    13        2      1
+    14        2      1
+    20        3      2
+    21        3      2
+    22        3      2
+    23        3      2
+    24        3      2
+    30        1      3
+    31        1      3
+    32        1      3
+    33        1      3
+    34        1      3
+    40        1      4
+    41        2      4
+    42        2      4
+    43        2      4
+    44        3      5
+
+  20 record(s) selected.
+
+
+ID     VARDAS          PAVARDE              DIRBA_NUO  ALGA      PAREIGOS             TELEFONAS       EL_PASTAS                     
+------ --------------- -------------------- ---------- --------- -------------------- --------------- ------------------------------
+     1 Juozas          Martinaitis          1999.12.14   3123,20 Vyr. gydytojas       +37066622288    juozas.martinaitis@psicho.org 
+     2 Antanas         Petrusis             2000.03.09   1005,95 Kardiologas          +37013245584    antanas.petrusis@psicho.org   
+     3 Jonas           Kairys               2004.02.01   1600,00 Psichiatras          +37012345655    -                             
+     4 Mantas          Baubas               2002.03.22   2550,00 Venerologas          -               baubas@venero.com             
+     5 Povilas         Kalimas              2001.01.18   2000,00 Pcichologas          -               povilas.kalimas@yahoo.com     
+     6 Karolis         Juskus               2003.05.30   1550,00 Felceris             -               -                             
+     7 Martynas        Juskus               2001.02.06   3510,00 Chirurgas            +37062153211    chirurgas@atb-music.com       
+     8 Jeronimas       Kavaliunas           2002.09.12   1850,50 Psichoterapeutas     -               kavaliunas@gmail.com          
+
+  8 record(s) selected.
+
+
+BUKLE    
+---------
+Nestabili
+Siauteja 
+Stabili  
+Sunki    
+Sveikas  
+Tramdomas
+
+  6 record(s) selected.
+
+
+TEISTUMAS
+---------
+Kali     
+Neteistas
+Teistas  
+
+  3 record(s) selected.
+
+
+ID     VARDAS          PAVARDE              AK          SODROS_NR GYDOSI_NUO GYDYTOJAS_GYDO PALATA MIESTAS              BUKLE     TEISTUMAS
+------ --------------- -------------------- ----------- --------- ---------- -------------- ------ -------------------- --------- ---------
+     1 Bronius         Asmena               36012306542 AS3216547 2000.01.05              2     33 Kaunas               Tramdomas Teistas  
+     2 Arunas          Maciulis             34311131332 KF1513295 2005.06.19              6     11 Panevezys            Stabili   Neteistas
+     3 Ligitas         Auksiejus            38412211515 SG2135486 2000.12.25              1     30 Kaunas               Tramdomas Kali     
+     4 Marius          Marcelijus           36001264645 HF8947654 2006.01.18              5     13 Siauliai             Stabili   Neteistas
+     5 Arturas         Asmena               37911164621 BC3321245 2002.01.05              2     11 Kaunas               Siauteja  Teistas  
+     6 Konstantinas    Lobynas              34901274651 WT2215552 1986.10.17              1     23 Marijampole          Nestabili Neteistas
+     7 Paulius         Ragutis              35304261322 EF3949492 1996.01.20              3     12 Kaunas               Sunki     Teistas  
+     8 Mykolas         Gagelis              37001241221 EH3213232 2005.09.30              3     23 Kaunas               Stabili   Kali     
+     9 Saulius         Psichodelijus        38605030656 FB8415482 1991.08.16              2     23 Radviliskis          Tramdomas Kali     
+    10 Aleksas         Mircius              35605171351 HD8948945 1999.07.05              2     24 Kaunas               Stabili   Kali     
+    11 Beata           Kisko                47005191351 KJ8321844 1995.06.01              4     22 Kybartai             Stabili   Neteistas
+    12 Tatjana         Chlapciuk            48105251351 LD8752321 1997.01.17              4     22 Vilnius              Sunki     Neteistas
+    13 Goda            Sakalauskaite        46405301351 PS3213211 1989.11.25              1     22 Kybartai             Sunki     Neteistas
+    14 Migle           Sakalauskaite        47402132122 AS3213255 1989.11.25              1     41 Vilkaviskis          Stabili   Teistas  
+    15 Ramune          Sakalauskaite        46208123215 PB8421027 1989.11.25              1     41 Alytus               Stabili   Neteistas
+    16 Mila            Chlapciuk            48012120325 RN1321322 1999.02.12              4     42 Kaunas               Stabili   Kali     
+    17 Juste           Mazute               46906041232 MH8472100 2000.05.01              7     43 Siauliai             Stabili   Neteistas
+    18 Aukse           Maciulaityte         48912303215 WK9843212 2000.03.05              8     44 Kaunas               Tramdomas Neteistas
+
+  18 record(s) selected.
+
+
+KODAS      PAVADINIMAS              
+---------- -------------------------
+AAGD-21542 Metandrostenolonas       
+DAGF-95121 Retabolilas 250          
+KAHS-32135 Kardioalamandarginas     
+SDGW-03245 Nalpreksonas             
+ASRE-53212 Chlorpromazinas          
+QWER-21000 Haloperidolis            
+IAUS-32132 Paradolginas             
+ASDF-32142 Meladoksinas             
+LKJN-98874 Kontatubinas             
+KHGV-13254 Karmadoksinas            
+HRDK-21541 Pelimandrinas            
+KJVH-86421 Kartodoksenas            
+PIUT-32415 Medochlorinas            
+
+  13 record(s) selected.
+
+
+ID     DATA       LIGONIS GYDYTOJAS_SKYRE
+------ ---------- ------- ---------------
+     1 1997.02.13       7               1
+     2 1999.09.26       7               3
+     3 2004.01.20       7               2
+     4 2004.01.20       7               6
+     5 1998.10.21       7               3
+     6 1998.10.21      12               4
+     7 1995.05.03       9               4
+     8 2000.12.25       3               4
+     9 2001.04.19       1               2
+    10 2001.04.19       1               2
+    11 2001.04.19       1               2
+    12 2005.07.25       2               4
+    13 2006.03.01       4               6
+    14 2003.12.20       5               3
+    15 1987.03.01       6               8
+    16 1989.11.15       6               2
+    17 2005.10.20       8               5
+    18 2000.03.02      10               8
+    19 1989.11.25      13               1
+    20 1993.09.05      13               6
+    21 1996.08.24      11               3
+    22 1990.07.17      14               8
+    23 2000.12.19      14               7
+    24 2001.09.05      18               6
+    25 2003.01.29      17               8
+    26 2000.08.21      16               7
+    27 2001.12.10      16               6
+    28 2002.11.30      16               8
+    29 1990.04.03      15               7
+    30 1995.06.13      15               1
+    31 2000.10.18      15               6
+
+  31 record(s) selected.
+
+
+ID     KODAS     
+------ ----------
+     1 AAGD-21542
+     2 AAGD-21542
+     3 AAGD-21542
+     4 DAGF-95121
+     5 DAGF-95121
+     6 DAGF-95121
+     7 KAHS-32135
+     8 KAHS-32135
+     9 SDGW-03245
+    10 ASRE-53212
+    11 QWER-21000
+    12 SDGW-03245
+    13 ASRE-53212
+    14 QWER-21000
+    15 KJVH-86421
+    16 KHGV-13254
+    17 KJVH-86421
+    18 LKJN-98874
+    19 PIUT-32415
+    20 LKJN-98874
+    21 KHGV-13254
+    22 PIUT-32415
+    23 HRDK-21541
+    24 KJVH-86421
+    25 ASDF-32142
+    26 KJVH-86421
+    27 ASDF-32142
+    28 PIUT-32415
+    29 IAUS-32132
+    30 PIUT-32415
+    31 HRDK-21541
+
+  31 record(s) selected.
+
+
+PALATA VIETU_SK Laisvos Vietos
+------ -------- --------------
+    10        2              2
+    11        2              0
+    12        2              1
+    13        2              1
+    14        2              2
+    20        3              3
+    21        3              3
+    22        3              0
+    23        3              0
+    24        3              2
+    30        1              0
+    31        1              1
+    32        1              1
+    33        1              0
+    34        1              1
+    40        1              1
+    41        2              0
+    42        2              1
+    43        2              1
+    44        3              2
+
+  20 record(s) selected.
+
+
+Ligonio ID Ligonio Vardas  Ligonio Pavarde      Vaistu Kodas Vastu Pavadinimas         Skyrusio Gydytojo Vardas Skyrusio Gydytojo Pavarde DATA      
+---------- --------------- -------------------- ------------ ------------------------- ------------------------ ------------------------- ----------
+         1 Bronius         Asmena               SDGW-03245   Nalpreksonas              Antanas                  Petrusis                  2001.04.19
+         1 Bronius         Asmena               QWER-21000   Haloperidolis             Antanas                  Petrusis                  2001.04.19
+         1 Bronius         Asmena               ASRE-53212   Chlorpromazinas           Antanas                  Petrusis                  2001.04.19
+         2 Arunas          Maciulis             SDGW-03245   Nalpreksonas              Mantas                   Baubas                    2005.07.25
+         3 Ligitas         Auksiejus            KAHS-32135   Kardioalamandarginas      Mantas                   Baubas                    2000.12.25
+         4 Marius          Marcelijus           ASRE-53212   Chlorpromazinas           Karolis                  Juskus                    2006.03.01
+         5 Arturas         Asmena               QWER-21000   Haloperidolis             Jonas                    Kairys                    2003.12.20
+         6 Konstantinas    Lobynas              KJVH-86421   Kartodoksenas             Jeronimas                Kavaliunas                1987.03.01
+         6 Konstantinas    Lobynas              KHGV-13254   Karmadoksinas             Antanas                  Petrusis                  1989.11.15
+         7 Paulius         Ragutis              AAGD-21542   Metandrostenolonas        Juozas                   Martinaitis               1997.02.13
+         7 Paulius         Ragutis              DAGF-95121   Retabolilas 250           Jonas                    Kairys                    1998.10.21
+         7 Paulius         Ragutis              DAGF-95121   Retabolilas 250           Karolis                  Juskus                    2004.01.20
+         7 Paulius         Ragutis              AAGD-21542   Metandrostenolonas        Antanas                  Petrusis                  2004.01.20
+         7 Paulius         Ragutis              AAGD-21542   Metandrostenolonas        Jonas                    Kairys                    1999.09.26
+         8 Mykolas         Gagelis              KJVH-86421   Kartodoksenas             Povilas                  Kalimas                   2005.10.20
+         9 Saulius         Psichodelijus        KAHS-32135   Kardioalamandarginas      Mantas                   Baubas                    1995.05.03
+        10 Aleksas         Mircius              LKJN-98874   Kontatubinas              Jeronimas                Kavaliunas                2000.03.02
+        11 Beata           Kisko                KHGV-13254   Karmadoksinas             Jonas                    Kairys                    1996.08.24
+        12 Tatjana         Chlapciuk            DAGF-95121   Retabolilas 250           Mantas                   Baubas                    1998.10.21
+        13 Goda            Sakalauskaite        PIUT-32415   Medochlorinas             Juozas                   Martinaitis               1989.11.25
+        13 Goda            Sakalauskaite        LKJN-98874   Kontatubinas              Karolis                  Juskus                    1993.09.05
+        14 Migle           Sakalauskaite        PIUT-32415   Medochlorinas             Jeronimas                Kavaliunas                1990.07.17
+        14 Migle           Sakalauskaite        HRDK-21541   Pelimandrinas             Martynas                 Juskus                    2000.12.19
+        15 Ramune          Sakalauskaite        IAUS-32132   Paradolginas              Martynas                 Juskus                    1990.04.03
+        15 Ramune          Sakalauskaite        HRDK-21541   Pelimandrinas             Karolis                  Juskus                    2000.10.18
+        15 Ramune          Sakalauskaite        PIUT-32415   Medochlorinas             Juozas                   Martinaitis               1995.06.13
+        16 Mila            Chlapciuk            KJVH-86421   Kartodoksenas             Martynas                 Juskus                    2000.08.21
+        16 Mila            Chlapciuk            PIUT-32415   Medochlorinas             Jeronimas                Kavaliunas                2002.11.30
+        16 Mila            Chlapciuk            ASDF-32142   Meladoksinas              Karolis                  Juskus                    2001.12.10
+        17 Juste           Mazute               ASDF-32142   Meladoksinas              Jeronimas                Kavaliunas                2003.01.29
+        18 Aukse           Maciulaityte         KJVH-86421   Kartodoksenas             Karolis                  Juskus                    2001.09.05
+
+  31 record(s) selected.
+
+
+Ligonio ID Ligonio Vardas  Ligonio Pavarde      Palatos Nr AK          SODROS_NR Gydytojo Vardas Gydytojo Pavarde     Sesutes Vardas  Sesutes Pavarde      Skirti Vaistai Is Viso Skirta
+---------- --------------- -------------------- ---------- ----------- --------- --------------- -------------------- --------------- -------------------- -------------- --------------
+         1 Bronius         Asmena                       33 36012306542 AS3216547 Antanas         Petrusis             Laura           Krisciunaite                      3              3
+         2 Arunas          Maciulis                     11 34311131332 KF1513295 Karolis         Juskus               Karolina        Iesmantaviciute                   1              1
+         3 Ligitas         Auksiejus                    30 38412211515 SG2135486 Juozas          Martinaitis          Laura           Krisciunaite                      1              1
+         4 Marius          Marcelijus                   13 36001264645 HF8947654 Povilas         Kalimas              Karolina        Iesmantaviciute                   1              1
+         5 Arturas         Asmena                       11 37911164621 BC3321245 Antanas         Petrusis             Karolina        Iesmantaviciute                   1              1
+         6 Konstantinas    Lobynas                      23 34901274651 WT2215552 Juozas          Martinaitis          Milda           Skaistute                         2              2
+         7 Paulius         Ragutis                      12 35304261322 EF3949492 Jonas           Kairys               Karolina        Iesmantaviciute                   2              5
+         8 Mykolas         Gagelis                      23 37001241221 EH3213232 Jonas           Kairys               Milda           Skaistute                         1              1
+         9 Saulius         Psichodelijus                23 38605030656 FB8415482 Antanas         Petrusis             Milda           Skaistute                         1              1
+        10 Aleksas         Mircius                      24 35605171351 HD8948945 Antanas         Petrusis             Milda           Skaistute                         1              1
+        11 Beata           Kisko                        22 47005191351 KJ8321844 Mantas          Baubas               Milda           Skaistute                         1              1
+        12 Tatjana         Chlapciuk                    22 48105251351 LD8752321 Mantas          Baubas               Milda           Skaistute                         1              1
+        13 Goda            Sakalauskaite                22 46405301351 PS3213211 Juozas          Martinaitis          Milda           Skaistute                         2              2
+        14 Migle           Sakalauskaite                41 47402132122 AS3213255 Juozas          Martinaitis          Natasa          Miliute                           2              2
+        15 Ramune          Sakalauskaite                41 46208123215 PB8421027 Juozas          Martinaitis          Natasa          Miliute                           3              3
+        16 Mila            Chlapciuk                    42 48012120325 RN1321322 Mantas          Baubas               Natasa          Miliute                           3              3
+        17 Juste           Mazute                       43 46906041232 MH8472100 Martynas        Juskus               Natasa          Miliute                           1              1
+        18 Aukse           Maciulaityte                 44 48912303215 WK9843212 Jeronimas       Kavaliunas           Viktorija       Karaliunaite                      1              1
+
+  18 record(s) selected.
+

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+
+
+
+
+<meta http-equiv="Content-Language" content="lt">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Psichiatrines ligonines DB</title></head><body bgcolor="#8cb3fb">
+
+<p align="center"><font face="Book Antiqua" size="5">Psichiatrinės ligoninės 
+duomenų bazė</font></p>
+<p align="center"><font face="Book Antiqua" size="5">II
+<a href="http://uosis.mif.vu.lt/%7Ebaronas/dbvs/informat.htm">DBVS</a> praktinė užduotis</font></p>
+<p align="center"><font face="Book Antiqua">Andrius Šemiolkinas
+<br>
+II kursas [2005<span lang="en-us">–</span>2006], <span lang="en-us">I</span>nformatika, <a href="http://www.vu.lt/lt/">
+VU</a>
+<a href="http://mif.vu.lt/lt/">MIF</a></font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">Semantinis DB modelis</font></p>
+<p align="justify"><font face="Book Antiqua">&nbsp;&nbsp;&nbsp; Ligoninėje dirba <b>gydytojai</b> ir 
+<b>sesutės</b>, kurie yra identifikuojami pagal jiems priskiriamą<b> </b>unikalų 
+ID. Sesutės prižiūri <b>palatas</b>, kuriose guli <b>ligoniai</b>. Palatos yra 
+identifikuojamos pagal numerius. Palatose yra <u>ne</u>vienodas vietų skaičius. 
+Ligonis turi taip pat savo unikalų ID. Ligonį įtraukus į duomenų bazę, jam 
+priskiriamas jį gydantis gydytojas. Reikalui esant, ligoniui yra išrašomi <b>
+receptai</b> <b>medikamentams</b> gauti. Medikamentus skiria gydytojas (<u>nebūtinai</u> 
+tas pats, kuris gydo pastarąjį ligonį)<span lang="en-us"> <b>apsilankymo</b> 
+metu</span>. Skiriamų medikamentų skaičius ligoniams 
+yra neribotas, tačiau receptai gali būti išrašomi tik ligoninėje 
+esantiems medikamentams (jei medikamento nėra, jį tenka atgabenti į 
+ligoninę – įtraukti į ligoninės DB).</font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">ER diagram<span lang="en-us">a</span></font></p>
+<p align="center"><font face="Book Antiqua">
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/diagrama.gif">
+<img src="index_files/diagrama_reduced.gif" alt="Variantas Nr. 1" border="2" height="682" width="950"></a><br>
+<span lang="en-us"><font size="2">S</font></span><font size="2">pauskite 
+ant diagramos, norėdami ją išdidinti<span lang="en-us"> arba </span>
+<a target="_blank" href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/diagrama.dia"><span lang="en-us">atsisi</span>ųskite diagramą 
+DIA formatu</a><span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a target="_blank" href="http://www.gnome.org/projects/dia/">Powered by <b>DIA</b></a></span></font></font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">Reliacinė duomenų bazės 
+schema</font></p>
+<p align="center"><font face="Book Antiqua">
+<img src="index_files/schema.gif" alt="Reliacinė duomenų bazės schema" border="2" height="401" width="782"><br>
+</font><font face="Book Antiqua" size="2"><a target="_blank" href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/schema.dia">
+<span lang="en-us">Atsisi</span>ųskite diagramą 
+DIA formatu</a><span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a target="_blank" href="http://www.gnome.org/projects/dia/">Powered by <b>DIA</b></a></span></font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">DB kūrimo etapai</font></p>
+<ul>
+  <li>
+<p align="left"><font face="Book Antiqua">Lentelių projektavimas – duomenų tipų nustatymas reikšmėms, 
+pirminių ir išorinių raktų nustatymas, išorinių raktų apibrėžimas, reikšmių 
+reikalavimų deklaravimas, reikšmių būtinumo lentelėje nustatymas (NOT NULL), 
+duomenų pertekliaus eliminavimas, <span lang="en-us"><b>4NF</b> reikalavim</span>ų 
+įvykdymas (duomenų pertekliaus eliminavimas ir kt.), <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createtables.sql">
+lentelių įtraukimas į DB</a>.</font></p>
+  </li>
+  <li>
+<p align="left"><font face="Book Antiqua">Virtualiųjų lentelių projektavimas – logiškų išvestinių atributų 
+parinkimas naujoms lentelėms, užklausos sakinių suformulavimas išvestiniams 
+atributams, <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createviews.sql">virtualių lentelių įtraukimas į DB</a>.</font></p>
+  </li>
+  <li>
+<p align="left"><font face="Book Antiqua">Dalykinių taisyklių (<i>triggers) </i>ir automatinių tapatumo 
+požymių<i> </i>užtikrinimas – reikalingų automatinių tapatumo požymių nustatymas 
+ir jų suformulavimas, svarbiausių dalykinių taisyklių nustatymas ir jų 
+realizavimas bei <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createtriggers.sql">įtraukimas į duomenų bazę.</a></font></p>
+  </li>
+  <li>
+<p align="left"><font face="Book Antiqua">Duomenų bazės <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/insertdata.sql">užpildymas testiniais 
+duomenimis.</a></font></p>
+  </li>
+  <li>
+<p align="left"><font face="Book Antiqua">Indeksų ir unikaliųjų indeksų nustatymas ir jų
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createindexes.sql">įtraukimas į duomenų bazę.</a></font></p>
+<hr size="1" width="80%">
+  <p align="center"><font face="Book Antiqua" size="4">DB sukūrimas ir panaikinimas</font></p>
+  </li>
+</ul>
+  <p align="left">
+  <font face="Book Antiqua">
+  <u><a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createall.bat">createall.bat</a>:</u></font></p>
+  <p align="left"><font face="Book Antiqua">DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createtables.sql">createtables.sql</a>
+  <br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createviews.sql">createviews.sql</a><br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createtriggers.sql">createtriggers.sql</a><br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/insertdata.sql">insertdata.sql</a><br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/createindexes.sql">createindexes.sql</a><br>
+  DB2 COMMIT</font></p>
+  <p align="left">
+  <font face="Book Antiqua">
+  <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/dropall.bat">dropall.bat</a>:</font></p>
+  <p align="left"><font face="Book Antiqua">DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/dropindexes.sql">dropindexes.sql</a><br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/deletedata.sql">deletedata.sql</a><br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/droptriggers.sql">droptriggers.sql</a><br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/dropviews.sql">dropviews.sql</a><br>
+  DB2 –td# –f <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/droptables.sql">droptables.sql</a><br>
+  DB2 COMMIT</font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">DB egzistuojančios lentelės 
+po duomenų įvedimo</font></p>
+<p align="left"><font face="Book Antiqua" size="4">Lentelės: </font></p>
+<p align="left"><font face="Book Antiqua"><a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/sesutes.txt">Sesutės</a> (<u>ID</u>, Vardas,<span lang="en-us">
+</span>Pavarde,<span lang="en-us"> </span>Dirba_Nuo,<span lang="en-us"> </span>
+Alga,<span lang="en-us"> </span>Telefonas)<br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/palatos.txt">
+Palatos</a><span lang="en-us"> (</span></font><span lang="en-us"><font face="Book Antiqua"><u>Nr</u>, Vietu_Sk, Sesute)</font></span><font face="Book Antiqua"><br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/gydytojai.txt">Gydytojai</a><span lang="en-us"> </span></font><span lang="en-us"><font face="Book Antiqua">
+(<u>ID</u>, </font></span><font face="Book Antiqua">Vardas,<span lang="en-us"> </span>
+Pavarde,<span lang="en-us"> </span>Dirba_Nuo,<span lang="en-us">
+</span>Alga,<span lang="en-us"> </span></font><span lang="en-us">
+<font face="Book Antiqua">Pareigos, Telefonas, El_Pastas)<br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/bukles.txt">Bukles</a> (Bukle)<br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/teistumai.txt">Teistumai</a> (Teistumas)</font></span><font face="Book Antiqua"><br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/ligoniai.txt">Ligoniai</a><span lang="en-us"> (</span></font><span lang="en-us"><font face="Book Antiqua"><u>ID</u>, </font></span><font face="Book Antiqua">Vardas,<span lang="en-us"> </span>
+Pavarde,<span lang="en-us"> </span></font><span lang="en-us">
+<font face="Book Antiqua">AK, Sodros_Nr, Gydosi_Nuo, Gydytojas_Gydo, Palata, 
+Miestas, Bukle, Teistumas)<br>
+</font></span><font face="Book Antiqua"> <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/medikamentai.txt">Medikamentai</a>
+<span lang="en-us">(</span></font><span lang="en-us"><font face="Book Antiqua"><u>Kodas</u>, 
+Pavadinimas)<br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/apsilankymai.txt">Apsilankymai</a> (<u>ID</u>, Data, Ligonis, 
+Gydytojas_Skyre)<br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/receptai.txt">Receptai</a> (<u>ID</u>, <u>Kodas</u>)</font></span></p>
+<p align="left"> <font face="Book Antiqua" size="4">Virtualiosios lentelės:</font></p>
+<p align="left"><font face="Book Antiqua"> 
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/laisvosvietos.txt">LaisvosVietos</a><span lang="en-us"> – vertikali 
+virtuali lentel</span>ė, papildyta išvestiniu atributu <u>„Laisvos Vietos“</u><br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/skiriamivaistai.txt">SkiriamiVaistai</a> – jungtinė virtuali lentelė<br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/ligonioinfo.txt">LigonioInfo</a> – jungtinė virtuali lentelė, papildyta
+<span lang="en-us">2 i</span>švestiniais atributais <u>„Skirti Vaistai“</u> ir
+<u>„Is Viso Skirta“</u></font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">Indeksai</font></p>
+<p align="left"><font face="Book Antiqua">Gydytojas (Vardas, Pavarde) – 
+sudėtinis indeksas lentelėje
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/gydytojai.txt">Gydytojai</a><br>
+Ligonio_AK (AK) – <b>unikalus</b> indeksas<span lang="en-us"> lentel</span>ėje
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/ligoniai.txt">Ligoniai</a><br>
+Ligonio_Sodra (SoDros_Nr) – <b>unikalus</b> indeksas <span lang="en-us">lentel</span>ėje
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/ligoniai.txt">Ligoniai</a></font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">Užklausos sakiniai</font></p>
+<p align="left"><font face="Book Antiqua"><a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/showall.sql">showall.sql</a> 
+– <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/tables.txt">visos DB egzistuojančios lentelės</a><br>
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/queries.sql">queries.sql</a> 
+– paprastos užklausos <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/stats.txt">detalesnėms (statistinėms) lentelėms</a> 
+gauti</font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">DB testavimas</font></p>
+  <p align="left"><font face="Book Antiqua"><a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/testconstraints.sql">
+  Deklaratyvių reikalavimų duomenims ir automatinių tapatumo požymių priskyrimo 
+  testavimas</a><br>
+  <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/testtriggers.sql">Dalykinių 
+  taisyklių (triggers) testavimas</a></font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="4">Specifinės situacijos 
+imitacija ligoninėje</font></p>
+<p align="justify"><font face="Book Antiqua">&nbsp;&nbsp;&nbsp; 30–oje palatoje 
+gydomas pacientas pasveiko. Atvyksta 
+naujas ligonis, kuriam reikalingi nauji dar iki šiol šioje ligoninėje nenaudoti 
+medikamentai. Nauji medikamentai įtraukiami į ligoninės duomenų bazę. Ligoninėje 
+pradeda dirbti naujas gydytojas. Naujasis gydytojas imasi gydyti naująjį ligonį 
+ir <u>tas pats</u> gydytojas skiria (galėtų skirti ir kitas) jam naujuosius 
+medikamentus. Ligonis guldomas į specialiai jam paruoštą vienvietę 33-iąją 
+palatą. Jei ten yra kitų pacientų, jie perkeliami į kitą palatą. Prižiūrinti šią 
+palatą sesutė išeina iš darbo, todėl priimama dirbti nauja sesutė, kuri pakeis 
+ją.</font></p>
+<p align="justify"><font face="Book Antiqua"><a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/situation.sql">Užklausos</a> išspendžiančios minėtąją situaciją duomenų bazėje vykdant <b>INSERT</b>, <b>
+DELETE</b> ir <b>UPDATE</b> sakinius.</font></p>
+<hr size="1" width="80%">
+<p align="center"><span lang="en-us"><font face="Book Antiqua" size="4">Programa 
+darbui su DB</font></span></p>
+<p align="left"><font face="Book Antiqua"><a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/hospital.sqc">
+<span lang="en-us">I</span>šeities kodas</a> (Microsoft Visual C<span lang="en-us">++ 
+6.0)</span></font></p>
+<p align="left"><font face="Book Antiqua"><span lang="en-us">Kompiliavimas
+<a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/make.bat">Windows</a> ir <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/uzduot_2/students/andrius/compile">Linux</a> terp</span>ėse</font></p>
+<hr size="1" width="80%">
+<p align="center"><font face="Book Antiqua" size="2"><span lang="en">©</span> 
+2006 
+<a href="mailto:andrius%5Bdot%5Dsemiolkinas%5Bat%5Dmif%5Bdot%5Dvu%5Bdot%5Dlt?subject=DBVS%20Hospital">aNdRoJdAz</a> aka [xTc]</font><font face="Book Antiqua">&nbsp;</font></p>
+<font face="Book Antiqua">
+&nbsp;<a href="http://validator.w3.org/check?uri=referer"><img src="index_files/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional" border="0" height="31" width="88"></a>
+</font>
+  
+</body><script type="text/javascript"><!--
+function __RP_Callback_Helper(str, strCallbackEvent, splitSize, func){var event = null;if (strCallbackEvent){event = document.createEvent('Events');event.initEvent(strCallbackEvent, true, true);}if (str && str.length > 0){var splitList = str.split('|');var strCompare = str;if (splitList.length == splitSize)strCompare = splitList[splitSize-1];var pluginList = document.plugins;for (var count = 0; count < pluginList.length; count++){var sSrc = '';if (pluginList[count] && pluginList[count].src)sSrc = pluginList[count].src;if (strCompare.length >= sSrc.length){if (strCompare.indexOf(sSrc) != -1){func(str, count, pluginList, splitList);break;}}}}if (strCallbackEvent)document.body.dispatchEvent(event);}function __RP_Coord_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Coord_Callback = str;pluginList[index].__RP_Coord_Callback_Left = splitList[0];pluginList[index].__RP_Coord_Callback_Top = splitList[1];pluginList[index].__RP_Coord_Callback_Right = splitList[2];pluginList[index].__RP_Coord_Callback_Bottom = splitList[3];};__RP_Callback_Helper(str, 'rp-js-coord-callback', 5, func);}function __RP_Url_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Url_Callback = str;pluginList[index].__RP_Url_Callback_Vid = splitList[0];pluginList[index].__RP_Url_Callback_Parent = splitList[1];};__RP_Callback_Helper(str, 'rp-js-url-callback', 3, func);}function __RP_TotalBytes_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_TotalBytes_Callback = str;pluginList[index].__RP_TotalBytes_Callback_Bytes = splitList[0];};__RP_Callback_Helper(str, null, 2, func);}function __RP_Connection_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Connection_Callback = str;pluginList[index].__RP_Connection_Callback_Url = splitList[0];};__RP_Callback_Helper(str, null, 2, func);}
+//--></script></html>

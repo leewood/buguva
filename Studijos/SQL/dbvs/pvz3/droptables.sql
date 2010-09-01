@@ -1,0 +1,9 @@
+DROP TABLE aNdRoJdAz.Sesutes#
+DROP TABLE aNdRoJdAz.Palatos#
+DROP TABLE aNdRoJdAz.Gydytojai#
+DROP TABLE aNdRoJdAz.Bukles#
+DROP TABLE aNdRoJdAz.Teistumai#
+DROP TABLE aNdRoJdAz.Ligoniai#
+DROP TABLE aNdRoJdAZ.Medikamentai#
+DROP TABLE aNdRoJdAz.Apsilankymai#
+DROP TABLE aNdRoJdAz.Receptai#

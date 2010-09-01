@@ -1,0 +1,1330 @@
+#include <stdio.h>
+#include <string.h>
+#include <sqlenv.h>
+
+EXEC SQL INCLUDE SQLCA;
+
+void main() {
+    EXEC SQL BEGIN DECLARE SECTION;
+    	char dbname[9] = "sample"; 	
+    	char msgbuffer[512];		
+    	char data[11];			
+    	char savaites_diena[16];	
+    	double days;			
+    	short okDiena;			
+    	char sritis[31];		
+    	short okSritis;
+    	short prioritetas;
+    	char darbas[31];
+    	char ar_atliktas[6];
+    	char dateBuffer[11];
+    	char pradzia[11];
+    	char pabaiga[11];
+    	short laikas_val;
+    	long srities_ident;
+    	long srities_ident_buff;
+    	long darbo_ident;
+    	char datos_ident[11];
+    	long dirbimo_ident;
+    	char rubbish;
+    	char choise;
+    	short function;
+    	long darbo_id;
+    	long dirbimo_id;
+    	long fiksavimo_id;
+    	long srities_id;
+    	char buffer[31];
+    	short bool;
+    	short srities_ind;
+    	short darbo_ind;
+    	short laikas_val_ind;
+    	long dienos;
+    	short dienos_ind;
+    EXEC SQL END DECLARE SECTION;
+    
+    /*C1 -- kursorius ziureti ar nurodyta diena jau yra DB*/
+    EXEC SQL DECLARE C1 CURSOR FOR
+    	SELECT Data
+    	FROM IM.Diena
+    	WHERE Data IN :data
+    	FOR READ ONLY;
+    	
+    /*C2 -- kursorius ziureti ar nurodyta sritis jau yra DB*/
+        EXEC SQL DECLARE C2 CURSOR FOR
+    	SELECT Sritis 
+    	FROM IM.Sritys
+    	WHERE Sritis IN :sritis
+    	FOR READ ONLY;
+    	
+    /*C3 -- kursorius ziureti ar nurodytas darbas jau yra DB*/
+        EXEC SQL DECLARE C3 CURSOR FOR
+    	SELECT Darbas 
+    	FROM IM.Darbai
+    	WHERE Darbas IN :darbas
+    	FOR READ ONLY;
+    	
+    /*C4 -- kursorius ziureti ar darbo pradzia jau yra DB*/
+    EXEC SQL DECLARE C4 CURSOR FOR
+    	SELECT Data
+    	FROM IM.Diena
+    	WHERE Data IN :pradzia
+    	FOR READ ONLY;
+    
+    /*C5 -- kursorius ziureti ar darbo pabaiga jau yra DB*/
+    EXEC SQL DECLARE C5 CURSOR FOR
+    	SELECT Data
+    	FROM IM.Diena
+    	WHERE Data IN :pabaiga
+    	FOR READ ONLY;
+    	
+    /*C6 -- kursorius suzinoti Srities_ID*/
+    EXEC SQL DECLARE C6 CURSOR FOR
+    	SELECT Srities_ID
+    	FROM IM.Sritys
+    	WHERE Sritis = :sritis
+    	FOR READ ONLY;
+    	
+    /*C7 -- kursorius suzinoti Darbo_ID*/
+    EXEC SQL DECLARE C7 CURSOR FOR
+    	SELECT Darbo_ID
+    	FROM IM.Darbai
+    	WHERE Darbas = :darbas
+    	FOR READ ONLY;
+    	
+    /*C8 -- kursorius suzinoti paskutiam ivestam dirbimui Dirbimo_ID*/
+    /*ERROR PRONE !!!!!! GAL REIKTU PERRASYTI*/
+    EXEC SQL DECLARE C8 CURSOR FOR
+    	SELECT MAX(Dirbimo_ID)
+    	FROM IM.Dirbimas
+    	FOR READ ONLY;
+    	
+    /*C9 -- kursorius, paziureti ar srities darbo pora yra IM.Priklausymas*/
+    EXEC SQL DECLARE C9 CURSOR FOR
+    	  SELECT Srities_ident
+    	  FROM IM.Priklausymas
+    	  WHERE Srities_ident = :srities_ident AND Darbo_ident = :darbo_ident
+    	  FOR READ ONLY; 
+    	  
+    /*C10 -- kursorius suzinoti Dirbimo_ident pagal Datos_ident*/
+    EXEC SQL DECLARE C10 CURSOR FOR
+    	   SELECT Dirbimo_ident
+    	   FROM IM.Fiksavimas
+    	   WHERE Datos_ident IN :datos_ident
+    	   FOR READ ONLY;
+    	   
+    /*C11 -- kursorius suzinoti apie darba pagal jo pradzios data*/
+    EXEC SQL DECLARE C11 CURSOR FOR
+    	   SELECT Darbas
+    	   FROM IM.Darbai
+    	   WHERE Pradzia IN :data
+    	   FOR READ ONLY;
+    	   
+    /*C12 -- kursorius suzinoti apie darba pagal jo pabaigos data*/
+    EXEC SQL DECLARE C12 CURSOR FOR
+    	   SELECT Darbas
+    	   FROM IM.darbai
+    	   WHERE Pabaiga IN :data
+    	   FOR READ ONLY;
+    	   
+    /*C13 -- kursorius suzinoti apie dirbima pagal Dirbimo_ID*/
+    EXEC SQL DECLARE C13 CURSOR FOR
+    	   SELECT Dirbimo_ID,Laikas_val,Sritis,Darbas
+    	   FROM IM.Veikla_Laikas
+    	   WHERE Dirbimo_ID = :dirbimo_id
+    	   FOR READ ONLY;
+    	   
+    /*C14 -- LAIKAS skiriamas tam tikro PRIORITETO sriciai*/
+    EXEC SQL DECLARE C14 CURSOR FOR
+    	     SELECT SUM(Laikas_val)
+    	     FROM IM.Prioritetai_Laikas
+    	     WHERE Prioritetas = :prioritetas
+    	     FOR READ ONLY;
+    	     
+    /*C15 -- SRITYS su tam tikru PRIORITETU*/
+    EXEC SQL DECLARE C15 CURSOR FOR
+    	     SELECT Sritis
+    	     FROM IM.Sritys
+    	     WHERE Prioritetas = :prioritetas
+    	     FOR READ ONLY;
+    	     
+    /*C16 -- kursorius suzintoti apie dirbima pagal data*/
+    EXEC SQL DECLARE C16 CURSOR FOR
+    	     SELECT Laikas_val,Sritis,Darbas
+    	     FROM IM.Veikla_Laikas
+    	     WHERE Data IN :data
+    	     FOR READ ONLY;
+    	     
+    /*C17 -- kiek LAIKO dirbta nurodyta SAVAITES DIENA*/
+    EXEC SQL DECLARE C17 CURSOR FOR
+    	     SELECT SUM(Laikas_val)
+    	     FROM IM.Veikla_Laikas
+    	     WHERE Savaites_diena = :savaites_diena
+    	     FOR READ ONLY;
+    	     
+    /*C18 -- kiek LAIKO skirta nurodytam DARBUI*/
+    EXEC SQL DECLARE C18 CURSOR FOR
+    	     SELECT SUM(Laikas_val)
+    	     FROM IM.Veikla_Laikas
+    	     WHERE Darbas = :darbas
+    	     FOR READ ONLY;
+    
+    /*C19 -- kiek LAIKO skirta nurodytai SRICIAI*/
+    EXEC SQL DECLARE C19 CURSOR FOR
+    	     SELECT SUM(Laikas_val)
+    	     FROM IM.Veikla_Laikas
+    	     WHERE Sritis = :sritis
+    	     FOR READ ONLY;
+    	     
+    /*C20 -- paziureti NEATLIKTUS DARBUS*/
+    EXEC SQL DECLARE C20 CURSOR FOR
+    	     SELECT Darbas 
+    	     FROM IM.Darbai
+    	     WHERE Ar_atliktas = 'ne'
+    	     FOR READ ONLY;
+    	     
+    /*C21 -- paziureti ATLIKTUS DARBUS*/
+    EXEC SQL DECLARE C21 CURSOR FOR
+    	     SELECT Darbas 
+    	     FROM IM.Darbai
+    	     WHERE Ar_atliktas = 'taip'
+    	     FOR READ ONLY;
+    	     
+    /*C22 - paziureti koks darbas labiausiai dega*/
+    EXEC SQL DECLARE C22 CURSOR FOR
+    	     WITH Likes_laikas AS 
+    	     (SELECT Darbas, DAYS(Pabaiga) - DAYS(CURRENT DATE) AS Laikas FROM IM.DARBAI
+	     WHERE (PABAIGA - CURRENT DATE ) >= 0 )
+	     SELECT Darbas, Laikas FROM Likes_laikas 
+	     WHERE Laikas IN (SELECT MIN(Laikas) FROM Likes_laikas)
+	     FOR READ ONLY;
+	
+    /*C23 -- kursorius ziureti ar nurodytas darbas yra neatliktas, yra DB ir ar nurodyta pabaiga*/
+        EXEC SQL DECLARE C23 CURSOR FOR
+    	SELECT Darbas 
+    	FROM IM.Darbai
+    	WHERE Darbas IN :darbas AND Pabaiga IS NOT NULL AND Ar_atliktas = 'ne'
+    	FOR READ ONLY;
+	     
+    /*C24 - kiek LAIKO dar yra nurodytam DARBUI ATLIKTI*/
+    EXEC SQL DECLARE C24 CURSOR FOR
+    	     WITH Likes_laikas AS 
+    	     (SELECT Darbas,Pabaiga, DAYS(Pabaiga) - DAYS(CURRENT DATE) AS Laikas FROM IM.DARBAI
+	     WHERE (PABAIGA - CURRENT DATE ) >= 0 )
+	     SELECT Darbas, Laikas FROM Likes_laikas 
+	     WHERE Darbas = :darbas
+	     FOR READ ONLY;
+	     
+    /*C25 -- neatlikti darbai kuriu nurodyta pabaiga ir kuri dar neatejo*/
+    EXEC SQL DECLARE C25 CURSOR FOR
+    	     SELECT Darbas FROM IM.Darbai
+    	     WHERE Pabaiga IS NOT NULL AND Pabaiga > CURRENT DATE AND Ar_atliktas = 'ne'
+    	     FOR READ ONLY;
+    	     
+    /*C26 -- paziureti visas sritis ir dirbimus*/
+    EXEC SQL DECLARE C26 CURSOR FOR
+    	     SELECT DISTINCT Sritis,Darbas
+    	     FROM IM.Veikla_Laikas
+    	     ORDER BY Sritis
+    	     FOR READ ONLY;
+    	
+    	printf("PASPAUSKITE < ENTER >\n");
+pradzia: scanf("%c",&rubbish);
+    	
+    EXEC SQL WHENEVER SQLERROR GO TO error;
+    
+    EXEC SQL CONNECT TO :dbname;
+    
+    printf("\nNoredami baigti spauskite < q >\n");
+    printf("PASIRINKITE, ka noresite atlikti:\n");
+    printf("I -- IRASYTI informacija apir dirbima\n");
+    printf("S -- SALINTI informacija\n");
+    printf("Z -- perZIURETI ivestus duomeis\n");
+    printf("K -- KEISTI duomenis\n");
+    scanf("%c",&choise);
+    switch (choise) {
+    
+	case ('I') :
+    
+    /*IM.Diena*/
+    okDiena = 0;
+    while(!okDiena) {
+    	printf("IVESKITE IR PASPAUSKITE <ENTER>. \n");
+    	printf("DATA:\n"); /*scanf("%c",&rubbish);*/
+    	scanf("%s",data);
+    	if (!strcmp("q",data)) {
+    		goto end;
+    	}
+
+    	EXEC SQL 
+    		VALUES(CURRENT DATE - :data)
+    		INTO :days;
+    	/*jei diena yra atejusi*/
+    	if (days >= 0) {
+    		EXEC SQL OPEN C1;
+    		EXEC SQL FETCH C1
+    			INTO :data;
+    		/*jei tokios dienos nera DB*/
+    		if(! strncmp(sqlca.sqlstate,"02000",5)){
+    			printf("SAVAITES DIENA:\n");
+    			scanf("%s",savaites_diena);
+    			if (!strcmp("q",savaites_diena)) {
+    				goto end;
+    			}	
+    			EXEC SQL INSERT INTO IM.Diena (Data,Savaites_diena)
+				VALUES (:data,:savaites_diena);
+    		}
+    		EXEC SQL CLOSE C1;
+    		okDiena = 1;
+    	}
+    	else{
+    		printf("Jusu ivesta diena dar nebuvo atejusi\n");
+    		printf("Pakartokite ivedima\n");
+    	}
+    }
+    
+    /*IM.Sritys*/
+    printf("SRITIS (jei jokia, iveskite < 0 > ) :\n"); 
+    scanf("%s",sritis);
+    if (!strcmp("q",sritis)) {
+    	goto end;
+    }
+    if (strcmp("0",sritis)){
+    	EXEC SQL OPEN C2;
+    	EXEC SQL FETCH C2
+    		 INTO :sritis;
+    	/*jei tokios srities nera DB*/
+    	if(! strncmp(sqlca.sqlstate,"02000",5)){
+    		printf("Si sritis yra nauja.\n");
+    		printf("Nurodykite jos PRIORITETA (tarp 1 ir 3, jei nezinote -- 0) :\n");
+    		if (scanf("%d",&prioritetas) == 0) goto end; 
+    		if ((prioritetas >= 1) && (prioritetas <= 3)){
+    			EXEC SQL INSERT INTO IM.Sritys (Srities_ID,Sritis,Prioritetas)
+		     		VALUES (0,:sritis,:prioritetas);
+		}
+    		else{
+    			EXEC SQL INSERT INTO IM.Sritys (Srities_ID,Sritis,Prioritetas)
+		     	VALUES (0,:sritis,NULL);
+		}
+		/*scanf("%c",&rubbish);*/
+    	}
+    	EXEC SQL CLOSE C2;
+    }
+    
+    /*IM.Darbai*/
+    printf("DARBAS (jei joks, iveskite < 0 > ) :\n"); 
+    /*scanf("%c",&rubbish);*/
+    scanf("%s",darbas);
+    if (!strcmp("q",darbas)) {
+    	goto end;
+    }
+    if (strcmp("0",darbas)){
+    
+    EXEC SQL OPEN C3;
+    EXEC SQL FETCH C3
+    	INTO :darbas;
+    /*jei tokio darbo nera DB*/
+    if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	EXEC SQL INSERT INTO IM.Darbai (Darbo_ID,Darbas,Ar_atliktas,Pradzia,Pabaiga)
+		VALUES (0,:darbas,'ne',NULL,NULL);
+    	printf("Sis darbas yra naujas. Suveskite informacija apie ji.\n");
+    	printf("Ar jis yra ATLIKTAS? <taip/ne> : \n");
+    	scanf("%s",ar_atliktas);
+    	if (!strcmp("q",ar_atliktas)) {
+    		goto end;
+    	}
+    	if (!strcmp(ar_atliktas,"taip")){
+ 		EXEC SQL
+    		UPDATE IM.Darbai
+    		      SET Ar_atliktas = 'taip'
+    		      WHERE Darbas = :darbas;
+    	}
+    	printf("Darbo PRADZIOS DATA (jei nezinote, spauskite < 0 > ) :\n");
+    	scanf("%s",pradzia);
+    	if (!strcmp("q",pradzia)) {
+    		goto end;
+    	}
+    	if (strcmp(pradzia,"0")){
+    		/*tikrinimas ar pradzios data yra DB*/
+    		EXEC SQL OPEN C4;
+    		EXEC SQL FETCH C4
+    			INTO :dateBuffer;
+    		/*jei tokios dienos nera DB*/
+    		if(! strncmp(sqlca.sqlstate,"02000",5)){
+    			printf("SAVAITES DIENA:\n");
+    			scanf("%s",savaites_diena);
+    			if (!strcmp("q",savaites_diena)) {
+    				goto end;
+    			}
+    			EXEC SQL INSERT INTO IM.Diena (Data,Savaites_diena)
+				VALUES (:pradzia,:savaites_diena);
+    		}
+    		EXEC SQL CLOSE C4;
+    		
+    		EXEC SQL
+    		UPDATE IM.Darbai
+    		      SET Pradzia = :pradzia
+    		      WHERE Darbas = :darbas;
+    	}
+    	printf("Numatoma DARBO PABAIGA (jei nezinote, spauskite < 0 > ) :\n");
+    	scanf("%s",pabaiga); 
+    	if (!strcmp("q",pabaiga)) {
+    			goto end;
+    	}
+    	if (strcmp(pabaiga,"0")){
+    		/*tikrinimas ar pabaigos data yra DB*/
+    		EXEC SQL OPEN C5;
+    		EXEC SQL FETCH C5
+    			INTO :dateBuffer;
+    		/*jei tokios dienos nera DB*/
+    		if(! strncmp(sqlca.sqlstate,"02000",5)){
+    			printf("SAVAITES DIENA:\n");
+    			scanf("%s",savaites_diena);
+    			if (!strcmp("q",savaites_diena)) {
+    				goto end;
+    			}
+    			EXEC SQL INSERT INTO IM.Diena (Data,Savaites_diena)
+				VALUES (:pabaiga,:savaites_diena);
+    		}
+    		EXEC SQL CLOSE C5;
+    		
+    		EXEC SQL
+    		UPDATE IM.Darbai
+    		      SET Pabaiga = :pabaiga
+    		      WHERE Darbas = :darbas;
+    	}
+    }
+    
+    }
+    
+    if ( (strcmp("0",sritis) == 0) && (strcmp("0",darbas) == 0) ) {
+    	printf("IVEDIMO KLAIDA: sritis ir darbas abu kartu negali buti nezinomi\n");
+    	goto end;
+    }
+    
+    /*IM.Dirbimas*/
+    
+    printf("LAIKAS (valandomis):\n");
+    if (scanf("%d",&laikas_val) == 0 ) goto end;
+    EXEC SQL OPEN C6;
+    EXEC SQL FETCH C6
+    	INTO :srities_ident;
+    EXEC SQL CLOSE C6;
+    
+    EXEC SQL OPEN C7;
+    EXEC SQL FETCH C7
+    	INTO :darbo_ident;
+    EXEC SQL CLOSE C7;
+    
+    if ( (strcmp("0",sritis) != 0) && (strcmp("0",darbas) != 0) ){
+    	EXEC SQL INSERT INTO IM.Dirbimas (Dirbimo_ID,Laikas_val,Srities_ident,Darbo_ident)
+	         VALUES (0,:laikas_val,:srities_ident,:darbo_ident);
+    }
+    else {
+    	if (strcmp("0",sritis) == 0)  {
+    	  EXEC SQL INSERT INTO IM.Dirbimas (Dirbimo_ID,Laikas_val,Srities_ident,Darbo_ident)
+	           VALUES (0,:laikas_val,NULL,:darbo_ident);
+    	}
+        if (strcmp("0",darbas) == 0) {
+    	  EXEC SQL INSERT INTO IM.Dirbimas (Dirbimo_ID,Laikas_val,Srities_ident,Darbo_ident)
+	           VALUES (0,:laikas_val,:srities_ident,NULL);
+    	}
+    }
+
+     /*IM.Fiksavimas*/
+    EXEC SQL OPEN C1;
+    EXEC SQL FETCH C1
+    	INTO :datos_ident;
+    EXEC SQL CLOSE C1;
+    
+    EXEC SQL OPEN C8;
+    EXEC SQL FETCH C8
+    	INTO :dirbimo_ident;
+    EXEC SQL CLOSE C8;
+    
+    EXEC SQL INSERT INTO IM.Fiksavimas(Fiksavimo_ID,Dirbimo_ident,Datos_ident)
+             VALUES(0,:dirbimo_ident,:datos_ident);
+             
+             
+    /*IM.PRIKLAUSO*/
+    if ( (strcmp("0",sritis) != 0) && (strcmp("0",darbas) != 0) ){
+    	EXEC SQL OPEN C9;
+    	EXEC SQL FETCH C9
+    	    INTO :srities_ident_buff;
+    	if(! strncmp(sqlca.sqlstate,"02000",5)){
+    		EXEC SQL INSERT INTO IM.Priklausymas(Srities_ident,Darbo_ident)
+	     	         VALUES(:srities_ident,:darbo_ident);
+	}
+    }
+    
+    /*goto normalEnd;*/
+    break;
+    
+    	case ('S') :	
+    printf("PASIRINKITE:\n");
+    printf("1 -- salinti DARBA\n");
+    printf("2 -- salinti SRITI\n");
+    printf("3 -- salinti DIENA\n");
+    printf("4 -- salinti DIRBIMA\n");
+    if (scanf("%d",&function) == 0 ) goto end;
+    if ( (function >= 1) && (function <= 4)){
+    	if (function == 1) {
+    	   printf("Iveskite darbo PAVADINIMA:\n");
+    	   /*scanf("%c",&rubbish);*/
+    	   scanf("%s",darbas);
+    	   if (!strcmp("q",darbas)) {
+    		goto end;
+    	   }
+    	   EXEC SQL OPEN C3;
+    	   EXEC SQL FETCH C3
+    	            INTO :buffer;
+    	   if(! strncmp(sqlca.sqlstate,"02000",5)){
+           	printf("Tokio darbo nera\n");
+           	goto end;
+           }
+           EXEC SQL CLOSE C3;
+           EXEC SQL DELETE FROM IM.Darbai WHERE Darbas = :darbas;    
+    	}
+    	
+    	if (function == 2) {
+    	   printf("Iveskite srities PAVADINIMA:\n");
+    	   /*scanf("%c",&rubbish);*/
+    	   scanf("%s",sritis);
+    	   if (!strcmp("q",sritis)) {
+    		goto end;
+    	   }
+    	   EXEC SQL OPEN C2;
+    	   EXEC SQL FETCH C2
+    	   	    INTO :buffer;
+    	   if(! strncmp(sqlca.sqlstate,"02000",5)){
+           	printf("Tokios srities nera\n");
+           	goto end;
+           }
+           EXEC SQL CLOSE C2;
+           EXEC SQL DELETE FROM IM.Sritys WHERE Sritis = :sritis;
+    	}
+    	
+    	if (function == 3) {
+    	   printf("Iveskite dienos DATA:\n");
+    	   /*scanf("%c",&rubbish);*/
+    	   scanf("%s",data);
+    	   if (!strcmp("q",data)) {
+    		goto end;
+    	   }
+    	   strcpy(datos_ident,data);
+    	   EXEC SQL OPEN C1;
+    	   EXEC SQL FETCH C1
+    	   	    INTO :dateBuffer;
+    	   if(! strncmp(sqlca.sqlstate,"02000",5)){
+           	printf("Tokios datos nera\n");
+           	goto end;
+           }
+           
+           bool = 1;
+           EXEC SQL OPEN C11;
+           while(1){
+           	EXEC SQL FETCH C11
+           		INTO :darbas;
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           	bool = 0;
+           	printf("%s pradetas darbas %s\n",data,darbas);
+           }
+           EXEC SQL CLOSE C11;
+           
+           EXEC SQL OPEN C12;
+           while(1){
+           	EXEC SQL FETCH C12
+           		 INTO :darbas;
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           	bool = 0;
+           	printf("%s turi buti/yra baigtas darbas %s\n",data,darbas);
+           }
+           EXEC SQL CLOSE C12;
+           
+           if (!bool) {
+           	printf("Todel negalima istrinti datos %s\n",data);
+           	goto end;
+           }	
+           
+           EXEC SQL CLOSE C1;
+           
+           EXEC SQL OPEN C10;
+           while(1){
+           	EXEC SQL FETCH C10
+           	     INTO :dirbimo_ident;
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           	dirbimo_id = dirbimo_ident;
+           	EXEC SQL DELETE FROM IM.Dirbimas WHERE Dirbimo_ID = :dirbimo_id;
+           }
+           EXEC SQL CLOSE C10;
+           EXEC SQL DELETE FROM IM.Diena WHERE Data = :data;
+    	}
+    	
+    	if (function == 4) {
+    		printf("Iveskite DATA dienos, kurios dirbima noretumete salinti:\n");
+    		/*scanf("%c",&rubbish);*/
+    		scanf("%s",data);
+    		if (!strcmp("q",data)) {
+    		    goto end;
+    		}
+    		strcpy(datos_ident,data);
+    		bool = 0;
+    		EXEC SQL OPEN C10;
+    		printf("Diena %s iregistruoti IRASAI:\n\n",data);
+    		while(1){
+    			EXEC SQL FETCH C10
+    				 INTO: dirbimo_ident;
+    			if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           		bool = 1;
+           		dirbimo_id = dirbimo_ident;
+           		EXEC SQL OPEN C13;
+           		EXEC SQL FETCH C13 
+           			 INTO  :dirbimo_id,:laikas_val,
+           			       :sritis :srities_ind,
+           			       :darbas :darbo_ind;
+           		if ((srities_ind >= 0) && (darbo_ind >= 0)){
+           		  printf("Dirbimo Nr.: %d\n",dirbimo_id);
+           		  printf("Skirtas laikas: %d\n",laikas_val);
+           		  printf("Sritis %s\n",sritis);
+           		  printf("Darbas %s\n",darbas);
+           		}
+           		else{
+           		  if (srities_ind < 0){
+           		      printf("Dirbimo Nr.: %d\n",dirbimo_id);
+           		      printf("Skirtas laikas: %d\n",laikas_val);
+           		      printf("Sritis    -\n");
+           		      printf("Darbas %s\n",darbas);
+           		  }
+           		  if (darbo_ind < 0){
+           		     printf("Dirbimo Nr.: %d\n",dirbimo_id);
+           		     printf("Skirtas laikas: %d\n",laikas_val);
+           		     printf("Sritis %s\n",sritis);
+           		     printf("Darbas    -\n");  
+           		  }
+           		}
+           		EXEC SQL CLOSE C13;
+           		printf("\n");
+           	}
+           	EXEC SQL CLOSE C10;
+           	if (!bool) {
+           		printf("Tokia data iraso apie dirbima duomenu bazeje nera\n");
+           		goto end;
+           	}
+           	printf("Ivekite NUMERI iraso, kuri norite pasalinti:\n");
+           	if (scanf("%d",&dirbimo_id) == 0) {
+           		printf("Nekorektiskai ivedete\n");
+           		goto end;
+           	}
+           	EXEC SQL DELETE FROM IM.Dirbimas WHERE Dirbimo_ID = :dirbimo_id;
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) {
+           		printf("Salinamu duomenu nerasta\n");
+           		goto end;
+           	};
+    				  
+    	}
+    }
+    
+    else{
+    	printf("Nepasirinkote ka norite atlikti\n");
+    }
+    /*goto normalEnd;*/
+    break;
+    
+     	case ('Z'):
+    	
+    printf("PASIRINKITE:\n");
+    printf(" 1 -- LAIKAS skiriamas tam tikro PRIORITETO sriciai\n");
+    printf(" 2 -- SRITYS su tam tikru PRIORITETU \n");
+    printf(" 3 -- KAS DIRBTA nurodyta DIENA\n");
+    printf(" 4 -- kiek kam LAIKO skirta nurodyta DIENA\n");
+    printf(" 5 -- kiek LAIKO dirbta nurodyta SAVAITES DIENA\n");
+    printf(" 6 -- kiek LAIKO skirta nurodytam DARBUI\n");
+    printf(" 7 -- kiek LAIKO skirta nurodytai SRICIAI\n");
+    printf(" 8 -- paziureti NEATLIKTUS DARBUS\n");
+    printf(" 9 -- paziureti ATLIKTUS DARBUS\n");
+    printf("10 -- koks DARBAS labiausiai DEGA\n");
+    printf("11 -- kiek LAIKO dar yra nurodytam DARBUI ATLIKTI\n");
+    printf("12 -- paziureti SRITIS ir ju DARBUS\n");
+        
+    if ( scanf("%d",&function) == 0 ) goto end;
+    if ( (function >= 1) && (function <= 13)){
+    	if (function == 1) {
+    	    printf("Nurodykite PRIORITETA (tarp 1 ir 3) :\n");
+    	    if (scanf("%d",&prioritetas) == 0) {
+    	    	printf("Nekorektiskai ivedete\n");
+    	    	goto end;
+    	    }
+    	    if ((prioritetas >= 1) && (prioritetas <= 3)) {
+    	    	EXEC SQL OPEN C14;
+           	EXEC SQL FETCH C14 
+           		 INTO  :laikas_val:laikas_val_ind;
+           	EXEC SQL CLOSE C14;
+           	if (laikas_val_ind >= 0) {
+           	    printf("Sritims su prioritetu %d laiko skirta %d val.\n",prioritetas,laikas_val);
+           	}
+           	else{
+           	    printf("Nera duomenu kad sritims su prioritetu %d butu skirta laiko\n",prioritetas);
+           	}
+    	    }
+    	    else {
+    	    	printf("Nekorektiskai ivedete\n");
+    	    	goto end;
+    	    }
+    	    	
+    	}
+    	
+    	if (function == 2){
+    	  printf("Nurodykite PRIORITETA (tarp 1 ir 3) :\n");
+    	  if (scanf("%d",&prioritetas) == 0) {
+    	    	printf("Nekorektiskai ivedete\n");
+    	    	goto end;
+    	  }
+    	  if ((prioritetas >= 1) && (prioritetas <= 3)) {
+    	  	bool = 0;
+    	  	EXEC SQL OPEN C15;
+    	  	while(1){
+    		     EXEC SQL FETCH C15
+    		  	     INTO: sritis;
+    		     if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           	     bool = 1;
+           	     printf("%s\n",sritis);
+           	}
+           	EXEC SQL CLOSE C15;
+           	if (!bool){
+           	     printf("Sriciu su prioritetu %d nera\n",prioritetas);
+           	}
+          }
+    	  else {
+    	    	printf("Nekorektiskai ivedete\n");
+    	    	goto end;
+    	  }	    	
+        }
+        
+        if (function == 3) {
+    	   printf("Iveskite DATA dienos, kurios dirbimus norite paziureti:\n");
+    	   /*scanf("%c",&rubbish);*/
+    	   scanf("%s",data);
+    	   if (!strcmp("q",data)) {
+    		goto end;
+    	   }
+    	   strcpy(datos_ident,data);
+    	   bool = 0;
+    	   EXEC SQL OPEN C10;
+    	   printf("Diena %s iregistruoti IRASAI:\n\n",data);
+    	   EXEC SQL OPEN C16;
+    	   bool = 0;
+    	   while(1){
+           	EXEC SQL FETCH C16
+           		 INTO  :laikas_val,
+           		       :sritis :srities_ind,
+           		       :darbas :darbo_ind;
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           	bool = 1;
+           	if ((srities_ind >= 0) && (darbo_ind >= 0)){
+           	     printf("Sritis %s Darbas %s\n",sritis,darbas);
+           	}
+           	else{
+           	     if (srities_ind < 0){
+           		      printf("Sritis -  Darbas %s\n",darbas);
+           	     }
+           	     if (darbo_ind < 0){
+           		     printf("Sritis %s Darbas -\n",sritis);
+           	     }
+           	}
+           	printf("\n");
+           }
+           EXEC SQL CLOSE C16;
+           if (!bool) {
+           	printf("Tokia data iraso apie dirbima duomenu bazeje nera\n");
+           	goto end;
+           }
+    				  
+    	}
+    	
+    	if (function == 4) {
+    	   printf("Iveskite DATA dienos, kurios dirbimus norite paziureti tiksliau:\n");
+    	   /*scanf("%c",&buffer);*/
+    	   scanf("%s",data);
+    	   if (!strcmp("q",data)) {
+    		goto end;
+    	   }
+    	   strcpy(datos_ident,data);
+    	   bool = 0;
+    	   EXEC SQL OPEN C10;
+    	   printf("Diena %s iregistruoti IRASAI:\n\n",data);
+    	   EXEC SQL OPEN C16;
+    	   bool = 0;
+    	   while(1){
+           	EXEC SQL FETCH C16 
+           		 INTO  :laikas_val,
+           		       :sritis :srities_ind,
+           		       :darbas :darbo_ind;
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           	bool = 1;
+           	if ((srities_ind >= 0) && (darbo_ind >= 0)){
+           	     printf("Sritis %s\n",sritis);
+           	     printf("Darbas %s\n",darbas);
+           	     printf("Skirtas laikas %d val\n",laikas_val);
+           	}
+           	else{
+           	     if (srities_ind < 0){
+           	     	      printf("Sritis - \n");
+           	     	      printf("Darbas %s\n",darbas);
+           	              printf("Skirtas laikas %d val\n",laikas_val);
+           	     }
+           	     if (darbo_ind < 0){
+           	             printf("Sritis %s\n",sritis);
+           	     	     printf("Darbas - \n");
+           	             printf("Skirtas laikas %d val\n",laikas_val);
+           	     }
+           	}
+           	printf("\n\n");
+           }
+           EXEC SQL CLOSE C16;
+           if (!bool) {
+           	printf("Tokia data iraso apie dirbima duomenu bazeje nera\n");
+           	goto end;
+           }
+    				  
+    	}
+    	
+    	if (function == 5){
+    		printf("Nurodykite savaites diena:\n");
+    		/*scanf("%c",&rubbish);*/
+    		scanf("%s",savaites_diena);
+    		if (!strcmp("q",savaites_diena)) {
+    		      goto end;
+    	        }
+    		if ( (!strcmp(savaites_diena,"pirmadienis")) ||
+    		     (!strcmp(savaites_diena,"antradienis")) ||
+    		     (!strcmp(savaites_diena,"treciadienis"))||
+    		     (!strcmp(savaites_diena,"ketvirtadienis"))||
+    		     (!strcmp(savaites_diena,"penktadienis"))||
+    		     (!strcmp(savaites_diena,"sestadienis"))||
+    		     (!strcmp(savaites_diena,"sekmadienis")) ){
+    		     
+    		     EXEC SQL OPEN C17;
+    		     EXEC SQL FETCH C17
+    		     	      INTO :laikas_val:laikas_val_ind;
+    		     if(laikas_val_ind >= 0){
+    		     	printf("Dirbta %d val.\n",laikas_val);
+    		     }
+    		     else{
+    		     	printf("Nerasta duomenu kad butu dirbta\n");
+    		     }
+    		}
+    		else {
+    			printf("Nekorektikai ivedete\n");
+    			goto end;
+    		}
+    	}
+    	
+    	if (function == 6) {
+    	   printf("Nurodykite darbo pavadinima:\n");
+    	   /*scanf("%c",&rubbish);*/
+    	   scanf("%s",darbas);
+    	   if (!strcmp("q",darbas)) {
+    		goto end;
+    	   }
+    	   EXEC SQL OPEN C3;
+    	   EXEC SQL FETCH C3
+    	   	    INTO :buffer;
+    	   if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	   	printf("Tokio darbo DB nera\n");
+    	   	goto end;
+    	   }
+    	   EXEC SQL CLOSE C3;
+    	   
+    	   EXEC SQL OPEN C18;
+    	   EXEC SQL FETCH C18
+    	   	    INTO :laikas_val:laikas_val_ind;
+    	   if (laikas_val_ind >= 0) {
+    	   	printf("Darbui %s\n",darbas);
+    	   	printf("skirta %d val\n",laikas_val);
+    	   }
+    	   else{
+    	   	printf("Nera duomenu, kad darbui %s \n",darbas);
+    	   	printf("butu skirta laiko\n");
+    	   }
+    	   EXEC SQL CLOSE C18;
+    	 }  
+    	 
+    	 if (function == 7) {
+    	   printf("Nurodykite srities pavadinima:\n");
+    	   /*scanf("%c",&rubbish);*/
+    	   scanf("%s",sritis);
+    	   if (!strcmp("q",sritis)) {
+    		goto end;
+    	   }
+    	   EXEC SQL OPEN C2;
+    	   EXEC SQL FETCH C2
+    	   	    INTO :buffer;
+    	   if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	   	printf("Tokios srities DB nera\n");
+    	   	goto end;
+    	   }
+    	   EXEC SQL CLOSE C2;
+    	   
+    	   EXEC SQL OPEN C19;
+    	   EXEC SQL FETCH C19
+    	   	    INTO :laikas_val:laikas_val_ind;
+    	   if (laikas_val_ind >= 0) {
+    	   	printf("Sriciai %s\n",sritis);
+    	   	printf("skirta %d val\n",laikas_val);
+    	   }
+    	   else{
+    	   	printf("Nera duomenu, kad sriciai %s \n",sritis);
+    	   	printf("butu skirta laiko\n");
+    	   }
+    	   EXEC SQL CLOSE C19;
+    	 }  
+    	  
+    	 if (function == 8) {
+    	 	bool = 0;
+    	 	EXEC SQL OPEN C20;
+    	 	while (1){
+    	 		EXEC SQL FETCH C20
+    	 		 	INTO :darbas;
+    	 		if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+    	 		bool = 1;
+    	 		printf("%s\n",darbas);
+    	 	}
+    	 	EXEC SQL CLOSE C20;
+    	 	if (!bool) printf("Tokiu darbu nera\n");
+    	 }
+    	 
+    	 if (function == 9) {
+    	 	bool = 0;
+    	 	EXEC SQL OPEN C21;
+    	 	while (1){
+    	 		EXEC SQL FETCH C21
+    	 		 	INTO :darbas;
+    	 		if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+    	 		bool = 1;
+    	 		printf("%s\n",darbas);
+    	 	}
+    	 	EXEC SQL CLOSE C21;
+    	 	if (!bool) printf("Tokiu darbu nera\n");
+    	 }
+    	 		
+    	 if (function == 10) {
+    	   EXEC SQL OPEN C25;
+    	   EXEC SQL FETCH C25
+    	   	    INTO :buffer;
+    	   if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	   	  printf("Darbu, kuriuos reikia atlikti iki tam tikros datos, DB nera\n");
+    	          goto end;
+    	   }
+    	   EXEC SQL CLOSE C25;
+    	 	
+    	  EXEC SQL OPEN C22;
+    	  EXEC SQL FETCH C22 INTO :darbas,:dienos:dienos_ind;
+    	  if (dienos_ind >= 0) {
+    	 		printf("%s liko %d dienos(-u)",darbas,dienos);
+    	  }
+    	  else{
+    	 	        printf("Informacijos apie darbu pabaigimo datas DB nera\n");
+    	  }
+    	  EXEC SQL CLOSE C22;
+    	  
+    	 }	
+    	 
+    	 if (function == 11) {
+    	   printf("Nurodykite darbo pavadinima:\n");
+    	   /*scanf("%c",&rubbish);*/
+    	   scanf("%s",darbas);
+    	   if (!strcmp("q",darbas)) {
+    		goto end;
+    	   }
+    	   EXEC SQL OPEN C23;
+    	   EXEC SQL FETCH C23
+    	   	    INTO :buffer;
+    	   if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	   	printf("Informacijos apie tokio darbo pabaiga DB nera\n");
+    	   	goto end;
+    	   }
+    	   EXEC SQL CLOSE C23;
+    	   
+    	   EXEC SQL OPEN C24;
+    	   EXEC SQL FETCH C24 INTO :darbas,:dienos;
+    	   printf("liko %d dienos(-u)",dienos);	 	
+    	   EXEC SQL CLOSE C24;
+    	   	   
+    	 }	   
+    	
+    	if (function == 12){
+    	
+    	    EXEC SQL OPEN C26;
+    	    bool = 0;
+    	    printf("\nSRITIS                                    DARBAS\n\n");
+    	    while(1){
+           	EXEC SQL FETCH C26
+           		 INTO  :sritis :srities_ind,
+           		       :darbas :darbo_ind;
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           	bool = 1;
+           	if ((srities_ind >= 0) && (darbo_ind >= 0)){
+           	     printf("%s %s\n",sritis,darbas);
+           	}
+           	else{
+           	     if (srities_ind < 0){
+           		      printf(" -                             %s\n",darbas);
+           	     }
+           	     if (darbo_ind < 0){
+           		     printf("%s  -\n",sritis);
+           	     }
+           	}
+           	printf("\n");
+           }
+           EXEC SQL CLOSE C26;
+           if (!bool) {
+           	printf("Duomenu apie sritis ir darbus duomenu bazeje nera\n");
+           	goto end;
+           }
+    	}
+    }
+    
+    else{
+    	printf("Nepasirinkote, ka norite atlikti\n");
+    }
+    /*goto normalEnd;*/
+    break;
+    	
+    	case('K'):
+    	
+    printf("PASIRINKITE kokius duomenis atnaujinsite:\n");
+    printf("1 -- DARBO ATLIKIMO fakto fiksavimas\n");
+    printf("2 -- DARBO PRADZIA\n");
+    printf("3 -- DARBO PABAIGA\n");
+    printf("4 -- SRITIES PRIORITETAS\n");
+    printf("5 -- nurodytos datos SAVAITES DIENA\n");
+    printf("6 -- dirbtas LAIKAS nurodzius fiksavimo data\n");
+    
+    if (scanf("%d",&function) == 0) goto end;
+    if ( (function >= 1) && (function <= 6)){
+    	if (function == 1) {
+    		printf("Nurodykite darbo pavadinima:\n");
+    	   	/*scanf("%c",&rubbish);*/
+    	   	scanf("%s",darbas);
+    	   	if (!strcmp("q",darbas)) {
+    		     goto end;
+    		}
+    	   	EXEC SQL OPEN C3;
+    	   	EXEC SQL FETCH C3
+    	   	    INTO :buffer;
+    	   	if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	   		printf("Tokio darbo DB nera\n");
+    	   		goto end;
+    	   	}
+    	   	EXEC SQL CLOSE C3;
+    	   	printf("Nurodykite ar darbas atliktas < taip / ne > :\n");
+    	   	scanf("%s",ar_atliktas);
+    	   	if (!strcmp("q",ar_atliktas)) {
+    			goto end;
+    		}
+    	   	bool = 0;
+    	   	if (!strcmp(ar_atliktas,"taip")){
+    	   	bool = 1;
+ 		EXEC SQL
+    		UPDATE IM.Darbai
+    		      SET Ar_atliktas = 'taip'
+    		      WHERE Darbas = :darbas;
+    		}
+    		if (!strcmp(ar_atliktas,"ne")){
+    		bool = 1;
+ 		EXEC SQL
+    		UPDATE IM.Darbai
+    		      SET Ar_atliktas = 'ne'
+    		      WHERE Darbas = :darbas;
+    		}
+    		if (!bool) {
+    			printf("Nekorektiskai nurodete\n");
+    			goto end;
+    		}
+    	   	 
+    	}
+    	
+    	if (function == 2) {
+    		printf("Nurodykite darbo pavadinima:\n");
+    	   	/*scanf("%c",&rubbish);*/
+    	   	scanf("%s",darbas);
+    	   	if (!strcmp("q",darbas)) {
+    			goto end;
+    		}
+    	   	EXEC SQL OPEN C3;
+    	   	EXEC SQL FETCH C3
+    	   	    INTO :buffer;
+    	   	if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	   		printf("Tokio darbo DB nera\n");
+    	   		goto end;
+    	   	}
+    	   	EXEC SQL CLOSE C3;
+    	   	printf("Nurodykite darbo pradzios data :\n");
+    	   	scanf("%s",pradzia);
+    	   	if (!strcmp("q",pradzia)) {
+    			goto end;
+    		}
+    		if (!strcmp("q",pradzia)) {
+    			goto end;
+    		}
+    		/*tikrinimas ar pradzios data yra DB*/
+    		EXEC SQL OPEN C4;
+    		EXEC SQL FETCH C4
+    			INTO :dateBuffer;
+    		/*jei tokios dienos nera DB*/
+    		if(! strncmp(sqlca.sqlstate,"02000",5)){
+    			printf("SAVAITES DIENA:\n");
+    			scanf("%s",savaites_diena);
+    			if (!strcmp("q",savaites_diena)) {
+    				goto end;
+    			}
+    			if (!strcmp("q",savaites_diena)) {
+    				goto end;
+    			}
+    			EXEC SQL INSERT INTO IM.Diena (Data,Savaites_diena)
+				VALUES (:pradzia,:savaites_diena);
+    		}
+    		EXEC SQL CLOSE C4;
+    		
+    		EXEC SQL
+    		UPDATE IM.Darbai
+    		      SET Pradzia = :pradzia
+    		      WHERE Darbas = :darbas;
+    	}
+    		
+    	
+    	if (function == 3) {
+    		printf("Nurodykite darbo pavadinima:\n");
+    	   	/*scanf("%c",&rubbish);*/
+    	   	scanf("%s",darbas);
+    	   	if (!strcmp("q",darbas)) {
+    			goto end;
+    		}
+    	   	EXEC SQL OPEN C3;
+    	   	EXEC SQL FETCH C3
+    	   	    INTO :buffer;
+    	   	if(! strncmp(sqlca.sqlstate,"02000",5)){
+    	   		printf("Tokio darbo DB nera\n");
+    	   		goto end;
+    	   	}
+    	   	EXEC SQL CLOSE C3;
+    	   	printf("Nurodykite darbo pabaigos data :\n");
+    	   	scanf("%s",pabaiga);
+    	   	if (!strcmp("q",pabaiga)) {
+    			goto end;
+    		}
+    		/*tikrinimas ar pabaigos data yra DB*/
+    		EXEC SQL OPEN C5;
+    		EXEC SQL FETCH C5
+    			INTO :dateBuffer;
+    		/*jei tokios dienos nera DB*/
+    		if(! strncmp(sqlca.sqlstate,"02000",5)){
+    			printf("SAVAITES DIENA:\n");
+    			scanf("%s",savaites_diena);
+    			if (!strcmp("q",savaites_diena)) {
+    				goto end;
+    			}
+    			EXEC SQL INSERT INTO IM.Diena (Data,Savaites_diena)
+				VALUES (:pabaiga,:savaites_diena);
+    		}
+    		EXEC SQL CLOSE C5;
+    		
+    		EXEC SQL
+    		UPDATE IM.Darbai
+    		      SET Pabaiga = :pabaiga
+    		      WHERE Darbas = :darbas;
+    	}  	 
+    	
+    	if (function == 4){
+    		printf("Nurodykite sriti:\n"); 
+    		/*scanf("%c",&rubbish);*/
+    		scanf("%s",sritis);
+    		if (!strcmp("q",sritis)) {
+    			goto end;
+    		}
+    		EXEC SQL OPEN C2;
+    		EXEC SQL FETCH C2
+    		 	INTO :sritis;
+    		/*jei tokios srities nera DB*/
+    		if(! strncmp(sqlca.sqlstate,"02000",5)){
+    			printf("Tokios srities DB nera\n");
+    			goto end;
+    		}
+    		printf("Nurodykite PRIORITETA (tarp 1 ir 3) :\n");
+    		if (scanf("%d",&prioritetas) == 0) goto end; 
+    		if ((prioritetas >= 1) && (prioritetas <= 3)){
+    		      EXEC SQL UPDATE IM.Sritys
+    		      SET Prioritetas = :prioritetas
+    		      WHERE Sritis = :sritis;
+		}
+    		else{
+    			printf("Nurodytas prioritetas nekorektiskas\n");
+    			goto end;
+    		}
+		
+    		EXEC SQL CLOSE C2;
+         }
+         
+         if (function == 5) {
+       
+    		printf("Iveskite data:\n"); 
+    		/*scanf("%c",&rubbish);*/
+    		scanf("%s",data);
+    		if (!strcmp("q",data)) {
+    			goto end;
+    		}
+
+    		EXEC SQL OPEN C1;
+    		EXEC SQL FETCH C1
+    			INTO :data;
+    		/*jei tokios dienos nera DB*/
+    		if(! strncmp(sqlca.sqlstate,"02000",5)){
+    			printf("Tokios dienos DB nera\n");
+    			goto end;
+    		}
+    		EXEC SQL CLOSE C1;
+    		printf("Nurodykite savaites diena:\n");
+    		scanf("%s",savaites_diena);
+    		if (!strcmp("q",savaites_diena)) {
+    			goto end;
+    		}
+    		if (!strcmp("q",savaites_diena)) {
+    				goto end;
+    		}
+    		if ( (!strcmp(savaites_diena,"pirmadienis")) ||
+    		     (!strcmp(savaites_diena,"antradienis")) ||
+    		     (!strcmp(savaites_diena,"treciadienis"))||
+    		     (!strcmp(savaites_diena,"ketvirtadienis"))||
+    		     (!strcmp(savaites_diena,"penktadienis"))||
+    		     (!strcmp(savaites_diena,"sestadienis"))||
+    		     (!strcmp(savaites_diena,"sekmadienis")) ){
+    			EXEC SQL UPDATE IM.Diena
+    			SET Savaites_diena = :savaites_diena
+    			WHERE Data = :data;	
+    		}
+    		else{
+    			printf("Nekorektiskai nurodete savaites_diena\n");
+    			goto end;
+    		}		
+    	
+        }
+    	
+    	if (function == 6) {
+    		printf("Iveskite DATA dienos, kuria uzfiksuoto dirbimo laika keisite:\n");
+    		/*scanf("%c",&buffer);*/
+    		scanf("%s",data);
+    		if (!strcmp("q",data)) {
+    			goto end;
+    		}
+    		strcpy(datos_ident,data);
+    		bool = 0;
+    		EXEC SQL OPEN C10;
+    		printf("Diena %s iregistruoti IRASAI:\n\n",data);
+    		while(1){
+    			EXEC SQL FETCH C10
+    				 INTO: dirbimo_ident;
+    			if(! strncmp(sqlca.sqlstate,"02000",5)) break;
+           		bool = 1;
+           		dirbimo_id = dirbimo_ident;
+           		EXEC SQL OPEN C13;
+           		EXEC SQL FETCH C13 
+           			 INTO  :dirbimo_id,:laikas_val,
+           			       :sritis :srities_ind,
+           			       :darbas :darbo_ind;
+           		if ((srities_ind >= 0) && (darbo_ind >= 0)){
+           		  printf("Dirbimo Nr.: %d\n",dirbimo_id);
+           		  printf("Skirtas laikas: %d\n",laikas_val);
+           		  printf("Sritis %s\n",sritis);
+           		  printf("Darbas %s\n",darbas);
+           		}
+           		else{
+           		  if (srities_ind < 0){
+           		      printf("Dirbimo Nr.: %d\n",dirbimo_id);
+           		      printf("Skirtas laikas: %d\n",laikas_val);
+           		      printf("Sritis    -\n");
+           		      printf("Darbas %s\n",darbas);
+           		  }
+           		  if (darbo_ind < 0){
+           		     printf("Dirbimo Nr.: %d\n",dirbimo_id);
+           		     printf("Skirtas laikas: %d\n",laikas_val);
+           		     printf("Sritis %s\n",sritis);
+           		     printf("Darbas    -\n");  
+           		  }
+           		}
+           		EXEC SQL CLOSE C13;
+           		printf("\n");
+           	}
+           	EXEC SQL CLOSE C10;
+           	if (!bool) {
+           		printf("Tokia data iraso apie dirbima duomenu bazeje nera\n");
+           		goto end;
+           	}
+           	printf("Iveskite NUMERI iraso, kuriam norite keisti laika:\n");
+           	if (scanf("%d",&dirbimo_id) == 0) {
+           		printf("Nekorektiskai ivedete\n");
+           		goto end;
+           	}
+           	printf("Iveskite laika (valandos) :\n");
+           	if (scanf("%d",&laikas_val) == 0) {
+           		printf("nekorektiskai ivedete\n");
+           		goto end;
+           	}
+           	if (! ((laikas_val >= 0) && (laikas_val <= 24)) ){
+           		printf("Nekorektiskai ivedete\n");
+           		goto end;
+           	}
+           	else{
+           		EXEC SQL UPDATE IM.Dirbimas
+    			SET Laikas_val = :laikas_val
+    			WHERE Dirbimo_id = :dirbimo_id;	
+           	}
+           	if(! strncmp(sqlca.sqlstate,"02000",5)) {
+           		printf("Nekorektiskai nurodete dirbimo numeri");
+           		goto end;
+           	};
+    	}
+    	
+    }
+    
+    else{
+    	printf("Nepasirinkote, ka norite atlikti\n");
+    }
+    /*goto normalEnd;*/
+    break;
+    	
+    	case ('q'):
+    	
+    return;
+    break;
+    	
+    	default:
+    
+    printf("Nepasirinkote\n");
+    goto end;
+    break;
+    
+    }
+    goto normalEnd;
+    
+    error:
+    	printf("\nKlaida darbo su duomenu baze metu\n");
+    	sqlaintp(msgbuffer,512,70,&sqlca);
+    	printf("Message:%s\n",msgbuffer);
+    end:
+    	EXEC SQL ROLLBACK;
+    	printf("\nNesekminga darbo pabaiga, todel visi galeje ivykti pakeitimai ATSAUKTI\n");
+    	printf("Noredami baigti spauskite < q >\n");
+    	printf("Noredami testi spauskite bet kokia kita raide\n");
+    	scanf("%s",buffer);
+    	if (strcmp(buffer,"q")) goto pradzia;
+    	return;
+    		
+    normalEnd:
+    	EXEC SQL COMMIT;
+    	EXEC SQL WHENEVER SQLERROR CONTINUE;
+    	EXEC SQL CONNECT RESET;
+    	printf("\nNoredami baigti spauskite < q >\n");
+    	printf("Noredami testi spauskite bet kokia kita raide\n");
+    	scanf("%s",buffer);
+    	if (strcmp(buffer,"q")) goto pradzia;
+    	
+} 

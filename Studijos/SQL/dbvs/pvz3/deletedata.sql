@@ -1,0 +1,9 @@
+DELETE FROM aNdRoJdAz.Receptai#
+DELETE FROM aNdRoJdAz.Apsilankymai#
+DELETE FROM aNdRoJdAz.Medikamentai#
+DELETE FROM aNdRoJdAz.Ligoniai#
+DELETE FROM aNdRoJdAz.Teistumai#
+DELETE FROM aNdRoJdAz.BUkles#
+DELETE FROM aNdRoJdAz.Gydytojai#
+DELETE FROM aNdRoJdAz.Palatos#		
+DELETE FROM aNdRoJdAz.Sesutes#

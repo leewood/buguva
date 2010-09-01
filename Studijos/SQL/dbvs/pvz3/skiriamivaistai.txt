@@ -1,0 +1,36 @@
+
+Ligonio ID Ligonio Vardas  Ligonio Pavarde      Vaistu Kodas Vastu Pavadinimas         Skyrusio Gydytojo Vardas Skyrusio Gydytojo Pavarde DATA      
+---------- --------------- -------------------- ------------ ------------------------- ------------------------ ------------------------- ----------
+         1 Bronius         Asmena               SDGW-03245   Nalpreksonas              Antanas                  Petrusis                  2001.04.19
+         1 Bronius         Asmena               QWER-21000   Haloperidolis             Antanas                  Petrusis                  2001.04.19
+         1 Bronius         Asmena               ASRE-53212   Chlorpromazinas           Antanas                  Petrusis                  2001.04.19
+         2 Arunas          Maciulis             SDGW-03245   Nalpreksonas              Mantas                   Baubas                    2005.07.25
+         3 Ligitas         Auksiejus            KAHS-32135   Kardioalamandarginas      Mantas                   Baubas                    2000.12.25
+         4 Marius          Marcelijus           ASRE-53212   Chlorpromazinas           Karolis                  Juskus                    2006.03.01
+         5 Arturas         Asmena               QWER-21000   Haloperidolis             Jonas                    Kairys                    2003.12.20
+         6 Konstantinas    Lobynas              KJVH-86421   Kartodoksenas             Jeronimas                Kavaliunas                1987.03.01
+         6 Konstantinas    Lobynas              KHGV-13254   Karmadoksinas             Antanas                  Petrusis                  1989.11.15
+         7 Paulius         Ragutis              AAGD-21542   Metandrostenolonas        Juozas                   Martinaitis               1997.02.13
+         7 Paulius         Ragutis              DAGF-95121   Retabolilas 250           Jonas                    Kairys                    1998.10.21
+         7 Paulius         Ragutis              DAGF-95121   Retabolilas 250           Karolis                  Juskus                    2004.01.20
+         7 Paulius         Ragutis              AAGD-21542   Metandrostenolonas        Antanas                  Petrusis                  2004.01.20
+         7 Paulius         Ragutis              AAGD-21542   Metandrostenolonas        Jonas                    Kairys                    1999.09.26
+         8 Mykolas         Gagelis              KJVH-86421   Kartodoksenas             Povilas                  Kalimas                   2005.10.20
+         9 Saulius         Psichodelijus        KAHS-32135   Kardioalamandarginas      Mantas                   Baubas                    1995.05.03
+        10 Aleksas         Mircius              LKJN-98874   Kontatubinas              Jeronimas                Kavaliunas                2000.03.02
+        11 Beata           Kisko                KHGV-13254   Karmadoksinas             Jonas                    Kairys                    1996.08.24
+        12 Tatjana         Chlapciuk            DAGF-95121   Retabolilas 250           Mantas                   Baubas                    1998.10.21
+        13 Goda            Sakalauskaite        PIUT-32415   Medochlorinas             Juozas                   Martinaitis               1989.11.25
+        13 Goda            Sakalauskaite        LKJN-98874   Kontatubinas              Karolis                  Juskus                    1993.09.05
+        14 Migle           Sakalauskaite        PIUT-32415   Medochlorinas             Jeronimas                Kavaliunas                1990.07.17
+        14 Migle           Sakalauskaite        HRDK-21541   Pelimandrinas             Martynas                 Juskus                    2000.12.19
+        15 Ramune          Sakalauskaite        IAUS-32132   Paradolginas              Martynas                 Juskus                    1990.04.03
+        15 Ramune          Sakalauskaite        HRDK-21541   Pelimandrinas             Karolis                  Juskus                    2000.10.18
+        15 Ramune          Sakalauskaite        PIUT-32415   Medochlorinas             Juozas                   Martinaitis               1995.06.13
+        16 Mila            Chlapciuk            KJVH-86421   Kartodoksenas             Martynas                 Juskus                    2000.08.21
+        16 Mila            Chlapciuk            PIUT-32415   Medochlorinas             Jeronimas                Kavaliunas                2002.11.30
+        16 Mila            Chlapciuk            ASDF-32142   Meladoksinas              Karolis                  Juskus                    2001.12.10
+        17 Juste           Mazute               ASDF-32142   Meladoksinas              Jeronimas                Kavaliunas                2003.01.29
+        18 Aukse           Maciulaityte         KJVH-86421   Kartodoksenas             Karolis                  Juskus                    2001.09.05
+
+  31 record(s) selected.

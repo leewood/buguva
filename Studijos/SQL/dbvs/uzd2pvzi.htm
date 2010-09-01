@@ -1,0 +1,190 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1257"><title>DBVS. Praktinės užduoties Nr.2 pavyzdys</title></head><body bgcolor="#eeffbb">
+<h3>
+<p align="center"><font color="#008284"><i>Duomenų bazių valdymo sistemos</i></font><br><br>
+<i>Praktinė užduotis Nr. 2</i><br>
+<i>Pirmosios 2 dalys</i><br><br>
+<i><font color="#0000ff">Bibliotekos knygų apskaita (pavyzdys)</font></i>
+</p></h3>
+
+
+<font color="#0000ff" size="+1"><b><i>Trumpas aprašas</i></b></font>
+<p>
+Biblioteka gali turėti keletą kiekvienos knygos egzempliorių.
+Kiekviena knyga turi unikalų ISBN (<i>International Standard Book Number</i>) numerį,
+o kiekvienas bibliotekos turimas knygos egzempliorius turi dar ir unikalų tapatumo (registracijos) numerį.
+<br>
+Bibliotekos knygomis naudojasi skaitytojai, turintys tapatumo numerį.
+Kiekvienam skaitytojui suteikiama galimybė pasiimti kiek nori knygų.
+Kai skaitytojas paima konkretų knygos egzempliorių, pažymima knygos išdavimo data ir
+nustatoma jos grąžinimo data. Grąžinant knygą į biblioteką, paėmimo ir grąžinimo datos
+konkrečiam egzemplioriui yra ištrinamos.
+</p><hr>
+<p>
+<font color="#0000ff" size="+1"><b><i>1. Dalis</i></b></font>
+</p><p>
+<font color="#006060" size="+1"><b><i>ER diagrama</i></b></font><br>
+</p><p>
+<img src="uzd2pvzi_files/diagrama.gif" height="298" width="586"><br>
+<br>
+</p><p>
+<font color="#006060" size="+1"><b><i>Duomenų bazės reliacinė schema</i></b></font><br>
+</p><p>
+<img src="uzd2pvzi_files/dbschema.gif" height="208" width="502"><br>
+</p><p>
+</p><hr>
+<p>
+<font color="#0000ff" size="+1"><b><i>2. Dalis</i></b></font>
+</p><p>
+<font color="#006060" size="+1"><b><i>2.1. Lentelių sukūrimo sakiniai</i></b></font><br>
+</p><p>
+</p><pre>CREATE TABLE Stud.Knyga (
+    ISBN        CHAR(13)    NOT NULL,
+    Pavadinimas VARCHAR(32) NOT NULL,
+    Leidykla    CHAR(12)    NOT NULL,
+    Metai       SMALLINT    NOT NULL CONSTRAINT LeidimoMetai CHECK(Metai &gt; 1900 AND Metai &lt; 2010),
+    Puslapiai   SMALLINT    NOT NULL CHECK(Puslapiai &gt; 0 AND Puslapiai &lt; 2000),
+    Verte       DECIMAL(5,2) CHECK(Verte &gt; 0 AND Verte &lt; 1000),
+    PRIMARY KEY (ISBN))
+
+CREATE TABLE Stud.Autorius (
+    ISBN        CHAR(13)    NOT NULL,
+    Vardas      CHAR(12)    NOT NULL,
+    Pavarde     VARCHAR(20) NOT NULL,
+    PRIMARY KEY (ISBN,Vardas,Pavarde),
+    FOREIGN KEY Knygai(ISBN) REFERENCES Stud.Knyga ON DELETE CASCADE ON UPDATE RESTRICT)
+
+CREATE TABLE Stud.Skaitytojas (
+    Nr          INTEGER     NOT NULL,
+    AK          CHAR(11)    NOT NULL,
+    Vardas      CHAR(12)    NOT NULL,
+    Pavarde     VARCHAR(20) NOT NULL,
+    Gimimas     DATE        NOT NULL,
+    Adresas     VARCHAR(32),
+    PRIMARY KEY (Nr))
+
+CREATE TABLE Stud.Egzempliorius (
+    Nr          INTEGER     NOT NULL,
+    ISBN        CHAR(13)    NOT NULL,
+    Skaitytojas INTEGER,
+    Paimta      DATE,
+    Grazinti    DATE,
+    PRIMARY KEY (Nr),
+    FOREIGN KEY Knygai(ISBN)             REFERENCES Stud.Knyga       ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY Skaitytojui(Skaitytojas) REFERENCES Stud.Skaitytojas ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT  GrazintiVeliau CHECK(Grazinti &gt;= Paimta))
+</pre>
+<font color="#006060" size="+1"><b><i>2.2. Lentelių sunaikinimo sakiniai</i></b></font><br>
+<p>
+</p><pre>DROP TABLE Stud.Autorius
+DROP TABLE Stud.Egzempliorius
+DROP TABLE Stud.Knyga
+DROP TABLE Stud.Skaitytojas
+</pre>
+<font color="#006060" size="+1"><b><i>2.3. Lentelių užpildymas testiniais duomenimis</i></b></font><br>
+<p>
+SQL sakiniai, kuriais užpildomos lentelės testiniais duomenimis, yra pateikti faile: <a href="http://www.mif.vu.lt/%7Ebaronas/dbvs/biblio/inserts.sql">inserts.sql</a>.
+</p><p>
+<font color="#006060" size="+1"><b><i>2.4. Virtualios lentelės</i></b></font><br>
+</p><ol type="a"><font color="#006060"><b><i>Apibrėžimas (sukūrimas)</i></b></font><br>
+<p>
+</p><li>Virtuali lentelė su lentelės <i>Skaitytojas</i> duomenimis, papildytais skaitytojo amžiumi
+<pre>CREATE VIEW Stud.SkaitytojasAmzius AS
+    SELECT A.*, YEAR(CURRENT DATE - A.Gimimas) AS Amzius
+    FROM Stud.Skaitytojas AS A
+</pre>
+</li><li>Visų knygų turimų, paimtų ir nepaimtų egzempliorių skaičiai
+<pre>CREATE VIEW Stud.KnyguEgzemplioriai AS
+    SELECT A.ISBN, A.Pavadinimas,
+           COUNT(*)      AS Viso,
+           COUNT(Paimta) AS Paimta,
+           COUNT(*) - COUNT(Paimta) AS Nepaimta
+    FROM Stud.Knyga A, Stud.Egzempliorius B
+    WHERE A.ISBN = B.ISBN
+    GROUP BY A.ISBN, A.Pavadinimas
+</pre>
+</li><li>Duomenys apie paimtus knygų egzempliorius
+<pre>CREATE VIEW Stud.Paemimai AS
+    SELECT A.ISBN, A.Pavadinimas, B.Nr AS Egzempliorius,
+           B.Paimta, B.Grazinti,
+           C.Nr AS Skaitytojas, C.Vardas, C.Pavarde
+    FROM Stud.Knyga A, Stud.Egzempliorius B, Stud.Skaitytojas C
+    WHERE B.Paimta IS NOT NULL AND A.ISBN = B.ISBN AND B.Skaitytojas = C.Nr
+</pre>
+</li></ol>
+<p>
+</p><ol type="a"><font color="#006060"><b><i>Sunaikinimas</i></b></font>
+<pre>DROP VIEW Stud.SkaitytojasAmzius
+DROP VIEW Stud.KnyguEgzemplioriai
+DROP VIEW Stud.Paemimai
+</pre>
+</ol>
+<p>
+<font color="#006060" size="+1"><b><i>2.5. Trigeriai</i></b></font><br>
+</p><ol type="a"><font color="#006060"><b><i>Apibrėžimas (sukūrimas)</i></b></font><br>
+<p>
+</p><li> Automatinis numerio priskyrimas naujam skaitytojui
+<pre>CREATE TRIGGER Stud.NaujasSkaitytojas
+    NO CASCADE BEFORE INSERT ON Stud.Skaitytojas
+    REFERENCING NEW AS Naujasis
+    FOR EACH ROW MODE DB2SQL
+    SET Naujasis.Nr = (SELECT COALESCE(MAX(Nr),1000)+1 FROM Stud.Skaitytojas)
+</pre>
+</li><li>Automatinis numerio priskyrimas naujam egzemplioriui
+<pre>CREATE TRIGGER Stud.NaujasEgzemplior
+    NO CASCADE BEFORE INSERT ON Stud.Egzempliorius
+    REFERENCING NEW AS Naujasis
+    FOR EACH ROW MODE DB2SQL
+    SET Naujasis.Nr = (SELECT COALESCE(MAX(Nr),30000)+1 FROM Stud.Egzempliorius)
+</pre>
+</li><li>Užtikrinimas, kad vienas skaitytojas negalėtų paimti daugiau negu 5 knygas
+<pre>CREATE TRIGGER Stud.MaxPaimtaKnygu_Ins
+    NO CASCADE BEFORE INSERT ON Stud.Egzempliorius
+    REFERENCING NEW AS Naujasis
+    FOR EACH ROW MODE DB2SQL
+    WHEN ((SELECT COUNT(*) FROM Stud.Egzempliorius
+           WHERE Stud.Egzempliorius.Skaitytojas = Naujasis.Nr) &gt;= 5)
+    SIGNAL SQLSTATE '88888'('Siam skaitytojui daugiau knygu imti negalima!')
+
+CREATE TRIGGER Stud.MaxPaimtaKnygu_Upd
+    NO CASCADE BEFORE UPDATE OF Skaitytojas ON Stud.Egzempliorius
+    REFERENCING NEW AS Naujasis
+    FOR EACH ROW MODE DB2SQL
+    WHEN ((SELECT COUNT(*) FROM Stud.Egzempliorius
+           WHERE Stud.Egzempliorius.Skaitytojas = Naujasis.Nr) &gt;= 5)
+    SIGNAL SQLSTATE '88889'('Siam skaitytojui daugiau knygu imti negalima!')
+</pre>
+</li></ol>
+<ol type="a"><font color="#006060"><b><i>Sunaikinimas</i></b></font><br>
+<p>
+</p><pre>DROP TRIGGER Stud.NaujasSkaitytojas
+DROP TRIGGER Stud.NaujasEgzemplior
+DROP TRIGGER Stud.MaxPaimtaKnygu_Ins
+DROP TRIGGER Stud.MaxPaimtaKnygu_Upd
+</pre>
+</ol>
+<p>
+<font color="#006060" size="+1"><b><i>2.6. Indeksai</i></b></font><br>
+</p><ol type="a"><font color="#006060"><b><i>Apibrėžimas (sukūrimas)</i></b></font><br>
+<pre>CREATE UNIQUE INDEX Stud.AKodui ON Stud.Skaitytojas(AK)
+CREATE INDEX Stud.Pavardei      ON Stud.Skaitytojas(Pavarde)
+CREATE INDEX Stud.GimDatai      ON Stud.Skaitytojas(Gimimas)
+CREATE INDEX Stud.Pavadinimui   ON Stud.Knyga(Pavadinimas)
+</pre></ol>
+
+<p>
+</p><ol type="a"><font color="#006060"><b><i>Sunaikinimas</i></b></font><br>
+<pre>DROP INDEX Stud.AKodui
+DROP INDEX Stud.Pavardei
+DROP INDEX Stud.GimDatai
+DROP INDEX Stud.Pavadinimui
+</pre>
+</ol>
+<p>
+</p><hr>
+<p>
+<i>R. Baronas<i>
+</i></i></p></body><script type="text/javascript"><!--
+function __RP_Callback_Helper(str, strCallbackEvent, splitSize, func){var event = null;if (strCallbackEvent){event = document.createEvent('Events');event.initEvent(strCallbackEvent, true, true);}if (str && str.length > 0){var splitList = str.split('|');var strCompare = str;if (splitList.length == splitSize)strCompare = splitList[splitSize-1];var pluginList = document.plugins;for (var count = 0; count < pluginList.length; count++){var sSrc = '';if (pluginList[count] && pluginList[count].src)sSrc = pluginList[count].src;if (strCompare.length >= sSrc.length){if (strCompare.indexOf(sSrc) != -1){func(str, count, pluginList, splitList);break;}}}}if (strCallbackEvent)document.body.dispatchEvent(event);}function __RP_Coord_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Coord_Callback = str;pluginList[index].__RP_Coord_Callback_Left = splitList[0];pluginList[index].__RP_Coord_Callback_Top = splitList[1];pluginList[index].__RP_Coord_Callback_Right = splitList[2];pluginList[index].__RP_Coord_Callback_Bottom = splitList[3];};__RP_Callback_Helper(str, 'rp-js-coord-callback', 5, func);}function __RP_Url_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Url_Callback = str;pluginList[index].__RP_Url_Callback_Vid = splitList[0];pluginList[index].__RP_Url_Callback_Parent = splitList[1];};__RP_Callback_Helper(str, 'rp-js-url-callback', 3, func);}function __RP_TotalBytes_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_TotalBytes_Callback = str;pluginList[index].__RP_TotalBytes_Callback_Bytes = splitList[0];};__RP_Callback_Helper(str, null, 2, func);}function __RP_Connection_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Connection_Callback = str;pluginList[index].__RP_Connection_Callback_Url = splitList[0];};__RP_Callback_Helper(str, null, 2, func);}
+//--></script></html>

@@ -1,0 +1,6 @@
+db2 CONNECT TO BIBLIO USER stud USING stud
+db2 prep program.sqc bindfile target c
+db2 bind program.bnd
+db2 CONNECT RESET
+gcc -c -I /usr/IBMdb2/V7.1/include/ program.c
+gcc -o output_file program.o -L/usr/IBMdb2/V7.1/lib -Wl,-rpath,/usr/IBMdb2/V7.1/lib -ldb2
