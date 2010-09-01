@@ -1,0 +1,8 @@
+C:\Studijos\PSI\PSI3\PSI3\obj\Debug\ResolveAssemblyReference.cache
+C:\Studijos\PSI\PSI3\PSI3\obj\Debug\PSI3.Properties.Resources.resources
+C:\Studijos\PSI\PSI3\PSI3\obj\Debug\PSI3.csproj.GenerateResource.Cache
+C:\Studijos\PSI\PSI3\PSI3\bin\Debug\PSI3.exe
+C:\Studijos\PSI\PSI3\PSI3\bin\Debug\PSI3.pdb
+C:\Studijos\PSI\PSI3\PSI3\obj\Debug\PSI3.exe
+C:\Studijos\PSI\PSI3\PSI3\obj\Debug\PSI3.pdb
+C:\Studijos\PSI\PSI3\PSI3\obj\Debug\PSI3.Form1.resources
