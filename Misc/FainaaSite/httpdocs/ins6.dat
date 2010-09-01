@@ -1,0 +1,17 @@
+<input name='action' value='0'  type='hidden'>
+<input name='menu' value='5'  type='hidden'>
+<div id="prev2" >
+
+</div>
+<BR><input type="submit" value='Keisti galerija'><br>
+</form>
+</td>
+</tr>
+<tr>
+<td width = "100%">
+<form id="trint" method="GET" action="naujaskeit.php">
+<input name='action' value='0'  type='hidden'>
+<input name='menu' value='6'  type='hidden'>
+<div id="prev3">
+</div>
+<BR><input type="submit" value='Trinti cia nuotrauka'><br>

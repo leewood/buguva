@@ -1,0 +1,66 @@
+#sidebar ul ul li:before {
+	content: "";
+}
+
+#sidebar li.pagenav li {
+	font-family : "MS sans serif";
+	font-size : 11px;
+	margin : 0;
+	padding : 0;
+	white-space: nowrap;
+}
+
+#sidebar li.pagenav ul {
+	list-style : none;
+	padding : 2px 0 0 10px;
+	margin-left : -5px;
+}
+#sidebar li.pagenav ul ul {
+	margin-left : 5px;
+}
+#sidebar li.pagenav li {
+//	clear : left;
+	padding : 3px 0 2px 8px;
+	background : url('image/brother.jpg') repeat-y;
+	line-height : 12px;
+
+}
+	#sidebar li.pagenav li a {
+		margin-left : -11px;
+		padding-left : 13px;
+		background : url('image/son.jpg') no-repeat 4px 6px;
+//		background-position : 4px 7px;
+	}
+
+#sidebar li.pagenav li.folder {
+	padding-left : 0;
+}
+#sidebar li.pagenav li.last {
+	background-repeat : no-repeat;
+}
+
+#sidebar li.pagenav a.plus, #sidebar li.pagenav a.minus {
+	position : relative;
+	left : -5px;
+	cursor : pointer;
+	margin-left : 0;
+	padding : 0 9px 11px 0;
+	background-repeat : no-repeat;
+	background-position : 0 2px;
+//	display : block; float : left;
+//	position : static;
+//	background-position : 0 0;
+//	margin-left : -2px;
+//	padding-left : 0px;
+//	padding-bottom : 9px;
+}
+#sidebar li.pagenav a.plus {
+	background-image : url('image/plus.jpg');
+}
+#sidebar li.pagenav a.minus {
+	background-image : url('image/minus.jpg');
+}
+	#sidebar li.pagenav a.plus span,#sidebar li.pagenav a.minus span {
+		display : none;
+	}
+

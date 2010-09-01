@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+  <title>Solitaire Web Edition</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+  <script language="JavaScript" src="logic.js"></script>
+</head>
+
+
+<body style="color: rgb(0, 0, 0); background-color: rgb(0, 0, 0);" alink="#000099" link="#000099" vlink="#990099">
+
+<div id="tabletop"></div>
+
+<script language="JavaScript">
+/* Preload Card Images */
+	pic1= new Image(72,96);
+	for(var c=0; c < 52; c++)
+		pic1.src="images/"+c+".jpg"; 
+	
+	pic1.src="images/deck.jpg";
+	pic1.src="images/deck-empty.jpg";
+	
+	initGame();
+</script>
+</body>
+</html>
