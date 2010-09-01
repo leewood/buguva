@@ -1,0 +1,6 @@
+PROC UNIVARIATE Data=dagr1.Uzd5_2 NORMAL;
+var pralosta;
+HISTOGRAM / NORMAL(NOPRINT);
+RUN;
+
+
