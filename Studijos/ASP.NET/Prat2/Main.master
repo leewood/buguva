@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main" %>
+
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>    
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="top">
+          <asp:LoginView ID="LoginView1" runat="server">
+              <AnonymousTemplate>
+                  <asp:Label ID="LoginName1Label" runat = "server" Text="Not logged in" 
+                       meta:resourcekey="LoginName1LabelResource1"></asp:Label>
+                  <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Login.aspx" 
+                       meta:resourcekey="HyperLink3Resource1" Text="Login"></asp:HyperLink>                
+              </AnonymousTemplate>
+              <LoggedInTemplate>
+                  <asp:Label ID="Label1" runat = "server" Text="Logged as " 
+                       meta:resourcekey="Label1Resource1"></asp:Label>
+                  <asp:LoginName ID="LoginName1" runat="server" 
+                       meta:resourcekey="LoginName1Resource1" />
+              <asp:HyperLink ID="HyperLink1" runat="server" 
+                       NavigateUrl="~/LoggedIn/Personalization.aspx" 
+                      meta:resourcekey="HyperLink1Resource1" Text="Preferences"></asp:HyperLink>
+             <asp:HyperLink ID="HyperLink4" runat="server" 
+              NavigateUrl="~/LoggedIn/AdminZone/ManageCategories.aspx" 
+                      meta:resourcekey="HyperLink4Resource1">Admin zone</asp:HyperLink>
+             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Logout.aspx" 
+              meta:resourcekey="HyperLink2Resource1" Text="Logout"></asp:HyperLink>                                  
+              </LoggedInTemplate>
+          </asp:LoginView>
+    </div>
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
