@@ -1,0 +1,52 @@
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\bin\Debug\PicUSB.exe
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\bin\Debug\PicUSB.pdb
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\obj\Debug\ResolveAssemblyReference.cache
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\obj\Debug\PicUSB.PicUSB.resources
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\obj\Debug\PicUSB.Properties.Resources.resources
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\obj\Debug\PicUSB.csproj.GenerateResource.Cache
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\obj\Debug\PicUSB.exe
+G:\PIC USB pavyzdziai\picusb[p]\PicUSB_VisualC#\PicUSB\obj\Debug\PicUSB.pdb
+C:\New Folder\PicUSB\obj\Debug\PicUSB.exe
+C:\New Folder\PicUSB\obj\Debug\PicUSB.pdb
+C:\New Folder\PicUSB\obj\Debug\ResolveAssemblyReference.cache
+C:\New Folder\PicUSB\obj\Debug\PicUSB.PicUSB.resources
+C:\New Folder\PicUSB\obj\Debug\PicUSB.Properties.Resources.resources
+C:\New Folder\PicUSB\obj\Debug\PicUSB.csproj.GenerateResource.Cache
+C:\New Folder\PicUSB\bin\Debug\PicUSB.exe
+C:\New Folder\PicUSB\bin\Debug\PicUSB.pdb
+C:\New Folder\PicUSB\bin\Debug\Osc_DLL.dll
+C:\New Folder\PicUSB\bin\Debug\Scope_Desk.ini
+C:\New Folder\PicUSB\bin\Debug\mpusbapi.dll
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.exe
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.pdb
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\bin\Debug\mpusbapi.dll
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\bin\Debug\Osc_DLL.dll
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\bin\Debug\Scope_Desk.ini
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\bin\Debug\PicUSB.exe
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\bin\Debug\PicUSB.pdb
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.PicUSB.resources
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.Properties.Resources.resources
+C:\Documents and Settings\Laimonas\Desktop\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.csproj.GenerateResource.Cache
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.exe
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.pdb
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\bin\Debug\mpusbapi.dll
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\bin\Debug\Osc_DLL.dll
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\bin\Debug\Scope_Desk.ini
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\bin\Debug\PicUSB.exe
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\bin\Debug\PicUSB.pdb
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.PicUSB.resources
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.Properties.Resources.resources
+C:\Documents and Settings\Laimonas\Desktop\USB plokste\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.csproj.GenerateResource.Cache
+C:\New Folder\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.exe
+C:\New Folder\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.pdb
+C:\New Folder\PIC USB 6 versija\PicUSB\bin\Debug\mpusbapi.dll
+C:\New Folder\PIC USB 6 versija\PicUSB\bin\Debug\Osc_DLL.dll
+C:\New Folder\PIC USB 6 versija\PicUSB\bin\Debug\Scope_Desk.ini
+C:\New Folder\PIC USB 6 versija\PicUSB\bin\Debug\PicUSB.exe
+C:\New Folder\PIC USB 6 versija\PicUSB\bin\Debug\PicUSB.pdb
+C:\New Folder\PIC USB 6 versija\PicUSB\obj\Debug\ResolveAssemblyReference.cache
+C:\New Folder\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.PicUSB.resources
+C:\New Folder\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.Properties.Resources.resources
+C:\New Folder\PIC USB 6 versija\PicUSB\obj\Debug\PicUSB.csproj.GenerateResource.Cache
