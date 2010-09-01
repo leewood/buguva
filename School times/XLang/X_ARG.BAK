@@ -1,0 +1,7 @@
+unit x_arg;
+interface
+var arg, rez: array[0..15] of string;
+    back: array[0..50] of integer;
+    argn: integer;
+implementation
+end.
