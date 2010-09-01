@@ -1,0 +1,113 @@
+XPath (0.5 balo) Savo sukurtam XML dokumentui reikia paraðyti XPath iðraiðkas, naudojanèias:
+
+   1. Aðis: ancestor, following-sibling, preceding-sibling, following, preceding, attribute
+   
+   /CardList/Card/ancestor::*/@lastEdited
+   /CardList/Card[1]/following-sibling::*/Title
+   /CardList/Card[2]/preceding-sibling::*/Title
+   /CardList/Card[1]/following::Card/@rarity
+   /CardList/Card[2]/preceding::Card/@rarity
+   /CardList/Card[1]/attribute::id
+
+
+   2. Predikatus (bent vieno predikato viduje turi bûti panaudotas XPath kelias)
+
+   /CardList/Card[1]/following::*[attribute::id >= /CardList/Card[1]/attribute::id]
+
+   3. Aritmetinæ iðraiðkà (vienas ið operandø turi bûti XPath kelias)
+
+   /CardList/Card[1]/attribute::id + sum(/CardList/Card[1]/following::*/attribute::id)
+
+   4. Palyginimo operacijà (abu operandai turi bûti XPath keliai arba iðraiðkos, naudojanèios XPath kelius)
+
+   sum(/CardList/*/AttackPoints) >= sum(/CardList/*/DefencePoints)
+
+   5. Funkcijas count() ir sum() (pvz., suskaièiuoti, kiek yra tam tikrø þymiø/atributø, susumuoti tam tikrø þymiø turiná)
+
+   count(/CardList/*)
+   sum(/CardList/Card/AttackPoints)
+
+   6. Operacijas su dvejomis aibëmis (skaidrëse þymima NS o NS), ir suprasti, kaip tos operacijos vykdomos
+   /CardList/Card[1]/Visualization/* = /CardList/Card[2]/Visualization/*
+
+
+Taip pat reikia paraðyti vienà "didelæ" XPath iðraiðkà, kurioje bûtø tenkinami 2-5 reikalavimai.
+count(/CardList/*/Visualization/View[attribute::type = "inventory"])  + /CardList/Card[1]/attribute::id  + count(/CardList/*[sum(/CardList/*/attribute::id)> count(/CardList/*)])
+
+XPath iðraiðkø kalkuliatoriai:
+
+   1. http://adam.mif.vu.lt:8180/XPathEvaluator/
+          * Pastaba dël vardø srièiø: arba jas laikinai iðtrinkite, arba jø vardus pakeiskite á paprastus þodþius be tarpø (pvz.: manosritis) ir XPath iðraiðkose raðykite kvalifikuotus þymiø vardus (pvz.: //manosritis:knyga)
+   2. http://b-cage.net/code/web/xpath-evaluator.html (skaièiuoja tik XPath iðraiðkas, kurios gràþina mazgø aibæ)
+   3. http://www.activsoftware.com/xml/xpath/ (skaièiuoja tik XPath iðraiðkas, kurios gràþina mazgø aibæ)
+
+# XML Schema (1 balas, atsiskaityti reikia iki kovo 30 d.  imtinai) Reikia paraðyti XML Schema dokumentà, apibrëþiantá jûsø sukurto XML dokumento struktûrà, kuriame bûtø jûsø paèiø susikurti:
+
+   1. Paprastas tipas, apribojantis koká nors Schema standartiná tipà,
+   2. Prasmingas sàraðo tipas (list type). Neprasmingo sàraðo tipo pavyzdys: sàraðas ið string tipo elementø. Neprasmingas todël, kad já galima pakeisti vienu paprastu tipu: string.
+   3. Sudëtingi tipai su paprastu turiniu,
+         1. iðvesti apribojimu (restriction)
+         2. iðvesti praplëtimu (extension)
+   4. Sudëtingi tipai su sudëtingu turiniu,
+         1. iðvesti apribojimu (restriction)
+         2. iðvesti praplëtimu (extension)
+   5. Sudëtingas tipas su miðriu turiniu,
+   6. choice valdymo struktûra,
+   7. Bent viena nuoroda (keyref) á unikalumo ribojimà (unique) arba raktà (key)
+   8. Visi jûsø susikurti tipai turi priklausyti jûsø vardø srièiai
+
+Kaip patikrinti, ar jûsø schema dokumentas teisingai paraðytas:
+
+   1. Su narðykle atidarykite puslapá adresu: http://www.w3.org/2001/03/webdata/xsv
+   2. Antrame lauke ("File to upload:") paspauskite "Browse..." ir pasirinkite jûsø schema dokumentà
+   3. Paþymëkite varnelæ ant "Check as complete schema"
+   4. Paspauskite "Upload and Get Results"
+
+Kaip patikrinti, ar jûsø XML dokumentas atitinka jûsø schema dokumentà:
+
+   1. Savo schema dokumentà padëkite á savo www direktorijà
+   2. XML dokumento atribute schemaLocation nurodykite pilnà kelià iki jûsø schema dokumento, pvz.:
+      http://www.mif.vu.lt/~abab0001/manoSchema.xsd
+   3. Su narðykle atidarykite svetainæ adresu: http://www.w3.org/2001/03/webdata/xsv
+   4. Antrame lauke (File to upload:) paspauskite "Browse..." ir pasirinkite jûsø XML dokumentà
+   5. Paspauskite "Upload and Get Results"
+       
+
+# XSLT (1 balas, atsiskaityti galima iki balandþio 27 d. imtinai) Reikia paraðyti XSLT transformacijà, kuri jûsø paraðytà XML dokumentà transformuotø á XHTML dokumentà (CSS ir JavaScript generuoti nebûtina) ir tenkintø ðiuos reikalavimus:
+
+   1. Bent vienoje instrukcijoje (kurioje galima raðyti XPath iðraiðkas) panaudoti maþiausiai dviejø þingsniø XPath iðraiðkà,
+   2. Panaudoti rûðiavimo instrukcijà xsl:sort,
+   3. Panaudoti rezultatø sàraðo automatiná numeravimà (instrukcija xsl:number),
+   4. Panaudoti instrukcijà xsl:apply-templates be parametro select, ir suprasti, kaip ji veikia,
+   5. Panaudoti instrukcijà xsl:apply-templates su parametru select, ir suprasti, kaip ji veikia
+   6. Panaudoti instrukcijas xsl:value-of, xsl:if, xsl:for-each
+   7. Panaudoti atributus (@)
+       
+
+# Trys dalys: XHTML, CSS ir JavaScript (1 balas, atsiskaityti galima iki paskutiniø pratybø)
+XHTML, CSS (0.5 balo): reikia paraðyti HTML puslapá, kuriame bûtø naudojamos tik struktûrinës þymës (iðvardintos XHTML 1.1 dokumente). Negalima naudoti puslapio stiliø nusakanèiø þymiø bei atributø (color, font, size, ir panaðiai). Stilio apraðymui reikia sukurti stiliø lentelæ, apraðytà atskirame faile. Turi bûti patenkinti ðie reikalavimai:
+
+   1. Reikia panaudoti ðiuos selektorius (ir mokëti paaiðkinti, kuo pirmas skiriasi nuo antro, bei kà jie visi reiðkia):
+          * Ápëdinio (descendant);
+          * Vaiko (child);
+          * Atributo (attribute);
+          * Klasës (class);
+          * ID
+   2. Sukurtoje stiliø lentelëje turi bûti savybiø paveldëjimo pavyzdys, t.y., bûtina prasmingai panaudoti raktiná þodá inherit (t.y., iðtrynus ðá raktiná þodá, vaizdas ekrane turi pasikeisti) ir þinoti, kà jis reiðkia;
+   3. Sukurtoje stiliø lentelëje turi bûti kaskadø mechanizmo pavyzdys, bûtina prasmingai panaudoti raktiná þodá !important (t.y., iðtrynus ðá raktiná þodá, vaizdas ekrane turi pasikeisti), bei þinoti, kà jis reiðkia ir kas yra tas kaskadø mechanizmas;
+   4. Reikia panaudoti @media taisyklæ (pvz., pademonstruoti puslapio pavyzdá, kuris pavaizduotas ekrane skiriasi nuo atspausdinto (vietoj spausdinimo galima naudoti print preview))
+
+JavaScript (0.5 balo): skriptai turi bûti apraðyti atskirame faile. Turi bûti patenkinti ðie reikalavimai:
+
+   1. Reikia pademonstruoti formos laukø validavimà:
+          * Ávedimo laukas, kuriame kaþkas turi bûti ávesta (kuris negali bûti paliktas tuðèias);
+          * Ávedimo laukas, kuriame turi bûti ávestas sveikas teigiamas skaièius;
+          * Ávedimo laukas (-ai), kuriame (-iuose) turi bûti ávesta teisinga data (metai, mënuo, diena) (pvz., vasaris negali turëti 30 dienø); bûtina naudoti Date objektà, t.y., draudþiama patiems raðyti teisingos datos tikrinimo algoritmà (metai nebûtinai keliamieji, jei jie dalinasi ið 4! Teisingas algoritmas þymiai sudëtingesnis).
+   2. Reikia panaudoti reguliarias iðraiðkas (RegExp) - bus detalizuota
+   3. Reikia pademonstruoti kokiø nors puslapio elementø paslëpimà/parodymà (ne iðmetimà!) panaudojant CSS savybæ display, priklausomai nuo to, kas ávesta kokiame nors formos lauke;
+   4. Reikia pademonstruoti HTML puslapio dinaminio modifikavimo galimybes (panaudojant DOM API, èia DOM Tutorial, JavaScript DOM Reference (PDF)). Turi bûti tenkinami ðie reikalavimai:
+         1. Egzistuojanèiø HTML dokumento þymiø tekstinio turinio pakeitimas (pvz., paragrafo teksto pakeitimas)
+         2. Egzistuojanèiø þymiø stiliaus pakeitimas (atributui style priskiriant naujà reikðmæ)
+         3. Egzistuojanèiø þymiø iðmetimas (pvz., paspaudus pele virð sàraðo elemento, tas elementas ið sàraðo turi bûti iðmetamas)
+         4. Naujø þymiø áterpimas (pvz., paspaudus mygtukà, lentelës pabaigoje turi bûti pridedama nauja eilutë)
+
