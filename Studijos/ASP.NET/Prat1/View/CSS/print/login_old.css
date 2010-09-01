@@ -1,0 +1,166 @@
+*
+{
+	margin:0;
+	padding:0;
+}
+
+html, body 
+{
+	height:100%;
+}
+		
+body 
+{
+	text-align:center; 		
+}
+
+.distance 
+{ 
+	height:50%;
+	width:1px;
+	margin-bottom:-75px; /* half of container's height */
+	float:left;
+}
+
+.checkbox
+{
+	font-size:smaller;
+	color:Olive;
+}
+
+#container
+{
+	padding: 0px;
+	margin: 0 auto;
+	position: relative; /* puts container in front of distance */
+	text-align: left;
+	height: 100px;
+	width: 420px;
+	clear: left;
+	top: 0px; /*float:right;*/
+	left: -3px;
+}
+
+.titlebar
+{
+	margin: 0px;
+	padding: 0px;
+	border-style: none solid solid solid;
+	border-color: white;
+	border-width: 1px;
+	position: relative; /* puts container in front of distance */
+	text-align: left;
+	width: auto;
+	clear: left;
+	top: 0px; /*float:right;*/
+	left: 0px;
+	
+}
+
+#container div 
+{
+	font-size:100%;
+	float:right;
+	width:420px;
+}
+
+
+
+.formbutton
+{
+	border: 1px solid #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 7.0pt;
+	color: #310405;
+	background-color: #f9d6d8;
+	padding: 2.0pt;
+	margin-top: 4.0pt;
+	margin-bottom: 4.0pt;
+}
+
+.formedit
+{
+	border: 1px solid #310405;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 8.5pt;
+	height: 1.5em;
+	background-color: #ffffff;
+	color: #310405;
+	padding-left: 2.0pt;
+	width: 310px;
+	margin-bottom: 2px;
+	margin-top: 2px;
+}
+
+.formlabel
+{
+	font-weight:bold;
+	font-size:8.0pt;
+	text-align:right;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	background-color:#FFFFFF;
+	color:Black;
+	margin-bottom:0.5px;
+	margin-top:0;
+	padding-left: 10px;
+}
+
+.myloginform
+{
+	margin:0px;
+	padding: 0px;
+	display:block;
+	
+	position: relative;
+	top: -5px;
+	left: 1px;
+	border-style: none solid solid solid;
+	border-color: #7b7e80;
+	border-width: 1px;
+	height: 100px;
+	width: 420px;
+	background-color: white;
+	font: Verdana, 0.8em;
+}
+
+.retries
+{
+	border-top-width:0; 
+	border: 1px solid #7b7e80;
+	border-width:1px;
+	height: 25%;
+	width: 100%;
+	background-color: white;
+	width: 419px;
+	height: 100px;
+	font: Verdana, 5em;
+	display: table;	
+	position:relative;
+	text-align:center;
+	color:Red;
+	left:-2;
+	top:0;
+}
+
+.titlemyform
+{
+	font-size:7.0pt;
+	color:darkviolet;	
+	text-align:left;
+	margin-left:10px;
+	padding-left:10px;
+}
+
+#statuscontent
+{
+	position: absolute; 
+	bottom: 0; 
+	left: 0; 
+	width: 100%; 
+	height: 20px; /*Height of frame div*/
+	overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable*/
+	background: LightGoldenRodYellow;
+	text-align:center;
+}
