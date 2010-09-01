@@ -1,0 +1,64 @@
+unit Unit3;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtDlgs;
+
+type
+  TForm3 = class(TForm)
+    Label1: TLabel;
+    Button1: TButton;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Button2: TButton;
+    Label5: TLabel;
+    Label6: TLabel;
+    Button3: TButton;
+    OpenDialog1: TOpenDialog;
+    procedure Button1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+
+uses Unit1;
+
+{$R *.dfm}
+
+procedure TForm3.Button1Click(Sender: TObject);
+var s, rez: string;
+    x: integer;
+begin
+form3.OpenDialog1.Execute;
+s := form3.opendialog1.filename;
+x := length(s);
+while (s[x] <> '\')or (x < 1) do
+begin
+x := x - 1;
+end;
+y := x;
+while (s[y] <> '\')or (y < 1) do
+begin
+y := y - 1;
+end;
+
+rez := copy(s, y + 1, x - y + 1);
+form3.label2.caption := rez;
+end;
+
+procedure TForm3.FormShow(Sender: TObject);
+begin
+form3.Label2.Caption := form1.skin_name;
+end;
+
+end.
