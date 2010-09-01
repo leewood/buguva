@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT crd:Visualization ((crd:View+))>
+<!ELEMENT crd:View ((crd:ObjectFile))>
+<!ATTLIST crd:View
+	type (default | arena) #REQUIRED
+>
+<!ELEMENT crd:Title (#PCDATA)>
+<!ELEMENT crd:Texture EMPTY>
+<!ATTLIST crd:Texture
+	color CDATA #FIXED "white"
+	nr (3 | 2 | 1) #REQUIRED
+	src CDATA #IMPLIED
+>
+<!ELEMENT crd:StarsCount (#PCDATA)>
+<!ELEMENT crd:Scale (#PCDATA)>
+<!ELEMENT crd:ObjectFile ((crd:Texture+ | (crd:Scale, crd:Texture+, Texture, crd:Animation)))>
+<!ATTLIST crd:ObjectFile
+	src CDATA #REQUIRED
+>
+<!ELEMENT crd:Events ((crd:Event+))>
+<!ELEMENT crd:EventHandlingFunction EMPTY>
+<!ATTLIST crd:EventHandlingFunction
+	name (OnFLip | OnDestroy2) #REQUIRED
+	src (thunderball.ccl | thunderbal.ccl) #REQUIRED
+>
+<!ELEMENT crd:Event ((crd:EventHandlingFunction))>
+<!ATTLIST crd:Event
+	type (OnFlip | OnDestroy) #REQUIRED
+>
+<!ELEMENT crd:Description (#PCDATA)>
+<!ELEMENT crd:DefencePoints (#PCDATA)>
+<!ELEMENT crd:Created (#PCDATA)>
+<!ELEMENT crd:Card ((crd:Title, crd:Created, crd:Description, crd:AttackPoints, crd:DefencePoints, crd:StarsCount, crd:Visualization, crd:Events))>
+<!ATTLIST crd:Card
+	id CDATA #FIXED "1"
+	type CDATA #FIXED "monster"
+>
+<!ELEMENT crd:AttackPoints (#PCDATA)>
+<!ELEMENT crd:Animation EMPTY>
+<!ATTLIST crd:Animation
+	type CDATA #FIXED "attack"
+>
+<!ELEMENT Visualization ((View))>
+<!ELEMENT View ((ImageFile))>
+<!ATTLIST View
+	type CDATA #FIXED "inventory"
+>
+<!ELEMENT Title (#PCDATA)>
+<!ELEMENT Texture EMPTY>
+<!ATTLIST Texture
+	nr CDATA #FIXED "4"
+	src CDATA #FIXED "thunderball/lamp.jpg"
+>
+<!ELEMENT ImageFile EMPTY>
+<!ATTLIST ImageFile
+	src CDATA #FIXED "teleport.jpg"
+>
+<!ELEMENT Events ((Event))>
+<!ELEMENT EventHandlingFunction EMPTY>
+<!ATTLIST EventHandlingFunction
+	name CDATA #FIXED "OnAction"
+	src CDATA #FIXED "teleport.ccl"
+>
+<!ELEMENT Event ((EventHandlingFunction))>
+<!ATTLIST Event
+	type CDATA #FIXED "OnAction"
+>
+<!ELEMENT Description (#PCDATA)>
+<!ELEMENT CardList ((crd:Card, Card))>
+<!ATTLIST CardList
+	lastEdited CDATA #FIXED "2008-02-13"
+	xmlns CDATA #FIXED "http://uosis.mif.vu.lt/~kauo4157"
+	xmlns:crd CDATA #FIXED "http://uosis.mif.vu.lt/~kauo4157/myxml.xsd"
+	xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation CDATA #FIXED "C:\DOCUME~1\Administrator\Desktop\myxml.xsd"
+>
+<!ELEMENT Card ((Title, Description, Visualization, Events))>
+<!ATTLIST Card
+	id CDATA #FIXED "2"
+	rarity CDATA #FIXED "0.5"
+	type CDATA #FIXED "commonUse"
+>

@@ -1,0 +1,13 @@
+   /CardList/Card/ancestor::*/@lastEdited
+   /CardList/Card[1]/following-sibling::*/Title
+   /CardList/Card[2]/preceding-sibling::*/Title
+   /CardList/Card[1]/following::Card/@rarity
+   /CardList/Card[2]/preceding::Card/@rarity
+   /CardList/Card[1]/attribute::id
+   /CardList/Card[1]/following::*[attribute::id >= /CardList/Card[1]/attribute::id]
+   /CardList/Card[1]/attribute::id + sum(/CardList/Card[1]/following::*/attribute::id)
+   sum(/CardList/*/AttackPoints) >= sum(/CardList/*/DefencePoints)
+   count(/CardList/*)
+   sum(/CardList/Card/AttackPoints)
+   /CardList/Card[1]/Visualization/* = /CardList/Card[2]/Visualization/*
+   count(/CardList/*/Visualization/View[attribute::type = "inventory"])  + /CardList/Card[1]/attribute::id  + count(/CardList/*[sum(/CardList/*/attribute::id)> count(/CardList/*)])
