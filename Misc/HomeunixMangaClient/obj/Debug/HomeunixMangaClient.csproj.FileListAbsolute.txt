@@ -1,0 +1,8 @@
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\bin\Debug\HomeunixMangaClient.exe
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\bin\Debug\HomeunixMangaClient.pdb
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\obj\Debug\HomeunixMangaClient.Form1.resources
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\obj\Debug\HomeunixMangaClient.Properties.Resources.resources
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\obj\Debug\HomeunixMangaClient.csproj.GenerateResource.Cache
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\obj\Debug\HomeunixMangaClient.exe
+C:\Users\nku\Documents\Visual Studio 2008\Projects\HomeunixMangaClient\HomeunixMangaClient\obj\Debug\HomeunixMangaClient.pdb
