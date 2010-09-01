@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE BandList SYSTEM "f:\metal.dtd">
+<BandList xmlns:metal="http://mif.vu.lt/~mysi5977/xml.xsd" xmlns="http://mif.vu.lt/~mysi5977/xml.xsd">
+	<Band name="Cathedral">
+		<Gathered>1989-01-01</Gathered>
+		<Style>Doom Metal</Style>
+		<Origin>United Kingdom</Origin>
+		<LineUp>
+			<BandMember name="Lee Dorian" duties="Vocals">
+				<OtherBand name="Napalm Death">
+					<Status>EX</Status>
+				</OtherBand>
+				<OtherBand name="Teeth of Lions Rule the Divine">
+					<Status>Active</Status>
+				</OtherBand>
+				<OtherBand name="SOB">
+					<Status>Guest</Status>
+				</OtherBand>
+			</BandMember>
+			<BandMember name="Gary 'Gaz' Jennings" duties="Guitar">
+				<OtherBand name="Acid Reign"/>
+			</BandMember>
+			<BandMember name="Leo Smee" duties="Bass">
+      </BandMember>
+			<BandMember name="Brian Dixon">
+				<OtherBand name="Horakane"/>
+			</BandMember>
+		</LineUp>
+		<metal:Album name="Forest of Equilibrium" tracks="8">
+			<metal:Front>http://static.metal-archives.com/images/2/9/3/2/2932.jpg</metal:Front>
+			<metal:Song name="Picture of Beauty and Innocence (Intro)" no="1">
+				<metal:Lenght>1.07</metal:Lenght>
+			</metal:Song>
+			<metal:Song name="Commiserating the Celebration" no="2">
+				<metal:Lenght>10.09</metal:Lenght>
+				<metal:Lyrics>Our pleasures be joyless doleful experiences. We seek not life's beauty but cherish its..</metal:Lyrics>
+			</metal:Song>
+			<metal:Song name="Ebony Tears" no="3">
+				<metal:Lenght>7.46</metal:Lenght>
+			</metal:Song>
+			<metal:Song name="Serpent Eve" no="4">
+				<metal:Lenght>7.41</metal:Lenght>
+			</metal:Song>
+			<metal:Song name="Soul Sacrifice" no="5">
+				<metal:Lenght>2.54</metal:Lenght>
+			</metal:Song>
+			<metal:Song name="A Funeral Request" no="6">
+				<metal:Lenght>9.17</metal:Lenght>
+			</metal:Song>
+			<metal:Song name="Equilibrium" no="7">
+				<metal:Lenght>6.08</metal:Lenght>
+			</metal:Song>
+			<metal:Song name="Reaching Happiness, Touching Pain" no="8">
+				<metal:Lenght>9.08</metal:Lenght>
+			</metal:Song>
+		</metal:Album>
+		<Album name="Soul Sacrifice" tracks="4">
+			<Front>http://static.metal-archives.com/images/1/3/1/1/13117.jpg</Front>
+			<Song name="Soul Sacrifice" no="1">
+				<Lenght>4.35</Lenght>
+			</Song>
+			<Song name="Autumn Twilight" no="2">
+				<Lenght>5.5</Lenght>
+			</Song>
+			<Song name="Frozen Rapture" no="3">
+				<Lenght>6.12</Lenght>
+			</Song>
+			<Song name="Golden Blood (Flooding)" no="4">
+				<Lenght>8.09</Lenght>
+			</Song>
+		</Album>
+	</Band>
+</BandList>
