@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strategy", "Metodai1\Strategy.csproj", "{76DABF79-63EC-4118-827C-4CCCA07A6886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template", "Template\Template.csproj", "{F643A14B-0CDC-46C5-92D4-01567A980285}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76DABF79-63EC-4118-827C-4CCCA07A6886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76DABF79-63EC-4118-827C-4CCCA07A6886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76DABF79-63EC-4118-827C-4CCCA07A6886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76DABF79-63EC-4118-827C-4CCCA07A6886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F643A14B-0CDC-46C5-92D4-01567A980285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F643A14B-0CDC-46C5-92D4-01567A980285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F643A14B-0CDC-46C5-92D4-01567A980285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F643A14B-0CDC-46C5-92D4-01567A980285}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

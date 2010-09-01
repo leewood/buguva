@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Metodai1.ApproxValue">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAABAAAAAAEgAAAIAAAAAgAgAIAAAAAAAAYBA=</HashCode>
+      <FileName>ApproxValue.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="function" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Metodai1.AbstractMathFunction" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACBAAAAA=</HashCode>
+      <FileName>AbstractMathFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metodai1.MathFunction51" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACBAAAAA=</HashCode>
+      <FileName>MathFunction51.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metodai1.MathFunction52" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACBAAAAA=</HashCode>
+      <FileName>MathFunction52.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metodai1.MathFunctionLog" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACBAAAAA=</HashCode>
+      <FileName>MathFunctionLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Metodai1.AbstractApproxValue">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAABAAAAAAEAAAAIAAAAAgAgAYAAAACBAAYBA=</HashCode>
+      <FileName>AbstractApproxValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metodai1.ApproxValueMathFunction51" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACBAAAAA=</HashCode>
+      <FileName>ApproxValueMathFunction51.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metodai1.ApproxValueMathFunctionLog" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACBAAAAA=</HashCode>
+      <FileName>ApproxValueMathFunctionLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metodai1.ApproxValueMathFunction52" Collapsed="true">
+    <Position X="6.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACBAAAAA=</HashCode>
+      <FileName>ApproxValueMathFunction52.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
