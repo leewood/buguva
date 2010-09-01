@@ -1,0 +1,63 @@
+# Project: Network1Client
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = main.o ClientInitError.o Client.o Screen.o Fight.o tools.o Inventory.o SystemWin.o Map.o Models.o Me.o Login.o $(RES)
+LINKOBJ  = main.o ClientInitError.o Client.o Screen.o Fight.o tools.o Inventory.o SystemWin.o Map.o Models.o Me.o Login.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -lwsock32 -lWs2_32 -lconio  
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
+BIN  = Network1Client.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS = $(INCS)  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before Network1Client.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "Network1Client.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+ClientInitError.o: ClientInitError.cpp
+	$(CPP) -c ClientInitError.cpp -o ClientInitError.o $(CXXFLAGS)
+
+Client.o: Client.cpp
+	$(CPP) -c Client.cpp -o Client.o $(CXXFLAGS)
+
+Screen.o: Screen.cpp
+	$(CPP) -c Screen.cpp -o Screen.o $(CXXFLAGS)
+
+Fight.o: Fight.cpp
+	$(CPP) -c Fight.cpp -o Fight.o $(CXXFLAGS)
+
+tools.o: tools.cpp
+	$(CPP) -c tools.cpp -o tools.o $(CXXFLAGS)
+
+Inventory.o: Inventory.cpp
+	$(CPP) -c Inventory.cpp -o Inventory.o $(CXXFLAGS)
+
+SystemWin.o: SystemWin.cpp
+	$(CPP) -c SystemWin.cpp -o SystemWin.o $(CXXFLAGS)
+
+Map.o: Map.cpp
+	$(CPP) -c Map.cpp -o Map.o $(CXXFLAGS)
+
+Models.o: Models.cpp
+	$(CPP) -c Models.cpp -o Models.o $(CXXFLAGS)
+
+Me.o: Me.cpp
+	$(CPP) -c Me.cpp -o Me.o $(CXXFLAGS)
+
+Login.o: Login.cpp
+	$(CPP) -c Login.cpp -o Login.o $(CXXFLAGS)
