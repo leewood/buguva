@@ -1,0 +1,16 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\Kartuves.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\Kartuves.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\obj\Debug\Kartuves.Form1.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\obj\Debug\Kartuves.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\obj\Debug\Kartuves.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\obj\Debug\Kartuves.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\obj\Debug\Kartuves.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\p1.JPG
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\p2.JPG
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\p3.JPG
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\p4.JPG
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\p5.JPG
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\p6.JPG
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\bin\Debug\p7.JPG
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Kartuves\Kartuves\Kartuves\obj\Debug\Kartuves.InputBox.resources
