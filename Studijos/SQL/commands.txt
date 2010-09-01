@@ -1,0 +1,79 @@
+//PIRMA UZDUOTIS
+//Visø skaitytojø, gimusiø anksèiau negu prieð konkretø skaièiø metø, AK, vardai, pavardës ir gimimo datos.
+SELECT
+    AK, Vardas, Pavarde, Gimimas AS 'Gimimo Data'
+  FROM
+    Stud.Skaitytojas
+  WHERE
+    Gimimas <= (CURDATE() - INTERVAL 5 YEAR)
+;
+
+//Visi Autoriai
+SELECT
+  DISTINCT
+    Autorius.Pavarde,
+	Autorius.Vardas
+  FROM
+    Stud.Autorius
+;
+
+//Visi autoriai ir ju visos knygos
+SELECT
+    Autorius.Vardas,
+    Autorius.Pavarde,
+    Knyga.Pavadinimas,
+    Knyga.Puslapiai
+  FROM
+    Stud.Autorius,
+    Stud.Knyga
+  WHERE
+    Autorius.ISBN = Knyga.ISBN
+  ORDER BY
+    Autorius.Vardas,
+    Autorius.Pavarde,
+    Knyga.Puslapiai
+;
+
+//ANTRA UZDUOTIS
+//Autoriu visu knygu puslapiu vidurkiai	
+SELECT
+    Autorius.Vardas,
+    Autorius.Pavarde,
+    AVG(Knyga.Puslapiai)
+  FROM
+    Stud.Autorius,
+    Stud.Knyga
+  WHERE
+    Autorius.ISBN = Knyga.ISBN
+  GROUP BY
+    Autorius.Vardas,
+    Autorius.Pavarde
+;
+  
+//TRECIA UZDUOTIS
+//Kiekvienam skaitytojui (vardas, pavardë) ir datai, kai jis turi gràþinti bent vienà egzemplioriø, gràþintinø egzemplioriø skaièius.
+SELECT
+    Skaitytojas.Vardas,
+    Skaitytojas.Pavarde,
+    Knyga.Pavadinimas,
+	Egzempliorius.Grazinti AS 'Grazinti iki',
+	COUNT(Egzempliorius.Grazinti) AS Grazinti
+  FROM
+    Stud.Skaitytojas,
+    Stud.Knyga,
+	Stud.Egzempliorius
+  WHERE
+    Skaitytojas.Nr = Egzempliorius.Skaitytojas AND
+    Egzempliorius.ISBN = Knyga.ISBN AND
+	Egzempliorius.Grazinti IS NOT NULL
+  GROUP BY
+    Egzempliorius.Grazinti,
+	Skaitytojas.Vardas,
+	Skaitytojas.Pavarde
+  ORDER BY
+    Skaitytojas.Vardas,
+	Skaitytojas.Pavarde,
+	Egzempliorius.Grazinti
+;
+ 
+	
