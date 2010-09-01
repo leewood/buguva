@@ -1,0 +1,7 @@
+JavaView Class Archive 'javaview.jar' 
+11.11.2007 
+This file was automatically generated when the archive was composed 
+		PROGRAM = "JavaView";
+		VERSION = "3.95.001";
+		AUTHOR = {"Konrad Polthier", "Klaus Hildebrandt", "Eike Preuss", "Ulrich Reitebuch"};
+		TOPIC = "release version (patch 1)";
