@@ -1,0 +1,11 @@
+MainServer.exe yra serverio programa, ja reikia paleisti ant serverio 
+ir ji rodys visus is kompiuteriu su klientine programos dalim 
+sunciamus pranesimus. 
+
+Client.exe yra klientine programa. Ja riekia paleidineti ant visu 
+kompiuteriu, kurie turi apie savo isisjungima, issijungima is pan.
+informuoti. jei nera failo config.ini tai pasileisdama programa papraso
+ivesti serverio adresa. Jei config.ini failas yra, tai programa serverio
+adresa ima is ten. Kol kas pragrama serveri informuoja tik apie savo
+pasileidima, issijungima ir dar galima nusisuti papildoma pranesima
+ivedus ji i atitinkama laukeli ir paspaudus send.
