@@ -1,0 +1,96 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Viewer Demo</title>
+</head>
+
+<body>
+
+<h2>Demo of the 3d Viewer</h2>
+<blockquote>
+  <P>This page is intended to do a first step with 
+  <STRONG><EM><FONT color=#004080>JavaView</FONT></EM></STRONG> and, mainly, 
+  test your Java environment. Before <STRONG><EM><FONT 
+  color=#004080>JavaView</FONT></EM></STRONG>              
+       is able to run, a small compressed library of 
+  about 250kb is automatically downloaded. Rotate geometry by moving mouse 
+  inside viewer window and drag while left mouse button pressed.</P>
+   <blockquote>
+      <p><APPLET id=Applet2 alt="Demo applet showing navigation of the viewer"
+      archive="jars/javaview.jar,jars/jvx.jar"
+      width=400 height=400 code=javaview.class name=PaViewerDemo>
+	<PARAM NAME="projectpaneltype" VALUE="Small">
+	<PARAM NAME="frame" VALUE="Hide">
+	<PARAM NAME="menu-new-project" VALUE="disable">
+	<PARAM NAME="panel" VALUE="Material">
+	<PARAM NAME="console" VALUE="Hide">
+	<PARAM NAME="projectpanel" VALUE="Show">
+	<PARAM NAME="model" VALUE="sampleTorus.jvx">
+	<PARAM NAME="control" VALUE="Hide">
+	</APPLET>
+      </p>
+   </blockquote>
+	<p>The sample model is a torus colored by its discrete Gauss curvature. Additionally,
+vertex normals shown and some vertices are marked. Use the material panel to switch
+display of certain features. Use the menu Method -&gt; Mark -&gt; Remove Marked Vertices
+to delete the rectangles adjacent to the marked vertices.</p> 
+   <p>Press right mouse button to select major interaction mode from popup menu,
+   or use keyboard keys to temporarily switch between different modes (just keep
+   a button pressed to switch mode temporarily). Some essential modes are:</p>
+   <table border="0" cellspacing="1" cellpadding="1" width="90%">
+      <tr>
+         <td width="16%" valign="center">o</td>
+         <td width="84%" valign="center">Rotate surface (this <font
+            color="#008000">O</font>rbit mode is the default mode)</td>
+      </tr>
+      <tr>
+         <td width="16%" valign="center">s</td>
+         <td width="84%" valign="center"><font color="#008000">S</font>cale
+            surface, drag in vertical direction</td>
+      </tr>
+      <tr>
+         <td width="16%" valign="center">t</td>
+         <td width="84%" valign="center"><font color="#008000">T</font>ranslate
+            surface in viewing plane</td>
+      </tr>
+      <tr>
+         <td width="16%" valign="center">r</td>
+         <td width="84%" valign="center"><font color="#008000">R</font>eset
+            camera and display, object returns to default position</td>
+      </tr>
+      <tr>
+         <td width="16%" valign="center"></td>
+         <td width="84%" valign="center"></td>
+      </tr>
+      <tr>
+         <td width="16%" valign="center">
+        <P>F1 or Ctrl-s<BR>or<BR>Right-Mouse</P>  </td>
+         <td width="84%" valign="center">Show control window</td>
+      </tr>
+      <tr>
+         <td width="16%" valign="center"><A href="jars/help.html">Help</A></td>
+         <td width="84%">With all keyboard shortcuts, and help on problems.</td>
+      </tr>
+   </table>
+
+   <p>To modify appearance of the geometry press <em>F1</em> or <em>Ctrl-s</em>
+   to open the control panel and select the material panel (if not visible) via
+   menu <em>Inspector - Object - Material</em>. Be sure that the mouse focus is
+   inside the viewer otherwise, e.g., the window manager might react. To hide
+   the control panel press F2.</p>
+</blockquote>&nbsp;
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  
+  <TR>
+    <TD>
+      <P align=center><NOBR><SMALL>© 1999-2002&nbsp;Last modified: 
+      05.11.2002&nbsp;--- <A href="http://www.javaview.de" 
+      target=_top>http://www.javaview.de</A> --- The JavaView 
+      Project</SMALL></NOBR> 
+</P></TD></TR><!--msnavigation--></TABLE>
+</body>
+
+</html>
