@@ -1,0 +1,1525 @@
+unit transl;
+//  label 55;
+interface
+  const
+        bsk = 36; vrdilg = 10; lmax = 100; kodmax = 2000;
+        tmax = 255; kmax = 21; stdydis = 1000;
+        bpr = 101; bgl = 145;
+        
+        //baziniu zodzius konstantos
+        skai = 101;
+        vard = 102;
+        tekst = 103;
+        plius = 104;
+        minus = 105;
+        zvaigzdute = 106;
+        dalsv = 107;
+        dalliek = 108;
+        sauktukas = 109;
+        kskliaust = 110;
+        dskliaust = 111;
+        kablelis = 112;
+        kabliatask = 113;
+        taskas = 114;
+        dvitask = 115;
+        priskyrimas = 116;
+        programa = 117;
+        pradzia = 118;
+        pabaiga = 119;
+        kint = 120;
+        jei = 121;
+        tai = 122;
+        kitaip = 123;
+        kol = 124;
+        atlikti = 125;
+        skait = 126;
+        atsak = 127;
+        rom = 128;
+        lyg = 129;
+        nelyg = 130;
+        daug = 131;
+        maz = 132;
+        daugl = 133;
+        mazl = 134;
+        logi = 135;
+        int = 136;
+        skaitne = 137;
+        atsakne = 138;
+        sys2 = 139;
+        foras = 140;
+        downto2 = 142;
+        to2 = 141;
+        masyvo = 142;
+        mas_ati = 143;
+        mas_uz = 144;
+        ofo = 145;
+        //tipu konstantos
+        nera = 301;
+        romen = 302;
+        log = 303;
+        svei = 304;
+        maso = 305;
+        
+        
+  type simbolis = integer;
+       vardas = string; 
+       tipas = integer;
+       sima = array[bpr..bgl] of boolean; (*simbolitf aibe*)
+       komanda = record f: integer; y: integer end;
+  var simb: simbolis;
+      vrd: vardas;
+      st_sign: char;
+      tmp, sys, sustok: sima;
+      vieta: integer;
+      reiksme: integer;
+      kiekz: integer;
+      tid, ilg, h2: integer; (*nagti?iejamos eilutes ilgis*)
+      zsk: integer; (*zenklt( skaitliukas*)
+      preil: array [1..3000] of char;
+      ch: char;
+      psk, k: integer;
+      kl, stop: boolean;
+      comm: command;
+      progvard: vardas;
+      bloksimb, daugsimb, saksimb: sima;
+      baz: array [1..bsk] of vardas;
+      pran: array[1..22] of string;
+      bsi: array [1..bsk] of simbolis;
+      sps: array [1..255] of simbolis;
+      lent, tx: integer;
+      lentele: array [0..lmax] of record
+                                         pavadin: vardas;
+                                         tip: tipas;
+                                         adr: integer;
+                                         dm: integer;
+                                   end;
+      tlent: string;
+      kodas: array [0..kodmax] of komanda;
+      duom, input, output: string;
+      pos: integer;
+      z, o: tipas;
+      j, lid, lid2, lid3: integer;
+      buvo: boolean;
+      
+      
+procedure laipsnis(sustok: sima; z: tipas);
+procedure lreiskinys (sustok: sima; z: tipas);
+procedure init;
+procedure sakinys (sustok : sima);
+procedure start;
+procedure interpret;
+implementation
+
+function getduom: string;
+var com1, com2, ct: command;
+    tid, tid2: integer;
+    ar: boolean;
+    bc: string;
+begin
+tid := FormAddTextField('Enter args:', '', 20, TF_ANY); 
+showform;
+com1 := createCommand('OK', CM_SCREEN, 1); 
+com2 := createCommand('Cancel', CM_SCREEN, 2); 
+addCommand(com1); 
+addCommand(com2);
+ar := false;
+               repeat 
+                 delay(100); 
+                 ct := getClickedCommand;
+                 if ct = com2 then begin bc := '';ar := true; end;
+                 if ct = com1 then begin bc := FormGetText(tid); ar := true; end;
+               until ar; 
+clearform;
+   lid := FormAddString(output);
+   comm := createCommand('Terminate', CM_SCREEN, 3); 
+addCommand(comm);
+   showform;
+output := output + bc;
+getduom := bc;
+end;
+   
+procedure zenklas;
+var ap: integer;
+  begin
+   if zsk = ilg then begin
+   {  if eof (input) then begin
+        writeln;
+        writeln ('programa nebaigta');
+        halt(0);
+     end;}
+     ilg:= 1;
+     zsk := 0;
+     while {(getchar(input, pos)<>st_sign)and }(pos < length(input)) do begin
+       ilg := ilg+1; ch := getchar(input, pos); pos := pos + 1; preil[ilg]:= ch
+     end;
+     ilg:= ilg + 1;
+     preil[ilg] := getchar(input, pos);
+     pos := pos + 1;
+   end;
+   zsk:= zsk + 1;
+   ch:= preil[zsk];
+
+   if ch = st_sign then ch := ' ';
+   debug('Zenklas (' + ch+ ')');
+   {ap :=zsk * 100 div ilg;
+   FormSetext(tid, 'Done ' + ap + '%');}
+   FormSetValue(lid2, zsk * 100 div ilg); 
+   showform;
+   assert(false);
+  { write(ch)}
+ end (*zenklas*);
+ 
+ procedure zenklas2;
+var ap: integer;
+  begin
+  if not(buvo) then begin
+  zsk := 0;
+  ilg := 0;
+  pos := 0;
+  buvo := true;
+  duom := getduom;
+  debug(duom);
+  assert(false);
+  end;
+   if zsk = ilg then begin
+   {  if eof (input) then begin
+        writeln;
+        writeln ('programa nebaigta');
+        halt(0);
+     end;}
+     ilg:= 0;
+     zsk := 0;
+     while {(getchar(input, pos)<>st_sign)and }(pos < length(duom)) do begin
+       ilg := ilg+1; ch := getchar(duom, pos); pos := pos + 1; preil[ilg]:= ch
+     end;
+     ilg:= ilg + 1;
+     preil[ilg] := getchar(duom, pos);
+     pos := pos + 1;
+   end;
+   zsk:= zsk + 1;
+   ch:= preil[zsk];
+
+   if ch = st_sign then ch := ' ';
+   if pos = length(duom) then buvo := false;
+   debug(duom);
+   debug(ch);
+   debug('zenklas2');
+   assert(false);  
+ end (*zenklas*);
+
+
+function arrom(ch: char): boolean;
+begin
+if (ch = 'I') or (ch = 'V') or (ch = 'X') or (ch = 'L') or (ch = 'C') or (ch = 'D') or (ch = 'M')
+   then arrom := true else arrom := false;
+end;
+
+procedure klaida(n: integer);
+  var k: integer;
+  begin
+    k := 1;
+    if kl then kl:= false;
+    while k <> n do
+      k := k + 1;
+    output := output + '???' + pran[k] + '???';
+    stop := true;
+    debug('???' + pran[k] + '???');
+    assert(false);
+  end;
+
+function pozic (ch: char): integer;
+  var r, a1, a2, a3, kiek: integer;
+  begin
+    r := 0; a1 := 1; a2 := 0; a3 := 0; kiek := 0;
+    while arrom(ch) do begin
+      if (kiek <= 3)and ((a2 >= a3) or (a2 <> a1) or (a1 = 0)) then begin
+         a1 := a2; a2 := a3;
+         if ch = 'M' then a3 := 1000
+          else if ch = 'D' then a3 := 500
+            else if ch ='C' then a3 := 100
+              else if ch ='L' then a3 := 50
+               else if ch ='X' then a3 := 10;
+                else if ch = 'V' then a3:=5;
+                 else if ch = 'I' then a3:=1;
+         if a1 = a3 then kiek := kiek + 1 else kiek := 1;
+         if (a2 < a3) then r := r - a2 else r := r + a2;
+         zenklas
+      end else
+        while arrom(ch) do zenklas end;
+      if (kiek> 3) or ((a2 < a3) and (a2 = a1) and (a2 <> 0))
+         then pozic := 0 else begin r := r + a3; pozic:= r end
+    end; (*/>or/c*)
+
+
+function arraide(ch: char):boolean;
+  begin
+    if (ch = 'a') or (ch = 'b') or (ch = 'c') or (ch = 'd') or (ch = 'e') or (ch = 'f') or (ch = 'g')
+    or(ch = 'h') or (ch = 'i') or (ch = 'j') or (ch = 'k') or (ch = 'l') or (ch = 'm') or (ch = 'n')
+    or(ch = 'o') or (ch = 'p') or (ch = 'q') or (ch = 'r') or (ch = 's') or (ch = 't') or (ch = 'u')
+    or(ch = 'v') or (ch = 'w') or (ch = 'x') or (ch = 'y') or (ch = 'z') then arraide := true else arraide := false;
+  end;
+
+function arskai(ch: char): boolean;
+begin
+if (ch = '0') or (ch = '1') or (ch = '2') or (ch = '3') or (ch = '4') or (ch = '5') or (ch = '6')
+   or (ch = '7') or (ch = '8') or (ch = '9') then arskai := true else arskai := false;
+end;  
+
+procedure leksema;
+  var j, x, code: integer;
+      testi: boolean;  
+  begin (*leksema*)
+    testi := true;
+    debug('Leksema');
+    assert(false);
+    while testi do
+      begin
+        testi := false;  
+    while (ch = '')or(ch = ' ')or(ch = st_sign)or(ch=chr(0)) do zenklas;
+    if arrom(ch) then
+      begin
+        debug('Leksema Rom');
+        reiksme := pozic(ch);
+        simb := skai;
+        if reiksme = 0 then klaida (1)
+      end else
+        if (arraide(ch)) then begin
+           debug('Leksema vrd');        
+           VRD := ch;
+           zenklas;
+           while (arraide(ch) or arskai(ch)) do begin
+             if length(vrd) < vrdilg then vrd := vrd + ch; zenklas
+           end;
+           while length(vrd) < vrdilg do VRD := vrd + ' ';
+           j := 1;
+           debug(integertostring(length(vrd)));
+           debug(vrd);
+           assert(false);
+           while (baz[j] <> VRD) and (j <  bsk) do j :=j + 1;
+           if  baz[j] = vrd then simb := bsi[J] else simb := vard;
+           if simb = skaitne then begin k := 1; simb := atsak; end;
+           if simb = atsakne then begin k := 1; simb := skait; end;
+           debug(integertostring(simb));
+           assert(false);
+        end else if (arskai(ch)) then begin
+           reiksme := 0;
+           debug('Leksema skai');
+           while (arskai(ch)) do
+             begin
+               x := stringtointeger(''+ch);
+               reiksme := reiksme * 10 + x;
+               zenklas;
+             end;
+           simb := skai;
+        end else
+        if ch =''''   then   begin
+                 debug('Leksema kabut');
+                 reiksme := length (tlent); j := 0;
+                 repeat
+                   zenklas;
+                   tx := length (tlent);
+                   if ch <> '''' then begin
+                     if tx + 1 = tmax then klaida(2)
+                                      else begin tlent:= tlent + ch;
+                                                 j := j + 1
+                                      end
+                     end
+                 until ch = '''';
+                 simb := tekst;
+                 kiekz :=j;
+                 zenklas
+                end else
+        if ch =':' then  begin
+        debug('Leksema :');
+                  zenklas;
+                  if ch = '=' then begin
+                     simb := priskyrimas; zenklas
+                  end
+                  else simb := dvitask
+                end else
+        if ch ='<' then  begin
+        debug('Leksema <');
+                Zenklas;
+                if ch = '=' then
+                   begin simb := mazl; zenklas end
+                   else
+                     if ch = '  > ' then
+                        begin simb := nelyg; zenklas end
+                        else simb := maz
+               end else
+        if ch ='>'then  begin
+        debug('Leksema >');
+                Zenklas;
+                if ch = '=' then
+                   begin simb := daugl; zenklas end
+                   else simb := daug
+              end else
+        if (ch ='+') or (ch = '-') or (ch = '*') or (ch = '$') or (ch = '#') 
+            or (ch = '(') or (ch = ')') or (ch = '.') or (ch = ',') or (ch = ';') or (ch = '=')
+            or (ch = '!') or (ch = '[') or (ch = ']') then
+           begin debug('Leksema kiti ('+ch+')');simb := sps[ord(ch)]; zenklas end
+        else begin zenklas;
+       testi := true;
+      end (*c«.s<?*)
+     end;
+     debug('Leksema pabaiga');
+  end (*leksema*);
+
+procedure gen (fv: integer);
+  begin
+    if psk = kodmax then klaida(3)
+                    else kodas[psk].f := fv;
+    psk := psk+ 1
+  end (*-gen ?*);
+
+procedure gen1 (fv, a : integer);
+  begin
+    if psk = kodmax then klaida(3)
+      else
+        begin
+           kodas[psk].f :=fv; kodas[psk].y := a end;
+    psk := psk + 1
+  end (*£c//l*);
+
+
+procedure spausdinti;
+  var j: integer;
+      k: komanda;
+  begin
+    debug('spausdinti');
+    debug(''+lent);
+    debug(''+psk);
+    assert(false);
+    //input := input + st_sign;
+    output := '';
+    output := output + 'Compile successful';
+    output := output + st_sign;
+    output := output + '+----+kintamasis+-tipas+---adresas+' + st_sign;
+    for j := 1 to lent do
+      output := output + '|' + integertostring(j) +  '  |' + 
+               lentele[j].pavadin + '|   ' +  integertostring(lentele[j].tip) + 
+                '  |    ' +  integertostring(lentele[j].adr) +  '   |' + st_sign;
+    output := output + '+----+----------+------+----------+' + st_sign;
+    output := output + '    kodas:' + st_sign;
+    for  j := 0 to psk-1 do
+      begin
+      debug('ciklas 2');
+        if j mod 5 = 0 then begin output := output + st_sign; output := output + integertostring(j) + ' :'; end;
+        k := kodas[j]; output := output + integertostring(k.f);
+        if (k.f < 3) or (k.f = 16) or (k.f = 17) or (k.f= 19)
+           then output := output + ' ' + integertostring(k.y) else output := output + '  ';
+        output := output + ' ,';
+      end;
+    output := output + st_sign;
+    output := output + 'Program output:';
+    output := output + st_sign;
+    debug(output);
+  end (*spausdinti*);
+
+
+
+procedure persokti (sustok: sima; n: integer);
+  begin
+    klaida (n);
+   // while not (sustok[simb]) do leksema
+  end (*persokti*);
+
+procedure sujung(s1, s2: sima);
+var x: integer;
+begin
+  for x := bpr to bgl do
+    tmp[x] := s1[x] or s2[x];
+end;
+
+procedure ieskoti (s1, s2: sima; n: integer);
+  begin
+    if not (s1[simb]) then begin sujung(s1, s2); persokti (tmp, n) end;
+  end (*ieskoti*);
+
+procedure iterpti(vrd: vardas);
+  var j: integer;
+  begin
+    if lent = lmax then klaida(5)
+      else begin
+        lentele[0].pavadin := vrd (*sargas*);
+        j := lent;
+        while lentele[j].pavadin <> vrd do j :=j-1;
+        if j <> 0 then klaida(5) else
+          begin
+            lent := lent + 1;
+            lentele[lent].pavadin:= vrd; lentele[lent].tip := nera; lentele[lent].adr := 0
+          end
+      end
+  end (*iterpti*);
+
+function kelintas (vrd: vardas): integer;
+  var j: integer;
+  begin
+    lentele[0].pavadin := vrd (*sargas*);
+    j := lent;
+    while lentele[j].pavadin <> vrd do
+      j := j-1;
+    if j = 0 then klaida(6);
+    kelintas := j
+  end (*kelintas*);
+
+procedure isvalyti;
+var x: integer;
+begin
+  for x := bpr to bgl do
+    tmp[x] := false;
+end;
+
+procedure add(x: integer);
+begin
+  tmp[x] := true;
+end;
+
+procedure aprasas;
+  var l0, l1, pr, gl, kiekk,a, b: integer;
+      tp, l_tp: tipas;
+      vardai: array[1..10] of string;
+  begin
+    leksema;
+    while simb = vard do begin
+      l0 := lent;
+      debug('aprasas ' + lent);
+      debug('aprasas ' + vrd);
+      iterpti(vrd);
+      lentele[lent].dm := -1;
+      vardai[1] := vrd;
+      kiekk := 1;
+      leksema;
+      while simb = kablelis do begin
+        leksema;
+        if  simb = vard then iterpti(vrd) else klaida(7);
+        kiekk := kiekk + 1; vardai[kiekk] := vrd;
+        lentele[lent].dm := -1;
+        leksema
+      end;
+      if simb = dvitask then leksema else klaida(8);
+      l1 := lent;
+      isvalyti;
+      add(rom);add(logi);add(int);add(masyvo);
+      ieskoti (tmp, sys, 9);
+      if (simb <> rom) and (simb <> logi) and (simb <> int) and (simb <> masyvo) then tp := nera
+        else begin
+          if simb = rom then tp:= romen else if simb = int then tp := svei
+             else if simb = log then tp := log else tp := maso;
+          leksema;
+          pr := 1; gl := 0;
+          if tp = maso then begin
+          leksema;
+          debug('mas pradzia ' + reiksme);
+          pr := reiksme;
+          leksema;
+          debug('mas ' + vrd);
+          leksema;
+          debug('mas ' + vrd);
+          leksema;
+          debug('mas galas ' + reiksme);
+          gl := reiksme;
+          leksema;
+          debug('mas ' + vrd);
+          leksema;
+          debug('mas ' + vrd);
+          leksema;
+          debug('mas ' + vrd);
+          if simb = rom then l_tp:= romen else if simb = int then l_tp := svei
+             else if simb = log then l_tp := log;
+         leksema;
+         // debug('mas ' + vrd);
+          for a := 1 to kiekk do
+            begin 
+              lentele[l0+a].dm := lent;
+          for b := pr to gl do
+            begin
+              iterpti(vardai[a] + b);
+              lentele[lent].tip := l_tp;
+              lentele[lent].adr := lent;
+              lentele[lent].dm := -1;
+            end;
+            end;
+          end;
+        end;
+      while l0 < l1 do begin
+        l0 := l0 + 1;
+        lentele[l0].tip := tp; lentele[l0].adr := vieta; vieta := vieta + 1
+        end;
+        vieta := vieta + (gl-pr+1)*kiekk;
+      if simb = kabliatask then leksema else klaida(10)
+    end
+  end (*aprasas*);
+
+  function reztipas(a, b: tipas): tipas;
+    begin
+      if ((a = romen)or(a=svei)) and ((b = romen)or(b=svei))
+         then reztipas:= romen
+         else reztipas := nera
+    end (*reztipas *);
+
+procedure kopi(a: sima);
+var x: integer;
+begin
+for x := bpr to bgl do
+tmp[x] := a[x];
+end;
+
+
+procedure demuo (sustok: sima; z: tipas);
+  var  op: simbolis;
+       x: integer;
+       lk: sima;
+       y: tipas;
+ begin (*d emuo*)
+ debug('demuo');
+ // for x := bpr to bgl do
+ //   if sustok[x] then debug('True ' + x) else debug('False ' + x);
+   kopi(sustok);
+   add(zvaigzdute);
+   add(dalsv);
+   add(dalliek); 
+   laipsnis (tmp, z); z := o;
+   isvalyti;
+   add(zvaigzdute);
+   add(dalsv);
+   add(dalliek);
+   debug('demuo5');
+    debug(integertostring(simb));
+   while tmp[simb] do begin
+     op := simb; leksema;
+     for x := bpr to bgl do
+       lk[x] := tmp[x];
+     kopi(sustok);
+     add(zvaigzdute);
+     add(dalsv);
+     add(dalliek);
+     laipsnis(tmp, y);y := o;
+        debug('demuo1');
+    debug(integertostring(z));
+     kopi(lk);
+     if op = zvaigzdute then begin
+       z := reztipas(z, y);
+          debug('demuo3');
+    debug(integertostring(z));
+       if ((z = romen) or (z = svei)) then gen(3)
+       end
+       else begin
+         if ((z = romen) or (z = svei)) and ((y = romen) or (y = svei))
+            then if op = dalsv then gen(4)
+                               else gen (5)
+            else z := nera
+       end
+     end;
+     o := z;
+     debug('demuo2');
+    debug(integertostring(z));
+ end (*demuo*);
+ 
+procedure reiskinys (sustok: sima; z: tipas);
+  var op: simbolis;
+      x: integer; lk: sima;
+      y: tipas;
+ begin (*reiskinys*)
+ debug('reiskinys');
+ debug(integertostring(simb));
+ for x := bpr to bgl do
+    if sustok[x] then debug('True ' + x) else debug('False ' + x);
+    assert(false);
+   if (simb = plius) or (simb = minus) then begin
+   debug('reikssalyga');
+ assert(false);
+      op := SIMB; leksema;
+      kopi(sustok);
+      add(plius);
+      add(minus);
+      demuo(tmp, z);z := o;
+      if op = minus then gen(6);
+   end
+   else begin 
+   for x := bpr to bgl do
+     lk[x] := sustok[x];
+   lk[plius] := true;
+   lk[minus] := true;
+   demuo(lk,z); z := o end;
+   while (simb  = plius) or (simb = minus) do begin
+     op :=simb; leksema;
+   for x := bpr to bgl do
+     lk[x] := sustok[x];
+   lk[plius] := true;
+   lk[minus] := true;     
+     demuo(lk, y);y := o;
+     z := reztipas (z, y);
+     if (z = romen)or(z = svei) then if op = plius then gen(7) else gen(8)
+   end;
+   o := z;
+   debug('reiskinys');
+    debug(integertostring(z));
+ end (*rciskinys*);
+ 
+procedure daugiklis(sustok: sima; z: tipas);
+  var j, x: integer;
+      ar_mas: boolean;
+  begin
+    z := nera;
+    debug('daugiklis1');
+     for x := bpr to bgl do
+    if sustok[x] then debug('True ' + x) else debug('False ' + x);
+    ieskoti(daugsimb, sustok, 11);
+    while daugsimb[simb] do begin
+      if simb = vard then begin
+        j := kelintas(vrd);
+        leksema; 
+        ar_mas := false;
+        if simb = mas_ati then begin
+                  leksema; //vrd := vrd + reiksme;
+                  kopi(sustok);
+              add(kablelis);
+              add(dskliaust);
+              add(mas_uz);
+              z := nera;
+              lreiskinys(tmp, z); z := o;
+              gen1(0, j);
+                  //j := kelintas(vrd);
+                  debug('daugiklis mas ' + vrd + ' ' + j);
+                  leksema; //leksema;
+                  debug('daugiklis ' + simb);
+                  gen(7);
+                  gen(33);
+                  ar_mas := true;
+                  end;        
+       if not(ar_mas) then begin 
+        z:= lentele[j].tip;
+        gen1(0, lentele[j]. adr); end;
+      end else if simb = skai then
+        begin gen1(1, reiksme); leksema; z:= svei
+        end else if simb = kskliaust then begin
+          leksema; 
+          kopi(sustok);
+          add(dskliaust);
+          reiskinys (tmp, z);z := o;
+          if simb = dskliaust then leksema else klaida(12)
+         end;
+      ieskoti (sustok, daugsimb, 13)
+    end (*WHILE*);
+    o := z;
+    debug('daugiklis');
+    debug(integertostring(z));
+    assert(false);
+  end (*daugiklis*);
+
+
+procedure laipsnis(sustok: sima; z: tipas);
+var x: integer;
+    lk: sima;
+begin (*laipsnis*)
+debug('laipsnis1');
+ for x := bpr to bgl do
+    if sustok[x] then debug('True ' + x) else debug('False ' + x);
+   for x := bpr to bgl do
+     lk[x] := sustok[x];
+   lk[sauktukas] := true;
+   daugiklis (lk, z);z := o;
+   if simb = sauktukas then begin
+     leksema;
+     if simb <> skai then begin klaida(14); z := nera end
+        else gen1 (2, reiksme); leksema end;
+        o := z;
+        debug('laipsnis');
+    debug(integertostring(z));
+     end (*laipsnis*);
+
+
+
+
+
+
+
+procedure lreiskinys (sustok: sima; z: tipas);
+  var op: simbolis;
+       lk, top: sima;
+       x: integer;
+       y: tipas;
+ begin (*lreiskinys*)
+  for x := bpr to bgl do
+ if sustok[x] then debug('True') else debug('False');
+ debug('lreisk1');
+      for x := bpr to bgl do begin
+     lk[x] := sustok[x]; top[x] := sustok[x]; end;
+   lk[lyg] := true;
+   lk[nelyg] := true;     
+   lk[maz] := true;
+   lk[daug] := true;
+   lk[mazl] := true;
+   lk[daugl] := true;
+   debug('LreiskI');reiskinys(lk, z);z := o;
+   for x := bpr to bgl do
+     lk[x] := false;
+   lk[lyg] := true;
+   lk[nelyg] := true;     
+   lk[maz] := true;
+   lk[daug] := true;
+   lk[mazl] := true;
+   lk[daugl] := true;
+   if lk[simb] then begin
+     op :=simb; leksema; debug('lreiskII');reiskinys(top, y);y := o;
+     if (z = y)or(((z=romen)or(z=svei))and((y=romen)or(y=svei))) then
+       if op = lyg then gen(9) else
+         if op = nelyg then gen(10) else
+           if op = maz then gen(11) else
+             if op = daug then gen(12) else
+              if op = mazl then gen(13) else
+               if op = daugl then gen(14);
+     z := log
+   end
+   o := z;
+   debug('lreiskinys');
+    debug(integertostring(z));
+ end (*lreiskinys*);
+
+procedure priskirti (sustok: sima; j, ad: integer);
+  var z, y: tipas;
+       x: integer;
+  begin
+  debug('priskirti');
+//  for x := bpr to bgl do
+  //  if sustok[x] then debug('True') else debug('False');
+    z := lentele[j].tip;
+   // gen1(1, ad);
+    if simb = priskyrimas then leksema
+       else begin klaida(15); if simb = lyg then leksema
+       end;
+     
+    lreiskinys (sustok, y);y := o;
+    debug('priskirti');
+    debug(integertostring(z));
+    if (z = y) or ((z = svei) and (y = romen)) or ((z = romen) and (y = svei)) then gen(15)
+             else if (z <> nera) and (y <> nera) then klaida(15)
+  end (*priskirti*);
+
+procedure sudsak(sustok: sima);
+  
+  begin
+  debug('esu sudsak');
+  if not(stop) then begin
+    leksema;
+    kopi(sustok);
+    add(kabliatask);
+    add(to2);
+    add(downto2);
+    add(pabaiga);
+    sakinys (tmp);
+    
+    while (simb  = kabliatask) or (simb=to2)or(simb=downto2)or(saksimb[simb]) do begin
+      if (simb = kabliatask)or (simb=to2)or(simb=downto2) then leksema else klaida(10);
+      kopi(sustok);
+      add(kabliatask);
+      add(to2);
+    add(downto2);
+      add(pabaiga);
+      sakinys (tmp)
+    end;
+    if simb = pabaiga then leksema else klaida(16)
+    end;
+  end (*sudsak*);
+
+procedure jeisak(sustok: sima);
+  var z: tipas; psk1, psk2: integer;
+  begin
+  if not(stop) then begin
+    leksema; kopi(sustok); add(tai); lreiskinys(tmp, z);z := o;
+    if not((z = log) or (z = nera)) then klaida(17);
+    psk1 := psk;
+    gen(16) (*salyginis nukreipimas*);
+    if simb = tai then leksema else klaida(18);
+    kopi(sustok);
+    add(kitaip);
+    sakinys(tmp);
+    if simb = kitaip then begin
+      leksema; psk2:= psk; gen(17);
+      kodas[psk1].y := psk;
+      sakinys(sustok);
+      kodas[psk2].y := psk
+    end
+    else kodas[psk1].y := psk
+    end;
+  end (*jeisak*);
+
+procedure kolsak(sustok: sima);
+  var z: tipas; psk1, psk2: integer;
+  begin
+  if not(stop) then begin
+    leksema;
+    psk1 := psk;
+    kopi(sustok);
+    add(atlikti);
+    lreiskinys(tmp, z);z := o;
+    if not ((z = log) or (z =nera)) then klaida(17);
+    psk2 :=psk; gen(16) (*sqlyginis nukrcipimas-':*);
+    if simb = atlikti then leksema else klaida(19);
+    sakinys (sustok);
+    gen1(17, psk1); kodas[psk2].y := psk
+    end;
+  end (*ko/sak*);
+
+procedure forsak(sustok: sima);
+  var k, kof: integer;z: tipas; psk1, psk2: integer;
+       varo: string;
+  begin
+  if not(stop) then begin
+  debug('foras');
+    leksema;
+    debug('praejau leksema1');
+      k := kelintas(vrd);
+        z:= lentele[k].tip;
+   //     gen1(1, lentele[k].adr);
+    leksema;
+    varo := vrd;
+    debug('praejau    ');
+    debug('yra ' + simb);
+    leksema;
+    z := nera;
+    kopi(sustok);
+    add(downto2);
+    add(to2);
+    add(vard);
+    add(skai);
+    lreiskinys(tmp, z);z := o;
+    debug('praejau reisk');
+    gen1(1, lentele[k].adr);
+    gen(28);
+   // gen(32);
+    psk1 := psk;
+    if simb = to2 then kof := 1 else kof := -1;
+    debug('praejau '+vrd); 
+    simb := vard;
+    vrd := varo;
+    kopi(sustok);
+    add(atlikti);
+    add(skai);
+    z := nera;
+    leksema;
+    lreiskinys(tmp, z);z := o;
+   // leksema;
+    debug('praejau ' + vrd);
+    gen1(0, lentele[k].adr);
+    if kof=1 then gen(14) else gen(13);
+   // if not ((z = log) or (z =nera)) then klaida(17);
+    psk2 :=psk;gen(16) (*sqlyginis nukrcipimas-':*);
+   // if simb = atlikti then leksema else klaida(19);
+   //gen(32);
+    kopi(sustok);
+    add(pabaiga);
+    leksema;
+    sakinys (sustok);
+    debug('praejau sakinys');
+    gen1(1, lentele[k].adr);
+    gen1(0, lentele[k].adr);
+    gen1(1, kof);
+    gen(7);
+    gen(15);
+    gen1(17, psk1); kodas[psk2].y := psk
+    end;
+  end (*ko/sak*);
+
+procedure skaitsak;
+  var z: tipas; j: integer;
+  begin
+  if not(stop) then begin
+    leksema;
+    if simb = kskliaust
+      then begin
+        repeat
+          leksema;
+          if simb <> vard
+            then klaida(20)
+            else begin
+              j := kelintas(vrd);
+              if j <> 0 then begin
+                z := lentele[j].tip;
+                gen1(1, lentele[j].adr);
+                if (z = romen) or (z = svei) then begin gen( 18); gen( 15) end;
+                leksema
+              end
+            end
+        until simb <> kablelis;
+       if simb = dskliaust then leksema else klaida(12)
+     end;
+     if k = 1 then gen(27);
+     k := 0;
+     end;
+  end (*skaitsak*);
+
+procedure atsaksak;
+  begin
+  debug('jau proc');
+    if not(stop) then begin  
+    leksema;
+    if simb = kskliaust then
+      begin
+        repeat
+          leksema;
+          if simb = tekst then
+            begin gen1(1, kiekz); gen1(19, reiksme); leksema end
+            else begin
+              kopi(sustok);
+              add(kablelis);
+              add(dskliaust);
+              lreiskinys(tmp, z); z := o;
+              if z = romen then gen(20) else if z = svei then gen(22)
+              else if z = log then gen(25)
+            end
+        until simb <> kablelis;
+        if simb = dskliaust then leksema else klaida(12)
+      end;
+      if k = 1 then gen(26);
+      k := 0;
+      end;
+  end (*atsaksah*);
+
+procedure syssak(nr: integer);
+  begin
+  debug('jau proc');
+    if not(stop) then begin  
+    leksema;
+    if simb = kskliaust then
+      begin
+      gen(29);
+        repeat
+          leksema;
+              kopi(sustok);
+              add(kablelis);
+              add(dskliaust);
+              lreiskinys(tmp, z); z := o;
+              gen(30);
+        until simb <> kablelis;
+        if simb = dskliaust then leksema else klaida(12)
+      end;
+     gen(31);
+     end;
+  end (*atsaksah*);
+procedure sakinys (sustok : sima);
+ 
+
+  begin (*sakinys*) 
+  debug('esu sakinys');
+   if not(stop) then 
+   if (saksimb[simb]) or (simb = vard) then
+       
+        if simb = vard then	begin
+                  j := kelintas(vrd); leksema;
+                  debug('vard ' + simb + ' ' + mas_ati);
+                  if simb = mas_ati then begin
+                         leksema; //vrd := vrd + reiksme;
+                  kopi(sustok);
+              add(dskliaust);
+              add(mas_uz);
+              z := nera;
+              lreiskinys(tmp, z); z := o;
+              gen1(0, j);
+                  //j := kelintas(vrd);
+                  debug('sakinys mas ' + vrd + ' ' + j);
+                  leksema; //leksema;
+                  debug('sakinys ' + simb);
+                  gen(7);
+                  j := lentele[j].dm + 1;
+                   sustok[kabliatask]:=true;
+                 // ar_mas := true;
+                  end else gen1(1, lentele[j].adr);   
+                       
+                  if  j <> 0 then begin priskirti(sustok, j, lentele[j].adr); end;
+                end else
+        if simb = pradzia then      sudsak(sustok) else
+        if simb = jei then	jeisak(sustok) else
+        if simb = kol then	kolsak(sustok) else
+        if simb = foras then forsak(sustok) else
+        if simb = skait then	skaitsak else
+        if simb = atsak then atsaksak;
+        if simb = sys2 then syssak(1);
+  end (*sakinys*);
+
+procedure blokas (sustok: sima);
+var x: integer;
+  begin (*blokas*)
+  if not(stop) then begin
+    vieta := 3;
+    debug('blokas');
+    debug(integertostring(simb));
+    assert(false);
+    for x := bpr to bgl do
+      sys[x] := sustok[x];
+//!!!!!!!    
+    isvalyti;
+    add(kabliatask); 
+    add(to2);
+    add(downto2);
+    ieskoti (tmp, sustok, 10);
+    leksema;
+     if simb = kint then aprasas;
+     if simb = pradzia then
+       begin
+         leksema;
+         kopi(sustok);
+         add(kabliatask);
+         add(to2);
+    add(downto2);
+         add(pabaiga);
+         sakinys(tmp);
+         while (simb = kabliatask) or saksimb[simb] do
+           begin
+             if simb = kabliatask then leksema else klaida(10);
+             kopi(sustok);
+             add(kabliatask);
+             add(to2);
+    add(downto2);
+         add(pabaiga);
+         add(kabliatask);
+         add(pabaiga);
+             sakinys (tmp)
+           end;
+         if simb = pabaiga then leksema else klaida(16);
+       end;
+     isvalyti;
+     sustok[taskas] := true;
+     ieskoti(sustok, tmp, 13)
+     end;
+  end (*blokas*);
+
+procedure roma(h1, s: integer; alfa, beta, gama: char);
+    begin
+      while h1 >= 10 * s do
+        begin output := output + alfa; h1 := h1-10*s end;
+      if h1 >= 9*s then
+        begin output := output + gama + alfa; h1 := h1 - 9 * s end;
+      if h1 >= 5 * s then begin output := output + beta; h1 := h1 - 5 * s end;
+      if h1 >= 4 * s then
+        begin output := output + gama + beta; h1 := h1 - 4 * S end
+      h2 := h1;
+    end (*roma*);
+    
+procedure interpret;
+  const gerai = 501;
+         stperpild = 502;
+         dalklaida = 503;
+         skaitkl = 504;
+         viskas = 505;
+  var kom: komanda;
+       komand, pop: integer;
+       arg: array[1..10] of integer;
+       n: integer;
+       sform: boolean;
+       pr: command;
+      k, p, vs, h1, x, code, pries: integer;
+      eilute: string;
+      bus: array[501..505] of boolean;
+      s: array [1.. stdydis] of record
+                               j: integer;
+                               lg: boolean;
+                                end;
+
+  
+
+  begin (*interpret*)
+    sform := true;
+    for p := 501 to 505 do bus[p] := false;
+    bus[gerai] := true;
+    for p := 1 to lent do
+      if lentele[p].dm > 0 then s[p].j := lentele[p].dm;
+    p := 0;
+    s[1].lg := true;
+    s[2].lg := false;
+    vs := vieta - 1;
+    for p := 1 to vs do
+      debug('p ' + p + ' ' + s[p].j);
+    p := 0;
+    pries := length(output);
+  //  output :='';
+   clearform;
+   lid := FormAddString(' ');
+   comm := createCommand('Terminate', CM_SCREEN, 3); 
+addCommand(comm);
+   if sform then showform;
+    repeat
+      debug('Startas');
+      debug(tlent);
+      debug(input);
+      assert(false);   
+      kom := kodas[p];
+      p := p + 1;
+      debug('Kodas ' + kom.f);
+      if kom.f = 0 then 
+             begin (*kintamojo reiksmes irasymas i steka*) vs := VS+ 1;
+             if vs > stdydis then bus[stperpild] := true else begin s[vs].j := s[kom.y].j; s[vs].lg := s[kom.y].lg; debug('p0 ' + s[vs].j);end;
+           end;
+      if kom.f = 1 then begin (*skaiciaus reiksmes ar kintamojo adreso jrasymas i steka*)
+          vs := vs + 1;
+          if vs > stdydis then bus[stperpild] := true else s[vs].j := kom.y
+         end;
+(*aritmetines operacijos*)
+      if kom.f = 2 then begin (*kelimas laipsniu*)
+           h1 := s[vs].j; h2 := kom.y;
+             repeat
+               s[vs].j := s[vs].j * h1;
+               h2 := h2 - 1
+             until h2 = 1
+           end;
+        if kom.f = 3 then begin
+             vs := vs - 1;
+             s[vs].j := s[vs].j * s[vs+1].j
+           end;
+        if kom.f = 4 then begin
+             vs := vs - 1;
+             If s[vs + 1].j = 0
+                then bus[dalklaida] := true else s[vs].j := s[VS].J div s[vs+1].j
+           end;
+        if kom.f = 5 then begin
+             vs := vs - 1;
+             if s[vs+1].j = 0
+               then bus[dalklaida] := true else s[vs].j := s[vs].j mod s[vs + 1].j
+           end;
+        if kom.f = 6 then s[vs].j := -s[vs].j;
+        if kom.f = 7 then begin
+             VS := vs - 1; s[vs].j := s[VS].j + s[vs + 1].j
+           end;
+        if kom.f = 8 then begin
+             vs := vs -1; s[vs].j := s[vs].j - s[vs + 1].j
+           end;
+    (*lyginimo operacijos*)
+        if kom.f = 9 then begin
+             vs := vs - 1; s[vs].lg := s[vs].j = s[vs + 1].j
+           end;
+        if kom.f = 10 then begin
+              vs := vs - 1; s[vs].lg := s[vs].j <> s[vs + 1].j
+            end;
+        if kom.f = 11 then begin
+              vs := vs - 1; s[vs].lg := s[vs].j < s[vs + 1].j
+            end;
+        if kom.f = 12 then begin
+              vs := vs - 1; s[vs].lg := s[vs].j > s[vs + 1].j end;
+        if kom.f = 13 then begin
+              vs := vs - 1; s[vs].lg := s[vs].j <= s[vs + 1].j end;
+        if kom.f = 14 then begin
+              vs := vs - 1; s[vs].lg := s[vs].j >= s[vs + 1].j end;
+        if kom.f = 15 then begin (*reiksmes irasymas adresu, esanciu steke*)
+              s[s[vs-1].j].j :=s[vs].j;
+              s[s[vs-1].j].lg := s[vs].lg;
+              vs := vs - 2
+            end;
+        if kom.f = 16 then begin (*salyginis suolis *)
+              if not s[vs].lg then p:= kom.y; vs := vs - 1
+            end;
+        if kom.f = 17 then p := kom.y; (*besqlyginis suolis*)
+        if kom.f = 18 then begin (*romeniskais skaitmenimis parasyto skaiciaus reiksmes apskaiciavimas*)
+              ch := ' ';
+              while (ch = '') or (ch = ' ') do
+                zenklas2;
+              vs := vs + 1;
+              if getchar(duom, pos) = st_sign then bus[skaitkl] := true else
+                 if arrom(ch) then begin
+                    s[vs].j := pozic(ch);
+                    if s[vs].j = 0 then bus[skaitkl] := true;
+                 end
+                 else if arskai(ch) then begin
+                    x := stringtointeger(''+ch);
+                    s[vs].j := 0;
+                    while arskai(ch) do
+                      begin
+                        x := stringtointeger(''+ch);
+                        s[vs].j := s[vs].j * 10 + x;
+                        zenklas2
+                      end;
+                 end else bus[skaitkl] := true;
+        end;
+(*spausdinimas*)
+        if kom.f = 19 then begin (*teksto spausdinimas*)
+        debug('esu 19');
+              h1 := s[vs].j;
+              debug('h1 = ' + h1);
+              vs := vs - 1;
+              eilute := copy(tlent, kom.y, h1 + kom.y);
+              debug('eilute = ' + eilute);
+              output := output + eilute;
+              debug('output = ' + output);
+            end;
+        if kom.f = 20 then begin (*skaiciaus spausdinimas romeniskais skaitmemmis*)
+              h1 := s[vs].j;
+              if h1 = 0 then output := output + '0' else begin
+                 if h1 <0 then output := output + '-';
+                 if (h1< -3999) or (h1 > 3999) then output := output + '****' else begin
+                    roma (h1, 100, 'M',  'D', 'C'); h1 := h2; roma(h1, 10, 'C', 'L', 'X');h1 := h2;
+                    roma(h1, 1,'X', 'V', 'I');h1 := h2;
+                    while h1 >= 1 do
+                      begin output := output + 'I'; h1 := h1 - 1 end
+                 end
+              end
+         end;
+         if kom.f = 21 then bus[viskas] := true;
+         if kom.f = 22 then begin
+               h1 := s[vs].j;
+               output := output + integertostring(h1);
+             end;
+         if kom.f = 23 then begin vs := vs - 1; s[vs].lg := true end;
+         if kom.f = 24 then begin vs := vs - 1; s[vs].lg := false end;
+         if kom.f = 25 then begin if s[vs].lg then output := output + 'TRUE' else output := output + 'FALSE'; vs := vs - 1; end; 
+         if kom.f = 26 then output := output + st_sign;
+         if kom.f = 27 then buvo := false;
+         if kom.f = 29 then pop := 0;
+         if kom.f = 28 then begin s[s[vs].j].j :=s[vs-1].j;
+              s[s[vs].j].lg := s[vs-1].lg;
+              vs := vs - 2;end;
+         if kom.f = 30 then pop := pop + 1;
+         if kom.f = 31 then begin
+           komand := s[vs].j; vs := vs - 1;
+           debug('SysKomanda ' + komand);
+           debug('Pop = ' + pop);
+           pop := pop - 1;
+           n := 1;
+           while pop > 0 do
+             begin
+               arg[n] := s[vs].j; vs := vs - 1; pop := pop - 1;
+               debug('arg' + n + ' = '+ arg[n]);
+               n := n + 1;
+             end;
+             if komand = 0 then begin sform := false;showcanvas;end;
+             if komand = 1 then begin sform := true; showform;end;
+             if komand = 2 then repaint;
+             if komand = 3 then plot(arg[1], arg[2]);
+             if komand = 4 then setcolor(arg[1], arg[2], arg[3]);
+             if komand = 5 then delay(arg[1]);
+             if komand = 6 then drawline(arg[1], arg[2], arg[3], arg[4]);
+             
+         end
+        if kom.f = 32 then vs := vs - 1;
+        if kom.f = 33 then begin debug('p33 ' + s[vs].j); debug('p33 '+s[s[vs].j].j); s[vs].lg := s[s[vs].j].lg;s[vs].j := s[s[vs].j].j; end;
+setformtitle('Running... Line ' + p + ' of ' + psk);
+if length(output) <> pries then begin
+clearform;
+   lid := FormAddString(output);
+   pries := length(output);
+   comm := createCommand('Terminate', CM_SCREEN, 3); 
+addCommand(comm);
+   end;
+   pr := GetClickedCommand;
+   if pr = comm then bus[viskas] := true;
+if sform then showform;
+ debug(integertostring(vs));
+      //  for h1 := 1 to vs do
+        //  debug(integertostring(s[vs].j));
+          debug(integertostring(kom.f));
+          debug(integertostring(p));
+          debug(output);
+          debug(tlent);
+          debug('Viskas');
+          debug('Stekas ' + vs);
+          debug('Numeris ' + p);
+          debug('Komanda ' + kom.f + ' ' + kom.y);
+          assert(false);
+         
+     until bus[viskas] or bus[stperpild] or bus[dalklaida] or bus[skaitkl];
+     if not(bus[viskas]) then begin
+        output := output + st_sign;
+        output := output + ' sustabdyta nuo' + integertostring(p) + ' nes ';
+        if
+          bus[stperpild] then output := output + 'perpildyta atmintis' else
+          if bus[dalklaida] then output := output + 'dalyba is 0' else
+           output := output + 'rasta skaitymo klaida';
+        k := lent;
+        debug('pabaig');
+        while k <> 0 do (*spausdinamc visu kintamujif reiksmes*)
+            begin       
+            output := output + ' ' + lentele[k].pavadin + '=';
+            if lentele[k].tip = romen then output := output + integertostring(s[lentele[k].adr].j);
+            k := k - 1 (*siuo atveju kintainum rdkSmes isspausdiname desimtaine skaiciavimo sistcmu*)
+          end
+        end
+     end (*interprct*);
+
+procedure start;  
+begin 
+k := 0;
+  //writeln('NPL interpretator ready:');
+  stop := false;
+  buvo := false;
+st_sign := chr(10);
+baz[1] := 'programa  ';
+baz[2] := 'pradzia   ';
+baz[3] := 'pabaiga   ';
+baz[4] := 'kint      ';
+baz[5] := 'jei       ';
+baz[6] := 'tai       ';
+baz[7] := 'kitaip    ';
+baz[8] := 'kol       ';
+baz[9] := 'atlikti   ';
+baz[10] := 'skait     ';
+baz[11] := 'atsak     ';
+baz[12] := 'romen     ';
+baz[13] := 'program   ';
+baz[14] := 'begin     ';
+baz[15] := 'end       ';
+baz[16] := 'var       ';
+baz[17] := 'if        ';
+baz[18] := 'then      ';
+baz[19] := 'else      ';
+baz[20] := 'while     ';
+baz[21] := 'do        ';
+baz[22] := 'read      ';
+baz[23] := 'write     ';
+baz[24] := 'div       ';
+baz[25] := 'mod       ';
+baz[26] := 'log       ';
+baz[27] := 'boolean   ';
+baz[28] := 'integer   ';
+baz[29] := 'writeln   ';
+baz[30] := 'readln    ';
+baz[31] := 'sys       ';
+baz[32] := 'for       ';
+baz[33] := 'to        ';
+baz[34] := 'downto    ';
+baz[35] := 'array     ';
+baz[36] := 'of        ';
+bsi[1] := programa;
+bsi[2] := pradzia;
+bsi[3] := pabaiga;
+bsi[4] := kint;
+bsi[5] :=jei;
+bsi[6] := tai;
+bsi[7]  := kitaip;
+bsi[8]  := kol;
+bsi[9]  := atlikti;
+bsi[10] := skait;
+bsi[11] := atsak;
+bsi[12] := rom;
+bsi[13] := programa;
+bsi[14] := pradzia;
+bsi[15] := pabaiga;
+bsi[16] := kint;
+bsi[17] :=jei;
+bsi[18] := tai;
+bsi[19]  := kitaip;
+bsi[20]  := kol;
+bsi[21]  := atlikti;
+bsi[22] := skait;
+bsi[23] := atsak;
+bsi[24] := dalsv;
+bsi[25] := dalliek;
+bsi[26] := logi;
+bsi[27] := logi;
+bsi[28] := int;
+bsi[29] := skaitne;
+bsi[30] := atsakne;
+bsi[31] := sys2;
+bsi[32] := foras;
+bsi[33] := to2;
+bsi[34] := downto2;
+bsi[35] := masyvo;
+bsi[36] := ofo;
+sps[ord('+')] := plius;
+sps[ord('-')] := minus;
+sps[ord('*')] := zvaigzdute;
+sps[ord('$')] := dalsv;
+sps[ord('#')] := dalliek;
+sps[ord('(')] := kskliaust;
+sps[ord(')')] := dskliaust;
+sps[ord(',')] := kablelis;
+sps[ord(';')] := kabliatask;
+sps[ord('.')] := taskas;
+sps[ord('=')] := lyg;
+sps[ord('!')] := sauktukas;
+sps[ord('[')] := mas_ati;
+sps[ord(']')] := mas_uz;
+pran[2] := 'ilgas tekstas';
+pran[4] := 'ilga klentele';
+pran[6] := 'neapibreztas kintamasis ';
+pran[8] := 'nera dvitaskio';
+pran[10] := 'nera kabliataskio';
+pran[12] := 'nera desinio skliausto';
+pran[14] := 'nera skaiciaus';
+pran[16] := 'nera pabaigos';
+pran[18] := 'nera tai';
+pran[1] := 'blogas skaiciaus formatas';
+pran[3] := 'ilgas kodas';
+pran[5] := 'antra karta apibreztas';
+pran[7] := 'nera vardo';
+pran[9] := 'nera tipo';
+pran[11] := 'daugiklis pries';
+pran[13] := 'neteisingas simbolis';
+pran[15] := 'blogas priskyrimas';
+pran[17] := 'nera lreiskinio';
+pran[19] := 'nera atlikti';
+pran[20] := 'nera kintamojo vardo';
+pran[21] := 'nera programa ';
+pran[22] := 'nera tasko';
+for ilg := bpr to bgl do
+begin
+bloksimb[ilg] := false;
+daugsimb[ilg] := false;
+saksimb[ilg] := false;
+end;
+bloksimb[kint] := true;
+bloksimb[pradzia] := true;
+daugsimb[skai] := true;
+daugsimb[vard] := true;
+daugsimb[kskliaust] := true;
+saksimb[pradzia] := true;
+saksimb[jei] := true;
+saksimb[kol] := true;
+saksimb[skait] := true;
+saksimb[atsak] := true;
+saksimb[sys2] := true;
+saksimb[foras] := true;
+clearform;
+   lid := FormAddString('Compiling...');
+   lid2 := FormAddGauge('Total done', true, 100, 0);
+showform;
+ilg := 0;
+zsk := 0;
+psk := 0;
+tlent := '';
+ch := ' ' ;
+kl := true;
+leksema;
+lent := 2;
+vieta := 3;
+lentele[1].pavadin := 'true      ';
+lentele[2].pavadin := 'false     ';
+lentele[1].tip := log;
+lentele[2].tip := log;
+lentele[1].adr := 1;
+lentele[2].adr := 2;
+{tid := FormAddString('Done 0%'); 
+showform;}
+pos := 0;
+if simb <> programa then klaida(21) else
+  begin
+   leksema;
+  { if (simb <> vrd) then klaida(7) else}
+     begin progvard := vrd; leksema end;
+  end;
+kopi(saksimb);
+add(kint);add(pradzia);
+add(taskas);
+blokas(tmp);
+if simb <> taskas then klaida(22);
+gen(21);
+debug('beveik pabaiga');
+    assert(false);
+if kl then begin spausdinti end;
+debug('baigta');
+end (*pagrindineprograma*);
+
+procedure init;
+begin
+  stop := false;
+  buvo := false;
+ilg := 0;
+zsk := 0;
+ch := ' ' ;
+kl := true;
+pos := 0;
+output := '';
+end;
+
+initialization
+	{ add initialization code here }
+end.
+ 

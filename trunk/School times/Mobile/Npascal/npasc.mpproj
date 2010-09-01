@@ -1,0 +1,15 @@
+<Project>
+	<MIDlet Name="NPascal" Vendor="NKU team" Version="0.1.0" Icon="/icon.png"/>
+	<Sources>
+		<source filename="main.mpsrc"/>
+		<source filename="transl.mpsrc"/>
+		<source filename="filebr.mpsrc"/>
+	</Sources>
+	<Resources>
+		<resource filename="icon.png" configurations=":all:"/>
+		<resource filename="about.png" configurations=":all:"/>
+	</Resources>
+	<BuildConfigurations>
+		<configuration name="NPascal" type="fullscreen" version="2" math="1"/>
+	<ActiveConfiguration index="0"/>	</BuildConfigurations>
+</Project>
