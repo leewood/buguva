@@ -1,0 +1,106 @@
+﻿body {
+}
+
+ul#coolmenu
+{
+	padding: 1px 0px 1px 0px;
+	margin: 0px;
+	width: 100%;
+	text-decoration: none;
+	background-color: Black;
+}
+
+ul#coolmenu > li
+{
+	padding: 2px;
+	margin: 0px;
+	border-width: 1px;
+	display: inline;
+	border-color: #FFFFFF;
+	background-color: Black;
+	color: White;
+	border-right-style: solid;
+	border-left-style: solid;
+}
+
+ul#coolmenu > li:hover
+{
+	background-color: White;
+	color: Red;
+}
+ul#coolmenu > li:active
+{
+	background-color: Red;
+	color: Blue;
+}
+
+
+ul#coolmenu > li > span
+{
+	color:Gray;
+	display:inline;
+}
+
+ul#coolmenu p
+{
+	display:inline;
+	color:Green;
+}
+
+
+form.coolform
+{
+	padding: 5px;
+	border-style: none;
+	background-color: Red;
+}
+
+
+form.coolform p
+{
+	padding: 5px;
+	margin: 0px;
+	border-style: none none dashed none;
+	border-width: 1px;
+	border-color: #000000;
+}
+
+form.coolform p > label
+{
+	border:inherit;
+	color:Blue;
+	
+}
+
+form.coolform label
+{ 
+	color: Green !important;
+}
+
+form.coolform input[type="button"]
+{
+	border: 1px solid #000000;
+	display: inline;
+	background-color: #808080;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+
+
+form.coolform input[type="button"]:hover
+{
+	border: 1px solid #000000;
+	display: inline;
+	background-color: #C0C0C0;
+	font-weight: bold;
+	color: #000000;
+}
+form.coolform input[type="button"]:active
+{
+	border: 1px solid #000000;
+	display: inline;
+	background-color: #FF0000;
+	font-weight: bold;
+	color: #FFFFFF;
+}
