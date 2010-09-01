@@ -1,0 +1,20 @@
+</form>
+</div>
+
+<div id="picturearea" style="float: left; width: 400px; height: 300px; margin-left: 20px">
+</div>
+
+<table width =  "40%" border = "1" color = "001100">
+<tr>
+<td>
+Perziura:
+</td>
+</tr><tr>
+<td width = "100%">
+<div id="preview" >
+</div>
+</td>
+</tr>
+</table>
+
+<br style="clear: left" />

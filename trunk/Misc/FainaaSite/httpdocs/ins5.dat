@@ -1,0 +1,17 @@
+<input name='action' value='0'  type='hidden'>
+<input name='menu' value='4'  type='hidden'>
+<div id="preview" >
+Aprasas:<input name="desc" value="">
+</div>
+<BR><input type="submit" value='Keisti aprasa'><br>
+</form>
+</td>
+</tr>
+<tr>
+<td width = "100%">
+<form id="galerkeit" method="GET" action="naujaskeit.php">
+<div id="prev5">
+</div>
+
+
+

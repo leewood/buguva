@@ -1,0 +1,106 @@
+  <style type="text/css">
+
+#picturearea{
+filter:alpha(opacity=100);
+-moz-opacity: 0;
+}
+
+</style>
+ <script type="text/javascript">
+
+
+function populateSelect(selectobj){
+for (var i=1; i<picsarray.length; i++)
+selectobj.options[i]=new Option(picsarray[i], picsarray[i])
+if (selectobj.options.length>1){
+selectobj.selectedIndex=0
+showpicture(document.getElementById("picsform").picslist)
+}
+}
+
+
+function gen()
+{
+previewobj=document.getElementById("prev2")
+var s = 'Galerija:<BR><select name="parent">';
+for (var i=1;i<galleryarray.length;i++)
+{
+s=s+'<option value="'+i+'">'+galleryarray[i]+'</option>';
+}
+s = s + '</select>';
+
+previewobj.innerHTML=s;
+}
+
+function showpicture(selectobj){
+piccontainerobj=document.getElementById("picturearea")
+resetfade(10)
+piccontainerobj.innerHTML='<img src="'+selectobj.options[selectobj.selectedIndex].value+'">'
+previewobj=document.getElementById("preview")
+previewobj.innerHTML= 'Aprasas:<input name="desc" value="'+descarray[selectobj.selectedIndex]+'"><BR>Galerija:'+galleryarray[pararray[selectobj.selectedIndex]]+'<input name="mid" value="'+ selectobj.selectedIndex +'"  type="hidden">'
+
+fadepictoview=setInterval("gradualfade(piccontainerobj)",50)
+
+po2=document.getElementById("prev3")
+po2.innerHTML = '<input name="mid" value="'+ selectobj.selectedIndex +'"  type="hidden">';
+po2=document.getElementById("prev5")
+po2.innerHTML = '<input name="mid" value="'+ selectobj.selectedIndex +'"  type="hidden">';
+
+}
+
+function resetfade(degree){
+if (window.fadepictoview)
+clearInterval(fadepictoview)
+if (typeof piccontainerobj.style.MozOpacity=="string")
+piccontainerobj.style.MozOpacity=degree/100
+else if (piccontainerobj.filters)
+piccontainerobj.filters.alpha.opacity=degree
+}
+
+function gradualfade(){
+if (typeof piccontainerobj.style.MozOpacity=="string" && piccontainerobj.style.MozOpacity<1)
+piccontainerobj.style.MozOpacity=Math.min(parseFloat(piccontainerobj.style.MozOpacity)+0.2, 0.99)
+else if (piccontainerobj.filters && piccontainerobj.filters.alpha.opacity<100)
+piccontainerobj.filters.alpha.opacity+=20
+else //if not IE or Moz
+clearInterval(fadepictoview)
+}
+
+window.onload=function(){
+populateSelect(document.getElementById("picsform").picslist)
+gen()
+}
+
+</script>
+<script language="JavaScript">
+
+
+
+
+
+function showaa(what){
+viska=document.getElementById("iterpi")
+viska.innerHTML='<select name="picslist" size="4" style="width: 200px" onClick="showpicture(this)"></select>';
+populateSelect(document.getElementById("picsform").picslist)
+gen()
+}
+
+
+</script>
+<div style="float: left; width: 200px;">
+<form id="picsform" method="GET" action="naujaskeit.php">
+<div id="ciaivesti">
+
+</div>
+
+<input name='action' value='0'  type='hidden'>
+<input name='menu' value='7'  type='hidden'>
+<div id="iterpi" style="float: left; width: 400px; height: 300px; margin-left: 20px">
+
+</div>
+
+
+
+
+
+

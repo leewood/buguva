@@ -1,0 +1,161 @@
+  <style type="text/css">
+
+#picturearea{
+filter:alpha(opacity=100);
+-moz-opacity: 0;
+}
+
+</style>
+ <script type="text/javascript">
+
+<!-- Dynamic PHP Picture Viewer (v1.0)- By JavaScriptKit.com (http://www.javascriptkit.com) //--->
+<!-- For this and over 400+ free scripts, visit JavaScript Kit- http://www.javascriptkit.com/ //--->
+<!-- This notice must stay intact for use //--->
+
+function populateSelect(selectobj){
+for (var i=0; i<picsarray.length; i++)
+selectobj.options[selectobj.options.length]=new Option(picsarray[i], picsarray[i])
+if (selectobj.options.length>1){
+selectobj.selectedIndex=0
+showpicture(document.getElementById("picsform").picslist)
+}
+}
+
+function showpicture(selectobj){
+piccontainerobj=document.getElementById("picturearea")
+resetfade(10)
+piccontainerobj.innerHTML='<img src="'+locationstring+selectobj.options[selectobj.selectedIndex].value+'">'
+fadepictoview=setInterval("gradualfade(piccontainerobj)",50)
+}
+
+function resetfade(degree){
+if (window.fadepictoview)
+clearInterval(fadepictoview)
+if (typeof piccontainerobj.style.MozOpacity=="string")
+piccontainerobj.style.MozOpacity=degree/100
+else if (piccontainerobj.filters)
+piccontainerobj.filters.alpha.opacity=degree
+}
+
+function gradualfade(){
+if (typeof piccontainerobj.style.MozOpacity=="string" && piccontainerobj.style.MozOpacity<1)
+piccontainerobj.style.MozOpacity=Math.min(parseFloat(piccontainerobj.style.MozOpacity)+0.2, 0.99)
+else if (piccontainerobj.filters && piccontainerobj.filters.alpha.opacity<100)
+piccontainerobj.filters.alpha.opacity+=20
+else //if not IE or Moz
+clearInterval(fadepictoview)
+}
+
+//window.onload=function(){
+//populateSelect(document.getElementById("picsform").picslist)
+//}
+
+</script>
+<script language="JavaScript">
+
+function countit(what){
+
+what.form.charcount.value = what.form.charcount.value + '<img src="nuotraukos2/'+what.form.picslist.value+'">';
+viska=document.getElementById("iterpi")
+viska.innerHTML='';
+viska=document.getElementById("picturearea")
+viska.innerHTML='';
+viska=document.getElementById("pc1")
+viska.src="util/image/pic1.jpg"
+}
+
+function showaa(what){
+viska=document.getElementById("iterpi")
+viska.innerHTML='<select name="picslist" size="4" style="width: 200px" onClick="showpicture(this)"></select><input type="button" value="Iterpti" onClick="countit(this)">';
+populateSelect(document.getElementById("picsform").picslist)
+viska=document.getElementById("pc1")
+viska.src="util/image/pic2.jpg"
+}
+
+function updatepreview()
+{
+viska = document.getElementById("picsform")
+viska2 = document.getElementById("preview");
+viska2.innerHTML = viska.charcount.value;
+}
+
+function useBold()
+{
+bold = !bold
+viska=document.getElementById("picsform")
+viska2=document.getElementById("pc2")
+if (bold)
+  {
+     viska2.src = "util/image/pic3.jpg"
+	 viska.charcount.value = viska.charcount.value + "<B>"
+  } else {
+     viska2.src = "util/image/pic5.jpg"
+	 viska.charcount.value = viska.charcount.value + "</B>"
+     
+  }
+}
+
+function useUnderline()
+{
+underl = !underl
+viska=document.getElementById("picsform")
+viska2=document.getElementById("pc3")
+if (underl)
+  {
+     viska2.src = "util/image/pic4.jpg"
+	 viska.charcount.value = viska.charcount.value + "<U>"
+  } else {
+     viska2.src = "util/image/pic6.jpg"
+	 viska.charcount.value = viska.charcount.value + "</U>"
+     
+  }
+}
+
+function useItalic()
+{
+italic = !italic
+viska=document.getElementById("picsform")
+viska2=document.getElementById("pc4")
+if (italic)
+  {
+     viska2.src = "util/image/pic8.jpg"
+	 viska.charcount.value = viska.charcount.value + "<I>"
+  } else {
+     viska2.src = "util/image/pic7.jpg"
+	 viska.charcount.value = viska.charcount.value + "</I>"
+     
+  }
+}
+
+setInterval("updatepreview()", 10)
+italic = false
+bold = false
+underl = false
+</script>
+
+<div style="float: left; width: 200px;">
+<form id="picsform" method="GET" action="login.php">
+<div id="ciaivesti">
+
+</div>
+<table cellspacing=0 cellpadding=0>
+<tr>
+<td>
+<img id = "pc1" src="util/image/pic1.jpg" onClick = "showaa(this)" >
+</td>
+<td>
+<img id = "pc2" src="util/image/pic5.jpg" onClick = "useBold()">
+</td><td>
+<img id = "pc3" src="util/image/pic6.jpg" onClick = "useUnderline()">
+</td><td>
+<img id = "pc4" src="util/image/pic7.jpg" onClick = "useItalic()">
+</td></tr>
+</table>
+<BR>
+<textarea rows="12" name="charcount" cols="60" wrap="virtual"></textarea>
+<input name='action' value='0'  type='hidden'>
+<input name='menu' value='1'  type='hidden'>
+<BR><input type="submit" value='Ideti'><br>
+<div id="iterpi" style="float: left; width: 400px; height: 300px; margin-left: 20px">
+
+</div>
