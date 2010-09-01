@@ -1,0 +1,1953 @@
+﻿body 
+{
+   font-size: 12px;
+}
+
+
+
+.printing_area_break
+{
+       page-break-after: always;
+page-break-inside: always !important;
+
+}
+
+.grid_new .dataGrid .printing_area_break
+{
+	page-break-after: always;
+}
+
+.grid_new div table.dataGrid tr.printing_area_break
+{
+	page-break-after: always;
+}
+
+
+.dataAdd
+{
+	border-style: none;
+	background-image: url(  '../media/add.png' );
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	background-color: white;
+}
+
+.clearTextBox
+{
+	margin: 0px; 
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+	margin-left: 0px !important;	
+    margin-right:-5px;
+    float:left;	
+	width: 100%;
+}
+
+.dataAccept
+{
+	border-style: none;
+	background-image: url(  '../media/accept.png' );
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	background-color: white;
+}
+
+.dataCancel
+{
+	border-style: none;
+	background-image: url(  '../media/cancel.png' );
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	background-color: white;
+}
+
+.dataActionButton
+{
+	margin: 2px;
+}
+.dataList
+{
+	height:32px;
+	
+}
+
+.dataDropDownList
+{
+	border: 1px solid #FFFFFF;
+	padding: 0px;
+	margin: 0px;
+	width: 130px;
+	height: 30px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size: 12px;
+}
+.dataDropDownList:hover
+{
+	border: 1px solid #000000;
+	padding: 0px;
+	margin: 0px;
+	width: 130px;
+	height: 30px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size: 12px;
+}
+
+.dataLabel{
+	font-weight: bold;
+	float: left;
+	margin-left: -155px; /*width of left column*/
+	width: 150px; /*width of labels. Should be smaller than left column (155px) to create some right margin*/
+}
+
+.dataConfirmForm
+{
+	background-color:White;
+	/*display:none;*/
+	position:fixed;
+}
+
+
+.grid
+{
+	width: auto;
+}
+
+.grid_new
+{
+	width: 100%;
+}
+
+
+.dataGrid
+{
+	/*width: auto;*/
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+.dataGrid table
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF #FFFFFF #C8C8C8 #FFFFFF;
+}
+
+table.dataGrid
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF #FFFFFF #C8C8C8 #FFFFFF;
+}
+
+
+th.dataGrid
+{
+	border: thin solid #FFFFFF;
+	background-color: #48579C;
+	color: #FFFFFF;
+}
+
+
+.dataGrid th
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF;
+	background-color: #48579C;
+	color: #FFFFFF;
+	text-align: left;
+}
+
+.dataGrid th a
+{
+	text-decoration: none;
+	color:Red;
+}
+
+.dataGrid tr
+{
+	border-width: 1px;
+	padding: 0px;
+	margin: 0px;
+	border-bottom-color: #C8C8C8;
+	border-top-color: #C8C8C8;
+	border-style: solid hidden solid hidden;
+}
+tr.dataGrid
+{
+	border-width: 1px;
+	padding: 0px;
+	margin: 0px;
+	border-bottom-color: #C8C8C8;
+	border-top-color: #C8C8C8;
+	border-style: solid hidden solid hidden;
+}
+
+.dataGrid td
+{
+	border-style: solid hidden solid solid;
+	border-width: 1px 0px 1px 0px;
+	border-color: #C8C8C8 #FFFFFF #C8C8C8 #FFFFFF;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+td.dataGrid
+{
+	border-style: solid hidden solid solid;
+	border-width: 1px 0px 1px 0px;
+	border-color: #C8C8C8 #FFFFFF #C8C8C8 #FFFFFF;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+
+.dataGrid tr.selectedRow
+{
+	background-color: #C0C0C0;
+}
+
+.dataGrid tr.editRow
+{
+	background-color:#C0C0C0;
+}
+
+.dataGrid tr.editRow input[type="text"]
+{
+	border: 1px solid #000000;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 14px;
+	background-color: inherit;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.pager
+{
+    width: auto;
+}
+
+.pager table a
+{
+	border: 1px solid #C8C8C8;
+	text-decoration: none;
+	color: #48579C;
+	padding-left:3px;
+	padding-right:3px;
+	
+}
+
+
+.pager_ext
+{
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+	padding: 5px;
+	border-style: none none solid none;
+	border-width: 1px;
+	border-color: #C8C8C8;
+	text-align: center;
+}
+
+.pager_ext a
+{
+	width: 10px;
+	border: 1px solid #C8C8C8;
+	text-decoration: none;
+	color: #48579C;
+	margin: 2px 3px 2px 4px;
+	padding: 2px 5px;
+}
+
+
+.pager_ext a.prev
+{
+	width: 10px;
+	border: 1px solid #C8C8C8;
+	text-decoration: none;
+	color: #48579C;
+}
+
+
+.pager_ext span.disabled 
+{
+	border:1px solid #EEEEEE;
+	color:#DDDDDD;
+	margin: 2px 3px 2px 4px;
+	padding: 2px 5px;	
+}
+
+.pager_ext span.current
+{
+	background-color: #48579C;
+	border:1px solid #48579C;
+	color:#FFFFFF;
+	font-weight:bold;
+	margin: 2px 3px 2px 4px;
+	padding: 2px 5px;}
+
+.pager_ext a:hover
+{
+    border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+}
+
+.pager_ext_selected
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF !important;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+.pager_ext_selected:active
+{
+	color:#FFFFFF;
+}
+
+
+.pager_ext_selected a:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #FFFFFF;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+
+
+.pager_ext_selected a:active
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #FFFFFF;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+
+.pager_ext_selected a
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+
+
+
+.pager_notselected
+{
+	border: 1px solid #C8C8C8;
+	text-decoration: none;
+	color: #48579C;
+	padding-left:3px;
+	padding-right:3px;	
+}
+
+.pager_notselected a
+{
+	border: 1px solid #C8C8C8;
+	text-decoration: none;
+	color: #48579C;
+	padding-left:3px;
+	padding-right:3px;
+	
+}
+
+.pager_notselected:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+	
+}
+
+
+
+.pager_hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+.pager_selected
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+.pager_selected a:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+}
+.pager_selected a
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+
+.pager table a:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+.pager table span
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+}
+
+.pager table td
+{
+	border-style: hidden hidden hidden hidden;
+	padding:2px;
+}
+
+.pager table
+{
+	border: 1px solid #FFFFFF;
+}
+
+.pager table tr
+{
+	border-width: 1px;
+	border-color: #C8C8C8;
+	border-style: solid hidden solid hidden;
+}
+
+.mainDropDownList
+{
+	margin: 20px 0px 0px 0px;
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-width: 1px;
+	color: #000000;
+	height: 200px;
+	font-size:14px;
+}
+
+.ListSearchExtenderPrompt
+{
+	font-style:italic;
+	color:Gray;
+	background-color:white;
+}
+
+.hiddenArea
+{
+	padding: 0px;
+	margin: 0px;
+	border: 0px solid #FFFFFF;
+	width: 0px;
+	height: 0px;
+}
+
+a.spec_button
+{
+	border-style: none none none none;
+	border-width: 1px;
+	border-color: #000000;
+	text-decoration: none;
+	
+}
+
+.spec_button
+{
+	padding: 0px;
+	margin: 3px 3px 0px 0px;
+	display: inline;
+	text-decoration: none;
+	height: 32px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000000;
+	background-color: White;
+}
+
+.spec_button:hover
+{
+	
+}
+
+.spec_button a
+{
+	border-style: none none none none;
+	border-width: 1px;
+	border-color: #000000;
+	text-decoration: none;	
+}
+
+.spec_button span
+{
+	border-style: none none none none;
+	border-width: 1px;
+	border-color: #000000;
+	text-decoration: none;
+	height: 32px;
+	color: #555555;	
+}
+
+.spec_button span:hover
+{
+	color: Black;
+}
+
+.spec_button input[type="image"]
+{
+	border-style: none none none none;
+	border-width: 1px;
+	border-color: #000000;
+	position: relative;
+	height: 16px;
+	vertical-align: text-top;
+	padding-bottom: -3px;
+	margin-right: 3px;
+	margin-bottom: -3px;
+	top: 1px;
+}
+
+.toolbar
+{
+display: none;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF #FFFFFF #CDD2D4 #FFFFFF;
+	padding: 1px 3px 0px 3px;
+	margin: 5px 0px 5px 0px;
+	background-color: #EDF3F7;
+	color: #FFFFFF;
+	font-weight: bold;
+	height: 25px;
+}
+
+.toolbar > .spec_button
+{
+	position: relative;
+	top: 3px;
+}
+
+.toolbar .spec_button
+{
+	border: 1px none #000000;
+	padding: 0px 2px 2px 2px;
+	margin: 0px 3px 0px 1px;
+	display: inline;
+	float: left;
+	text-decoration: none;
+	height: 16px;
+	background-color: #EDF3F7;
+	color: #555555;
+	font-weight: normal;
+}
+
+
+.endImage
+{
+	margin: 0px !important;
+	padding: 0px !important;
+	left: 3px !important;
+	width: 15px !important;
+	height: 15px !important;
+	border-bottom-style: none !important;
+	border-bottom-width: 0px !important;
+	
+	
+    margin-right: 3px !important;	
+}
+
+.toolbar .spec_button:hover
+{
+	border: 1px solid #316AC5;
+	padding: 0px 2px 2px 2px;
+	margin: -1px 2px -1px 0px;
+	display: inline;
+	float: left;
+	text-decoration: none;
+	height: 16px;
+	background-color: #C1D2EE;
+	color: Black;
+	font-weight: normal;
+}
+
+.toolbar a.spec_button
+{
+	color: #555555;
+}
+
+.toolbar a.spec_button a
+{
+	color: #555555;
+	
+}
+
+.toolbar .spec_button a
+{
+	color: #555555;
+	position: relative;
+	top: 2px;
+}
+
+
+.toolbar .spec_button a span
+{
+	color: #555555;
+	
+}
+
+.toolbar > .spec_button > div
+{
+	padding-top: 0px;
+}
+
+.toolbar > .spec_button
+{
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+.toolbar .spec_button span
+{
+	color: #555555;
+}
+
+.toolbar .spec_button span:hover
+{
+	color: Black;
+}
+
+.toolbar .seperator
+{
+	border-style: none solid none none;
+	border-width: 1px;
+	display: inline;
+	float: left;
+	border-color: #B3BFC8;
+	padding: 0px;
+	margin: 0px 2px 0px 2px;
+	height: 20px;
+	width: 0px;
+	position: relative;
+	top: 2px;
+}
+
+.toolbar select
+{
+	display: inline;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+	margin-top: 1px;
+	margin-right: 3px;
+	border: 1px solid #7F9DB9;
+}
+
+.toolbar input[type='checkbox']
+{
+	display: inline;
+	float: left;
+	padding-top: 3px;
+	padding-right: 3px;	
+	
+}
+
+.toolbar .old_seperator
+{
+	border-style: none solid none none;
+	border-width: 1px;
+	border-color: #B3BFC8;
+	padding: 0px;
+	margin: 0px 4px 0px 0px;
+	height: 20px;
+	width: 1px;
+	position: relative;
+	
+}
+
+
+.toolbar > span
+{
+	color: #555555;
+	font-weight: normal;
+	display: inline;
+	float: left;
+	top: 2px;
+	padding-top: 3px;
+	padding-right: 3px;
+	margin-bottom: 8px;
+}
+
+.toolbar > img
+{
+	position: relative;
+	padding-bottom: 5px;
+	margin-right: 5px;
+	padding-top: 2px;
+	padding-right: 3px;
+    padding-left: 2px;	
+	display: inline;
+	float: left;
+	top: 2px;
+	vertical-align:text-top;
+}
+
+.toolbar >input[type='text']
+{
+	position: relative;
+	display: inline;
+	margin:0 2px 4px 0;
+    padding:0;    
+	float: left;
+	top: 1px;
+	font-size: 13px;
+}
+
+.actionsNoVisible
+{
+	display: none !important;
+}
+
+.grid_new .dataGrid
+{
+	/*width: auto;*/
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:11px;
+         
+}
+
+.grid_new .dataGrid table
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+.grid_new  table.dataGrid
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+
+.grid_new th .dataGrid
+{
+	border: 1px solid black;
+	background-color: #48579C;
+	color: #FFFFFF;
+}
+
+
+.grid_new .dataGrid th
+{
+	padding: 3px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black black black black;
+	background-color: white;
+	color: black;
+	text-align: left;
+}
+
+.grid_new .dataGrid th a
+{
+	text-decoration: none;
+	color:Red;
+}
+
+.grid_new .dataGrid tr
+{
+	border-width: 1px;
+	padding: 0px;
+	margin: 0px;
+	height:23px;
+	border-bottom-color: black;
+	border-top-color: black;
+	border-style: solid hidden solid hidden;
+	
+}
+
+
+.grid_new .dataGrid tr.selected
+{
+	background-color: black;
+}
+
+.grid_new .dataGrid tr.selected:hover
+{
+	background-color: black;
+}
+
+
+.grid_new .dataGrid tr:hover
+{
+	background-color: black;
+}
+
+.grid_new tr.dataGrid
+{
+	border-width: 1px;
+	padding: 0px;
+	margin: 0px;
+	border-bottom-color: black;
+	border-top-color: black;
+	border-style: solid hidden solid hidden;
+}
+
+.grid_new .dataGrid td
+{
+	border-style: solid hidden solid solid;
+	border-width: 1px 0px 1px 0px;
+	border-color: black #FFFFFF black #FFFFFF;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #555555;
+}
+
+.grid_new .dataGrid td img
+{
+	text-align: center;
+}
+
+.grid_new .dataGrid a
+{
+	color: #1B678A;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.grid_new td.dataGrid a
+{
+	color: #1B678A;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.grid_new .dataGrid td a
+{
+	color: black;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+.grid_new .dataGrid td a:hover
+{
+	text-decoration: underline;
+}
+
+
+
+.grid_new td.dataGrid
+{
+	border-style: solid hidden solid solid;
+	border-width: 1px 0px 1px 0px;
+	border-color: #D5E8EF #FFFFFF #D5E8EF #FFFFFF;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #555555;
+}
+
+
+.grid_new .dataGrid tr.selectedRow
+{
+	background-color: black;
+}
+
+.grid_new .dataGrid tr.editRow
+{
+	background-color:#C0C0C0;
+}
+
+.grid_new .dataGrid tr.editRow input[type="text"]
+{
+	border: 1px solid #000000;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 14px;
+	background-color: inherit;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.grid_new .pager
+{
+    width: auto;
+    font-size: 11px;
+}
+
+.grid_new .pager table a
+{
+	border: 1px solid #D5E8EF;
+	text-decoration: none;
+	color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+
+.grid_new .pager_ext
+{
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:11px;
+	padding: 5px;
+	border-style: none none solid none;
+	border-width: 1px;
+	border-color: #D5E8EF;
+	text-align: left;
+}
+
+.grid_new .pager_ext a
+{
+	width: 10px;
+	border: 1px solid #C0C0C0;
+	text-decoration: none;
+	color: #48579C;
+	margin: 2px 3px 2px 4px;
+	padding: 2px 5px;
+}
+
+
+.grid_new .pager_ext a.prev
+{
+	width: 10px;
+	border: 1px solid #D5E8EF;
+	text-decoration: none;
+	color: #48579C;
+}
+
+
+.grid_new .pager_ext span.disabled 
+{
+	border:1px solid #EEEEEE;
+	color:#DDDDDD;
+	margin: 2px 3px 2px 4px;
+	padding: 2px 5px;	
+}
+
+.grid_new .pager_ext span.current
+{
+	background-color: #48579C;
+	border:1px solid #48579C;
+	color:#FFFFFF;
+	font-weight:bold;
+	margin: 2px 3px 2px 4px;
+	padding: 2px 5px;}
+
+.grid_new .pager_ext a:hover
+{
+    border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+}
+
+.grid_new .pager_ext_selected
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF !important;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+.grid_new .pager_ext_selected:active
+{
+	color:#FFFFFF;
+}
+
+
+.grid_new .pager_ext_selected a:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #FFFFFF;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+
+
+.grid_new .pager_ext_selected a:active
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #FFFFFF;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+
+.grid_new .pager_ext_selected a
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+
+
+
+.grid_new .pager_notselected
+{
+	border: 1px solid #C8C8C8;
+	text-decoration: none;
+	color: #48579C;
+	padding-left:3px;
+	padding-right:3px;	
+}
+
+.grid_new .pager_notselected a
+{
+	border: 1px solid #C8C8C8;
+	text-decoration: none;
+	color: #48579C;
+	padding-left:3px;
+	padding-right:3px;
+	
+}
+
+.grid_new .pager_notselected:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+	
+}
+
+
+
+.grid_new .pager_hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+.grid_new .pager_selected
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+.grid_new .pager_selected a:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+}
+.grid_new .pager_selected a
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+	
+}
+
+
+.grid_new .pager table a:hover
+{
+	border: 1px solid #48579C; 
+	text-decoration: none;
+	color: #000000;	
+	padding-left:3px;
+	padding-right:3px;
+}
+
+.grid_new .pager table span
+{
+	border-width: 1px;
+	border-style: solid;
+	background-color: #48579C;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-color: #48579C;
+	border-right-color: #48579C;
+	border-bottom-color: #48579C;
+	border-left-color: #48579C;
+}
+
+.grid_new .pager table td
+{
+	border-style: hidden hidden hidden hidden;
+	padding:2px;
+}
+
+.grid_new .pager table
+{
+	border: 1px solid #FFFFFF;
+}
+
+.grid_new .pager table tr
+{
+	border-width: 1px;
+	border-color: #D5E8EF;
+	border-style: solid hidden solid hidden;
+}
+
+
+
+.grid_new .ExtSortClose
+{
+	height: 17px;
+	position: relative;
+	top: -10px;
+	
+}
+
+
+.grid_new .dataGrid th a
+{
+	
+}
+
+
+.grid_new .dataGrid th input[type="image"]
+{
+	margin: -3px 12px -6px auto;
+	border-color: #555555;
+	padding: 6px 5px 4px 5px;
+	position:relative;
+	right:0px;
+}
+
+.grid_new .dataGrid th input[type="image"]:active
+{
+	border-style: dotted;
+	border-color: #555555;
+	margin: -3px 12px -6px auto;
+	padding: 6px 5px 4px 5px;
+	position: relative;
+	right: 0px;
+}
+
+
+.grid_new .filterForm
+{
+	padding: 0px 0px 0px 10px;
+	position: relative !important;
+	top: -27px !important;
+	left: 24px !important;
+	z-index: 0;
+	margin-bottom: -23px;
+	margin-top: 0px;
+	background-color: #FFFFFF;
+	width: 160px;
+}
+.grid_new .filterForm input[type=text]
+{
+	width: 115px;
+	display: inline;
+	
+}
+.grid_new .dataGrid th .ExtSorting .filterForm a
+{	
+	border: 1px solid #000000;
+	display: inline-table !important;
+	margin-right: 5px;
+	margin-left: 0px;
+	position: relative;
+	top: 0px;
+	left: 5px;
+
+}
+
+.grid_new .dataGrid th .ExtSorting .filterForm a:hover
+{
+	border: 1px solid #000000;
+	display: inline-table !important;
+	margin-right: 5px;
+	margin-left: 0px;
+	position: relative;
+	top: 0px;
+	left: 5px;
+	background-color: #C1D2EE;
+}
+
+
+.grid_new .contextMenu
+{
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;
+	border-color: #8A867A;
+	background-image: url(   "../media/menu.jpg" );
+	background-repeat: repeat-y;
+	padding: 2px 0px 2px 0px;
+	z-index: 10000;
+	margin-top: 0px;
+	background-color: #FFFFFF;
+	width: 220px;
+}
+
+.grid_new .contextMenu a
+{
+	border: 1px hidden #FFFFFF;
+	padding: 3px;
+	clear: both;
+	display: block;
+	margin-right: 2px;
+	margin-left: 2px;
+	text-decoration: none;
+	color: #000000;
+}
+
+.grid_new .contextMenu .Selected
+{
+	color: Red;
+}
+
+.grid_new .contextMenu div
+{
+	position: relative !important;
+	margin: 0px !important;
+	margin-top: 0px !important;
+	padding: 0px !important;
+	padding-top: 0px;	
+	z-index: 10009 !important;
+	top: -22px !important; 
+	left: 26px !important;	    
+    height: 20px !important;
+    display: inline;    
+}
+
+.grid_new .contextMenu input[type="text"]
+{
+	padding: 0px;
+	margin: 0px;
+	display: inline;
+	top: 1px;
+}
+
+.grid_new .contextMenu div .ExtSortBackground
+{
+	padding: 0px !important;
+	height: 0px !important;
+	width: 0px !important;
+	margin: 0px !important;
+	position: relative !important;
+	top: 0px !important;
+	left: 0px !important;
+	z-index: 10000 !important;
+}
+
+.grid_new .contextMenu div a
+{
+	float: none;
+	width: 30px;
+	display: inline;
+	clear: none;
+	border: solid 1px Black;
+	padding: 0px;
+	margin: 0px 0px 0px 5px;
+	height: 16px;
+	position: relative !important;
+}
+
+.grid_new .contextMenu div a:hover
+{
+	
+	background-color: #C1D2EE;
+	border: 1px solid #316AC5;	
+	float: none;
+	width: 30px;
+	display: inline;
+	clear: none;
+
+	padding: 0px;
+	margin: 0px 0px 0px 5px;
+	height: 16px;
+	position: relative !important;
+	
+}
+
+.grid_new .contextMenu a.Selected
+{
+	color: Red;
+}
+
+.grid_new .contextMenu .Selected a
+{
+	color: Red;
+}
+
+
+.grid_new .contextMenu a:hover
+{
+	padding:2px;
+	background-color: #C1D2EE;
+	border: 1px solid #316AC5;
+}
+
+.grid_new .contextMenu img
+{
+	vertical-align: text-top;
+	border-width: 0px;
+	margin: 0px;
+	padding: 0 12px 0 0;
+	position: relative;
+	width: 16px;
+}
+
+.grid_new .contextMenu img[src='']
+{
+	padding-left: 16px;
+	
+}
+
+
+
+.toolbar .contextMenu
+{
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;
+	border-color: #8A867A;
+	background-image: url(   "../media/menu.jpg" );
+	background-repeat: repeat-y;
+	padding: 2px 0px 2px 0px;
+	z-index: 10009;
+	margin-top: 0px;
+	background-color: #FFFFFF;
+	width: 220px;
+
+}
+
+
+
+.toolbar .contextMenu div.spec_button > div
+{
+
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+	width: 214px;
+}
+
+.toolbar .contextMenu div.spec_button > div > a
+{
+	border: 1px hidden #FFFFFF;
+	padding: 0px;
+	clear: right;
+	display:block;
+	margin-right: 2px;
+	margin-left: 6px;
+	left: 24px;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	color: #000000;
+	background-color: Transparent;
+	width: 180px;
+	background-image: none !important;
+}
+
+
+.toolbar .contextMenu div.spec_button > div > input[type='image']
+{
+	vertical-align: text-top;
+	border-width: 0px;
+	margin: 0px;
+	margin-right: -28px;
+	float: left;
+	padding: 0 12px 0 0;
+	position: relative;
+	width: 16px;
+	display: inline;
+	top: 1px;
+	left: 2px;
+	background-color: Transparent;
+}
+
+.toolbar .contextMenu div.spec_button
+{
+	position: relative !important;
+	margin: 0px !important;
+	margin-top: 0px !important;
+	padding: 1px !important;
+	padding-top: 0px;	
+	clear: both;
+	/*z-index: 10009 !important;*/
+	background-color: Transparent;
+	top: 0px !important; 
+	left: 2px !important;	    
+    height: 20px !important;
+    display: block;
+    width: 213px;
+}
+
+.toolbar .contextMenu div.spec_button:hover
+{
+	background-color: #C1D2EE;
+	border: 1px solid #316AC5;		
+	position: relative !important;
+	margin: 0px !important;
+	margin-top: 0px !important;
+	padding: 0px !important;
+	padding-top: 0px;	
+	clear: both;
+	/*z-index: 10009 !important;*/
+	
+	top: 0px !important; 
+	left: 2px !important;	    
+    height: 20px !important;
+    display: block;
+	width: 214px;
+}
+
+.toolbar .contextMenu input[type="text"]
+{
+	padding: 0px;
+	margin: 0px;
+	display: inline;
+	top: 1px;
+}
+
+
+
+.toolbar .contextMenu div.spec_button > div > img
+{
+	vertical-align: text-top;
+	border-width: 0px;
+	margin: 0px;
+	padding: 0 12px 0 0;
+	position: relative;
+	width: 16px;
+	display: inline;
+}
+
+.toolbar .contextMenu div.spec_button > div > img[src='']
+{
+	padding-left: 16px;
+}
+
+
+.grid_new .dataGrid th .HeaderCaption *
+{
+	vertical-align: middle;
+	top: 1px !important;
+ color: black;
+}
+
+.grid_new .dataGrid th .HeaderCaption
+{
+
+}
+
+.grid_new .dataGrid th .HeaderFilterExtButton
+{    
+    /*position:relative;*/
+    /*margin-left: -20px;*/
+    /*padding-left: -20px; */
+    z-index: 10005;
+display: none;
+    position:relative !important;
+     /*float:right;*/
+	/*
+	margin: 0px;
+	margin-right: -15px;
+	margin-left: auto;
+	margin-bottom: auto;
+	margin-top: 0px;
+	padding: 0px;
+    */
+    float: right !important;
+	margin: 0px;
+	margin-right: 0px !important;
+	margin-left: -25px !important;
+	margin-bottom: auto !important;
+	margin-top: 0px !important;
+	padding: 0px !important;
+    
+	top: 0px !important;
+	right: 0px !important;    
+	vertical-align:top !important;
+     
+
+}
+
+
+.grid_new .dataGrid .ExtSortMain
+{
+	padding: 0px 0px 20px 0px;
+	position: relative !important;
+	top: -5px !important;
+	left: 140px !important;
+	z-index: 0;
+	font-size: 12px;
+	margin-bottom: -79px;
+	margin-top: 12px;
+	margin-left: -140px;
+}
+
+.grid_new .dataGrid th .ExtSorting
+{
+	padding: 2px 5px 8px 17px;
+	position: relative !important;
+	top: -6px !important;
+	left: 0px !important;
+	z-index: 10001;
+	margin-bottom: -50px;
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;
+	border-color: #8A867A;
+	background-image: url(    "../media/menu.jpg" );
+	background-repeat: repeat-y;
+	padding: 4px 0px 2px 0px;
+	margin-top: 0px;
+	background-color: #FFFFFF;
+	width: 195px;
+}
+
+
+.grid_new .dataGrid th .ExtSorting a
+{
+	position: relative;
+	left: 34px;
+	top: -7px;
+	padding-right: 20px;
+	border: 1px hidden #FFFFFF;
+	font-weight: lighter;
+	padding: 3px 3px 2px 32px;
+	clear: both;
+	display: block;
+	margin-right: 36px;
+	margin-left: -32px;
+	margin-bottom: -1px;
+	text-decoration: none;
+	color: #000000;
+}
+
+.grid_new .dataGrid th .ExtSorting a:hover
+{
+	padding: 2px 0px 3px 31px;
+	background-color: #C1D2EE;
+	border: thin solid #316AC5;
+	margin-right: 36px;
+	margin-left: -32px;
+	margin-bottom: -3px;
+	z-index: 10001;
+}
+
+.grid_new .dataGrid th .ExtSorting input[type="image"]
+{
+	padding: 0px;
+	margin: 2px 0px -13px 2px;
+	position: relative;
+	left: 5px;
+	z-index: 10002;
+	text-decoration: none;
+
+	
+	vertical-align: text-top;
+	
+	display: inline;
+	border-width: 0px;
+	padding: 0 12px 0 0;
+	position: relative;
+	width: 16px;	
+}
+
+
+.grid_new .ExtSortBackground
+{
+	width: 0px !important;
+	height: 0px !important;
+}
+
+
+.grid_new .dataGrid th .ExtSorting a.Selected
+{
+	text-decoration: none;
+	color: Red;
+}
+
+.grid_new .ZoomPanel
+{
+	padding: 30px 10px 10px 10px;
+	background-color: #FFFFFF;
+	border: 1px double #808080;
+	width: auto;
+	height: auto;
+	overflow: auto;
+	max-height: 400px;
+	max-width: 500px;
+	position:fixed;
+	top:200px;
+	left:250px;
+}
+
+.grid_new .ZoomPanel a
+{
+	margin: 2px;
+	border: 1px solid #808080;
+	padding: 2px;
+	position: absolute;
+	right: 2px;
+	top: 2px;
+}
+
+
+* + html .grid_new .dataGrid th
+{
+	padding: 3px;
+	left: 3px;
+	margin-bottom: 0px;
+	margin-left: 1px;
+	margin-right: 1px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	background-color: #DFEAF2;
+	color: #1B678A;
+	text-align: left;
+	height: 16px;
+}
+
+
+
+.messageNew
+{
+	font-weight:bolder;
+	background-color:White;
+	color: Black;
+}
+
+.grid_new .dataGrid .messageNew td
+{
+	color: Black;
+}
+
+.grid_new .dataGrid .messageNew td a
+{
+	color: Black;
+}
+
+
+.messageRead
+{
+	font-weight: normal;
+	background-color: White;
+	color: Black;
+}
+
+.calendarButton
+{
+	position:relative;
+	left: -20px;
+	top: 3px !important;
+	vertical-align:text-top;
+	margin-right: -20px !important;
+	padding: 0px !important;
+}
+.toolbar .ajax__calendar 
+{
+	
+	z-index: 10001 !important;
+}
+
+
+
+
+.ajax__calendar2 .ajax__calendar_container {z-index: 10000 !important; border:1px solid #646464;background-color:#ffffff;color:#000000;}
+.ajax__calendar2 .ajax__calendar_footer {border-top:1px solid #f5f5f5;}
+.ajax__calendar2 .ajax__calendar_dayname {border-bottom:1px solid #f5f5f5;}
+.ajax__calendar2 .ajax__calendar_day {border:1px solid #ffffff;}
+.ajax__calendar2 .ajax__calendar_month {border:1px solid #ffffff;}
+.ajax__calendar2 .ajax__calendar_year {border:1px solid #ffffff;}
+.ajax__calendar2 {z-index: 10000 !important;}
+.ajax__calendar2 .ajax__calendar_active .ajax__calendar_day {background-color:#edf9ff;border-color:#0066cc;color:#0066cc;}
+.ajax__calendar2 .ajax__calendar_active .ajax__calendar_month {background-color:#edf9ff;border-color:#0066cc;color:#0066cc;}
+.ajax__calendar2 .ajax__calendar_active .ajax__calendar_year {background-color:#edf9ff;border-color:#0066cc;color:#0066cc;}
+
+.ajax__calendar2 .ajax__calendar_other .ajax__calendar_day {background-color:#ffffff;border-color:#ffffff;color:#646464;}
+.ajax__calendar2 .ajax__calendar_other .ajax__calendar_year {background-color:#ffffff;border-color:#ffffff;color:#646464;}
+
+.ajax__calendar2 .ajax__calendar_hover .ajax__calendar_day {background-color:#edf9ff;border-color:#daf2fc;color:#0066cc;}
+.ajax__calendar2 .ajax__calendar_hover .ajax__calendar_month {background-color:#edf9ff;border-color:#daf2fc;color:#0066cc;}
+.ajax__calendar2 .ajax__calendar_hover .ajax__calendar_year {background-color:#edf9ff;border-color:#daf2fc;color:#0066cc;}
+
+.ajax__calendar2 .ajax__calendar_hover .ajax__calendar_title {color:#0066cc;}
+.ajax__calendar2 .ajax__calendar_hover .ajax__calendar_today {color:#0066cc;}
+
+.grid_new .dataGrid td .ajax__calendar_container {padding:4px;position:absolute;cursor:default;width:250px;font-size:11px;text-align:center;font-family:tahoma,verdana,helvetica;}
+.grid_new .dataGrid td .ajax__calendar_body {height:139px;width:250px;position:relative;overflow:hidden;margin:auto;}
+.grid_new .dataGrid td .ajax__calendar_days, .ajax__calendar_months, .ajax__calendar_years {top:0px;left:0px;height:139px;width:250px;position:absolute;text-align:center;margin:auto;}
+.grid_new .dataGrid td .ajax__calendar_container TABLE {font-size:11px;}
+.grid_new .dataGrid td .ajax__calendar_header {height:20px;width:100%;}
+.grid_new .dataGrid td .ajax__calendar_prev {cursor:pointer;width:15px;height:15px;float:left;background-repeat:no-repeat;background-position:50% 50%;background-image:url(<%=WebResource("AjaxControlToolkit.Calendar.arrow-left.gif")%>);}
+.grid_new .dataGrid td .ajax__calendar_next {cursor:pointer;width:15px;height:15px;float:right;background-repeat:no-repeat;background-position:50% 50%;background-image:url(<%=WebResource("AjaxControlToolkit.Calendar.arrow-right.gif")%>);}
+.grid_new .dataGrid td .ajax__calendar_title {cursor:pointer;font-weight:bold;}
+.grid_new .dataGrid td .ajax__calendar_footer {height:15px;}
+.grid_new .dataGrid td .ajax__calendar_today {cursor:pointer;padding-top:3px;}
+.grid_new .dataGrid td .ajax__calendar_dayname {height:17px;width:17px;text-align:right;padding:0 2px;}
+.grid_new .dataGrid td .ajax__calendar_day {height:17px;width:18px;text-align:right;padding:0 2px;cursor:pointer;}
+.grid_new .dataGrid td .ajax__calendar_month {height:44px;width:40px;text-align:center;cursor:pointer;overflow:hidden;}
+.grid_new .dataGrid td .ajax__calendar_year {height:44px;width:40px;text-align:center;cursor:pointer;overflow:hidden;}
+
+.grid_new .dataGrid td .ajax__calendar 
+{
+	z-index: 10001;
+	width: auto;
+}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_container {border:1px solid #646464;background-color:#ffffff;color:#000000;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_footer {border-top:1px solid #f5f5f5;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_dayname {border-bottom:1px solid #f5f5f5;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_day {border:1px solid #ffffff;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_month {border:1px solid #ffffff;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_year {border:1px solid #ffffff;}
+
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_active .ajax__calendar_day {background-color:#edf9ff;border-color:#0066cc;color:#0066cc;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_active .ajax__calendar_month {background-color:#edf9ff;border-color:#0066cc;color:#0066cc;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_active .ajax__calendar_year {background-color:#edf9ff;border-color:#0066cc;color:#0066cc;}
+
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_other .ajax__calendar_day {background-color:#ffffff;border-color:#ffffff;color:#646464;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_other .ajax__calendar_year {background-color:#ffffff;border-color:#ffffff;color:#646464;}
+
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_hover .ajax__calendar_day {background-color:#edf9ff;border-color:#daf2fc;color:#0066cc;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_hover .ajax__calendar_month {background-color:#edf9ff;border-color:#daf2fc;color:#0066cc;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_hover .ajax__calendar_year {background-color:#edf9ff;border-color:#daf2fc;color:#0066cc;}
+
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_hover .ajax__calendar_title {color:#0066cc;}
+.grid_new .dataGrid td .ajax__calendar .ajax__calendar_hover .ajax__calendar_today {color:#0066cc;}
+
+.gridForm .calendarButton
+{
+	position:relative;
+	left: -20px;
+	top: 2px !important;
+	vertical-align:text-top;
+	margin-right: -20px !important;
+}
+
+
+.grid_new .dataGrid .messageRead td a
+{
+	color: Gray;
+	font-weight: normal;
+}
+
+input[type="image"].chooseButton
+{
+	position:relative;
+	left: -20px;
+	vertical-align:text-bottom;
+	float: left;
+	margin: 0px;
+	margin-right: -15px;
+	top: 3px;
+	display: inline;
+
+}
+
+
+.chooseButton2
+{
+	position:relative;
+	left: -15px;
+	vertical-align:text-bottom;
+	float: left;
+	margin: 0px;
+	margin-right: -15px;
+	top: 3px;
+	display: inline;
+
+}
+
+
+* + html .grid_new .dataGrid th .HeaderFilterExtButton
+{    
+    z-index: 10005;
+    display: none;
+    position:relative !important;
+    float: right !important;
+	margin: 0px;
+	margin-right: 0px !important;
+	margin-left: -25px !important;
+	margin-bottom: auto !important;
+	margin-top: 0px !important;
+	padding: 0px !important;    
+	top: 0px !important;
+	left: 10px;
+	right: 0px !important;    
+	vertical-align:top !important;
+     
+
+}
+
+
+
+.errorsBar
+{
+	background:#F0F0EE none repeat scroll 0 0;
+	border:1px solid #CCCCCC;
+	display:table;
+	margin:0 0 5px;
+	padding:5px;
+	width:auto;
+}
+
+.errorsBar label
+{
+	color:red;
+	font-size:15px;
+	font-weight:bold;
+}
+
+.errorsBar li
+{
+	margin: 0 10px 0 0px;
+}
+
+
+.ContextMenuPanel 
+{
+	border: 1px solid #868686;
+	z-index: 1000;
+	background: url(../media/menu.jpg) repeat-y 0 0 #FAFAFA;
+	cursor: default;
+	padding: 1px 1px 0px 1px;
+	font-size: 11px;
+}
+
+.ContextMenuBreak
+{
+	margin:1px 1px 1px 32px;
+	padding:0;
+	height:1px;
+	overflow:hidden;
+	display:block;
+	border-top: 1px solid #C5C5C5;	
+}
+
+a.ContextMenuItem
+{
+	margin: 1px 0 1px 0;
+	display: block;
+	color: #003399;
+	text-decoration: none;
+	cursor: pointer;	
+	padding: 4px 19px 4px 33px;
+	white-space: nowrap;
+}
+
+a.ContextMenuItem-Selected
+{
+	font-weight: bold;
+}
+
+a.ContextMenuItem:hover
+{
+	background-color: #FFE6A0;
+
+	color: #003399;
+	border: 1px solid #D2B47A;
+	padding: 3px 18px 3px 32px;
+}

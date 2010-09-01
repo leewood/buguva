@@ -1,0 +1,993 @@
+﻿body 
+{
+}
+.body select
+{
+	
+	width: 130px;
+	height:18px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:12px;	
+}
+
+.dynamicPopulate_Normal
+{
+	border:silver 1px inset;
+	padding:2px;
+	text-align:center;
+	height:2em;
+	margin:5px;
+	width:200px;
+}
+
+.tabletd:first-child
+{
+	border-left-style: solid !important;
+	border-left-width: 1px !important;
+	border-left-color: black !important;	
+	
+}
+
+.tabletd
+{
+	border-right-style: solid !important;
+	border-right-width: 1px  !important;
+	border-right-color: black  !important;
+    border-left-style: solid !important;
+	border-left-width: 1px !important;
+	border-left-color: black !important;	
+
+	width: 10px;
+}
+
+.tableth
+{
+	width: 10px;
+	border-right-style: solid !important;
+	border-right-width: 1px  !important;
+    border-left-style: solid !important;
+	border-left-width: 1px !important;	
+}
+
+.dynamicPopulate_Updating 
+{
+	background-image:url(../media/loading.gif);
+	background-repeat:no-repeat;
+	border:silver 1px inset;
+	text-align:center;
+	padding:2px;
+	height:2em;
+	margin:5px;
+	width:200px;
+}
+
+.column
+{
+	margin: 10px;
+	text-align: left;
+	width: auto;
+	height: 100%;
+	float:left;
+	white-space: nowrap;
+}
+
+.column p
+{
+	width: 300px;
+	clear: left;
+	margin: 0;
+	padding: 5px 0 8px 0;
+	padding-left: 180px; /*width of left column containing the label elements*/
+	border-top: 1px dashed gray;
+	height: auto;
+}
+
+.column label
+{
+	font-weight: bold;
+	float: left;
+	margin-left: -180px; /*width of left column*/
+	width: 170px; /*width of labels. Should be smaller than left column (155px) to create some right margin*/
+	white-space:normal;
+}
+
+
+.column input[type="text"]
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	border: 1px solid #FFFFFF;
+	padding: 0px;
+	margin: 0px;
+	width: 130px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+.column input[type="password"]
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	border: 1px solid #FFFFFF;
+	padding: 0px;
+	margin: 0px;
+	width: 130px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+
+.column input[type="text"]:hover
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	border: 1px solid #000000;
+	padding: 0px;
+	margin: 0px;
+	width: 130px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+.column input[type="password"]:hover
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	border: 1px solid #000000;
+	padding: 0px;
+	margin: 0px;
+	width: 130px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+
+.column textarea
+{
+	width: 130px;
+	height: 150px;
+}
+
+.column .buttons_area
+{
+	position: relative;
+	left: 50px;
+}
+
+
+.column select
+{
+	border: 1px solid #FFFFFF;
+	width: 130px;
+	height:13px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+.column select[disabled="disabled"]
+{
+	border: 1px solid #FFFFFF;
+	width: 130px;
+	height: 13px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size: 14px;
+}
+
+.column select[disabled="disabled"]:hover
+{
+	border: 1px solid #FFFFFF;
+	width: 130px;
+	height: 13px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size: 14px;
+}
+
+
+.column select[size]
+{
+	border: 1px solid #000000;
+	width: auto;
+	height:auto;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;	
+}
+
+
+
+.column select[size]:hover
+{
+	border: 1px solid #000000;
+	width: auto;
+	height:auto;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+
+select.column
+{
+	border: 1px solid #FFFFFF;
+	width: 130px;
+	height:18px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+.column select:hover
+{
+	border: 1px solid #000000;
+	width: 130px;
+	height:18px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+
+.column button
+{
+	cursor: pointer;
+	border: 1px solid #808080;
+	background: #E6E6E6;
+	color: #000080;
+	font-weight: normal;
+	padding: 1px 2px; /*background:url(View/media/formbg.gif) repeat-x left top;*/
+	margin-right: 25px;
+}
+
+.column input[type="submit"]
+{
+	cursor: pointer;
+	border: 1px solid #808080;
+	background: #E6E6E6;
+	color: #000080;
+	font-weight: normal;
+	padding: 1px 2px; /*background:url(View/media/formbg.gif) repeat-x left top;*/
+	margin-right: 25px;
+}
+
+.nolines p
+{
+	width: 300px;
+	clear: left;
+	margin: 0;
+	padding: 5px 0 8px 0;
+	padding-left: 155px; /*width of left column containing the label elements*/
+	border-top: none;
+	height: 1%;
+	border-top-width: thin;
+	border-top-color: #FFFFFF;
+}
+
+.simple_border
+{
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid #808080;
+	white-space:nowrap;
+	width:auto;
+}
+
+.simple_border p
+{
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
+}
+.simple_border h1
+{
+	padding: 0px;
+	margin: -5px -5px 5px -5px;
+	background-color: #C8C8C8;
+	color: #0000FF;
+	font-weight: bold;
+	font-size: medium;
+}
+
+.simple_border_float
+{
+	margin: 5px;
+	padding: 5px;
+	/*padding-top: -60px;*/
+	border: 1px solid #808080;
+	float:left;
+    height:500px;
+}
+
+.simple_border_float p
+{
+
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
+}
+.simple_border_float h1
+{
+	padding: 0px;
+	margin: -5px -5px 5px -5px;
+	background-color: #C8C8C8;
+	color: #0000FF;
+	font-weight: bold;
+	font-size: medium;
+}
+
+.let_float_column
+{
+	float:left;
+	
+}
+
+
+.button_area
+{
+	margin: 2px auto auto 2px;
+	text-align:center;
+}
+
+.usefloat
+{
+	float:left;
+}
+
+.horline
+{
+	width:1px;
+	height:400px;
+	float:left;
+	/*background-color:#7e9fff;*/
+	border-left: 1px dashed gray;
+}
+.buttonsArea input[type="submit"]
+{
+	cursor: pointer;
+	border: 1px solid #808080;
+	background: #E6E6E6;
+	color: #000080;
+	font-weight: normal;
+	padding: 1px 2px; /*background:url(View/media/formbg.gif) repeat-x left top;*/
+	margin-right: 25px;
+}
+
+.buttonsArea
+{
+	clear:both;
+	margin-left:100px;
+}
+
+.buttonAreaLeft
+{
+	clear:both;
+	margin-left:0px;
+}
+
+.column_with_border
+{
+	margin: 10px;
+	text-align: left;
+	width: 450px;
+	height: 100%;
+	/*clear:none;*/
+	float:left;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid #808080;	
+}
+
+.column_with_border p
+{
+	width: 290px;
+	clear: left;
+	margin: 0;
+	padding: 5px 0 8px 0;
+	padding-left: 155px; /*width of left column containing the label elements*/
+	border-top: 1px dashed gray;
+	height: 1%;
+}
+
+.column_with_border label
+{
+	font-weight: bold;
+	float: left;
+	margin-left: -155px; /*width of left column*/
+	width: 150px; /*width of labels. Should be smaller than left column (155px) to create some right margin*/
+}
+
+
+
+.column_with_border input[type="text"]
+{ /*width of text boxes. IE6 does not understand this attribute*/
+	width: 130px;
+}
+.column_with_border input[type="password"]
+{ /*width of text boxes. IE6 does not understand this attribute*/
+	width: 130px;
+}
+
+
+.column_with_border textarea
+{
+	width: 130px;
+	height: 150px;
+}
+
+.column_with_border div
+{
+	width: 130px;
+	
+	float:left;
+}
+
+.normal_label
+{
+	font-weight: normal;
+}
+
+
+.normal_label label
+{
+	font-weight: normal;
+	float:left;
+    margin-left:0px;	
+    
+}
+.normal_label input[type="radio"]
+{
+	float:left;
+	clear:none;
+	
+}
+
+.column_with_border select
+{
+	width: 130px;
+}
+
+.column_with_border button
+{
+	cursor: pointer;
+	border: 1px solid #808080;
+	background: #E6E6E6;
+	color: #000080;
+	font-weight: normal;
+	padding: 1px 2px; /*background:url(View/media/formbg.gif) repeat-x left top;*/
+	margin-right: 25px;
+}
+
+.column_with_border input[type="submit"]
+{
+	cursor: pointer;
+	border: 1px solid #808080;
+	background: #E6E6E6;
+	color: #000080;
+	font-weight: normal;
+	padding: 1px 2px; /*background:url(View/media/formbg.gif) repeat-x left top;*/
+	margin-right: 25px;
+}
+.column_with_border input[type="radio"]
+{
+	width:20px;
+}
+
+.column_with_border h1
+{
+	padding: 0px;
+	margin: -5px -5px 5px -5px;
+	background-color: #C0C0C0;
+	color: #0000FF;
+	font-weight: bold;
+	font-size: medium;
+}
+
+.caption
+{
+	font-weight: bold;
+	font-size: medium;
+}
+
+.langMenuPanel
+{
+	display: inline;
+}
+
+.langMenuPanel .langMenu
+{
+	padding: 0px;
+	padding-left: 5px;
+	margin: 0px;
+	border: 1px solid #000000;
+	background-color: Black;
+	display: inline;
+	width: 42px;
+	height: 16px;
+	text-decoration: none;
+	color: #FFFFFF;
+	clear: both;
+	float: none;
+	list-style-type: none;
+	font-size: 11px;
+}
+
+.langMenuPanel .langMenu a
+{
+	display: inline;
+}
+
+.langMenuPanelExt
+{
+	position: fixed !important;
+	z-index: 10000 !important;
+	top: 60px !important;
+}
+
+.langMenuPanelExt .langMenu
+{
+	padding: 0px;
+	margin: 0px;
+	border: 1px solid #000000;
+	background-color: Black;
+	display: block;
+	width: 42px;
+	height: 16px;
+	text-decoration: none;
+	color: #FFFFFF;
+	clear: both;
+	float: none;
+	list-style-type: none;
+	font-size: 11px;
+}
+
+.langMenuPanelExt .langMenu:hover
+{
+	padding: 0px;
+	margin: 0px;
+	border: 1px solid #000000;
+	background-color: red;
+	display: block;
+	width: 42px;
+	height: 16px;
+	text-decoration: none;
+	color: #FFFFFF;
+	clear: both;
+	float: none;
+	list-style-type: none;
+	font-size: 11px;
+}
+
+
+
+.langMenuPanelExt .langMenu img
+{
+	border: 0px solid #000000;
+	padding: 0px;
+	margin: 0px;
+	background-color: #000000;
+}
+
+.langMenuPanelExt .langMenu img:hover
+{
+	background-color: Red;
+	border: 0px solid #000000;
+	padding: 0px;
+	margin: 0px;
+	background-color: #000000;
+}
+
+
+
+select
+{
+	border: 1px solid #FFFFFF;
+}
+.ccd
+{
+	border-style: solid;
+	border-width: 1px 2px 1px 1px;
+	border-color: #FFFFFF;
+}
+
+
+.gridForm
+{
+	margin: 5px 0px 2px 0px;
+	text-align: left;
+	width: 100%;
+	height: 100%;
+	white-space: nowrap;
+}
+
+.gridForm p
+{
+	width: auto;
+	clear: left;
+	margin: 0;
+	padding: 5px 0 8px 180px; /*width of left column containing the label elements*/
+	border-top: 1px dashed gray;
+	height: auto;
+}
+
+.gridForm label
+{
+	font-weight: bold;
+	float: left;
+	margin-left: -180px; /*width of left column*/
+	width: 170px; /*width of labels. Should be smaller than left column (155px) to create some right margin*/
+	white-space: normal;
+	padding-bottom: 8px;
+}
+
+
+.gridForm input.chooseButton
+{
+	top: 2px !important;
+}
+
+.gridForm input[type="text"]
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	/*border: 1px solid #000000;*/
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	width: 200px;
+	padding-top: 1px;
+	
+	border: 1px solid #7F9DB9;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: left;
+	font-size: 14px;
+}
+
+.gridForm input[type="password"]
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	/*border: 1px solid #000000;*/
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	width: 200px;
+	padding-top: 1px;
+	
+	border: 1px solid #7F9DB9;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: left;
+	font-size: 14px;
+}
+
+
+* + html .gridForm input[type="text"]
+{
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	width: 200px;
+	padding-top: 1px;
+    padding-bottom: 1px;	
+	border: 1px solid #7F9DB9;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: left;
+	font-size: 14px;
+	
+}
+
+* + html .gridForm input[type="password"]
+{
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	width: 200px;
+	padding-top: 1px;
+    padding-bottom: 1px;	
+	border: 1px solid #7F9DB9;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: left;
+	font-size: 14px;
+	
+}
+
+
+* + html .gridForm input[type="text"]:hover
+{
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	width: 200px;
+	padding-top: 1px;
+    padding-bottom: 1px;	
+	border: 1px solid #7F9DB9;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: left;
+	font-size: 14px;
+	
+}
+
+* + html .gridForm input[type="password"]:hover
+{
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	width: 200px;
+	padding-top: 1px;
+    padding-bottom: 1px;	
+	border: 1px solid #7F9DB9;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: left;
+	font-size: 14px;
+	
+}
+
+.gridForm input[type="text"]:hover
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	/*border: 1px solid #000000;*/
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	padding-top: 1px;
+	
+	width: 200px;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+.gridForm input[type="password"]:hover
+{
+	/*width of text boxes. IE6 does not understand this attribute*/
+	/*border: 1px solid #000000;*/
+	padding: 0px;
+	margin: 0px 2px 4px 0px;
+	padding-top: 1px;
+	
+	width: 200px;
+	display: inline;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size:14px;
+}
+
+
+.gridForm textarea
+{
+	width: 250px;
+	height: 150px;
+}
+
+
+
+.gridForm select
+{
+	border: 1px solid #7F9DB9;
+	width: 200px;
+    padding: 0px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size: 14px;
+}
+
+
+table.gridForm
+{
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+}
+
+.gridForm tr
+{
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+}
+
+.gridForm td
+{
+	width: 100%;
+}
+
+.gridForm select[disabled="disabled"]
+{
+	border: 1px solid #7F9DB9;
+	width: 130px;
+	height: 20px;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-size: 14px;
+}
+
+
+.gridForm button
+{
+	cursor: pointer;
+	border: 1px solid #808080;
+	background: #E6E6E6;
+	color: #000080;
+	font-weight: normal;
+	padding: 1px 2px; /*background:url(View/media/formbg.gif) repeat-x left top;*/
+	margin-right: 25px;
+}
+
+.gridForm input[type="submit"]
+{
+	cursor: pointer;
+	border: 1px solid #808080;
+	background: #E6E6E6;
+	color: #000080;
+	font-weight: normal;
+	padding: 1px 2px; /*background:url(View/media/formbg.gif) repeat-x left top;*/
+	margin-right: 25px;
+}
+
+.gridForm .buttons_area
+{
+	border-style: solid;
+	border-width: 1px;
+	width: auto;
+	border-color: #FFFFFF #FFFFFF #CDD2D4 #FFFFFF;
+	padding: 5px 5px 0px 5px;
+	margin: 5px 0px 5px 0px;
+	background-color: #EDF3F7;
+	color: #FFFFFF;
+	font-weight: bold;
+	position: relative;
+	left: 0px;
+	height: 20px;
+}
+
+
+.pdfView
+{
+	width: 100%;
+	overflow: hidden;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display:block;
+	vertical-align:middle;
+}
+
+.gridForm .buttons_area .spec_button
+{
+	border: 1px none #000000;
+	padding: 0px;
+	margin: 3px 3px 3px 0px;
+	display: inline;
+	text-decoration: none;
+	height: 32px;
+	background-color: #EDF3F7;
+	color: #555555;
+	font-weight: normal;
+}
+
+.girdForm .buttons_area input[type='image']
+{
+	vertical-align: text-top;
+	top: 3px;
+}
+
+.gridForm .buttons_area a.spec_button
+{
+	color: #555555;
+}
+
+.gridForm .buttons_area .spec_button a
+{
+	color: #555555;
+}
+
+.gridForm .buttons_area .spec_button span
+{
+	color: #555555;
+}
+
+.gridForm .buttons_area .spec_button span:hover
+{
+	color: Black;
+}
+
+.gridForm .buttons_area .seperator
+{
+	border-style: none solid none none;
+	border-width: 1px;
+	border-color: #B3BFC8;
+	padding: 0px;
+	margin: 0px;
+	height: 20px;
+	width: 1px;
+}
+
+.gridForm .taber
+{
+	width: 100%;
+	height: 20px;
+	font-size: 90%;
+	line-height: normal;
+	border-bottom: 1px solid #7e9fff; /*Add border strip to bottom of menu*/
+	position: relative;
+	top: 0;
+	left: 0px;
+	margin-bottom: 2px;
+}
+
+.gridForm .taber ul
+{
+	list-style-type: none;
+	margin:0;
+	margin-left: 5px; /*Left offset of entire tab menu relative to page*/
+	padding:0;
+}
+
+.gridForm .taber li
+{
+	display:inline;
+	margin:0;
+	padding:0;
+}
+
+.gridForm .taber a
+{
+	float:left;
+	display:block;
+	background:url(../media/glowtab-left.gif) no-repeat left top;
+	margin:0;
+	margin-right: 5px; /*spacing between each tab*/
+	padding:0 0 0 9px;
+	text-decoration:none;
+}
+
+.gridForm .taber a span
+{
+	float:left;
+	display:block;
+	background:url(../media/glowtab.gif) no-repeat right top;
+	padding: 4px 12px 2px 3px;
+	font-weight:bold;
+	color:#3B3B3B;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+.gridForm .taber a span 
+{
+	float:none;
+}
+/* End IE5-Mac hack */
+
+.gridForm .taber a:hover span 
+{
+	color: black;
+}
+
+.gridForm .taber .selected a
+{ /*Selected Tab style*/
+	background-position:0 -82px; /*Shift background image up to start of 2nd tab image*/
+	border-bottom-color: White;
+	border-bottom-width: 3px;
+}
+
+.gridForm .taber .selected a span
+{ /*Selected Tab style*/
+	background-position:100% -82px; /*Shift background image up to start of 2nd tab image*/
+	color: black;
+}
+
+.gridForm .taber a:hover
+{ /*onMouseover style*/
+	background-position:0% -82px; /*Shift background image up to start of 2nd tab image*/
+}
+
+.gridForm .taber a:hover span
+{ /*onMouseover style*/
+	background-position:100% -82px; /*Shift background image up to start of 2nd tab image*/
+}

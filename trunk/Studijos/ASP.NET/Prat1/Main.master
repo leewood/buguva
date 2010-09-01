@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>    
+        <link href="View/CSS/print/datamodifiers.css" rel="stylesheet" type="text/css" media ="print" />
+    <link href="View/CSS/print/main.css" rel="stylesheet" type="text/css" media ="print"/>
+    <link href="View/CSS/print/horiz_menu.css" rel="stylesheet" type="text/css" media ="print"/>
+    <link href="View/CSS/print/common.css" rel="stylesheet" type="text/css" media ="print"/>    
+    <link href="View/CSS/main.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="View/CSS/horiz_menu.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="View/CSS/common.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="View/CSS/datamodifiers.css" rel="stylesheet" type="text/css" media="screen" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal" >
+            <StaticMenuItemStyle BorderStyle="Solid" />
+            
+            <Items>
+                <asp:MenuItem NavigateUrl="GenresList.aspx" Text="Genres" Value="Genres">
+                </asp:MenuItem>
+                <asp:MenuItem NavigateUrl="AnimeList.aspx" Text="My Anime List" 
+                    Value="My Anime List"></asp:MenuItem>
+            </Items>
+        </asp:Menu>
+    </div>
+    <div>
+        <asp:ContentPlaceHolder id="mainContent" runat="server">        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
