@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="false" CodeFile="NewsCategories.master.cs" Inherits="NewsCategories" %>
+<%@ Import Namespace="System.Data.Linq" %>
+<%@ Import Namespace="System.Linq" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="leftMenu">
+    <asp:Label ID="CategoriesLabel" Text="Categories:" CssClass="headerbar" 
+            runat="server" meta:resourcekey="CategoriesLabelResource1"></asp:Label>
+   <div class="menu2">
+    <asp:Menu ID="Menu1" runat="server" oninit="Menu1_Init" Width="130px"
+     StaticHoverStyle-CssClass="hoverMenuItem"
+     StaticMenuItemStyle-CssClass="menuItem"
+     StaticSelectedStyle-CssClass="selectedMenuItem" 
+           meta:resourcekey="Menu1Resource1" >
+<StaticSelectedStyle CssClass="selectedMenuItem"></StaticSelectedStyle>
+
+<StaticMenuItemStyle CssClass="menuItem"></StaticMenuItemStyle>
+
+<StaticHoverStyle CssClass="hoverMenuItem"></StaticHoverStyle>
+        <Items>
+            <asp:MenuItem Text="New Item" Value="New Item" 
+                meta:resourcekey="MenuItemResource1"></asp:MenuItem>
+        </Items>
+    </asp:Menu>
+    </div>
+</div>
+<div class="mainContent">
+    <asp:ContentPlaceHolder ID="NewsContentHolder" runat="server">
+    </asp:ContentPlaceHolder>
+</div>        
+</asp:Content>
+

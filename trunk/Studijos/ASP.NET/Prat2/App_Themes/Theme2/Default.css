@@ -1,0 +1,752 @@
+﻿body
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+.top
+{
+	padding: 5px;
+	background-color: #000000;
+	color: #FFFFFF;
+	text-align: right;
+}
+
+.top a
+{
+	margin-right: 2px;
+	text-decoration: none;
+	color: #FFFFFF;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #FFFFFF;
+	padding-left: 4px;
+	padding-right: 1px;
+}
+
+
+.top a:first-child
+{
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #FFFFFF;
+}
+
+.form table
+{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    clear: both;
+    float: left;
+}
+
+.tabs
+{
+    border-bottom-style: solid;
+    width: 100%;
+    border-bottom-width: 1px;
+    border-bottom-color: #000000;
+    padding-bottom: -5px;
+    margin-bottom: 5px;
+    display: table;
+    clear: both;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #000000;
+}
+
+.tabMenu
+{
+	padding: 2px 2px 0px 2px;
+	margin: 2px 2px -1px 2px;
+	float: left;
+}
+
+.tabsBack
+{
+	padding: 0px;
+	margin: 0px;
+	text-align: right;
+	float: right;
+}
+
+.tabMenu .normalTab
+{
+	padding: 2px;
+	border: 1px solid #000000;
+	margin-top: 2px;
+	margin-bottom: 0px;
+	text-decoration: none;
+	color: #000000;
+}
+
+.tabMenu .hoverTab
+{
+	text-decoration: underline;
+}
+
+.tabMenu .selectedTab
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000000 #000000 #FFFFFF #000000;
+	padding: 2px;
+	margin-top: 2px;
+	margin-bottom: 0px;
+}
+
+.form > table
+{
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+}
+
+.form h3
+{
+	padding: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.form .title
+{
+	min-width: 200px;
+	max-width: 200px;
+	width: 200px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+.form .separator
+{
+	padding: 0px;
+	display: block;
+	width: 100%;
+	height: 1px;
+	border-top-style: dashed;
+	border-top-width: 1px;
+	border-top-color: #000000;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+br.form
+{
+		display: block;
+	width: 100%;
+	border-top-style: dashed;
+	border-top-width: 1px;
+	border-top-color: #000000;
+}
+
+.form input[type="text"]
+{
+	width: 400px;
+}
+
+.form select
+{
+	width: 400px;
+}
+
+.form textarea
+{
+	width: 400px;    
+}
+
+.form .buttonsArea
+{
+	padding-left: 100px;
+}
+
+.form input[type="submit"]
+{
+	border: 1px solid #000000;
+	padding: 2px;
+	text-align: center;
+	background-color: #FFFFFF;
+}
+
+.leftMenu
+{
+    float: left;
+    width: 180px;
+    background-color: #FFFFFF;
+    height: 1000px;
+    margin-right: 5px;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #C0C0C0;
+}
+
+.mainContent
+{
+	margin: 5px;
+	padding: 5px;
+}
+
+.menuLabel
+{
+	margin-right: 5px;
+	color: #FFFFFF;
+	margin-left: 5px;
+	margin-top: 20px;
+}
+
+.menu
+{
+	padding: 2px;
+	margin: 5px 5px 10px 5px;
+}
+
+.menu .menuItem
+{
+	background-color: #000000;
+
+	color: #FFFFFF;
+	border-top-style: solid;
+	border-top-width: 2px;
+	border-top-color: #FFFFFF;
+}
+
+.menu .hoverMenuItem
+{
+	background-color: #000000;
+	color: #FF0000;
+}
+
+.menu .selectedMenuItem
+{
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+.menu .hoverMenuItem .selectedMenuItem
+{
+	border-color: #FFFFFF;
+	border-style: solid none solid none;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+.newBlock
+{
+	padding: 2px;
+	margin: 5px;
+}
+
+.newBlock .newTitle
+{
+	display: block;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #0066FF;
+}
+
+.newBlock .newBody
+{
+	display: block;
+	white-space:pre;
+}
+
+.newBlock a
+{
+	text-decoration: none;
+}
+
+.newBlock .buttonsArea
+{
+	display: block;
+	margin-top: 3px;
+}
+
+.smallText
+{
+	font-size: xx-small;
+}
+
+.toolbar
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF #FFFFFF #CDD2D4 #FFFFFF;
+	padding: 1px 3px 2px 3px;
+	margin: 5px 0px 5px 0px;
+	background-color: #EDF3F7;
+	color: #555555;
+	font-weight: normal;
+	height: 25px;
+}
+
+.toolbar .separator
+{
+	padding: 0px;
+	margin: 0px;
+	display: inline;
+	color: #CDD2D4;
+	position: relative;
+	top: -2px;
+	margin-right: -1px;
+	margin-left: 0px;
+}
+
+.toolbar input[type="submit"]
+{
+	margin: 0px 3px 0px 1px;
+	display: inline;
+	float: none;
+	text-decoration: none;
+	background-color: #EDF3F7;
+	color: #555555;
+	font-weight: normal;
+	padding: -1px 0px 0px 0px;
+	left: -2px;
+	margin-left: 0px;
+	border: 1px solid #CDD2D4;
+	height: 20px;
+	
+}	
+
+.toolbar input[type="submit"].simpleClear
+{
+    vertical-align:middle;
+    margin: 0px 3px 0px 1px;
+    display: inline;
+    float: none;
+    text-decoration: none;
+    background-color:Transparent;
+    color: #555555;
+    font-weight: normal;
+    padding: -1px 0px 0px 0px;
+    left: -2px;
+    margin-left: 0px;
+    border: 0px solid #CDD2D4;
+    height: 20px;
+    width: auto;
+}
+
+.toolbar .extButton
+{
+    padding: 0;    
+    padding-bottom: 2px;
+    position: relative;
+    top: 2px;
+    display:inline;    
+}
+
+.toolbar .extButton:hover
+{
+    background-color: #C0C0C0;
+}
+
+.toolbar input[type="submit"].simpleClear:hover
+{
+    vertical-align:middle;
+    margin: 0px 3px 0px 1px;
+    display: inline;
+    float: none;
+    text-decoration: none;
+    background-color:Transparent;
+    color: #555555;
+    font-weight: normal;
+    padding: -1px 0px 0px 0px;
+    left: -2px;
+    margin-left: 0px;
+    border: 0px solid #CDD2D4;
+    height: 20px;
+    width: auto;
+}
+
+.toolbar input[type="image"].simpleImageClear
+{
+    vertical-align:middle;
+}
+
+.toolbar input[type="submit"]:hover
+{
+	padding: -1px 0px 0px 0px;
+	left: -2px;
+	margin-left: 0px;
+	border: 1px solid #CDD2D4;
+	height: 20px;
+	text-decoration: underline;
+}
+
+.toolbar .inside
+{
+	position: relative;
+	left: -23px;
+	margin-right: -25px;
+}
+
+.insertButton
+{
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	padding: 0px 0px 0px 17px;
+	background-image: url(  'Images/add.png' );
+	background-repeat: no-repeat;
+}
+
+.editButton
+{
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	padding: 0px 0px 0px 17px;
+	background-image: url( 'Images/script_edit.png' );	
+	background-repeat: no-repeat;
+}
+
+.deleteButton
+{
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	padding: 0px 0px 0px 17px;
+	background-image: url( 'Images/delete.png' );	
+	background-repeat: no-repeat;	
+}
+
+.pager
+{
+	margin: 2px;
+	padding: 2px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-color: #000000;
+	border-bottom-color: #000000;
+	text-align: left
+}
+
+.simpleButton
+{
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	padding: 0px 0px 0px 0px;
+	width: 70px;
+}
+
+.simpleClear
+{
+    background-color: #FFFFFF;
+    border: 0px solid #000000;
+    padding: 0px 0px 0px 0px;
+    width: 45px;
+    text-align: left;
+}
+
+.simpleSmall
+{
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	padding: 0px 2px 0px 2px;
+	width: 20px;
+	margin-top: -1px;
+}
+
+.simpleSmallLabel
+{
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	padding: 0px 2px 0px 2px;
+	width: 20px;
+	position:relative;
+	top: 1px;
+	vertical-align: top
+}
+
+.maxContainer
+{
+	font-size: larger;
+	display: block;
+	min-width: 400px;
+}
+
+.grid
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+.grid > table > tr > td > table
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+.grid > table > tr > td > table > tr
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+.grid > table > tr > td > table > tr > td
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+
+.grid .simpleRow
+{
+	border-width: 1px;
+	padding: 0px;
+	margin: 0px;
+	height:23px;
+	border-bottom-color: #D5E8EF;
+	border-top-color: #D5E8EF;
+	border-style: solid hidden solid hidden;
+	
+}
+
+.grid .simpleRow td
+{
+	margin: 0px -1px 0px -1px;
+	border-style: solid hidden solid solid;
+	border-width: 1px 0px 1px 0px;
+	border-color: #D5E8EF #FFFFFF #D5E8EF #FFFFFF;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #555555;
+}
+
+.grid .header th
+{
+	margin: 0px -5px 0px -5px;
+	padding: 3px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF #FFFFFF #AEC4D2 #FFFFFF;
+	background-color: #DFEAF2;
+	color: #1B678A;
+	text-align: left;
+}
+
+.grid .header th input[type="image"]
+{
+	float:right;
+	margin-left: 5px;
+}
+
+.grid .header th a
+{
+	float: left;
+	color: #1B678A;
+	text-decoration: none;
+	font-weight: bold;	
+}
+
+.grid .header th .okButton
+{
+	float:none;
+	color: #1B678A;
+	text-decoration: none;
+	font-weight: normal;	
+}
+
+.grid .header th div
+{
+	border: 1px solid #000000;
+	float: left;
+	margin-left: 3px;
+	position: relative;
+	top: -2px;
+}
+
+.grid input[type="text"]
+{
+    width: 99%;
+}
+
+.grid select
+{
+    width: 99%;
+}
+
+.imageButton
+{
+}
+
+.container
+{
+    width: 600px;
+}
+
+.menu2
+{
+width: 180px; /*width of menu*/
+}
+
+.menu2 table
+{
+    width: 160px;    
+    padding: 0;
+    margin: 0;    
+}
+
+.menu2 tr
+{
+    width: 160px;
+}
+
+.menu2 td
+{
+    width: 160px;
+}
+
+.headerbar
+{
+    background-position: left;
+    font: bold 14px Arial;
+    color: white;
+    background: black url(Images/titlebar.png) repeat-x center left;
+    margin-bottom: 0px; /*bottom spacing between header and rest of content*/
+    text-transform: uppercase;
+    padding: 4px 0 4px 10px;
+    display: block;
+}
+
+.arrowlistmenu ul{
+list-style-type: none;
+margin: 0;
+padding: 0;
+margin-bottom: 8px; /*bottom spacing between each UL and rest of content*/
+}
+
+.arrowlistmenu ul li{
+padding-bottom: 2px; /*bottom spacing between menu items*/
+}
+
+.menu2 .menuItem td{
+color: #A70303;
+background: url(Images/arrowbullet.png) no-repeat center left; /*custom bullet list image*/
+display: block;
+padding: 2px 0;
+padding-left: 19px; /*link text is indented 19px*/
+text-decoration: none;
+font-weight: bold;
+border-bottom: 1px solid #dadada;
+font-size: 90%;
+}
+
+.menu2 .menuItem a
+{
+    color: #A70303;
+}
+
+.menu2 .selectedMenuItem td{
+color: #A70303;
+}
+
+.menu2 .selectedMenuItem a
+{
+    color: #808080;
+}
+
+.menu2 .hoverMenuItem td{ /*hover state CSS*/
+color: #A70303;
+background-color: #F3F3F3;
+}
+
+.popupbox
+{
+    border: 1px solid #000000;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    width: 400px;
+    margin-top: 20%;
+    margin-left: 30%;
+    padding-bottom: 5px;
+}
+
+.popupbox table
+{
+    padding: 0px;
+    margin: 0px;
+    width: 400px;
+}
+
+.popupbox table tr
+{
+    width: 400px;
+
+}
+
+.popupbox .nameLabel
+{
+    width: 100px;
+    display: inline;
+    float: left;
+    text-align: right;
+    padding-right: 5px;
+    margin-bottom: 2px;
+    padding-top: 2px;
+}
+
+.popupbox .value
+{
+    width: 280px;
+    display: inline;
+    float: left;
+    text-align: left;
+    padding-top: 2px;
+    padding-bottom: 3px;
+}
+
+.popupbox table .value input[type="text"]
+{
+    width: 200px;
+    float: left;
+    display: inline;
+}
+
+.popupbox table .value input[type="password"]
+{
+    width: 200px;
+    float: left;
+    display: inline;    
+}
+
+.popupbox table .value span
+{
+    display: inline;
+    float: left;
+}
+
+.popupbox .miniLink
+{
+    font-size: xx-small;
+    text-decoration: none;
+    color: #000080;
+}
+
+.popupbox .linkArea
+{
+    padding-left: 5px;
+    padding-bottom: 3px;
+    text-align: left;
+    display: inline;
+    float: left;
+}
+
+
+.popupbox .buttonArea
+{
+    text-align: right;
+    display: inline;
+    float: left;
+}
+
+.popupbox .label
+{
+    display: block;
+    width: 400px;
+    background-color: #808080;
+    color: #FFFFFF;
+    font-weight: bolder;
+    font-size: larger;
+}
