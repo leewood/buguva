@@ -1,0 +1,36 @@
+1. 
+
+  SELECT Skaitytojas 
+  FROM Stud.Egzempliorius 
+  WHERE ISBN = '9997-03-303-5';
+2. 
+  SELECT SUM(Verte) 
+  FROM Stud.Knyga 
+  WHERE ISBN 
+    IN (SELECT ISBN 
+        FROM Stud.Egzempliorius 
+        WHERE Skaitytojas 
+          IN (SELECT Nr 
+              FROM Stud.Skaitytojas 
+              WHERE AK = '48103021111' ));
+
+
+   SELECT SUM(Verte) 
+   FROM Stud.Knyga,
+        Stud.Egzempliorius,
+        Stud.Skaitytojas
+   WHERE Knyga.ISBN = Egzempliorius.ISBN AND 
+         Skaitytojas.Nr = Egzempliorius.Skaitytojas AND 
+         Skaitytojas.AK = '48103021111';
+3. SELECT Knyga.ISBN, Pavadinimas, COUNT(Skaitytojas.Nr) AS 'Skaitytoju skaicius' 
+   FROM Stud.Skaitytojas, Stud.Egzempliorius, Stud.Knyga 
+   WHERE Knyga.ISBN = Egzempliorius.ISBN 
+         AND Skaitytojas.Nr = Skaitytojas 
+   GROUP BY Egzempliorius.ISBN;
+4. SELECT MAX(Suma) 
+   FROM (SELECT COUNT(Paimta) AS Suma 
+         FROM Stud.Egzempliorius GROUP BY Paimta) AS Pr;
+5. SELECT TABNAME FROM SYSCAT.TABLES WHERE MONTH(CURRENT_DATE) == MONTH(CREATE_TIME);
+
+
+Bush hides the facts

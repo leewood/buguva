@@ -1,0 +1,222 @@
+CREATE TABLE biblio.Autorius (
+    Nr          INTEGER   NOT NULL AUTO_INCREMENT,
+    Vardas      CHAR(12)    NOT NULL,
+    Pavarde     VARCHAR(20) NOT NULL,
+    PRIMARY KEY (Nr));
+
+
+CREATE TABLE biblio.Knyga (
+    ISBN        CHAR(13)    NOT NULL,
+    Pavadinimas VARCHAR(32) NOT NULL,
+    Leidykla    CHAR(12)    NOT NULL,
+    Metai       SMALLINT    NOT NULL CHECK(Metai > 1900 AND Metai < 2010),
+    Puslapiai   SMALLINT    NOT NULL CHECK(Puslapiai > 0 AND Puslapiai < 2000),
+    Verte       DECIMAL(5,2) CHECK(Verte > 0 AND Verte < 1000),
+    Kalba       CHAR(12)    NOT NULL,
+    Sritis      CHAR(12)    NOT NULL,
+    Autorius    INTEGER     NOT NULL,
+    PRIMARY KEY (ISBN),
+    FOREIGN KEY AutKnyg(Autorius) REFERENCES biblio.Autorius ON DELETE CASCADE ON UPDATE RESTRICT);
+
+
+CREATE TABLE biblio.CD (
+    ISBN        CHAR(13)    NOT NULL,
+    Pavadinimas VARCHAR(32) NOT NULL,
+    Data        DATE        NOT NULL,
+    Verte       DECIMAL(5,2) CHECK(Verte > 0 AND Verte < 1000),
+    Kalba       CHAR(12)    NOT NULL,
+    Sritis      CHAR(12)    NOT NULL,
+    Autorius    INTEGER     NOT NULL,
+    PRIMARY KEY (ISBN),
+    FOREIGN KEY AutCD(Autorius) REFERENCES biblio.Autorius ON DELETE CASCADE ON UPDATE RESTRICT);
+
+CREATE TABLE biblio.Skaitytojas (
+    Nr          INTEGER     NOT NULL AUTO_INCREMENT,
+    AK          CHAR(11)    NOT NULL,
+    Vardas      CHAR(12)    NOT NULL,
+    Pavarde     VARCHAR(20) NOT NULL,
+    Gimimas     DATE        NOT NULL,
+    Adresas     VARCHAR(32),
+    Leidimai    SMALLINT    NOT NULL CHECK(Leidimai >= 0 AND Leidimai < 2),
+    Slaptazodis VARCHAR(15) NOT NULL,
+    PRIMARY KEY (Nr));
+
+
+CREATE TABLE biblio.Egzempliorius (
+    Nr          INTEGER     NOT NULL AUTO_INCREMENT,
+    ISBN        CHAR(13)    NOT NULL,
+    Skaitytojas INTEGER,
+    Paimta      DATE,
+    Grazinti    DATE,
+    PRIMARY KEY (Nr),
+    FOREIGN KEY Knygai(ISBN)             REFERENCES biblio.Knyga ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY CDui(ISBN)             REFERENCES biblio.CD ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY Skaitytojui(Skaitytojas) REFERENCES biblio.Skaitytojas ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CHECK(Grazinti >= Paimta));
+
+
+CREATE TABLE biblio.Rezervuota (
+    Nr          INTEGER     NOT NULL AUTO_INCREMENT,
+    Data        Date        NOT NULL,
+    Rezervuotojas INTEGER   NOT NULL,
+    Egzempliorius CHAR(13)   NOT NULL,
+    FOREIGN KEY Egz(Egzempliorius) REFERENCES biblio.Egzempliorius  ON DELETE CASCADE ON UPDATE RESTRICT,
+    FOREIGN KEY Rez(Rezervuotojas) REFERENCES biblio.Skaitytojas ON DELETE RESTRICT ON UPDATE RESTRICT,
+    PRIMARY KEY (Nr));
+
+
+
+
+CREATE VIEW biblio.SkaitytojasAmzius AS
+    SELECT A.*, YEAR(Now() - A.Gimimas) AS Amzius
+    FROM biblio.Skaitytojas AS A;
+
+CREATE VIEW biblio.KnyguEgzemplioriai AS
+    SELECT A.ISBN, A.Pavadinimas,
+           COUNT(*)      AS Viso,
+           COUNT(Paimta) AS Paimta,
+           COUNT(*) - COUNT(Paimta) AS Nepaimta, 'Knyga' AS Tipas
+    FROM biblio.Knyga A, biblio.Egzempliorius B
+    WHERE A.ISBN = B.ISBN
+    GROUP BY A.ISBN, A.Pavadinimas 
+    UNION
+    SELECT A.ISBN, A.Pavadinimas,
+           COUNT(*)      AS Viso,
+           COUNT(Paimta) AS Paimta,
+           COUNT(*) - COUNT(Paimta) AS Nepaimta, 'CD' AS Tipas
+    FROM biblio.CD A, biblio.Egzempliorius B
+    WHERE A.ISBN = B.ISBN
+    GROUP BY A.ISBN, A.Pavadinimas;
+
+CREATE VIEW biblio.Paemimai AS
+    SELECT A.ISBN, A.Pavadinimas, B.Nr AS Egzempliorius,
+           B.Paimta, B.Grazinti,
+           C.Nr AS Skaitytojas, C.Vardas, C.Pavarde
+    FROM biblio.Knyga A, biblio.Egzempliorius B, biblio.Skaitytojas C
+    WHERE B.Paimta IS NOT NULL AND A.ISBN = B.ISBN AND B.Skaitytojas = C.Nr
+    UNION
+    SELECT A.ISBN, A.Pavadinimas, B.Nr AS Egzempliorius,
+           B.Paimta, B.Grazinti,
+           C.Nr AS Skaitytojas, C.Vardas, C.Pavarde
+    FROM biblio.cd A, biblio.Egzempliorius B, biblio.Skaitytojas C
+    WHERE B.Paimta IS NOT NULL AND A.ISBN = B.ISBN AND B.Skaitytojas = C.Nr;
+
+CREATE VIEW biblio.RezervuotiViso AS
+    SELECT A.ISBN, A.Pavadinimas,
+           COUNT(*)      AS Viso, 'Knyga' AS Tipas
+    FROM biblio.Knyga A, biblio.Rezervuota B
+    WHERE A.ISBN = B.Egzempliorius
+    GROUP BY A.ISBN, A.Pavadinimas 
+    UNION
+    SELECT A.ISBN, A.Pavadinimas,
+           COUNT(*)      AS Viso, 'CD' AS Tipas
+    FROM biblio.CD A, biblio.Rezervuota B
+    WHERE A.ISBN = B.Egzempliorius
+    GROUP BY A.ISBN, A.Pavadinimas;
+
+CREATE VIEW biblio.rezervai1 AS
+    SELECT A.ISBN, A.Pavadinimas,
+           0 AS Viso
+    FROM biblio.Knyga A Where ISBN NOT IN (SELECT ISBN FROM rezervuotiviso)
+    UNION
+    SELECT ISBN, Pavadinimas, Viso FROM rezervuotiviso;
+
+CREATE VIEW biblio.rezervai2 AS
+    SELECT A.ISBN, A.Pavadinimas,
+           0 AS Viso
+    FROM biblio.CD A Where ISBN NOT IN (SELECT ISBN FROM rezervuotiviso)
+    UNION
+    SELECT ISBN, Pavadinimas, Viso FROM rezervuotiviso;
+
+CREATE VIEW biblio.rezervai AS
+    SELECT A.ISBN, A.Pavadinimas,
+           A.Viso
+    FROM biblio.rezervai1 A
+    UNION
+    SELECT A.ISBN, A.Pavadinimas,
+           A.Viso
+    FROM biblio.rezervai2 A;
+
+
+CREATE VIEW biblio.Egzemplioriai AS
+    SELECT A.Tipas, A.ISBN, A.Pavadinimas, A.Viso, A.Paimta, A.Nepaimta, B.Viso AS Rezervuota
+    FROM biblio.knyguegzemplioriai A, biblio.Rezervai B
+    WHERE A.ISBN = B.ISBN;
+
+
+
+INSERT INTO biblio.Autorius VALUES(1, 'Jonas',   'Jonaitis'  ) ;
+INSERT INTO biblio.Autorius VALUES(2, 'Petras',  'Petraitis' ) ;
+INSERT INTO biblio.Autorius VALUES(3, 'Pijus',   'Jonaitis'  ) ;
+INSERT INTO biblio.Autorius VALUES(4, 'Onute',   'Jonaityte' ) ;
+INSERT INTO biblio.Autorius VALUES(5, 'Jonas',   'Petraitis' ) ;
+INSERT INTO biblio.Autorius VALUES(6, 'Jonas',   'Jonaitis'  ) ;
+INSERT INTO biblio.Autorius VALUES(7, 'Juozas',  'Juodakis'  ) ;
+INSERT INTO biblio.Autorius VALUES(8, 'Antanas', 'Antanaitis') ;
+INSERT INTO biblio.Autorius VALUES(9, 'Maryte',  'Grazulyte' ) ;
+INSERT INTO biblio.Autorius VALUES(10, 'Janina',  'Jonaityte' ) ;
+INSERT INTO biblio.Autorius VALUES(11, 'Simas',   'Simaitis'  ) ;
+INSERT INTO biblio.Autorius VALUES(12, 'Petras',  'Petraitis' ) ;
+INSERT INTO biblio.Autorius VALUES(13, 'Simas',   'Baltakis'  ) ;
+INSERT INTO biblio.Autorius VALUES(14, 'Jonas',   'Petraitis' ) ;
+
+INSERT INTO biblio.Knyga VALUES('9998-01-101-9','Duomenu bazes',           'Baltoji',   2000, 212, NULL , 'Lietuviu', 'Kompiuteriai', 1) ;
+INSERT INTO biblio.Knyga VALUES('9998-01-102-7','Programavimo kalbos',     'Baltoji',   2001, 401, 22.50, 'Lietuviu', 'Kompiuteriai', 2) ;
+INSERT INTO biblio.Knyga VALUES('9999-02-202-2','Operacines sistemos',     'Juodoji',   2001, 356, 19.90, 'Lietuviu', 'Kompiuteriai', 3) ;
+INSERT INTO biblio.Knyga VALUES('9999-02-203-0','Transliavimo metodai',    'Juodoji',   2002, 495, 30.00, 'Lietuviu', 'Kompiuteriai', 4) ;
+INSERT INTO biblio.Knyga VALUES('9998-01-103-5','Objektinis programavimas','Baltoji',   2001, 356, 19.90, 'Lietuviu', 'Kompiuteriai', 5) ;
+INSERT INTO biblio.Knyga VALUES('9997-03-303-5','Informacines sistemos',   'Raudonoji', 2001, 254, 15.50, 'Lietuviu', 'Kompiuteriai', 6) ;
+INSERT INTO biblio.Knyga VALUES('9998-01-104-3','Kompiuteriu tinklai',     'Baltoji',   2002, 455, 35.20, 'Lietuviu', 'Kompiuteriai', 7) ;
+
+INSERT INTO biblio.Skaitytojas VALUES(1000, '38001010222', 'Jonas',   'Petraitis', '1987-01-01', 'Tiesioji 1-10', 0 , 'bla') ;
+INSERT INTO biblio.Skaitytojas VALUES(1001, '38002200102', 'Jonas',   'Onaitis',   '1987-02-28', 'Lenktoji 20' , 0, 'ups') ;
+INSERT INTO biblio.Skaitytojas VALUES(1010, '48103021111', 'Milda',   'Onaityte',  '1988-03-02', 'Didzioji 21-5', 0, 'roto') ;
+INSERT INTO biblio.Skaitytojas VALUES(1015, '48206301011', 'Onute',   'Petraityte','1989-06-30', 'Didzioji 21-5',  0, 'pukst') ;
+INSERT INTO biblio.Skaitytojas VALUES(1021, '38105301031', 'Petras',  'Jonaitis',  '1988-05-30', 'Mazoji 1', 1, 'oi') ;
+INSERT INTO biblio.Skaitytojas VALUES(1032, '38112310031', 'Tadas',   'Onaitis',   '1988-12-31', 'Tiesioji 12', 0, 'lapas') ;
+INSERT INTO biblio.Skaitytojas VALUES(1033, '48111300131', 'Grazina', 'Petraityte','1988-11-30', 'Tiesioji 1-10', 0, '123456789' ) ;
+
+INSERT INTO biblio.Egzempliorius VALUES(32101, '9998-01-101-9', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32102, '9998-01-101-9', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32103, '9998-01-101-9', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32104, '9998-01-101-9', 1000, '2007-09-02', '2007-10-05' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32105, '9998-01-101-9', 1010, '2007-09-14', '2007-10-04' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32106, '9998-01-101-9', 1021, '2007-09-14', '2007-10-04' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32107, '9998-01-101-9', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32108, '9998-01-101-9', 1001, '2007-09-02', '2007-10-14' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32109, '9998-01-101-9', 1032, '2007-09-20', '2007-10-05' ) ;
+
+
+INSERT INTO biblio.Egzempliorius VALUES(32200, '9998-01-102-7', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32201, '9998-01-102-7', 1021, '2007-09-02', '2007-10-04' ) ;
+
+INSERT INTO biblio.Egzempliorius VALUES(32301, '9999-02-202-2', 1000, '2007-09-02', '2007-09-15' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32302, '9999-02-202-2', 1021, '2007-09-14', '2007-10-04' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32303, '9999-02-202-2', NULL, NULL, NULL ) ;
+
+
+INSERT INTO biblio.Egzempliorius VALUES(32330, '9999-02-203-0', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32331, '9999-02-203-0', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32332, '9999-02-203-0', 1010, '2007-09-14', '2007-10-05' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32333, '9999-02-203-0', 1015, '2007-09-14', '2007-10-05' ) ;
+
+INSERT INTO biblio.Egzempliorius VALUES(32401, '9998-01-103-5', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32402, '9998-01-103-5', 1032, '2007-09-20', '2007-10-05' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32403, '9998-01-103-5', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32404, '9998-01-103-5', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32405, '9998-01-103-5', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32406, '9998-01-103-5', 1010, '2007-09-14', '2007-10-04' ) ;
+
+INSERT INTO biblio.Egzempliorius VALUES(32501, '9997-03-303-5', 1010, '2007-09-14', '2007-10-04' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32502, '9997-03-303-5', 1032, '2007-09-20', '2007-10-04' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32503, '9997-03-303-5', 1015, '2007-09-20', '2007-10-05' ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32504, '9997-03-303-5', 1001, '2007-09-06', '2007-10-05' ) ;
+
+INSERT INTO biblio.Egzempliorius VALUES(32601, '9998-01-104-3', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32602, '9998-01-104-3', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32603, '9998-01-104-3', NULL, NULL, NULL ) ;
+INSERT INTO biblio.Egzempliorius VALUES(32604, '9998-01-104-3', NULL, NULL, NULL ) ;
+
+INSERT INTO biblio.Rezervuota VALUES(1, '2007-10-05', 1000, '9998-01-104-3') ;
+INSERT INTO biblio.Rezervuota VALUES(2, '2007-10-05', 1010, '9998-01-103-5') ;
+INSERT INTO biblio.Rezervuota VALUES(3, '2007-10-05', 1001, '9999-02-203-0') ;
