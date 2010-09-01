@@ -1,0 +1,120 @@
+<html>
+
+<head>
+<title>Requirements</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta name="Microsoft Border" content="b">
+</head>
+
+<body><!--msnavigation--><table dir="ltr" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top">
+
+<table border="0" width="100%">
+   <tr>
+      <td width="80%">
+         <p align="left"><!--webbot bot="Navigation" s-type="siblings"
+         s-orientation="horizontal" s-rendering="graphics" b-include-home="FALSE"
+         b-include-up="TRUE" u-page s-target startspan --><nobr>[&nbsp;<a href="help.html" target="">Up</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="shortcuts.html" target="">Shortcuts</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="copyright.html" target="">Copyright</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="contact.html" target="">Contact</a>&nbsp;]</nobr> <nobr>[&nbsp;Requirements&nbsp;]</nobr> <nobr>[&nbsp;<a href="browserProps.html" target="">Browser</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="systemFonts.html" target="">Fonts</a>&nbsp;]</nobr><!--webbot bot="Navigation" endspan i-checksum="43061" --></td>
+      <td width="20%">
+         <p align="right"><strong><em><font color="#004080">JavaView</font></em></strong></td>
+   </tr>
+</table>
+
+<h2>Requirements for <strong><em><font color="#004080">JavaView</font></em></strong></h2>
+<blockquote>
+   <p>JavaView runs on any computer and operating system which has a web browser
+   with a valid Java_1.1 installation. The currently downloadable browser
+   versions at Microsoft and Netscape are fine. For older versions see below.</p>
+   <p>The browser installation on Win/NT PCs and Macintosh computers usually do
+   all necessary Java installations. On UNIX systems some additional setup might
+   be necessary for each user, for example, a correct CLASSPATH - please,
+   consult your system operator.</p>
+
+   <h3>In Case of Problems</h3>
+   <p>The initial download of the JavaView archive may need some time on slow
+   connections. Between 300KB and 500KB must be transferred over the network
+   until JavaView starts. This archive is transferred once. Other JavaView
+   applets do not require a new download of the archive but use the version of
+   the browser's cache.</p>
+	<h4>General Rules</h4>
+	<p>If there is no applet or geometry visible after some time, try the
+   following steps:</p>
+   <ol>
+      <li><strong>Browser Version:</strong>  On MS-Windows and Unix assure that you
+         have a browser with version number<br>
+         &nbsp;&nbsp; <b><font color="#008000">Microsoft Internet Explorer 4.01
+         and later<br>
+         &nbsp;&nbsp; Netscape Navigator 4.08 and later.</font></b><br>
+      On <b> <font color="#008000">Apple Macintosh</font></b>, see below in the <a
+		href="#MacOS">MacOS</a>.<br>
+         If you do not know your browser's version number, go to the following
+         page which will list your <a href="browserProps.html">browser
+         properties</a>.</li>
+      <li><strong>Enable Java:</strong> If you do not see the message
+         &quot;JavaView initializing ...&quot; after some time, then your
+         browser could not start JavaView. Maybe Java is not enabled in your
+         browser, so check the menu entry <code>Edit-Preferences-Advanced</code>
+         in Netscape or <code>Extras-Internet Options-Advanced</code> in
+         Microsoft Internet Explorer whether your browser is Java enabled.</li>
+      <li><strong>Security Issues:</strong> If you do not see the message
+         &quot;JavaView initializing ...&quot; after some time, there might be a
+         security issue. Try open the Java Console of your browser via menu <code>Communicator-Java
+         Console</code> or <code>Communicator-Tools-Java Console</code> or <code>View-Java
+         Console</code> and look for the word <code>Security</code>. (Remark: on
+         MS Internet Explorer the console must be enabled in the Preferences.)
+         Security issues are a bit delicate for beginners to understand and you
+         might want to ask an expert who knows about your operating system and
+         the security policy. This has nothing to do with JavaView.</li>
+   </ol>
+	<h4>Windows Family</h4>
+	<ol>
+		<li>
+		<b>Important Hint on javaview.exe:</b> On MS-Windows, if you have an
+		older version of the virtual machine then you will receive an error
+		message when executing javaview.exe. Please, either upgrade the Internet
+			Explorer which will also upgrade the JVM, or directly download a newer JVM
+		from Microsoft.</li>
+	</ol>
+	<h4>Linux:</h4>
+	<ol>
+		<li><b>kaffe:</b> for LINUX versions, we were told that the standalone version of JavaView
+   does not run correctly under <font color="#008000"><b>kaffe 1.04</b></font>
+   but it seems to run ok with <font color="#008000"><b>kaffe 1.05</b></font>.
+   This seems to be a bug in those implementations of Java.</li>
+		<li><b>Problems with window sizes 
+and popup-menus:</b>
+<P>Sun's JRE1.3.0_x and JRE1.3.1 on <STRONG><FONT 
+color=#008000>Linux with KDE 2.x, RedHat 7.1 or SuSE 7.2</FONT></STRONG>              sometimes has problems with window sizes 
+and popup-menus. New windows open in arbitrary dimensions and popup-menus may not 
+open at all or don't show any text or doesn't have any effect.</P>
+<P>Possible solutions:</P>
+	<div align="left">
+		<table border="0" width="90%">
+			<tr>
+				<td width="100%">- <A href="http://www.ibm.com/java">Download and use the IBM Developer Kit 
+  and Runtime Environment</A> instead of Sun's JRE (tested) or</td>
+			</tr>
+			<tr>
+				<td width="100%">- <A href="http://www.blackdown.org">Download and use the Blackdown 1.3.x 
+  FCS version of JRE</A> instead of Sun's JRE or</td>
+			</tr>
+			<tr>
+				<td width="100%">- Use the Enlightment window manager under the KDE desktop 
+  manager</td>
+			</tr>
+		</table>
+	</div>
+	<h4><a name="MacOS">MacOS</a></h4>
+	<ol>
+		<li><b>Java Runtime: </b>you must have the
+        Macintosh Runtime for Java (MRJ) 2.1 or later. For more information see the <a href="mac.html">page</a>.</li>
+	</ol>
+</blockquote>
+&nbsp;<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
+
+<p align="center"><nobr><small>© 1999-2004&nbsp;Last modified:
+19.07.2004&nbsp;--- <a
+ href="http://www.javaview.de" target="_top" 
+     >http://www.javaview.de</a></small></nobr></p></td></tr><!--msnavigation--></table></body>
+
+</html>

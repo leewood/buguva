@@ -1,0 +1,46 @@
+<html>
+	<head><title>Sample HTML File for JavaView</title></head>
+	<body>
+		<h2>Sample HTML File for
+			<STRONG><EM><FONT color=#004080>JavaView</FONT></EM></STRONG>
+		</h2>
+		<blockquote>
+			<p>
+				This is a test page of
+				<STRONG><EM><FONT color=#004080>JavaView</FONT></EM></STRONG>.
+				This page contains a Java applet showing a
+				simple geometry using the 3d viewer of
+				<STRONG><EM><FONT color=#004080>JavaView</FONT></EM></STRONG>.
+			</p>
+			<p>Here comes the applet...</p>
+			<blockquote><APPLET archive=jars/javaview.jar,jars/jvx.jar
+			width=200 height=200 code=javaview.class>
+			<PARAM NAME="model" VALUE="sample.obj">
+			<PARAM NAME="control" VALUE="Hide">
+	
+    			Loading sample geometry.</APPLET>
+			</blockquote>
+			<p>
+				On slower computers it may take some time until the image appears.
+				At first, the browser must load its Java environment,
+				then the browser must read the
+				<STRONG><EM><FONT color=#004080>JavaView</FONT></EM></STRONG>
+				archive from disk, and finally the browser must run
+				<STRONG><EM><FONT color=#004080>JavaView</FONT></EM></STRONG>
+				viewer.
+			</p>
+			<p>
+				To display your own geometries just replace the name "sample.obj"
+				in the HTML code of this page with the name of your geometry file.
+				Possible file formats and further details on
+				including applets are discussed in the
+				<STRONG><EM><FONT color=#004080>JavaView</FONT></EM></STRONG> 
+  tutorial.&nbsp;
+		<nobr><small> 
+			   
+		</small></nobr>	
+				
+			</p>
+		</blockquote>
+	</body>
+</html>
