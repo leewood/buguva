@@ -1,0 +1,7 @@
+C:\Studijos\SkaitiniaiMetodai\Metodai1\Metodai1\obj\Debug\ResolveAssemblyReference.cache
+C:\Studijos\SkaitiniaiMetodai\Metodai1\Metodai1\obj\Debug\Metodai1.Properties.Resources.resources
+C:\Studijos\SkaitiniaiMetodai\Metodai1\Metodai1\obj\Debug\Metodai1.csproj.GenerateResource.Cache
+C:\Studijos\SkaitiniaiMetodai\Metodai1\Metodai1\bin\Debug\Metodai1.exe
+C:\Studijos\SkaitiniaiMetodai\Metodai1\Metodai1\bin\Debug\Metodai1.pdb
+C:\Studijos\SkaitiniaiMetodai\Metodai1\Metodai1\obj\Debug\Metodai1.exe
+C:\Studijos\SkaitiniaiMetodai\Metodai1\Metodai1\obj\Debug\Metodai1.pdb
