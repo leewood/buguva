@@ -1,0 +1,16 @@
+DATA dagr9.u2;
+INPUT X Y sk;
+DATALINES;
+1 2 33 
+1 3 43  
+1 4 80
+1 5 144
+2 2 39
+2 3 35
+2 4 72
+2 5 154
+;
+PROC FREQ DATA=dagr9.u2; 
+ TABLES X*Y / CHISQ;
+ WEIGHT sk;
+RUN;

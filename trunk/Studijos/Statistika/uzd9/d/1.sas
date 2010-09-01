@@ -1,0 +1,12 @@
+DATA dagr9.u1;
+INPUT rusis $ daznis;
+DATALINES;
+GA 315
+GR 101
+ZA 108
+ZR 32
+;
+PROC FREQ DATA=dagr9.u1 ORDER=DATA;
+ WEIGHT daznis;
+ TABLES rusis / NOCUM TESTP=(56.25 18.75 18.75 6.25);
+RUN;
