@@ -1,0 +1,51 @@
+unit Unit3;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, ComCtrls;
+
+type
+  TForm3 = class(TForm)
+    RichEdit1: TRichEdit;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+  fname:string;
+implementation
+
+{$R *.DFM}
+
+procedure TForm3.Button1Click(Sender: TObject);
+begin
+fname := 'galas.txt';
+form3.memo1.Lines.LoadFromFile(fname);
+end;
+
+procedure TForm3.Button2Click(Sender: TObject);
+begin
+fname := 'priesaga.txt';
+form3.memo1.Lines.LoadFromFile(fname);
+end;
+
+procedure TForm3.Button3Click(Sender: TObject);
+var t: textfile;
+    x: integer;
+begin
+form3.Memo1.Lines.SaveToFile(fname);
+end;
+
+end.
