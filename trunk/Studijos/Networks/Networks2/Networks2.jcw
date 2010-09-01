@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workspace>
+	<settings>
+		<label>Networks2</label>
+	</settings>
+	<users>
+		<user>
+			<path>Networks2.jcu</path>
+		</user>
+	</users>
+	<projects>
+		<project>
+			<path>Client\Client.jcp</path>
+		</project>
+		<project>
+			<path>Networks2.jcp</path>
+		</project>
+	</projects>
+</workspace>

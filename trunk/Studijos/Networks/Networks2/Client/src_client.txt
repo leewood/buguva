@@ -1,0 +1,14 @@
+E:\Networks2\Client\src\Client.java
+E:\Networks2\Client\src\Inventory.java
+E:\Networks2\Client\src\Login.java
+E:\Networks2\Client\src\MapColumn.java
+E:\Networks2\Client\src\Me.java
+E:\Networks2\Client\src\NetworkClient.java
+E:\Networks2\Client\src\ObjectDef.java
+E:\Networks2\Client\src\Screen.java
+E:\Networks2\Client\src\SystemWindow.java
+E:\Networks2\Client\src\TextConsole.java
+E:\Networks2\Client\src\TextLine.java
+E:\Networks2\Client\src\TMap.java
+E:\Networks2\Client\src\TPixel.java
+E:\Networks2\Client\src\Utils.java

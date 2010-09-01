@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+	<settings>
+		<label>Networks2</label>
+		<root_path>\</root_path>
+		<output_path>classes\</output_path>
+		<source_path>src\</source_path>
+		<jdkprofile_ref>JDK version 1.6.0_10</jdkprofile_ref>
+		<compiler_ref>&lt;Default&gt;</compiler_ref>
+		<ant_ref/>
+	</settings>
+	<ant_events/>
+	<run_items>
+		<item run="Main"/>
+	</run_items>
+	<runtimes>
+		<runtime>
+			<label>&lt;Default&gt;</label>
+			<application_ref/>
+			<applet_ref/>
+			<debugger_ref/>
+			<param/>
+			<run>Main</run>
+			<verify>true</verify>
+		</runtime>
+	</runtimes>
+	<libraries/>
+	<files>
+		<include>
+			<folderitem>
+				<path>src</path>
+			</folderitem>
+			<fileitem>
+				<path>src\ClientInfo.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Enemy.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\KKMultiServerThread.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Main.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Map.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\MapDef.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\ObjectDef.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Server.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Utils.java</path>
+				<folder>src</folder>
+			</fileitem>
+		</include>
+	</files>
+	<tasks/>
+</project>
