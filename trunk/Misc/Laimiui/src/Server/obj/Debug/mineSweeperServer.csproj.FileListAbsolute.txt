@@ -1,0 +1,10 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\obj\Debug\mineSweeperServer.MainForm.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\obj\Debug\mineSweeperServer.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\obj\Debug\mineSweeperServer.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\bin\Debug\mineSweeperServer.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\bin\Debug\mineSweeperServer.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\obj\Debug\mineSweeperServer.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\obj\Debug\mineSweeperServer.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\bin\Debug\myDB.sdf
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\WindowsFormsApplication2\Server\mineSweeperServer\bin\Debug\mineSweeperServer.exe.config
