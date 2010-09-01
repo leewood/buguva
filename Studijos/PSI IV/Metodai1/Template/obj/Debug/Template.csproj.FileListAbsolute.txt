@@ -1,0 +1,8 @@
+C:\Studijos\PSI\Metodai1\Template\obj\Debug\ResolveAssemblyReference.cache
+C:\Studijos\PSI\Metodai1\Template\obj\Debug\Metodai1.Form1.resources
+C:\Studijos\PSI\Metodai1\Template\obj\Debug\Metodai1.Properties.Resources.resources
+C:\Studijos\PSI\Metodai1\Template\obj\Debug\Template.csproj.GenerateResource.Cache
+C:\Studijos\PSI\Metodai1\Template\obj\Debug\Metodai1.exe
+C:\Studijos\PSI\Metodai1\Template\obj\Debug\Metodai1.pdb
+C:\Studijos\PSI\Metodai1\Template\bin\Debug\Metodai1.exe
+C:\Studijos\PSI\Metodai1\Template\bin\Debug\Metodai1.pdb
