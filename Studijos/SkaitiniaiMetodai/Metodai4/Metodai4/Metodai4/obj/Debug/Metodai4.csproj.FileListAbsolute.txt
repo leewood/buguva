@@ -1,0 +1,8 @@
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\obj\Debug\ResolveAssemblyReference.cache
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\obj\Debug\Metodai4.Form1.resources
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\obj\Debug\Metodai4.Properties.Resources.resources
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\obj\Debug\Metodai4.csproj.GenerateResource.Cache
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\bin\Debug\Metodai4.exe
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\bin\Debug\Metodai4.pdb
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\obj\Debug\Metodai4.exe
+C:\Studijos\SkaitiniaiMetodai\Metodai4\Metodai4\Metodai4\obj\Debug\Metodai4.pdb
