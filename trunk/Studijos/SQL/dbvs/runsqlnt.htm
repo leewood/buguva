@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1257">
+<TITLE>SQL sakinių atlikimas</TITLE>
+</HEAD>
+<BODY BGCOLOR="#eeffbb">
+
+<H3>
+<P ALIGN="CENTER">SQL sakinių atlikimas Windows ir LINUX terpėse</P>
+</H3>
+
+SQL sakinius galima vykdyti:
+<OL>
+<LI>Nurodant sakinius <a href="#explicit">betarpiškai</a> vykdymo instrukcijoje;</LI>
+<LI>Nurodant sakinius <a href="#implicit">failo vardu</a>.</LI>
+</OL>
+<hr>
+
+<H3>
+<a name="explicit">
+<P ALIGN="CENTER">Betarpiškas sakinių atlikimas</P>
+</H3>
+
+<P>
+SQL sakinius galima atlikti juos betarpiškai užrašius
+<OL>
+<LI><a href="#cmdproc">DB2 komandų procesoriaus</a> (<i>DB2 Command Processor</i>) lange
+<LI><a href="#cmdwindow">komandų lange</a>,
+prieš tai <a href="#cmdinit">inicializavus DB2 terpę</a> (<i>DB2 Command Window</i>).
+</OL>
+
+<H4>
+<a name="cmdproc">
+<P ALIGN="LEFT">Sakinių atlikimas DB2 komandų procesoriumi</P>
+</H4>
+DB2 komandų procesorius iškviečiamas iš meniu <i>"DB2 Command Processor"</i> arba
+įvykdžius vykdomąjį failą <tt>db2</tt>,
+prieš tai <a href="#cmdinit">inicializavus DB2 terpę</a>.
+<p>
+Startavus DB2 komandų procesorių, ekrane pavaizduojamas kvietimas SQL
+sakiniui įvesti: <tt>db2 =></tt> <br>
+SQL sakinys įvedamas klaviatūra ir, paspaudus
+klavišą <tt>Enter</tt>, jis pradedamas vykdyti.
+Užklausos rezultatas pavaizduojamas ekrane. Pavyzdžiui, įvykdžius
+<PRE>
+db2=> SELECT * FROM stud.knyga
+</PRE>
+lange bus pavaizduotos visos lentelės <i>stud.knyga</i> eilutės.<br>
+DB2 komandų procesoriaus darbas užbaigiamas komanda <tt>quit</tt>:
+<PRE>
+db2 => quit
+</PRE>
+Po komandos <tt>quit</tt> operacinės sistemos langas neužsidaro.
+Jis tampa įprastu sistemos komandiniu langu.
+Kadangi startuojant DB2 komandų procesorių atliekama DB2 terpės inicializacija,
+tai langas turi visas <a href="#cmdwindow"> DB2 komandų lango </a>savybes.
+
+<H4>
+<a name="cmdinit">
+<P ALIGN="LEFT">DB2 terpės inicializacija</P>
+</H4>
+DB2 komandų (SQL sakinių) terpė (langas) inicializuojama išrinkus iš DB2 meniu
+    <i>"DB2 Command Window"</i> arba komandų eilutėje įvykdant specialų vykdomąjį failą:
+<OL>
+<LI> <b>Windows</b> terpėje: <b><tt>db2wnd.exe</tt></b>.
+<LI> <b>LINUX</b> terpėje: <b><tt>db2env</tt></b>.
+</OL>
+
+<H4>
+<a name="cmdwindow">
+<P ALIGN="LEFT">Sakinių atlikimas DB2 komandų lange</P>
+</H4>
+Dirbant DB2 komandų lange, prieš SQL sakinį būtina nurodyti prefiksa <tt>DB2</tt>,
+kuriuo operacinei sistemai nurodoma įvykdyti komandą (programą) <tt>DB2</tt>, pvz.
+<PRE>
+db2 SELECT * FROM stud.knyga
+</PRE>
+Po prefikso einantis SQL sakinys yra parametras programai <tt>DB2</tt> (SQL komandų procesoriui).
+Kaip ir bet kurį kitą parametrą programai, SQL sakinį galima apskliasti kabutemis:
+<PRE>
+db2 "SELECT * FROM stud.knyga"
+</PRE>
+DB2 komandų lange, galima vykdyti ne tik SQL sakinius bet ir bet
+kurias kitas komandas ar programas. Pavyzdžiui, DB2 komandų lange startavus
+<tt>FAR.EXE</tt>, bus galima vykdyti ne tik SQL sakinius, bet ir patogiai atlikti
+veiksmus su failais. <br>
+DB2 komandų lange, įvykdžius komandą <tt>DB2</tt> be parametrų, startuoja
+<a href="#cmdproc">DB2 komandų procesorius</a>.<br>
+DB2 komandu langas - tai įprastas operacinės sistemos komandų langas,
+kurį atidarant, papildomai inicializuojama DB2 terpė.
+DB2 komandų langas uždaromas, kaip paprastas operacinės sistemos langas.
+<P>
+<hr>
+
+<H3>
+<a name="implicit">
+<P ALIGN="CENTER">Sakinių, esančių faile, atlikimas</P>
+</H3>
+
+Papraščiausias <i>DB2 Command Processor</i> komandinės eilutės pavidalas yra
+<PRE>
+db2 &lt;SQL sakinys&gt;
+</PRE>
+DB2 komandu procesorius (DB2 Command Processor) turi keleta parametru (<i>options</i>),
+kurie leidžia SQL sakinį nurodyti ne betarpiškai komandinėje
+eilutėje, bet failo, kuriame yra SQL sakinys, vardu.
+Tuomet SQL sakiniui įvesti galima pasitelkti bet kokį tekstų redaktorių, pvz. tą,
+kuris vartojamas programoje FAR ar MC.
+Tai patogu, kai užklausos yra vykdomos kelis darbo seansus (užsiėmimu),
+nes ji gali būti išsaugota faile.
+
+Jei SQL sakinys yra faile, reikia naudoti komandą:
+<PRE>
+db2 -f&lt;failo vardas&gt;
+</PRE>
+čia &lt;failo vardas&gt; yra su keliu (pilnas failo vardas) arba be jo.
+Jei failas nurodytas be kelio, tai sistema ieško failo einamajame kataloge.<br>
+Pavyzdžiui, jei SQL sakinys yra faile <a href="select1.sql">select1.sql</a>,
+esančiame einamajame kataloge, tai vykdome:
+<PRE>
+db2 -fselect1.sql
+</PRE>
+
+Sistema užklausos rezultatą pavaizduoja vaizduoklio ekrane.<br>
+Norint, papildomai, gauti rezultatą faile, pvz. <a href="select1.res">select1.res</a>,
+reikia nurodyti jo vardą komandinėje eilutėje:
+<PRE>
+db2 -fselect1.sql -rselect1.res
+</PRE>
+Taip vykdant SQL sakinį, jis tekstiniame faile turi būti išdėstytas vienoje eilutėje.
+Norint SQL sakinį faile užrašyti keliose eilutėse, reikalingas
+papildomas parametras, kuriuo pranešama DB2 komandų procesoriui apie sakinio pabaigos požymį.
+DB2 komandų procesoriui perdavus parametrą -t, SQL sakinio gale būtina rašyti kabliataškį.
+Tuomet faile gali būti ir keli SQL sakiniai, po kiekvieno rašant kabliataškį.
+Komandos pavidalas, kai nurodoma, kad SQL sakiniai file baigiasi kabliataškiu:
+<PRE>
+db2 -t -f&lt;failo vardas&gt; -r&lt;rezultato failo vardas&gt;
+</PRE>
+Po pasirinkčių -f ir -r, prieš failo vardą galima palikti po tarpą.<br>
+Kad įvykdyti SQL sakinius esančius faile <a href="select2.sql">select2.sql</a> ir
+rezultatą užrašyti faile <a href="select2.res">select2.res</a>, reikia atlikti komandą:
+<PRE>
+db2 -t -fselect2.sql -rselect2.res
+</PRE>
+arba
+<PRE>
+db2 -t -f select2.sql -r select2.res
+</PRE>
+<P>
+Kartais, pvz., kuriant trigerius, kai SQL sakinio dalimi yra kiti SQL sakiniai,
+kabliataškis negali būti vartojamas viso SQL sakinio pabaigai žymėti.
+Tuomet, vietoje parametro -t reikia naudoti -td<simbolis>, kuriuo
+atskyrėju paskelbiamas kitas pasirinktas simbolis.
+Esantys faile <a href="select3.sql">select3.sql</a> SQL sakiniai gali būti atlikti ir
+rezultatas užrašytas faile <a href="select3.res">select3.res</a> iškvietus komandų procesorių taip:
+<PRE>
+db2 -td# -fselect3.sql -rselect3.res
+</PRE>
+<P>
+Papildomos pastabos apie SQL sakinių, esančių faile, atlikimą:
+<UL>
+<LI> būtina naudoti <i>DB2 Command Window</i>, bet ne <i>DB2 Command line processor</i>; </LI>
+<LI> nurodytas komandoje failas su <tt>SELECT</tt> sakiniu turi būti pasiekiamas komandų procesoriui,
+     t.y. reikia nurodyti pilną failo vardą (su keliu) arba tas failas turi būti
+     einamajame kataloge;</LI>
+<LI> kad sistema galėtų sukurti rezultato failą, pasirinktasis katalogas turi būti prieinamas rašymui;
+<LI> nepamirskite pradzioje prisijungti prie DB:
+  <PRE>db2 connect to biblio user stud using stud</PRE>
+  Darbą užbaikite atsijungdami nuo DB:
+  <PRE>db2 connect reset</PRE>
+  Šiuos sakinius taip pat galima patalpinti komandų (pvz., BAT, CMD) faile,
+  pvz. <a href="sqlfile.cmd">sqlfile.cmd</a>, tačiau tai nebus efektyvu,
+  nes <tt>CONNECT</tt> sakinys paprastai atliekamas žymiai lėčiau negu pats <tt>SELECT</tt> sakinys;</LI>
+<LI>plačiau SQL sakinių atlikimą galima paskaityti elektroninėje knygoje <i>DB2 Command Reference</i>.</LI>
+</UL>
+<hr>
+Dėst. A. Kurtinaičio <a href="http://uosis.mif.vu.lt/~andrius/dbvs/uzduot-1/pirmos-pratybos.html">patarimai pirmosioms pratyboms</a>.
+<hr>
+R.Baronas
+</BODY>
+</HTML>

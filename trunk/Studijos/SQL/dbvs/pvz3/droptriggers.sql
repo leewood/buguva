@@ -1,0 +1,10 @@
+DROP TRIGGER aNdRoJdAz.MaxPalatSesuteiI#
+DROP TRIGGER aNdRoJdAz.MaxPalatSesuteiU#
+DROP TRIGGER aNdRojdAz.MaxVietuPalatojI#
+DROP TRIGGER aNdRojdAz.MaxVietuPalatojU#
+DROP TRIGGER aNdRojdAz.NaujasisGydytojas#
+DROP TRIGGER aNdRojdAz.NaujasisLigonis#
+DROP TRIGGER aNdRojdAz.NaujojiSesute#
+DROP TRIGGER aNdRojdAz.NaujasisApsilan#
+DROP TRIGGER aNdRojdAz.LigonioAtvezimas#
+DROP TRIGGER aNdRoJdAz.VaistuSkyrData#

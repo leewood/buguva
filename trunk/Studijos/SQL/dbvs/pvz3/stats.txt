@@ -1,0 +1,89 @@
+
+PAVADINIMAS               GYDYTOJAS_SKYRE DATA      
+------------------------- --------------- ----------
+Metandrostenolonas                      1 1997.02.13
+Metandrostenolonas                      2 2004.01.20
+Metandrostenolonas                      3 1999.09.26
+Retabolilas 250                         3 1998.10.21
+Retabolilas 250                         6 2004.01.20
+
+  5 record(s) selected.
+
+
+Panaudotas kartu
+----------------
+               4
+
+  1 record(s) selected.
+
+
+Panaudota medikamentu
+---------------------
+                   13
+
+  1 record(s) selected.
+
+
+PAVADINIMAS              
+-------------------------
+Haloperidolis            
+
+  1 record(s) selected.
+
+
+ID     VARDAS          PAVARDE              AK          SODROS_NR GYDOSI_NUO PALATA MIESTAS              BUKLE     TEISTUMAS
+------ --------------- -------------------- ----------- --------- ---------- ------ -------------------- --------- ---------
+     3 Ligitas         Auksiejus            38412211515 SG2135486 2000.12.25     30 Kaunas               Tramdomas Kali     
+     6 Konstantinas    Lobynas              34901274651 WT2215552 1986.10.17     23 Marijampole          Nestabili Neteistas
+    13 Goda            Sakalauskaite        46405301351 PS3213211 1989.11.25     22 Kybartai             Sunki     Neteistas
+    14 Migle           Sakalauskaite        47402132122 AS3213255 1989.11.25     41 Vilkaviskis          Stabili   Teistas  
+    15 Ramune          Sakalauskaite        46208123215 PB8421027 1989.11.25     41 Alytus               Stabili   Neteistas
+
+  5 record(s) selected.
+
+
+ID     VARDAS          PAVARDE              AK          SODROS_NR GYDOSI_NUO GYDYTOJAS_GYDO PALATA BUKLE     TEISTUMAS
+------ --------------- -------------------- ----------- --------- ---------- -------------- ------ --------- ---------
+    11 Beata           Kisko                47005191351 KJ8321844 1995.06.01              4     22 Stabili   Neteistas
+    13 Goda            Sakalauskaite        46405301351 PS3213211 1989.11.25              1     22 Sunki     Neteistas
+
+  2 record(s) selected.
+
+
+ID     VARDAS          PAVARDE              AK          SODROS_NR GYDOSI_NUO GYDYTOJAS_GYDO PALATA MIESTAS              BUKLE    
+------ --------------- -------------------- ----------- --------- ---------- -------------- ------ -------------------- ---------
+     2 Arunas          Maciulis             34311131332 KF1513295 2005.06.19              6     11 Panevezys            Stabili  
+     4 Marius          Marcelijus           36001264645 HF8947654 2006.01.18              5     13 Siauliai             Stabili  
+     6 Konstantinas    Lobynas              34901274651 WT2215552 1986.10.17              1     23 Marijampole          Nestabili
+    11 Beata           Kisko                47005191351 KJ8321844 1995.06.01              4     22 Kybartai             Stabili  
+    12 Tatjana         Chlapciuk            48105251351 LD8752321 1997.01.17              4     22 Vilnius              Sunki    
+    13 Goda            Sakalauskaite        46405301351 PS3213211 1989.11.25              1     22 Kybartai             Sunki    
+    15 Ramune          Sakalauskaite        46208123215 PB8421027 1989.11.25              1     41 Alytus               Stabili  
+    17 Juste           Mazute               46906041232 MH8472100 2000.05.01              7     43 Siauliai             Stabili  
+    18 Aukse           Maciulaityte         48912303215 WK9843212 2000.03.05              8     44 Kaunas               Tramdomas
+
+  9 record(s) selected.
+
+
+ID     VARDAS          PAVARDE              AK          SODROS_NR GYDOSI_NUO GYDYTOJAS_GYDO PALATA MIESTAS              BUKLE     TEISTUMAS
+------ --------------- -------------------- ----------- --------- ---------- -------------- ------ -------------------- --------- ---------
+    11 Beata           Kisko                47005191351 KJ8321844 1995.06.01              4     22 Kybartai             Stabili   Neteistas
+    12 Tatjana         Chlapciuk            48105251351 LD8752321 1997.01.17              4     22 Vilnius              Sunki     Neteistas
+    13 Goda            Sakalauskaite        46405301351 PS3213211 1989.11.25              1     22 Kybartai             Sunki     Neteistas
+
+  3 record(s) selected.
+
+
+Palatu skaicius
+---------------
+             20
+
+  1 record(s) selected.
+
+
+Vietos ligonineje
+-----------------
+               40
+
+  1 record(s) selected.
+

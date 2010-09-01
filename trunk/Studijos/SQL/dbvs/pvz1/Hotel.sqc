@@ -1,0 +1,2803 @@
+/* KURSAS: DBVS  2001/02 m.m. pavasario sem.
+   Antra uzduotis.
+   ATLIKO: Jolanta Buivydaite */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream.h>
+#include <string.h>
+#include <sqlenv.h>
+
+EXEC SQL INCLUDE SQLCA;
+
+EXEC SQL BEGIN DECLARE SECTION;
+  char msgbuffer[512];
+  short d_id, k_id;
+  char d_pavarde[21];
+  char k_pavarde[21];
+  char gime[11];
+  char telefonas[16];
+  char kortele[21];
+  char korteles_nr[17];
+  char pareigos[21];
+  double alga;
+  char nuo[11];
+  char iki[11];
+  char nuo2[11];
+  char iki2[11];
+  short kambarys, kamb;
+  short vietos;
+  double kaina;
+  double moketi;
+  double sumoketa;
+  short laisvos;
+  char pavadinimas[16];
+  char pav[16];
+  char salis[16];
+  char data[11];
+  char sakinys[256];
+  char g_nuo[27];
+  char g_iki[27];
+  short dienos;
+  char kaina2[9];
+  char laikas[16];
+  short ind1, ind2;
+
+EXEC SQL END DECLARE SECTION;
+
+short logged_d = 0, logged_k = 0;
+short D_id = 0, K_id = 0, hold;
+char Pareigos[21];
+
+//========================================================================================
+void Login_d ()
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	strcpy (sakinys, "SELECT ID, Pareigos FROM Jole.Darbuotojai WHERE Kortele = ? AND Korteles_Nr = ?");
+	EXEC SQL PREPARE log_d FROM :sakinys;
+	EXEC SQL DECLARE logd_curs CURSOR FOR log_d;
+	fflush (stdin);
+	printf ("\n Kortele: ");
+	gets (kortele);
+	printf (" Korteles numeris: ");
+	scanf ("%s", korteles_nr);
+	EXEC SQL OPEN logd_curs USING :kortele, :korteles_nr;
+	EXEC SQL FETCH logd_curs INTO :d_id, :pareigos;
+	if (SQLCODE == 0) {
+		logged_d = 1;
+		D_id = d_id;
+		strcpy (Pareigos, pareigos);
+		printf (" Duomenys teisingi.\n\n");
+	}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE logd_curs;
+}
+
+//========================================================================================
+void Login_k ()
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	strcpy (sakinys, "SELECT ID FROM Jole.Klientai WHERE Kortele = ? AND Korteles_Nr = ?");
+	EXEC SQL PREPARE log_k FROM :sakinys;
+	EXEC SQL DECLARE logk_curs CURSOR FOR log_k;
+	fflush (stdin);
+	printf ("\n Kortele: ");
+	gets (kortele);
+	printf (" Korteles numeris: ");
+	scanf ("%s", korteles_nr);
+	EXEC SQL OPEN logk_curs USING :kortele, :korteles_nr;
+	EXEC SQL FETCH logk_curs INTO :k_id;
+	if (SQLCODE == 0) {
+		logged_k = 1;
+		K_id = k_id;
+		printf (" Duomenys teisingi.\n\n");
+	}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE logk_curs;
+}
+
+//========================================================================================
+void KlientoRez () //parodo kliento rezervuotas vietas
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	strcpy (sakinys, "SELECT DISTINCT Vietos, Nuo, Iki, Data, (CASE WHEN Rezervavo IS NOT NULL THEN Pavarde ELSE NULL END) FROM Jole.Rezervavimas AS R, Jole.Darbuotojai AS D WHERE ((Rezervavo = D.ID) OR (Rezervavo IS NULL)) AND R.ID = ? ORDER BY Nuo");
+	EXEC SQL PREPARE kliento_rez FROM :sakinys;
+	EXEC SQL DECLARE kliento_rez_curs CURSOR FOR kliento_rez;
+	k_id = K_id;
+	EXEC SQL OPEN kliento_rez_curs USING :k_id;
+	printf ("\n+--------+------------+------------+------------+----------------------+\n");
+	printf ("| Vietos | Nuo        | Iki        | Data       | Rezervavo            |\n");
+	printf ("+--------+------------+------------+------------+----------------------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH kliento_rez_curs INTO :vietos, :nuo, :iki, :data, :d_pavarde :ind1;
+		if (ind1 < 0)
+			strcpy (d_pavarde, "-");
+		printf ("| %6d | %s | %s | %s | %20s |\n", vietos, nuo, iki, data, d_pavarde);
+	}
+error:
+	if ((SQLCODE != 0) && (SQLCODE != 100)) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE kliento_rez_curs;
+	printf ("+--------+------------+------------+------------+----------------------+\n\n");
+}
+
+//========================================================================================
+void VietuSk () //laisvu vietu sk. tam tikram laikotarpiui
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	strcpy (sakinys, "SELECT SUM (Vietos) - (COALESCE ((SELECT SUM (Vietos) FROM Jole.Rezervavimas WHERE Jole.Rezervavimas.Nuo <= ? AND Jole.Rezervavimas.Iki >= ?), 0) + COALESCE ((SELECT COUNT (ID) FROM Jole.Gyventojai WHERE DATE (Jole.Gyventojai.Iki) >= ?), 0)) FROM Jole.Kambariai");
+	EXEC SQL PREPARE vietu_sk FROM :sakinys;
+	EXEC SQL DECLARE vietu_sk_curs CURSOR FOR vietu_sk;
+	printf ("\n Nuo kada (yyyy.mm.dd): ");
+	scanf ("%s", nuo);
+	printf (" Iki kada (yyyy.mm.dd): ");
+	scanf ("%s", iki);
+	EXEC SQL OPEN vietu_sk_curs USING :iki, :nuo, :nuo;
+	if (strcmp (nuo, iki) >= 0) {
+		printf (" Neteisingai nurodete 'Nuo' ir 'Iki'.\n");
+		goto end;
+	}
+	else {
+	EXEC SQL FETCH vietu_sk_curs INTO :vietos;
+	if (SQLCODE == 0)
+		printf (" Vietu skaicius nuo %s iki %s: %d\n\n", nuo, iki, vietos);
+	}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE vietu_sk_curs;
+}
+
+//========================================================================================
+void KlientoInfo ()  //visa informacija apie klienta
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	strcpy (sakinys, "SELECT DISTINCT K.Pavarde, K.Kortele, K.Korteles_Nr, K.Telefonas, Salis, (CASE WHEN Registravo IS NOT NULL THEN D.Pavarde ELSE NULL END), Data FROM Jole.Klientai AS K, Jole.Darbuotojai AS D WHERE ((Registravo = D.ID) OR (Registravo IS NULL)) AND K.ID = ?");
+	EXEC SQL PREPARE kliento_reg FROM :sakinys;
+	EXEC SQL DECLARE kliento_reg_curs CURSOR FOR kliento_reg;
+	k_id = K_id;
+	EXEC SQL OPEN kliento_reg_curs USING :k_id;
+	EXEC SQL FETCH kliento_reg_curs INTO :k_pavarde, :kortele, :korteles_nr, :telefonas :ind1, :salis, :d_pavarde :ind2, :data;
+	if (SQLCODE == 100) {
+		printf (" Tokio kliento nera.\n\n");
+		goto end;
+	}
+	if (SQLCODE == 0) {
+		if (ind1 < 0)
+			strcpy (telefonas, "-");
+		if (ind2 < 0)
+			strcpy (d_pavarde, "-");
+		printf ("\n ID: %d\n", k_id);
+		printf (" Pavarde: %s\n", k_pavarde);
+		printf (" Kortele: %s\n", kortele);
+		printf (" Korteles nr.: %s\n", korteles_nr);
+		printf (" Telefonas: %s\n", telefonas);
+		printf (" Salis: %s\n", salis);
+		printf (" Registravo: %s\n", d_pavarde);
+		printf (" Data: %s\n\n", data);
+	}
+error:
+	if ((SQLCODE != 0) && (SQLCODE != 100)) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE kliento_reg_curs;
+}
+
+//========================================================================================
+void Darbuotojas ()  //visa informacija apie darbuotoja
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	strcpy (sakinys, "SELECT Pavarde, Gime, Telefonas, Kortele, Korteles_Nr, Pareigos, Alga, Dirba_Nuo FROM Jole.Darbuotojai WHERE ID = ?");
+	EXEC SQL PREPARE darbuotojas FROM :sakinys;
+	EXEC SQL DECLARE darbuotojas_curs CURSOR FOR darbuotojas;
+	d_id = D_id;
+	EXEC SQL OPEN darbuotojas_curs USING :d_id;
+	EXEC SQL FETCH darbuotojas_curs INTO :d_pavarde, :gime, :telefonas :ind1, :kortele, :korteles_nr, :pareigos, :alga, :data;
+	if (SQLCODE == 100) {
+		printf (" Tokio darbuotojo nera.\n\n");
+		goto end;
+	}
+	if (SQLCODE == 0) {
+		if (ind1 < 0)
+			strcpy (telefonas, "-");
+		printf ("\n ID: %d\n", d_id);
+		printf (" Pavarde: %s\n", d_pavarde);
+		printf (" Gimimo data: %s\n", gime);
+		printf (" Telefonas: %s\n", telefonas);
+		printf (" Kortele: %s\n", kortele);
+		printf (" Korteles nr.: %s\n", korteles_nr);
+		printf (" Pareigos: %s\n", pareigos);
+		printf (" Alga: %.2f\n", alga);
+		printf (" Idarbinimo data: %s\n\n", data);
+	}
+error:
+	if ((SQLCODE != 0) && (SQLCODE != 100)) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE darbuotojas_curs;
+}
+
+//========================================================================================
+void KlientasDabar ()  //info klientui apie jo dabartini apgyvendinima
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	strcpy (sakinys, "SELECT Kambarys, Nuo, Iki, Sumoketa FROM Jole.Gyventojai WHERE ID = ? AND Iki >= CURRENT TIMESTAMP");
+	EXEC SQL PREPARE kliento_gyv FROM :sakinys;
+	EXEC SQL DECLARE kliento_gyv_curs CURSOR FOR kliento_gyv;
+	k_id = K_id;
+	EXEC SQL OPEN kliento_gyv_curs USING :k_id;
+	EXEC SQL FETCH kliento_gyv_curs INTO :kambarys, :g_nuo, :g_iki, :sumoketa;
+	if (SQLCODE == 100)
+		printf ("\n Jus siuo metu viesbutyje negyvenate.\n\n");
+	if (SQLCODE == 0) {
+		g_nuo[19] = '\0';
+		g_iki[19] = '\0';
+		printf ("\n+----------+---------------------+---------------------+----------+\n");
+		printf ("| Kambarys | Nuo                 | Iki                 | Sumoketa |\n");
+		printf ("+----------+---------------------+---------------------+----------+\n");
+		printf ("| %8d | %s | %s | %8.2f |\n", kambarys, g_nuo, g_iki, sumoketa);
+		printf ("+----------+---------------------+---------------------+----------+\n\n");
+	}
+error:
+	if ((SQLCODE != 0) && (SQLCODE != 100)) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE kliento_gyv_curs;
+}
+
+//========================================================================================
+void KlientasAnksciau ()  //info klientui apie jo ankstesnius apgyvendinimus
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	strcpy (sakinys, "SELECT Kambarys, Nuo, Iki, Sumoketa FROM Jole.Gyventojai WHERE ID = ? AND Iki < CURRENT TIMESTAMP");
+	EXEC SQL PREPARE kliento_gyv2 FROM :sakinys;
+	EXEC SQL DECLARE kliento_gyv2_curs CURSOR FOR kliento_gyv2;
+	k_id = K_id;
+	printf ("\n+----------+---------------------+---------------------+----------+\n");
+	printf ("| Kambarys | Nuo                 | Iki                 | Sumoketa |\n");
+	printf ("+----------+---------------------+---------------------+----------+\n");
+	EXEC SQL OPEN kliento_gyv2_curs USING :k_id;
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH kliento_gyv2_curs INTO :kambarys :ind1, :g_nuo, :g_iki, :sumoketa;
+		g_nuo[19] = '\0';
+		g_iki[19] = '\0';
+		if (ind1 >= 0)
+			printf ("| %8d | %s | %s | %8.2f |\n", kambarys, g_nuo, g_iki, sumoketa);
+		else printf ("| -        | %s | %s | %8.2f |\n", g_nuo, g_iki, sumoketa);
+	}
+error:
+	if ((SQLCODE != 0) && (SQLCODE != 100)) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE kliento_gyv2_curs;
+	printf ("+----------+---------------------+---------------------+----------+\n\n");
+}
+
+//========================================================================================
+void KlientoSask () //saskaita konkreciam klientui
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	strcpy (sakinys, "SELECT Kambarys, Nuo, Iki, Dienos, Moketi, Sumoketa FROM Jole.Saskaita WHERE ID = ? ORDER BY Nuo");
+	EXEC SQL PREPARE kliento_sask FROM :sakinys;
+	EXEC SQL DECLARE kliento_sask_curs CURSOR FOR kliento_sask;
+	k_id = K_id;
+	printf ("\n+----------+------------+------------+--------+---------+----------+\n");
+	printf ("| Kambarys | Nuo        | Iki        | Dienos | Moketi  | Sumoketa |\n");
+	printf ("+----------+------------+------------+--------+---------+----------+\n");
+	EXEC SQL OPEN kliento_sask_curs USING :k_id;
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH kliento_sask_curs INTO :kambarys :ind1, :g_nuo, :g_iki, :dienos, :moketi :ind2, :sumoketa;
+		g_nuo[10] = '\0';
+		g_iki[10] = '\0';
+		if ((ind1 >= 0) && (ind2 >= 0))
+			printf ("| %8d | %s | %s | %6d | %7.2f | %8.2f |\n", kambarys, g_nuo, g_iki, dienos, moketi, sumoketa);
+		else if ((ind1 < 0) && (ind2 >= 0))
+			printf ("| -        | %s | %s | %6d | %7.2f | %8.2f |\n", g_nuo, g_iki, dienos, moketi, sumoketa);
+		else if ((ind1 >= 0) && (ind2 < 0))
+			printf ("| %8d | %s | %s | %6d | -       | %8.2f |\n", kambarys, g_nuo, g_iki, dienos, sumoketa);
+		else if ((ind1 < 0) && (ind2 < 0))
+			printf ("| -        | %s | %s | %6d | -       | %8.2f |\n", g_nuo, g_iki, dienos, sumoketa);
+	}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE kliento_sask_curs;
+	printf ("+----------+------------+------------+--------+---------+----------+\n\n");
+}
+
+//========================================================================================
+void NaujasKlientas ()
+{
+	printf ("\n Pavarde: ");
+	scanf ("%s", k_pavarde);
+	fflush (stdin);
+	printf (" Kortele: ");
+	gets (kortele);
+	if (strlen (kortele) < 1)
+		printf (" Turite nurodyti kortele!\n\n");
+	else {
+		printf (" Korteles nr.: ");
+		scanf ("%s", korteles_nr);
+		fflush (stdin);
+		printf (" Telefonas: ");
+		gets (telefonas);
+		printf (" Salis: ");
+		scanf ("%s", salis);
+
+		if (strlen (telefonas) == 0) //jei nenurodytas telefonas
+			EXEC SQL INSERT INTO Jole.Klientai VALUES (0, :k_pavarde, :kortele, :korteles_nr, NULL, :salis, :d_id, '2002.01.01');
+		else
+			EXEC SQL INSERT INTO Jole.Klientai VALUES (0, :k_pavarde, :kortele, :korteles_nr, :telefonas, :salis, :d_id, '2002.01.01');
+		if (SQLCODE != 0) {
+			printf ("\nSQL klaida.\n");
+			sqlaintp (msgbuffer, 512, 70, &sqlca);
+			printf ("Message: %s\n",msgbuffer);
+			EXEC SQL ROLLBACK;
+		}
+		else {
+			EXEC SQL COMMIT;
+			printf ("\n Klientas uzregistruotas sekmingai.\n\n");
+		}
+	}
+}
+
+//========================================================================================
+void keisti_reg ()
+{
+	printf ("|===========================|\n");
+	printf ("| [1] - keisti pavarde      |\n");
+	printf ("| [2] - keisti kortele      |\n");
+	printf ("| [3] - keisti korteles nr. |\n");
+	printf ("| [4] - keisti telefona     |\n");
+	printf ("| [5] - keisti sali         |\n");
+	printf ("| [6] - iseiti              |\n");
+	printf ("|===========================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void PakeistiKlienta ()
+{
+	char c[2], buffer[21], tel[16];
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	printf ("\n Kliento ID: ");
+	if (scanf ("%d", &k_id) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		strcpy (sakinys, "SELECT Pavarde, Kortele, Korteles_Nr, Telefonas, Salis FROM Jole.Klientai WHERE ID = ?");
+		EXEC SQL PREPARE klientas FROM :sakinys;
+		EXEC SQL DECLARE klientas_curs CURSOR FOR klientas;
+
+		EXEC SQL OPEN klientas_curs USING :k_id;
+		EXEC SQL FETCH klientas_curs INTO :k_pavarde, :kortele, :korteles_nr, :telefonas :ind1, :salis;
+		if (SQLCODE == 100) {
+			printf (" Tokio kliento nera.\n\n");
+			goto end;
+		}
+		if (SQLCODE == 0) {
+			if (ind1 < 0)
+				strcpy (tel, "-");
+			else strcpy (tel, telefonas);
+			keisti_reg ();
+			scanf ("%s", c);
+			while (c[0] != '6') {
+				switch (c[0]) {
+				case '1':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Pavarde: %s\n", k_pavarde);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (k_pavarde, buffer);
+					keisti_reg ();
+					scanf ("%s", c);
+					break;
+				case '2':
+					fflush (stdin);
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Kortele: %s\n", kortele);
+					printf (" Keiciate i: ");
+					gets (buffer);
+					if (strlen (buffer) < 1) {
+						printf (" Turite nurodyti kortele!\n\n");
+						keisti_reg ();
+						scanf ("%s", c);
+						break;
+					}
+					if (buffer[0] != '#')
+						strcpy (kortele, buffer);
+					keisti_reg ();
+					scanf ("%s", c);
+					break;
+				case '3':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Korteles nr.: %s\n", korteles_nr);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (korteles_nr, buffer);
+					keisti_reg ();
+					scanf ("%s", c);
+					break;
+				case '4':
+					fflush (stdin);
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Telefonas: %s\n", tel);
+					printf (" Keiciate i: ");
+					gets (buffer);
+					if (buffer[0] != '#')
+						strcpy (telefonas, buffer);
+					keisti_reg ();
+					scanf ("%s", c);
+					break;
+				case '5':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Salis: %s\n", salis);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (salis, buffer);
+					keisti_reg ();
+					scanf ("%s", c);
+					break;
+				default:
+					keisti_reg ();
+					scanf ("%s", c);
+				}
+			}
+			printf ("\n Issaugoti pakeitimus? (T/N): ");
+			scanf ("%s", c);
+			if ((c[0] == 'T') || (c[0] == 't')) {
+				if (strlen (telefonas) > 0) {
+					EXEC SQL UPDATE Jole.Klientai
+						SET Pavarde = :k_pavarde, Kortele = :kortele, Korteles_Nr = :korteles_nr, Telefonas = :telefonas, Salis = :salis
+						WHERE ID = :k_id;
+				}
+				else {
+					EXEC SQL UPDATE Jole.Klientai
+						SET Pavarde = :k_pavarde, Kortele = :kortele, Korteles_Nr = :korteles_nr, Telefonas = NULL, Salis = :salis
+						WHERE ID = :k_id;
+				}
+				if (SQLCODE == 0) {
+					EXEC SQL COMMIT;
+					printf (" Informacija apie klienta pakeista sekmingai.\n\n");
+				}
+			}
+			else if ((c[0] == 'N') || (c[0] == 'n'))
+				printf (" Informacija apie klienta nepakeista.\n\n");
+			else if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+				printf (" Neteisingai ivedete. Informacija nepakeista.\n\n");
+		}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE klientas_curs;
+	} //else
+}
+
+//========================================================================================
+void PasalintiKlienta ()
+{
+	char c[2];
+	printf ("\n Kliento ID: ");
+	if (scanf ("%d", &k_id) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		printf ("\n Pasalinti klienta, kurio ID = %d? (T/N): ", k_id);
+		scanf ("%s", c);
+		if ((c[0] == 'T') || (c[0] == 't')) {
+			EXEC SQL DELETE FROM Jole.Klientai WHERE ID = :k_id;
+			if (SQLCODE == 0) {
+				EXEC SQL COMMIT;
+				printf (" Klientas pasalintas sekmingai.\n\n");
+			}
+			else if ((SQLCODE != 0) && (SQLCODE != 100)) {
+				printf ("\nSQL klaida.\n");
+				sqlaintp (msgbuffer, 512, 70, &sqlca);
+				printf ("Message: %s\n",msgbuffer);
+				EXEC SQL ROLLBACK;
+			}
+			else if (SQLCODE == 100)
+				printf (" Tokio kliento nera.\n\n");
+		}
+		if ((c[0] == 'N') || (c[0] == 'n'))
+			printf (" Klientas nepasalintas.\n\n");
+		if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+			printf (" Neteisingai ivedete. Klientas nepasalintas.\n\n");
+	}
+}
+
+//========================================================================================
+void ApgyvendintiKlienta ()
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	strcpy (sakinys, "SELECT ID FROM Jole.Klientai WHERE Kortele = ? AND Korteles_Nr = ?");
+	EXEC SQL PREPARE gyv_id FROM :sakinys;
+	EXEC SQL DECLARE gyv_id_curs CURSOR FOR gyv_id;
+	fflush (stdin);
+	printf ("\n Kliento kortele: ");
+	gets (kortele);
+	printf (" Korteles nr.: ");
+	scanf ("%s", korteles_nr);
+	EXEC SQL OPEN gyv_id_curs USING :kortele, :korteles_nr;
+	printf (" Kambario nr.: ");
+	if (scanf ("%d", &kambarys) != 1) {
+		printf (" Neteisingai ivedete!\n\n");
+		goto end;
+	}
+	else {
+		printf (" Gyvens iki (yyyy.mm.dd): ");
+		scanf ("%s", iki);
+		EXEC SQL FETCH gyv_id_curs INTO :k_id;
+		if (SQLCODE == 100) {
+			printf (" Tokio kliento nera.\n\n");
+			goto end;
+		}
+		EXEC SQL INSERT INTO Jole.Gyventojai VALUES (:kambarys, :k_id, CURRENT TIMESTAMP, TIMESTAMP (:iki, CURRENT TIME), 0);
+		if (SQLCODE == 0) {
+			EXEC SQL COMMIT;
+			printf (" Klientas apgyvendintas sekmingai.\n\n");
+		}
+	}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE gyv_id_curs;
+}
+
+//========================================================================================
+void keisti_gyv ()
+{
+	printf ("|=========================|\n");
+	printf ("| [1] - keisti kambari    |\n");
+	printf ("| [2] - keisti 'Iki'      |\n");
+	printf ("| [3] - keisti 'Sumoketa' |\n");
+	printf ("| [4] - iseiti            |\n");
+	printf ("|=========================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void PakeistiGyventoja ()
+{
+	char c[2], buffer[11];
+	int ibuffer = 0;
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	printf ("\n Gyventojo ID: ");
+	if (scanf ("%d", &k_id) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		strcpy (sakinys, "SELECT Kambarys, (CASE WHEN Iki < CURRENT TIMESTAMP THEN NULL ELSE DATE (Iki) END), TIME (Iki), Sumoketa FROM Jole.Gyventojai WHERE ID = ? AND DATE (Nuo) = ? AND DATE (Iki) = ?");
+		EXEC SQL PREPARE gyventojas FROM :sakinys;
+		EXEC SQL DECLARE gyventojas_curs CURSOR FOR gyventojas;
+
+		printf (" Apgyvendintas (yyyy.mm.dd): ");
+		scanf ("%s", nuo);
+		printf (" Iki (yyyy.mm.dd): ");
+		scanf ("%s", iki);
+		EXEC SQL OPEN gyventojas_curs USING :k_id, :nuo, :iki;
+		EXEC SQL FETCH gyventojas_curs INTO :kambarys :ind1, :iki :ind2, :laikas, :sumoketa;
+		if (SQLCODE == 100) {
+			printf (" Tokio gyventojo nera.\n\n");
+			goto end;
+		}
+		if (SQLCODE == 0) {
+			gcvt (sumoketa, 6, kaina2);
+			strcpy (iki2, iki);
+			keisti_gyv ();
+			scanf ("%s", c);
+			while (c[0] != '4') {
+				switch (c[0]) {
+				case '1':
+					printf ("\n Jei nenorite keisti, spauskite 0\n");
+					if (ind1 >= 0)
+						printf (" Kambarys: %d\n", kambarys);
+					else printf (" Kambarys: -\n");
+					printf (" Keiciate i: ");
+					if (scanf ("%d", &ibuffer) != 1) {
+						printf ("\n Neteisingai ivedete.\n\n");
+						scanf ("%s", c);
+						break;
+					}
+					else if (ibuffer != 0)
+						kambarys = ibuffer;
+					else if (ibuffer == 0)
+						kambarys = 0;
+					keisti_gyv ();
+					scanf ("%s", c);
+					break;
+				case '2':
+					if (ind2 < 0) {
+						printf ("\n Klientas jau nebegyvena. 'Iki' keisti negalima.\n\n");
+						keisti_gyv ();
+						scanf ("%s", c);
+						break;
+					}
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Iki: %s\n", iki);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (iki, buffer);
+					keisti_gyv ();
+					scanf ("%s", c);
+					break;
+				case '3':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Sumoketa: %.2f\n", sumoketa);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (kaina2, buffer);
+					keisti_gyv ();
+					scanf ("%s", c);
+					break;
+				default:
+					keisti_gyv ();
+					scanf ("%s", c);
+				}
+			}
+			printf ("\n Issaugoti pakeitimus? (T/N): ");
+			scanf ("%s", c);
+			if ((c[0] == 'T') || (c[0] == 't')) {
+				if (ind2 >= 0) {
+					if (kambarys != 0) {
+						EXEC SQL UPDATE Jole.Gyventojai
+							SET Kambarys = :kambarys, Iki = TIMESTAMP (:iki, :laikas), Sumoketa = DECIMAL (:kaina2, 6, 2, '.')
+							WHERE ID = :k_id AND DATE (Nuo) = :nuo AND DATE (Iki) = :iki2;
+					}
+					else {
+						EXEC SQL UPDATE Jole.Gyventojai
+							SET Iki = TIMESTAMP (:iki, :laikas), Sumoketa = DECIMAL (:kaina2, 6, 2, '.')
+							WHERE ID = :k_id AND DATE (Nuo) = :nuo AND DATE (Iki) = :iki2;
+					}
+				}
+				else if (ind2 < 0) {
+					if (kambarys != 0) {
+						EXEC SQL UPDATE Jole.Gyventojai
+							SET Kambarys = :kambarys, Sumoketa = DECIMAL (:kaina2, 6, 2, '.')
+							WHERE ID = :k_id AND DATE (Nuo) = :nuo AND DATE (Iki) = :iki2;
+					}
+					else {
+						EXEC SQL UPDATE Jole.Gyventojai
+							SET Sumoketa = DECIMAL (:kaina2, 6, 2, '.')
+							WHERE ID = :k_id AND DATE (Nuo) = :nuo AND DATE (Iki) = :iki2;
+					}
+				}
+				if (SQLCODE == 0) {
+					EXEC SQL COMMIT;
+					printf (" Informacija apie gyventoja pakeista sekmingai.\n\n");
+				}
+			}
+			else if ((c[0] == 'N') || (c[0] == 'n'))
+				printf (" Informacija apie gyventoja nepakeista.\n\n");
+			else if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+				printf (" Neteisingai ivedete. Informacija nepakeista.\n\n");
+
+		}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE gyventojas_curs;
+	} //else
+}
+
+//========================================================================================
+void PasalintiGyventoja ()
+{
+	char c[2];
+	printf ("\n Gyventojo ID: ");
+	if (scanf ("%d", &k_id) != 1) 
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		printf (" Apgyvendintas (yyyy.mm.dd): ");
+		scanf ("%s", nuo);
+		printf (" Iki (yyyy.mm.dd): ");
+		scanf ("%s", iki);
+		printf ("\n Pasalinti gyventoja, kurio ID = %d? (T/N): ", k_id);
+		scanf ("%s", c);
+		if ((c[0] == 'T') || (c[0] == 't')) {
+			EXEC SQL DELETE FROM Jole.Gyventojai
+				WHERE ID = :k_id AND DATE (Nuo) = :nuo AND DATE (Iki) = :iki;
+			if (SQLCODE == 0) {
+				EXEC SQL COMMIT;
+				printf (" Gyventojas pasalintas sekmingai.\n\n");
+			}
+			else if ((SQLCODE != 0) && (SQLCODE != 100)) {
+				printf ("\nSQL klaida.\n");
+				sqlaintp (msgbuffer, 512, 70, &sqlca);
+				printf ("Message: %s\n",msgbuffer);
+				EXEC SQL ROLLBACK;
+			}
+			else if (SQLCODE == 100)
+				printf (" Tokio gyventojo nera.\n\n");
+		}
+		if ((c[0] == 'N') || (c[0] == 'n'))
+			printf (" Gyventojas nepasalintas.\n\n");
+		if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+			printf (" Neteisingai ivedete. Gyventojas nepasalintas.\n\n");
+	}
+}
+
+//========================================================================================
+void Apmoketi ()
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	strcpy (sakinys, "SELECT ID FROM Jole.Klientai WHERE Kortele = ? AND Korteles_Nr = ?");
+	EXEC SQL PREPARE apmok FROM :sakinys;
+	EXEC SQL DECLARE apmok_curs CURSOR FOR apmok;
+	fflush (stdin);
+	printf ("\n Kliento kortele: ");
+	gets (kortele);
+	printf (" Korteles nr.: ");
+	scanf ("%s", korteles_nr);
+	EXEC SQL OPEN apmok_curs USING :kortele, :korteles_nr;
+	printf (" Apgyvendintas (yyyy.mm.dd): ");
+	scanf ("%s", nuo);
+	printf (" Iki (yyyy.mm.dd): ");
+	scanf ("%s", iki);
+	printf (" Sumoketa: ");
+	scanf ("%s", kaina2);
+	EXEC SQL FETCH apmok_curs INTO :k_id;
+	if (SQLCODE == 100) {
+		printf (" Tokio kliento nera.\n\n");
+		goto end;
+	}
+	EXEC SQL UPDATE Jole.Gyventojai	SET Sumoketa = DECIMAL (:kaina2, 6, 2, '.')
+		WHERE ID = :k_id AND DATE (Nuo) = :nuo AND DATE (Iki) = :iki;
+	if (SQLCODE == 0) {
+		EXEC SQL COMMIT;
+		printf (" Kliento saskaita apmoketa sekmingai.\n\n");
+	}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE apmok_curs;
+}
+
+//========================================================================================
+void NaujasRez ()
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	strcpy (sakinys, "SELECT ID FROM Jole.Klientai WHERE Kortele = ? AND Korteles_Nr = ?");
+	EXEC SQL PREPARE rez_id FROM :sakinys;
+	EXEC SQL DECLARE rez_id_curs CURSOR FOR rez_id;
+	fflush (stdin);
+	printf ("\n Kliento kortele: ");
+	gets (kortele);
+	printf (" Korteles nr.: ");
+	scanf ("%s", korteles_nr);
+	EXEC SQL OPEN rez_id_curs USING :kortele, :korteles_nr;
+	printf (" Vietu sk.: ");
+	if (scanf ("%d", &vietos) != 1) {
+		printf (" Neteisingai ivedete!\n\n");
+		goto end;
+	}
+	else {
+		printf (" Nuo (yyyy.mm.dd): ");
+		scanf ("%s", nuo);
+		printf (" Iki (yyyy.mm.dd): ");
+		scanf ("%s", iki);
+		d_id = D_id;
+		EXEC SQL FETCH rez_id_curs INTO :k_id;
+		if (SQLCODE == 100) {
+			printf (" Tokio kliento nera.\n\n");
+			goto end;
+		}
+		EXEC SQL INSERT INTO Jole.Rezervavimas VALUES (:k_id, :vietos, :nuo, :iki, :d_id, '2002.01.01');
+		if (SQLCODE == 0) {
+			EXEC SQL COMMIT;
+			printf (" Vietos uzrezervuotos sekmingai.\n\n");
+		}
+	}
+error:
+	if ((SQLCODE != 0) && (SQLCODE != 100)) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE rez_id_curs;
+}
+
+//========================================================================================
+void keisti_rez ()
+{
+	printf ("|========================|\n");
+	printf ("| [1] - keisti vietu sk. |\n");
+	printf ("| [2] - keisti 'Nuo'     |\n");
+	printf ("| [3] - keisti 'Iki'     |\n");
+	printf ("| [4] - iseiti           |\n");
+	printf ("|========================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void PakeistiRezervavima ()
+{
+	char c[2], buffer[11];
+	int ibuffer = 0;
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	printf ("\n Kliento ID: ");
+	if (scanf ("%d", &k_id) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		strcpy (sakinys, "SELECT Vietos, Nuo, Iki FROM Jole.Rezervavimas WHERE ID = ? AND Nuo = ? AND Iki = ?");
+		EXEC SQL PREPARE rez FROM :sakinys;
+		EXEC SQL DECLARE rez_curs CURSOR FOR rez;
+
+		printf (" Rezervuota nuo (yyyy.mm.dd): ");
+		scanf ("%s", nuo);
+		printf (" Iki (yyyy.mm.dd): ");
+		scanf ("%s", iki);
+		EXEC SQL OPEN rez_curs USING :k_id, :nuo, :iki;
+		EXEC SQL FETCH rez_curs INTO :vietos, :nuo, :iki;
+		if (SQLCODE == 100) {
+			printf (" Tokio rezervavimo nera.\n\n");
+			goto end;
+		}
+		if (SQLCODE == 0) {
+			d_id = D_id;
+			strcpy (nuo2, nuo);
+			strcpy (iki2, iki);
+			keisti_rez ();
+			scanf ("%s", c);
+			while (c[0] != '4') {
+				switch (c[0]) {
+				case '1':
+					printf ("\n Jei nenorite keisti, spauskite 0\n");
+					printf (" Vietu sk.: %d\n", vietos);
+					printf (" Keiciate i: ");
+					if (scanf ("%d", &ibuffer) != 1) {
+						printf ("\n Neteisingai ivedete.\n\n");
+						scanf ("%s", c);
+						break;
+					}
+					else if (ibuffer != 0)
+						vietos = ibuffer;
+					keisti_rez ();
+					scanf ("%s", c);
+					break;
+				case '2':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Nuo: %s\n", nuo);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (nuo, buffer);
+					keisti_rez ();
+					scanf ("%s", c);
+					break;
+				case '3':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Iki: %s\n", iki);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (iki, buffer);
+					keisti_rez ();
+					scanf ("%s", c);
+					break;
+				default:
+					keisti_rez ();
+					scanf ("%s", c);
+				}
+			}
+			printf ("\n Issaugoti pakeitimus? (T/N): ");
+			scanf ("%s", c);
+			if ((c[0] == 'T') || (c[0] == 't')) {
+				EXEC SQL UPDATE Jole.Rezervavimas
+					SET Vietos = :vietos, Nuo = :nuo, Iki = :iki, Rezervavo = :d_id
+					WHERE ID = :k_id AND Nuo = :nuo2 AND Iki = :iki2;
+				if (SQLCODE == 0) {
+					EXEC SQL COMMIT;
+					printf (" Rezervavimas pakeistas sekmingai.\n\n");
+				}
+			}
+			else if ((c[0] == 'N') || (c[0] == 'n'))
+				printf (" Rezervavimas nepakeistas.\n\n");
+			else if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+				printf (" Neteisingai ivedete. Rezervavimas nepakeistas.\n\n");
+		}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE rez_curs;
+	} //else
+}
+
+//========================================================================================
+void PanaikintiRez ()
+{
+	char c[2];
+	printf ("\n Kliento ID: ");
+	if (scanf ("%d", &k_id) != 1) 
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		printf (" Rezervuota nuo (yyyy.mm.dd): ");
+		scanf ("%s", nuo);
+		printf (" Iki (yyyy.mm.dd): ");
+		scanf ("%s", iki);
+		printf ("\n Panaikinti si rezervavima? (T/N): ");
+		scanf ("%s", c);
+		if ((c[0] == 'T') || (c[0] == 't')) {
+			EXEC SQL DELETE FROM Jole.Rezervavimas
+				WHERE ID = :k_id AND Nuo = :nuo AND Iki = :iki;
+			if (SQLCODE == 0) {
+				EXEC SQL COMMIT;
+				printf (" Rezervavimas panaikintas sekmingai.\n\n");
+			}
+			else if ((SQLCODE != 0) && (SQLCODE != 100)) {
+				printf ("\nSQL klaida.\n");
+				sqlaintp (msgbuffer, 512, 70, &sqlca);
+				printf ("Message: %s\n",msgbuffer);
+				EXEC SQL ROLLBACK;
+			}
+			else if (SQLCODE == 100)
+				printf (" Tokio rezervavimo nera.\n\n");
+		}
+		if ((c[0] == 'N') || (c[0] == 'n'))
+			printf (" Rezervavimas nepanaikintas.\n\n");
+		if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+			printf (" Neteisingai ivedete. Rezervavimas nepanaikintas.\n\n");
+	}
+}
+
+//========================================================================================
+void NaujaPaslauga ()
+{
+	fflush (stdin);
+	printf ("\n Pavadinimas: ");
+	gets (pavadinimas);
+	if (strlen (pavadinimas) < 1)
+		printf (" Turite nurodyti pavadinima!\n\n");
+	else {
+		printf (" Kaina: ");
+		scanf ("%s", kaina2);
+		printf (" Aptarnauja (darbuotojo ID): ");
+		if (scanf ("%d", &d_id) != 1)
+			printf (" Neteisingai ivedete!\n\n");
+		else {
+			EXEC SQL INSERT INTO Jole.Paslaugos VALUES (:pavadinimas, DECIMAL (:kaina2, 5, 2, '.'), :d_id);
+			if (SQLCODE != 0) {
+				printf ("\nSQL klaida.\n");
+				sqlaintp (msgbuffer, 512, 70, &sqlca);
+				printf ("Message: %s\n",msgbuffer);
+				EXEC SQL ROLLBACK;
+			}
+			else {
+				EXEC SQL COMMIT;
+				printf (" Paslauga ivesta sekmingai.\n\n");
+			}
+		}
+	}
+}
+
+//========================================================================================
+void keisti_pasl ()
+{
+	printf ("|=========================|\n");
+	printf ("| [1] - keisti pavadinima |\n");
+	printf ("| [2] - keisti kaina      |\n");
+	printf ("| [3] - keisti darbuotoja |\n");
+	printf ("| [4] - iseiti            |\n");
+	printf ("|=========================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void PakeistiPaslauga ()
+{
+	char c[2], buffer[11];
+	int ibuffer = 0;
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	printf ("\n Pavadinimas: ");
+	scanf ("%s", pavadinimas);
+	strcpy (sakinys, "SELECT Kaina, Aptarnauja FROM Jole.Paslaugos WHERE Pavadinimas = ?");
+	EXEC SQL PREPARE paslauga FROM :sakinys;
+	EXEC SQL DECLARE paslauga_curs CURSOR FOR paslauga;
+	EXEC SQL OPEN paslauga_curs USING :pavadinimas;
+	EXEC SQL FETCH paslauga_curs INTO :kaina, :d_id;
+	if (SQLCODE == 100) {
+		printf (" Tokios paslaugos nera.\n\n");
+		goto end;
+	}
+	if (SQLCODE == 0) {
+		strcpy (pav, pavadinimas);
+		gcvt (sumoketa, 5, kaina2);
+		keisti_pasl ();
+		scanf ("%s", c);
+		while (c[0] != '4') {
+			switch (c[0]) {
+			case '1':
+				fflush (stdin);
+				printf ("\n Jei nenorite keisti, spauskite #\n");
+				printf (" Pavadinimas: %s\n", pavadinimas);
+				printf (" Keiciate i: ");
+				gets (buffer);
+				if (strlen (buffer) < 1) {
+					printf (" Turite nurodyti pavadinima!\n\n");
+					keisti_pasl ();
+					scanf ("%s", c);
+					break;
+				}
+				if (buffer[0] != '#')
+					strcpy (pavadinimas, buffer);
+				keisti_pasl ();
+				scanf ("%s", c);
+				break;
+			case '2':
+				printf ("\n Jei nenorite keisti, spauskite #\n");
+				printf (" Kaina: %.2f\n", kaina);
+				printf (" Keiciate i: ");
+				scanf ("%s", buffer);
+				if (buffer[0] != '#')
+					strcpy (kaina2, buffer);
+				keisti_pasl ();
+				scanf ("%s", c);
+				break;
+			case '3':
+				printf ("\n Jei nenorite keisti, spauskite 0\n");
+				printf (" Aptarnauja (darbuotojo ID): %d\n", d_id);
+				printf (" Keiciate i: ");
+				if (scanf ("%d", &ibuffer) != 1) {
+					printf ("\n Neteisingai ivedete.\n\n");
+					scanf ("%s", c);
+					break;
+				}
+				else if (ibuffer != 0)
+					d_id = ibuffer;
+				keisti_pasl ();
+				scanf ("%s", c);
+				break;
+			default:
+				keisti_pasl ();
+				scanf ("%s", c);
+			}
+		}
+		printf ("\n Issaugoti pakeitimus? (T/N): ");
+		scanf ("%s", c);
+		if ((c[0] == 'T') || (c[0] == 't')) {
+			EXEC SQL UPDATE Jole.Paslaugos
+				SET Pavadinimas = :pavadinimas, Kaina = DECIMAL (:kaina2, 5, 2, '.'), Aptarnauja = :d_id
+				WHERE Pavadinimas = :pav;
+			if (SQLCODE == 0) {
+				EXEC SQL COMMIT;
+				printf (" Paslauga pakeista sekmingai.\n\n");
+			}
+		}
+		else if ((c[0] == 'N') || (c[0] == 'n'))
+			printf (" Paslauga nepakeista.\n\n");
+		else if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+			printf (" Neteisingai ivedete. Paslauga nepakeista.\n\n");
+	}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE paslauga_curs;
+}
+
+//========================================================================================
+void PanaikintiPaslauga ()
+{
+	char c[2];
+	fflush (stdin);
+	printf ("\n Pavadinimas: ");
+	gets (pavadinimas);
+	printf ("\n Panaikinti '%s'? (T/N): ", pavadinimas);
+	scanf ("%s", c);
+	if ((c[0] == 'T') || (c[0] == 't')) {
+		EXEC SQL DELETE FROM Jole.Paslaugos WHERE Pavadinimas = :pavadinimas;
+		if (SQLCODE == 0) {
+			EXEC SQL COMMIT;
+			printf (" Paslauga panaikinta sekmingai.\n\n");
+		}
+		else if ((SQLCODE != 0) && (SQLCODE != 100)) {
+			printf ("\nSQL klaida.\n");
+			sqlaintp (msgbuffer, 512, 70, &sqlca);
+			printf ("Message: %s\n",msgbuffer);
+			EXEC SQL ROLLBACK;
+		}
+		else if (SQLCODE == 100)
+			printf (" Tokios paslaugos nera.\n\n");
+	}
+	if ((c[0] == 'N') || (c[0] == 'n'))
+		printf (" Paslauga nepanaikinta.\n\n");
+	if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+		printf (" Neteisingai ivedete. Paslauga nepanaikinta.\n\n");
+}
+
+//========================================================================================
+void NaujasKambarys ()
+{
+	printf ("\n Kambario nr.: ");
+	if (scanf ("%d", &kambarys) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		printf (" Vietu sk.: ");
+		if (scanf ("%d", &vietos) != 1)
+			printf (" Neteisingai ivedete!\n\n");
+		else {
+			printf (" Paros kaina: ");
+			scanf ("%s", kaina2);
+			printf (" Kambari tvarko (darbuotojo ID): ");
+			if (scanf ("%d", &d_id) != 1)
+				printf (" Neteisingai ivedete!\n\n");
+			else {
+				EXEC SQL INSERT INTO Jole.Kambariai VALUES (:kambarys, :vietos, DECIMAL (:kaina2, 5, 2, '.'), :d_id);
+				if (SQLCODE != 0) {
+					printf ("\nSQL klaida.\n");
+					sqlaintp (msgbuffer, 512, 70, &sqlca);
+					printf ("Message: %s\n",msgbuffer);
+					EXEC SQL ROLLBACK;
+				}
+				else {
+					EXEC SQL COMMIT;
+					printf (" Kambarys ivestas sekmingai.\n\n");
+				}
+			}
+		}
+	}
+}
+
+//========================================================================================
+void keisti_kamb ()
+{
+	printf ("|===========================|\n");
+	printf ("| [1] - keisti kambario nr. |\n");
+	printf ("| [2] - keisti vietu sk.    |\n");
+	printf ("| [3] - keisti paros kaina  |\n");
+	printf ("| [4] - keisti darbuotoja   |\n");
+	printf ("| [5] - iseiti              |\n");
+	printf ("|===========================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void PakeistiKambari ()
+{
+	char c[2], buffer[11];
+	int ibuffer = 0;
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	printf ("\n Kambario nr.: ");
+	if (scanf ("%d", &kambarys) != 1) 
+		printf ("\n Neteisingai ivedete!\n\n");
+	else {
+		strcpy (sakinys, "SELECT Vietos, Kaina, Tvarko FROM Jole.Kambariai WHERE Nr = ?");
+		EXEC SQL PREPARE kambarys FROM :sakinys;
+		EXEC SQL DECLARE kambarys_curs CURSOR FOR kambarys;
+		EXEC SQL OPEN kambarys_curs USING :kambarys;
+		EXEC SQL FETCH kambarys_curs INTO :vietos, :kaina, :d_id;
+		if (SQLCODE == 100) {
+			printf (" Tokio kambario nera.\n\n");
+			goto end;
+		}
+		if (SQLCODE == 0) {
+			gcvt (kaina, 5, kaina2);
+			kamb = kambarys;
+			keisti_kamb ();
+			scanf ("%s", c);
+			while (c[0] != '5') {
+				switch (c[0]) {
+				case '1':
+					printf ("\n Jei nenorite keisti, spauskite 0\n");
+					printf (" Kambario nr.: %d\n", kambarys);
+					printf (" Keiciate i: ");
+					if (scanf ("%d", &ibuffer) != 1) {
+						printf ("\n Neteisingai ivedete.\n\n");
+						scanf ("%s", c);
+						break;
+					}
+					else if (ibuffer != 0)
+						kambarys = ibuffer;
+					keisti_kamb ();
+					scanf ("%s", c);
+					break;
+				case '2':
+					printf ("\n Jei nenorite keisti, spauskite 0\n");
+					printf (" Vietu sk.: %d\n", vietos);
+					printf (" Keiciate i: ");
+					if (scanf ("%d", &ibuffer) != 1) {
+						printf ("\n Neteisingai ivedete.\n\n");
+						scanf ("%s", c);
+						break;
+					}
+					else if (ibuffer != 0)
+						vietos = ibuffer;
+					keisti_kamb ();
+					scanf ("%s", c);
+					break;
+				case '3':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Paros kaina: %.2f\n", kaina);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (kaina2, buffer);
+					keisti_kamb ();
+					scanf ("%s", c);
+					break;
+				case '4':
+					printf ("\n Jei nenorite keisti, spauskite 0\n");
+					printf (" Tvarko (darbuotojo ID): %d\n", d_id);
+					printf (" Keiciate i: ");
+					if (scanf ("%d", &ibuffer) != 1) {
+						printf ("\n Neteisingai ivedete.\n\n");
+						scanf ("%s", c);
+						break;
+					}
+					else if (ibuffer != 0)
+						d_id = ibuffer;
+					keisti_kamb ();
+					scanf ("%s", c);
+					break;
+				default:
+					keisti_kamb ();
+					scanf ("%s", c);
+				}
+			}
+			printf ("\n Issaugoti pakeitimus? (T/N): ");
+			scanf ("%s", c);
+			if ((c[0] == 'T') || (c[0] == 't')) {
+				EXEC SQL UPDATE Jole.Kambariai
+					SET Nr = :kambarys, Vietos = :vietos, Kaina = DECIMAL (:kaina2, 5, 2, '.'), Tvarko = :d_id
+					WHERE Nr = :kamb;
+				if (SQLCODE == 0) {
+					EXEC SQL COMMIT;
+					printf (" Kambarys pakeistas sekmingai.\n\n");
+				}
+			}
+			else if ((c[0] == 'N') || (c[0] == 'n'))
+				printf (" Kambarys nepakeistas.\n\n");
+			else if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+				printf (" Neteisingai ivedete. Kambarys nepakeistas.\n\n");
+		}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE kambarys_curs;
+	} //else
+}
+
+//========================================================================================
+void PanaikintiKambari ()
+{
+	char c[2];
+	printf ("\n Kambario nr.: ");
+	if (scanf ("%d", &kambarys) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		printf ("\n Panaikinti kambari, kurio nr = %d? (T/N): ", kambarys);
+		scanf ("%s", c);
+		if ((c[0] == 'T') || (c[0] == 't')) {
+			EXEC SQL DELETE FROM Jole.Kambariai WHERE Nr = :kambarys;
+			if (SQLCODE == 0) {
+				EXEC SQL COMMIT;
+				printf (" Kambarys panaikintas sekmingai.\n\n");
+			}
+			else if ((SQLCODE != 0) && (SQLCODE != 100)) {
+				printf ("\nSQL klaida.\n");
+				sqlaintp (msgbuffer, 512, 70, &sqlca);
+				printf ("Message: %s\n",msgbuffer);
+				EXEC SQL ROLLBACK;
+			}
+			else if (SQLCODE == 100)
+				printf (" Tokio kambario nera.\n\n");
+		}
+		if ((c[0] == 'N') || (c[0] == 'n'))
+			printf (" Kambarys nepanaikintas.\n\n");
+		if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+			printf (" Neteisingai ivedete. Kambarys nepanaikintas.\n\n");
+	}
+}
+
+//========================================================================================
+void NaujasDarbuotojas ()
+{
+	printf ("\n Pavarde: ");
+	scanf ("%s", d_pavarde);
+	printf (" Gimimo data: ");
+	scanf ("%s", gime);
+	fflush (stdin);
+	printf (" Telefonas: ");
+	gets (telefonas);
+	fflush (stdin);
+	printf (" Kortele: ");
+	gets (kortele);
+	if (strlen (kortele) < 1) 
+		printf (" Turite nurodyti kortele!\n\n");
+	else {
+		printf (" Korteles nr.: ");
+		scanf ("%s", korteles_nr);
+		printf (" Pareigos: ");
+		scanf ("%s", pareigos);
+		printf (" Alga: ");
+		scanf ("%s", kaina2);
+
+		if (strlen (telefonas) == 0) //jei nenurodytas telefonas
+			EXEC SQL INSERT INTO Jole.Darbuotojai VALUES (0, :d_pavarde, :gime, NULL, :kortele, :korteles_nr, :pareigos, DECIMAL (:kaina2, 8, 2, '.'), '2002.01.01');
+		else
+			EXEC SQL INSERT INTO Jole.Darbuotojai VALUES (0, :d_pavarde, :gime, :telefonas, :kortele, :korteles_nr, :pareigos, DECIMAL (:kaina2, 8, 2, '.'), '2002.01.01');
+		if (SQLCODE != 0) {
+			printf ("\nSQL klaida.\n");
+			sqlaintp (msgbuffer, 512, 70, &sqlca);
+			printf ("Message: %s\n",msgbuffer);
+			EXEC SQL ROLLBACK;
+		}
+		else { 
+			EXEC SQL COMMIT;
+			printf (" Darbuotojas idarbintas sekmingai.\n\n");
+		}
+	}
+}
+
+//========================================================================================
+void keisti_darb ()
+{
+	printf ("|===========================|\n");
+	printf ("| [1] - keisti pavarde      |\n");
+	printf ("| [2] - keisti telefona     |\n");
+	printf ("| [3] - keisti kortele      |\n");
+	printf ("| [4] - keisti korteles nr. |\n");
+	printf ("| [5] - keisti pareigas     |\n");
+	printf ("| [6] - keisti atlyginima   |\n");
+	printf ("| [7] - iseiti              |\n");
+	printf ("|===========================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void PakeistiDarbuotoja ()
+{
+	char c[2], buffer[21], tel[16];
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	printf ("\n Darbuotojo ID: ");
+	if (scanf ("%d", &d_id) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		strcpy (sakinys, "SELECT Pavarde, Telefonas, Kortele, Korteles_Nr, Pareigos, Alga FROM Jole.Darbuotojai WHERE ID = ?");
+		EXEC SQL PREPARE darb FROM :sakinys;
+		EXEC SQL DECLARE darb_curs CURSOR FOR darb;
+
+		EXEC SQL OPEN darb_curs USING :d_id;
+		EXEC SQL FETCH darb_curs INTO :d_pavarde, :telefonas :ind1, :kortele, :korteles_nr, :pareigos, :alga;
+		if (SQLCODE == 100) {
+			printf (" Tokio darbuotojo nera.\n\n");
+			goto end;
+		}
+		if (SQLCODE == 0) {
+			if (ind1 < 0)
+				strcpy (tel, "-");
+			else strcpy (tel, telefonas);
+			gcvt (alga, 8, kaina2);
+			keisti_darb ();
+			scanf ("%s", c);
+			while (c[0] != '7') {
+				switch (c[0]) {
+				case '1':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Pavarde: %s\n", d_pavarde);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (d_pavarde, buffer);
+					keisti_darb ();
+					scanf ("%s", c);
+					break;
+				case '2':
+					fflush (stdin);
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Telefonas: %s\n", tel);
+					printf (" Keiciate i: ");
+					gets (buffer);
+					if (buffer[0] != '#')
+						strcpy (telefonas, buffer);
+					keisti_darb ();
+					scanf ("%s", c);
+					break;
+				case '3':
+					fflush (stdin);
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Kortele: %s\n", kortele);
+					printf (" Keiciate i: ");
+					gets (buffer);
+					if (strlen (buffer) < 1) {
+						printf (" Turite nurodyti kortele!\n\n");
+						keisti_darb ();
+						scanf ("%s", c);
+						break;
+					}
+					if (buffer[0] != '#')
+						strcpy (kortele, buffer);
+					keisti_darb ();
+					scanf ("%s", c);
+					break;
+				case '4':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Korteles nr.: %s\n", korteles_nr);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (korteles_nr, buffer);
+					keisti_darb ();
+					scanf ("%s", c);
+					break;
+				case '5':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Pareigos: %s\n", pareigos);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (pareigos, buffer);
+					keisti_darb ();
+					scanf ("%s", c);
+					break;
+				case '6':
+					printf ("\n Jei nenorite keisti, spauskite #\n");
+					printf (" Atlyginimas: %.2f\n", alga);
+					printf (" Keiciate i: ");
+					scanf ("%s", buffer);
+					if (buffer[0] != '#')
+						strcpy (kaina2, buffer);
+					keisti_darb ();
+					scanf ("%s", c);
+					break;
+				default:
+					keisti_darb ();
+					scanf ("%s", c);
+				}
+			}
+			printf ("\n Issaugoti pakeitimus? (T/N): ");
+			scanf ("%s", c);
+			if ((c[0] == 'T') || (c[0] == 't')) {
+				if (strlen (telefonas) > 0) {
+					EXEC SQL UPDATE Jole.Darbuotojai
+						SET Pavarde = :d_pavarde, Telefonas = :telefonas, Kortele = :kortele, Korteles_Nr = :korteles_nr, Pareigos = :pareigos, Alga = DECIMAL (:kaina2, 8, 2, '.')
+						WHERE ID = :d_id;
+				}
+				else {
+					EXEC SQL UPDATE Jole.Darbuotojai
+						SET Pavarde = :d_pavarde, Telefonas = NULL, Kortele = :kortele, Korteles_Nr = :korteles_nr, Pareigos = :pareigos, Alga = DECIMAL (:kaina2, 8, 2, '.')
+						WHERE ID = :d_id;
+				}
+				if (SQLCODE == 0) {
+					EXEC SQL COMMIT;
+					printf (" Informacija apie darbuotoja pakeista sekmingai.\n\n");
+				}
+			}
+			else if ((c[0] == 'N') || (c[0] == 'n'))
+				printf (" Informacija apie darbuotoja nepakeista.\n\n");
+			else if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+				printf (" Neteisingai ivedete. Informacija nepakeista.\n\n");			
+		}
+error:
+	if (SQLCODE != 0) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+		EXEC SQL ROLLBACK;
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE darb_curs;
+	} //else
+}
+
+//========================================================================================
+void PasalintiDarbuotoja ()
+{
+	char c[2];
+	printf ("\n Darbuotojo ID: ");
+	if (scanf ("%d", &d_id) != 1)
+		printf (" Neteisingai ivedete!\n\n");
+	else {
+		printf ("\n Pasalinti darbuotoja, kurio ID = %d? (T/N): ", d_id);
+		scanf ("%s", c);
+		if ((c[0] == 'T') || (c[0] == 't')) {
+			EXEC SQL DELETE FROM Jole.Darbuotojai WHERE ID = :d_id;
+			if (SQLCODE == 0) {
+				EXEC SQL COMMIT;
+				printf (" Darbuotojas pasalintas sekmingai.\n\n");
+			}
+			else if ((SQLCODE != 0) && (SQLCODE != 100)) {
+				printf ("\nSQL klaida.\n");
+				sqlaintp (msgbuffer, 512, 70, &sqlca);
+				printf ("Message: %s\n",msgbuffer);
+				EXEC SQL ROLLBACK;
+			}
+			else if (SQLCODE == 100)
+				printf (" Tokio darbuotojo nera.\n\n");
+		}
+		if ((c[0] == 'N') || (c[0] == 'n'))
+			printf (" Darbuotojas nepasalintas.\n\n");
+		if ((c[0] != 'T') && (c[0] != 't') && (c[0] != 'N') && (c[0] != 'n'))
+			printf (" Neteisingai ivedete. Darbuotojas nepasalintas.\n\n");
+	}
+}
+
+//========================================================================================
+void KlientuInfo ()  //info apie klientus darbuotojams
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE d_klientai_curs CURSOR FOR
+		SELECT ID, Pavarde, Kortele, Korteles_Nr FROM Jole.Klientai ORDER BY Pavarde;
+    EXEC SQL OPEN d_klientai_curs;
+	printf ("\nKLIENTAI:\n");
+	printf ("+----+----------------------+----------------------+------------------+\n");
+	printf ("| ID | Pavarde              | Kortele              | Korteles_Nr      |\n");
+	printf ("+----+----------------------+----------------------+------------------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH d_klientai_curs INTO :k_id, :k_pavarde, :kortele, :korteles_nr;
+		printf ("| %2d | %s | %s | %s |\n", k_id, k_pavarde, kortele, korteles_nr);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE d_klientai_curs;
+	printf ("+----+----------------------+----------------------+------------------+\n\n");
+}
+
+//========================================================================================
+void Darbuotojai ()  //info darbuotojams apie darbuotojus
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE darbuotojai_curs CURSOR FOR
+		SELECT ID, Pavarde, Telefonas, Pareigos FROM Jole.Darbuotojai ORDER BY Pavarde;
+    EXEC SQL OPEN darbuotojai_curs;
+	printf ("\nDARBUOTOJAI:\n");
+	printf ("+----+----------------------+-----------------+----------------------+\n");
+	printf ("| ID | Pavarde              | Telefonas       | Pareigos             |\n");
+	printf ("+----+----------------------+-----------------+----------------------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH darbuotojai_curs INTO :d_id, :d_pavarde, :telefonas :ind1, :pareigos;
+		if (ind1 < 0)
+			strcpy (telefonas, "-");
+		printf ("| %2d | %s | %s | %s |\n", d_id, d_pavarde, telefonas, pareigos);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE darbuotojai_curs;
+	printf ("+----+----------------------+-----------------+----------------------+\n\n");
+}
+
+//========================================================================================
+void GyvDabar ()  //dabar gyvenantys klientai
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE gyv_curs CURSOR FOR
+		SELECT Kambarys, G.ID, Pavarde, Nuo, Iki, Sumoketa FROM Jole.Gyventojai AS G, Jole.Klientai AS K
+		WHERE G.ID = K.ID AND Iki >= CURRENT TIMESTAMP ORDER BY Pavarde;
+    EXEC SQL OPEN gyv_curs;
+	printf ("\nDABAR GYVENANTYS KLIENTAI:\n");
+	printf ("+----+----+-----------------+------------------+------------------+----------+\n");
+	printf ("| Km | ID | Gyvena          | Nuo              | Iki              | Sumoketa |\n");
+	printf ("+----+----+-----------------+------------------+------------------+----------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH gyv_curs INTO :kambarys, :k_id, :k_pavarde, :g_nuo, :g_iki, :sumoketa;
+		g_nuo[16] = '\0';
+		g_iki[16] = '\0';
+		k_pavarde[15] = '\0';
+		printf ("| %d | %2d | %s | %s | %s | %8.2f |\n", kambarys, k_id, k_pavarde, g_nuo, g_iki, sumoketa);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE gyv_curs;
+	printf ("+----+----+-----------------+------------------+------------------+----------+\n\n");
+}
+
+//========================================================================================
+void GyvAnksciau ()  //anksciau gyvene klientai
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE gyv2_curs CURSOR FOR
+		SELECT Kambarys, G.ID, Pavarde, Nuo, Iki, Sumoketa FROM Jole.Gyventojai AS G, Jole.Klientai AS K
+		WHERE G.ID = K.ID AND Iki < CURRENT TIMESTAMP ORDER BY Pavarde, Nuo;
+    EXEC SQL OPEN gyv2_curs;
+	printf ("\nANKSCIAU GYVENE KLIENTAI:\n");
+	printf ("+----+----+-----------------+------------------+------------------+----------+\n");
+	printf ("| Km | ID | Gyveno          | Nuo              | Iki              | Sumoketa |\n");
+	printf ("+----+----+-----------------+------------------+------------------+----------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH gyv2_curs INTO :kambarys :ind1, :k_id, :k_pavarde, :g_nuo, :g_iki, :sumoketa;
+		g_nuo[16] = '\0';
+		g_iki[16] = '\0';
+		k_pavarde[15] ='\0';
+		if (ind1 >= 0)
+			printf ("| %d | %2d | %s | %s | %s | %8.2f |\n", kambarys, k_id, k_pavarde, g_nuo, g_iki, sumoketa);
+		else printf ("| -  | %2d | %s | %s | %s | %8.2f |\n", k_id, k_pavarde, g_nuo, g_iki, sumoketa);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE gyv2_curs;
+	printf ("+----+----+-----------------+------------------+------------------+----------+\n\n");
+}
+
+//========================================================================================
+void SaskDabar ()
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE saskaita_curs CURSOR FOR
+		SELECT ID, Pavarde, Kortele, Korteles_Nr, Kambarys, Nuo, Iki, Dienos, Moketi, Sumoketa
+		FROM Jole.Saskaita WHERE Iki >= CURRENT TIMESTAMP ORDER BY Pavarde;
+    EXEC SQL OPEN saskaita_curs;
+	printf ("\nDABARTINE SASKAITA:\n");
+	printf ("+----+-----------------+------+------------+------------+---------+----------+\n");
+	printf ("| ID | Pavarde         | Kamb | Nuo        | Iki        | Moketi  | Sumoketa |\n");
+	printf ("+----+-----------------+------+------------+------------+---------+----------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH saskaita_curs INTO :k_id, :k_pavarde, :kortele, :korteles_nr, :kambarys, :g_nuo, :g_iki, :dienos, :moketi, :sumoketa;
+		g_nuo[10] = '\0';
+		g_iki[10] = '\0';
+		k_pavarde[15] = '\0';
+		printf ("| %2d | %s | %4d | %s | %s | %7.2f | %8.2f |\n", k_id, k_pavarde, kambarys, g_nuo, g_iki, moketi, sumoketa);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE saskaita_curs;
+	printf ("+----+-----------------+------+------------+------------+---------+----------+\n\n");
+}
+
+//========================================================================================
+void SaskAnksciau ()
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE saskaita2_curs CURSOR FOR
+		SELECT ID, Pavarde, Kortele, Korteles_Nr, Kambarys, Nuo, Iki, Dienos, Moketi, Sumoketa
+		FROM Jole.Saskaita WHERE Iki < CURRENT TIMESTAMP ORDER BY Pavarde, Nuo;
+    EXEC SQL OPEN saskaita2_curs;
+	printf ("\nANKSTESNE SASKAITA:\n");
+	printf ("+----+-----------------+------+------------+------------+---------+----------+\n");
+	printf ("| ID | Pavarde         | Kamb | Nuo        | Iki        | Moketi  | Sumoketa |\n");
+	printf ("+----+-----------------+------+------------+------------+---------+----------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH saskaita2_curs INTO :k_id, :k_pavarde, :kortele, :korteles_nr, :kambarys :ind1, :g_nuo, :g_iki, :dienos, :moketi :ind2, :sumoketa;
+		g_nuo[10] = '\0';
+		g_iki[10] = '\0';
+		k_pavarde[15] = '\0';
+		if ((ind1 >= 0) && (ind2 >= 0))
+			printf ("| %2d | %s | %4d | %s | %s | %7.2f | %8.2f |\n", k_id, k_pavarde, kambarys, g_nuo, g_iki, moketi, sumoketa);
+		else if ((ind1 < 0) && (ind2 >= 0))
+			printf ("| %2d | %s | -    | %s | %s | %7.2f | %8.2f |\n", k_id, k_pavarde, g_nuo, g_iki, moketi, sumoketa);
+		else if ((ind1 >= 0) && (ind2 < 0))
+			printf ("| %2d | %s | %4d | %s | %s | -       | %8.2f |\n", k_id, k_pavarde, kambarys, g_nuo, g_iki, sumoketa);
+		else if ((ind1 < 0) && (ind2 < 0))
+			printf ("| %2d | %s | -    | %s | %s | -       | %8.2f |\n", k_id, k_pavarde, g_nuo, g_iki, sumoketa);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE saskaita2_curs;
+	printf ("+----+-----------------+------+------------+------------+---------+----------+\n\n");
+}
+
+//========================================================================================
+void Klientai ()  //info apie klientus klientams ir sveciams
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE klientai_curs CURSOR FOR
+		SELECT Pavarde, Salis FROM Jole.Klientai ORDER BY Pavarde;
+    EXEC SQL OPEN klientai_curs;
+	printf ("\nKLIENTAI:\n");
+	printf ("+----------------------+-----------------+\n");
+	printf ("| Pavarde              | Salis           |\n");
+	printf ("+----------------------+-----------------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH klientai_curs INTO :k_pavarde, :salis;
+		printf ("| %s | %s |\n", k_pavarde, salis);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE klientai_curs;
+	printf ("+----------------------+-----------------+\n\n");
+}
+
+//========================================================================================
+void Paslaugos ()  //info apie paslaugas klientams ir sveciams
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE paslaugos_curs CURSOR FOR
+		SELECT Pavadinimas, Kaina FROM Jole.Paslaugos ORDER BY Pavadinimas;
+    EXEC SQL OPEN paslaugos_curs;
+	printf ("\nPASLAUGOS:\n");
+	printf ("+-----------------+-------+\n");
+	printf ("| Pavadinimas     | Kaina |\n");
+	printf ("+-----------------+-------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH paslaugos_curs INTO :pavadinimas, :kaina;
+		printf ("| %s | %5.2f |\n", pavadinimas, kaina);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE paslaugos_curs;
+	printf ("+-----------------+-------+\n\n");
+}
+
+//========================================================================================
+void Paslaugos_d ()  //info apie paslaugas darbuotojams
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE paslaugosd_curs CURSOR FOR
+		SELECT Pavadinimas, Kaina, Pavarde FROM Jole.Paslaugos, Jole.Darbuotojai
+		WHERE Aptarnauja = ID ORDER BY Pavadinimas;
+    EXEC SQL OPEN paslaugosd_curs;
+	printf ("\nPASLAUGOS:\n");
+	printf ("+-----------------+-------+----------------------+\n");
+	printf ("| Pavadinimas     | Kaina | Aptarnauja           |\n");
+	printf ("+-----------------+-------+----------------------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH paslaugosd_curs INTO :pavadinimas, :kaina, :d_pavarde;
+		printf ("| %s | %5.2f | %s |\n", pavadinimas, kaina, d_pavarde);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE paslaugosd_curs;
+	printf ("+-----------------+-------+----------------------+\n\n");
+}
+
+//========================================================================================
+void Rezervavimas ()  //info darbuotojams apie rez. vietas
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE rezervavimas_curs CURSOR FOR
+		SELECT R.ID, Pavarde, Vietos, Nuo, Iki, Rezervavo, R.Data FROM Jole.Klientai AS K, Jole.Rezervavimas AS R
+		WHERE R.ID = K.ID ORDER BY Pavarde, Nuo, Iki;
+    EXEC SQL OPEN rezervavimas_curs;
+	printf ("\nREZERVAVIMAS:\n");
+	printf ("+------+---------------+--------+------------+------------+------+------------+\n");
+	printf ("| K_ID | Pavarde       | Vietos | Nuo        | Iki        | D_ID | Data       |\n");
+	printf ("+------+---------------+--------+------------+------------+------+------------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH rezervavimas_curs INTO :k_id, :k_pavarde, :vietos, :nuo, :iki, :d_id :ind1, :data;
+		k_pavarde[13] = '\0';
+		d_pavarde[13] = '\0';
+		if (ind1 >= 0)
+			printf ("| %4d | %s | %6d | %s | %s | %4d | %s |\n", k_id, k_pavarde, vietos, nuo, iki, d_id, data);
+		else printf ("| %4d | %s | %6d | %s | %s | -    | %s |\n", k_id, k_pavarde, vietos, nuo, iki, data);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE rezervavimas_curs;
+	printf ("+------+---------------+--------+------------+------------+------+------------+\n\n");
+}
+
+//========================================================================================
+void LaisvosVietos ()  //rodo kiek kokiam kambary yra laisvu vietu siuo momentu
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE vietos_curs CURSOR FOR
+		SELECT Kambarys, Vietos, Laisvos_Vietos, Kaina FROM Jole.LaisvosVietos ORDER BY Vietos;
+    EXEC SQL OPEN vietos_curs;
+	printf ("\nLAISVOS VIETOS:\n");
+	printf ("+----------+--------+----------------+-------+\n");
+	printf ("| Kambarys | Vietos | Laisvos_Vietos | Kaina |\n");
+	printf ("+----------+--------+----------------+-------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH vietos_curs INTO :kambarys, :vietos, :laisvos, :kaina;
+		printf ("| %8d | %6d | %14d | %5.2f |\n", kambarys, vietos, laisvos, kaina);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE vietos_curs;
+	printf ("+----------+--------+----------------+-------+\n\n");
+}
+
+//========================================================================================
+void Kambariai ()  //info apie kambarius darbuotojams
+{
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL DECLARE kambariai_curs CURSOR FOR
+		SELECT Nr, Vietos, Kaina, Pavarde FROM Jole.Kambariai, Jole.Darbuotojai
+		WHERE Tvarko = ID ORDER BY Nr;
+    EXEC SQL OPEN kambariai_curs;
+	printf ("\nKAMBARIAI:\n");
+	printf ("+----+--------+---------+----------------------+\n");
+	printf ("| Nr | Vietos | Kaina   | Tvarko               |\n");
+	printf ("+----+--------+---------+----------------------+\n");
+	while (SQLCODE == 0) {
+		EXEC SQL FETCH kambariai_curs INTO :kambarys, :vietos, :kaina, :d_pavarde;
+		printf ("| %2d | %6d | %7.2f | %s |\n", kambarys, vietos, kaina, d_pavarde);
+	}
+error:
+	printf ("\nSQL klaida.\n");
+	sqlaintp (msgbuffer, 512, 70, &sqlca);
+	printf ("Message: %s\n",msgbuffer);
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CLOSE kambariai_curs;
+	printf ("+----+--------+---------+----------------------+\n\n");
+}
+
+//========================================================================================
+void meniu ()
+{
+	printf ("| Kas Jus?\n");
+	printf ("|===================|\n");
+	printf ("| [1] - darbuotojas |\n");
+	printf ("| [2] - klientas    |\n");
+	printf ("| [3] - svecias     |\n");
+	printf ("| [4] - iseiti      |\n");
+	printf ("|===================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void d_meniu ()
+{
+	printf ("|==============================|\n");
+	printf ("| [1] - klientu registravimas  |\n");
+	printf ("| [2] - klientu apgyvendinimas |\n");
+	printf ("| [3] - vietu rezervavimas     |\n");
+	printf ("| [4] - paslaugos              |\n");
+	printf ("| [5] - kambariai              |\n");
+	printf ("| [6] - darbuotojai            |\n");
+	printf ("| [7] - iseiti                 |\n");
+	printf ("|==============================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void d_meniu_reg ()
+{
+	printf ("|===================================|\n");
+	printf ("| [1] - info apie klientus          |\n");
+	printf ("| [2] - info apie klienta           |\n");
+	printf ("| [3] - uzregistruoti nauja klienta |\n");
+	printf ("| [4] - pakeisti info apie klienta  |\n");
+	printf ("| [5] - pasalinti klienta           |\n");
+	printf ("| [6] - iseiti                      |\n");
+	printf ("|===================================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void d_meniu_gyv ()
+{
+	printf ("|====================================|\n");
+	printf ("| [1] - dabar gyvenantys klientai    |\n");
+	printf ("| [2] - klientai, gyvene anksciau    |\n");
+	printf ("| [3] - apgyvendinti klienta         |\n");
+	printf ("| [4] - pakeisti info apie gyventoja |\n");
+	printf ("| [5] - pasalinti gyventoja          |\n");
+	printf ("| [6] - dabartine saskaita           |\n");
+	printf ("| [7] - ankstesne saskaita           |\n");
+	printf ("| [8] - gyventojo saskaita           |\n");
+	printf ("| [9] - apmoketi gyventojo saskaita  |\n");
+	printf ("| [0] - iseiti                       |\n");
+	printf ("|====================================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void d_meniu_rez ()
+{
+	printf ("|==================================|\n");
+	printf ("| [1] - rezervuotos vietos         |\n");
+	printf ("| [2] - kliento rezervuotos vietos |\n");
+	printf ("| [3] - naujas rezervavimas        |\n");
+	printf ("| [4] - pakeisti rezervavima       |\n");
+	printf ("| [5] - panaikinti rezervavima     |\n");
+	printf ("| [6] - iseiti                     |\n");
+	printf ("|==================================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void d_meniu_pasl ()
+{
+	printf ("|===========================|\n");
+	printf ("| [1] - teikiamos paslaugos |\n");
+	printf ("| [2] - nauja paslauga      |\n");
+	printf ("| [3] - pakeisti paslauga   |\n");
+	printf ("| [4] - panaikinti paslauga |\n");
+	printf ("| [5] - iseiti              |\n");
+	printf ("|===========================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void d_meniu_kamb ()
+{
+	printf ("|=====================================================|\n");
+	printf ("| [1] - info apie kambarius                           |\n");
+	printf ("| [2] - laisvos vietos kambariuose                    |\n");
+	printf ("| [3] - laisvu vietu skaicius tam tikram laikotarpiui |\n");
+	printf ("| [4] - naujas kambarys                               |\n");
+	printf ("| [5] - pakeisti info apie kambari                    |\n");
+	printf ("| [6] - panaikinti kambari                            |\n");
+	printf ("| [7] - iseiti                                        |\n");
+	printf ("|=====================================================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void d_meniu_darb ()
+{
+	printf ("|=====================================|\n");
+	printf ("| [1] - info apie darbuotojus         |\n");
+	printf ("| [2] - info apie darbuotoja          |\n");
+	printf ("| [3] - naujas darbuotojas            |\n");
+	printf ("| [4] - pakeisti info apie darbuotoja |\n");
+	printf ("| [5] - pasalinti darbuotoja          |\n");
+	printf ("| [6] - iseiti                        |\n");
+	printf ("|=====================================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void k_meniu ()
+{
+	printf ("|===============================|\n");
+	printf ("| [1] - klientu registravimas   |\n");
+	printf ("| [2] - Jusu apgyvendinimas     |\n");
+	printf ("| [3] - Jusu rezervuotos vietos |\n");
+	printf ("| [4] - paslaugos               |\n");
+	printf ("| [5] - kambariai               |\n");
+	printf ("| [6] - iseiti                  |\n");
+	printf ("|===============================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void k_meniu_reg ()
+{
+	printf ("|=====================|\n");
+	printf ("| [1] - klientai      |\n");
+	printf ("| [2] - info apie Jus |\n");
+	printf ("| [3] - iseiti        |\n");
+	printf ("|=====================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void k_meniu_gyv ()
+{
+	printf ("|===============================|\n");
+	printf ("| [1] - apgyvendinimas dabar    |\n");
+	printf ("| [2] - apgyvendinimas anksciau |\n");
+	printf ("| [3] - Jusu saskaita           |\n");
+	printf ("| [4] - iseiti                  |\n");
+	printf ("|===============================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void s_meniu ()
+{
+	printf ("|=================|\n");
+	printf ("| [1] - klientai  |\n");
+	printf ("| [2] - paslaugos |\n");
+	printf ("| [3] - kambariai |\n");
+	printf ("| [4] - iseiti    |\n");
+	printf ("|=================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+int TuriTeise ()  //tikrinimui ar darbuotojas turi teise duomenu ivedimui, keitimui, salinimui
+{
+	int dir = 1, vad = 1, adm = 1, sek = 1;
+
+	dir = strncmp (Pareigos, "Direktorius", 11);
+	vad = strncmp (Pareigos, "Vadybininkas", 12);
+	adm = strncmp (Pareigos, "Administratore", 14);
+	sek = strncmp (Pareigos, "Sekretore", 9);
+	if ((dir == 0) || (vad == 0) || (adm == 0) || (sek == 0))
+		return 1;
+	else return 0;
+}
+
+//========================================================================================
+int Direktorius ()
+{
+	if (strncmp (Pareigos, "Direktorius", 11) == 0)
+		return 1;
+	else return 0;
+}
+
+//========================================================================================
+void kamb_meniu ()
+{
+	printf ("|=====================================================|\n");
+	printf ("| [1] - laisvos vietos kambariuose                    |\n");
+	printf ("| [2] - laisvu vietu skaicius tam tikram laikotarpiui |\n");
+	printf ("| [3] - iseiti                                        |\n");
+	printf ("|=====================================================|\n");
+	printf ("|=> ");
+}
+
+//========================================================================================
+void main ()
+{
+	char ch[2];
+	char sch[2], sch2[2];
+	char kch[2], kch2[2];
+	char dch[2], dch2[2];
+
+	EXEC SQL WHENEVER SQLERROR GOTO error;
+	EXEC SQL WHENEVER NOT FOUND GOTO end;
+	EXEC SQL CONNECT TO SAMPLE;
+
+	printf ("\n");
+	meniu ();
+	scanf ("%s", ch);
+	while (ch[0] != '4') {
+		switch (ch[0]) {
+		case '1':  //darbuotojas
+			Login_d ();
+			if (logged_d == 0) {
+				printf (" Tokio darbuotojo nera.\n\n");
+				meniu ();
+				scanf ("%s", ch);
+				break;
+			}
+			d_meniu ();
+			scanf ("%s", dch);
+			while (dch[0] != '7') {
+				switch (dch[0]) {
+				case '1':
+					d_meniu_reg ();
+					scanf ("%s", dch2);
+					while (dch2[0] != '6') { //klientu regist.
+						switch (dch2[0]) {
+						case '1':
+							KlientuInfo ();
+							d_meniu_reg ();
+							scanf ("%s", dch2);
+							break;
+						case '2':
+							printf ("\n Kliento ID: ");
+							if (scanf ("%d", &K_id) != 1) {
+								printf (" Neteisingai ivedete!\n\n");
+								scanf ("%s", dch2);
+								break;
+							}
+							KlientoInfo ();
+							d_meniu_reg ();
+							scanf ("%s", dch2);
+							K_id = 0;
+							break;
+						case '3':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises klientu registravimui.\n\n");
+								d_meniu_reg ();
+								scanf ("%s", dch2);
+								break;
+							}
+							NaujasKlientas ();
+							d_meniu_reg ();
+							scanf ("%s", dch2);
+							break;
+						case '4':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises informacijos keitimui.\n\n");
+								d_meniu_reg ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PakeistiKlienta ();
+							fflush (stdin);
+							d_meniu_reg ();
+							scanf ("%s", dch2);
+							break;
+						case '5':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises klientu salinimui.\n\n");
+								d_meniu_reg ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PasalintiKlienta ();
+							fflush (stdin);
+							d_meniu_reg ();
+							scanf ("%s", dch2);
+							break;
+						default:
+							d_meniu_reg ();
+							scanf ("%s", dch2);
+						}
+					}
+					d_meniu ();
+					scanf ("%s", dch);
+					break;
+				case '2':
+					d_meniu_gyv ();
+					scanf ("%s", dch2);
+					while (dch2[0] != '0') { //klientu apgyvendinimas
+						switch (dch2[0]) {
+						case '1':
+							GyvDabar ();
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '2':
+							GyvAnksciau ();
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '3':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises klientu apgyvendinimui.\n\n");
+								d_meniu_gyv ();
+								scanf ("%s", dch2);
+								break;
+							}
+							ApgyvendintiKlienta ();
+							fflush (stdin);
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '4':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises informacijos keitimui.\n\n");
+								d_meniu_gyv ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PakeistiGyventoja ();
+							fflush (stdin);
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '5':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises gyventoju salinimui.\n\n");
+								d_meniu_gyv ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PasalintiGyventoja ();
+							fflush (stdin);
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '6':
+							SaskDabar ();
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '7':
+							SaskAnksciau ();
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '8':
+							printf ("\n Gyventojo ID: ");
+							if (scanf ("%d", &K_id) != 1) {
+								printf (" Neteisingai ivedete!\n\n");
+								scanf ("%s", dch2);
+								break;
+							}
+							KlientoSask ();
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						case '9':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises saskaitos apmokejimui.\n\n");
+								d_meniu_gyv ();
+								scanf ("%s", dch2);
+								break;
+							}
+							Apmoketi ();
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+							break;
+						default:
+							d_meniu_gyv ();
+							scanf ("%s", dch2);
+						}
+					}
+					d_meniu ();
+					scanf ("%s", dch);
+					break;
+				case '3':  //rezervavimas
+					d_meniu_rez ();
+					scanf ("%s", dch2);
+					while (dch2[0] != '6') {
+						switch (dch2[0]) {
+						case '1':
+							Rezervavimas ();
+							d_meniu_rez ();
+							scanf ("%s", dch2);
+							break;
+						case '2':
+							printf ("\n Kliento ID: ");
+							if (scanf ("%d", &K_id) != 1) {
+								printf (" Neteisingai ivedete!\n\n");
+								scanf ("%s", dch2);
+								break;
+							}
+							KlientoRez ();
+							d_meniu_rez ();
+							scanf ("%s", dch2);
+							break;
+						case '3':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises vietu rezervavimui.\n\n");
+								d_meniu_rez ();
+								scanf ("%s", dch2);
+								break;
+							}
+							NaujasRez ();
+							fflush (stdin);
+							d_meniu_rez ();
+							scanf ("%s", dch2);
+							break;
+						case '4':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises rezervavimu keitimui.\n\n");
+								d_meniu_rez ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PakeistiRezervavima ();
+							fflush (stdin);
+							d_meniu_rez ();
+							scanf ("%s", dch2);
+							break;
+						case '5':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises rezervavimui panaikinti.\n\n");
+								d_meniu_rez ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PanaikintiRez ();
+							fflush (stdin);
+							d_meniu_rez ();
+							scanf ("%s", dch2);
+							break;
+						default:
+							d_meniu_rez ();
+							scanf ("%s", dch2);
+						}
+					}
+					d_meniu ();
+					scanf ("%s", dch);
+					break;
+				case '4':  //paslaugos
+					d_meniu_pasl ();
+					scanf ("%s", dch2);
+					while (dch2[0] != '5') {
+						switch (dch2[0]) {
+						case '1':
+							Paslaugos_d ();
+							d_meniu_pasl ();
+							scanf ("%s", dch2);
+							break;
+						case '2':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises paslaugu ivedimui.\n\n");
+								d_meniu_pasl ();
+								scanf ("%s", dch2);
+								break;
+							}
+							NaujaPaslauga ();
+							fflush (stdin);
+							d_meniu_pasl ();
+							scanf ("%s", dch2);
+							break;
+						case '3':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises paslaugu keitimui.\n\n");
+								d_meniu_pasl ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PakeistiPaslauga ();
+							d_meniu_pasl ();
+							scanf ("%s", dch2);
+							break;
+						case '4':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises paslaugu naikinimui.\n\n");
+								d_meniu_pasl ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PanaikintiPaslauga ();
+							d_meniu_pasl ();
+							scanf ("%s", dch2);
+							break;
+						default:
+							d_meniu_pasl ();
+							scanf ("%s", dch2);
+						}
+					}
+					d_meniu ();
+					scanf ("%s", dch);
+					break;
+				case '5':  //kambariai
+					d_meniu_kamb ();
+					scanf ("%s", dch2);
+					while (dch2[0] != '7') {
+						switch (dch2[0]) {
+						case '1':
+							Kambariai ();
+							d_meniu_kamb ();
+							scanf ("%s", dch2);
+							break;
+						case '2':
+							LaisvosVietos ();
+							d_meniu_kamb ();
+							scanf ("%s", dch2);
+							break;
+						case '3':
+							VietuSk ();
+							d_meniu_kamb ();
+							scanf ("%s", dch2);
+							break;
+						case '4':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises kambariu ivedimui.\n\n");
+								d_meniu_kamb ();
+								scanf ("%s", dch2);
+								break;
+							}
+							NaujasKambarys ();
+							fflush (stdin);
+							d_meniu_kamb ();
+							scanf ("%s", dch2);
+							break;
+						case '5':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises kambariu keitimui.\n\n");
+								d_meniu_kamb ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PakeistiKambari ();
+							fflush (stdin);
+							d_meniu_kamb ();
+							scanf ("%s", dch2);
+							break;
+						case '6':
+							if (TuriTeise () != 1) {
+								printf ("\n Neturite teises kambariu naikinimui.\n\n");
+								d_meniu_kamb ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PanaikintiKambari ();
+							fflush (stdin);
+							d_meniu_kamb ();
+							scanf ("%s", dch2);
+							break;
+						default:
+							d_meniu_kamb ();
+							scanf ("%s", dch2);
+						}
+					}
+					d_meniu ();
+					scanf ("%s", dch);
+					break;
+				case '6':  //darbuotojai
+					d_meniu_darb ();
+					scanf ("%s", dch2);
+					while (dch2[0] != '6') {
+						switch (dch2[0]) {
+						case '1':
+							Darbuotojai ();
+							d_meniu_darb ();
+							scanf ("%s", dch2);
+							break;
+						case '2':
+							if (Direktorius () == 1) {
+								hold = D_id;
+								printf ("\n Darbuotojo ID: "); 
+								if (scanf ("%d", &D_id) != 1) {
+									printf (" Neteisingai ivedete!\n\n");
+									scanf ("%s", dch2);
+									break;
+								}
+								Darbuotojas ();
+								D_id = hold;
+								d_meniu_darb ();
+								scanf ("%s", dch2);
+								break;
+							}
+							Darbuotojas ();
+							d_meniu_darb ();
+							scanf ("%s", dch2);
+							break;
+						case '3':
+							if (Direktorius () != 1) {
+								printf ("\n Neturite teises darbuotoju idarbinimui.\n\n");
+								d_meniu_darb ();
+								scanf ("%s", dch2);
+								break;
+							}
+							NaujasDarbuotojas ();
+							d_meniu_darb ();
+							scanf ("%s", dch2);
+							break;
+						case '4':
+							if (Direktorius () != 1) {
+								printf ("\n Neturite teises informacijos keitimui.\n\n");
+								d_meniu_darb ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PakeistiDarbuotoja ();
+							fflush (stdin);
+							d_meniu_darb ();
+							scanf ("%s", dch2);
+							break;
+						case '5':
+							if (Direktorius () != 1) {
+								printf ("\n Neturite teises darbuotoju salinimui.\n\n");
+								d_meniu_darb ();
+								scanf ("%s", dch2);
+								break;
+							}
+							PasalintiDarbuotoja ();
+							fflush (stdin);
+							d_meniu_darb ();
+							scanf ("%s", dch2);
+							break;
+						default:
+							d_meniu_darb ();
+							scanf ("%s", dch2);
+						}
+					}
+					d_meniu ();
+					scanf ("%s", dch);
+					break;
+				default:
+					d_meniu ();
+					scanf ("%s", dch);
+				}
+			}
+			meniu ();
+			scanf ("%s", ch);
+			D_id = 0;
+			logged_d = 0;
+			break;
+		case '2':  //klientas
+			Login_k ();
+			if (logged_k == 0) {
+				printf (" Tokio kliento nera.\n\n");
+				meniu ();
+				scanf ("%s", ch);
+				break;
+			}
+			k_meniu ();
+			scanf ("%s", kch);
+			while (kch[0] != '6') {
+				switch (kch[0]) {
+				case '1':
+					k_meniu_reg ();
+					scanf ("%s", kch2);
+					while (kch2[0] != '3') {
+						switch (kch2[0]) {
+						case '1':
+							Klientai ();
+							k_meniu_reg ();
+							scanf ("%s", kch2);
+							break;
+						case '2':
+							KlientoInfo ();
+							k_meniu_reg ();
+							scanf ("%s", kch2);
+							break;
+						default:
+							k_meniu_reg ();
+							scanf ("%s", kch2);
+						}
+					}
+					k_meniu ();
+					scanf ("%s", kch);
+					break;
+				case '2':
+					k_meniu_gyv ();
+					scanf ("%s", kch2);
+					while (kch2[0] != '4') {
+						switch (kch2[0]) {
+						case '1':
+							KlientasDabar ();
+							k_meniu_gyv ();
+							scanf ("%s", kch2);
+							break;
+						case '2':
+							KlientasAnksciau ();
+							k_meniu_gyv ();
+							scanf ("%s", kch2);
+							break;
+						case '3':
+							KlientoSask ();
+							k_meniu_gyv ();
+							scanf ("%s", kch2);
+							break;
+						default:
+							k_meniu_gyv ();
+							scanf ("%s", kch2);
+						}
+					}
+					k_meniu ();
+					scanf ("%s", kch);
+					break;
+				case '3':
+					KlientoRez ();
+					k_meniu ();
+					scanf ("%s", kch);
+					break;
+				case '4':
+					Paslaugos ();
+					k_meniu ();
+					scanf ("%s", kch);
+					break;
+				case '5':
+					kamb_meniu ();
+					scanf ("%s", kch2);
+					while (kch2[0] != '3') {
+						switch (kch2[0]) {
+						case '1':
+							LaisvosVietos ();
+							kamb_meniu ();
+							scanf ("%s", kch2);
+							break;
+						case '2':
+							VietuSk ();
+							kamb_meniu ();
+							scanf ("%s", kch2);
+							break;
+						default:
+							kamb_meniu ();
+							scanf ("%s", kch2);
+						}
+					}
+					k_meniu ();
+					scanf ("%s", kch);
+					break;
+				default:
+					k_meniu ();
+					scanf ("%s", kch);
+				}
+			}
+			meniu ();
+			scanf ("%s", ch);
+			K_id = 0;
+			logged_k = 0;
+			break;
+		case '3':  //svecias
+			s_meniu ();
+			scanf ("%s", sch);
+			while (sch[0] != '4') {
+				switch (sch[0]) {
+				case '1':
+					Klientai ();
+					s_meniu ();
+					scanf ("%s", sch);
+					break;
+				case '2':
+					Paslaugos ();
+					s_meniu ();
+					scanf ("%s", sch);
+					break;
+				case '3':
+					kamb_meniu ();
+					scanf ("%s", sch2);
+					while (sch2[0] != '3') {
+						switch (sch2[0]) {
+						case '1':
+							LaisvosVietos ();
+							kamb_meniu ();
+							scanf ("%s", sch2);
+							break;
+						case '2':
+							VietuSk ();
+							kamb_meniu ();
+							scanf ("%s", sch2);
+							break;
+						default:
+							kamb_meniu ();
+							scanf ("%s", sch2);
+						}
+					}
+					s_meniu ();
+					scanf ("%s", sch);
+					break;
+				default:
+					s_meniu ();
+					scanf ("%s", sch);
+				}
+			}
+			meniu ();
+			scanf ("%s", ch);
+			break;
+		default:
+			meniu ();
+			scanf ("%s", ch);
+		}
+	}
+
+error:
+	if ((SQLCODE != 0) && (SQLCODE != 100)) {
+		printf ("\nSQL klaida.\n");
+		sqlaintp (msgbuffer, 512, 70, &sqlca);
+		printf ("Message: %s\n",msgbuffer);
+	}
+end:
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+	EXEC SQL CONNECT RESET;
+}

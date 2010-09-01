@@ -1,0 +1,730 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-13"><title>Hotel</title>
+	
+<style type="text/css">
+TABLE {
+	font-family : "Courier New", Courier, monospace;
+	font-size : 8pt;
+	text-align : left;
+}
+</style></head><body bgcolor="#f5f5f5">
+<font face="Courier New" size="2">
+</font><h4 align="center"><font face="Courier New" size="2">DBVS antra užduotis</font></h4>
+<h2 align="center"><font face="Courier New" size="2"><u>Viešbučio duomenų bazė</u></font></h2>
+<center><font face="Courier New" size="2">ATLIKO: Jolanta Buivydaitė, INFORMATIKA IIk.
+<br>2001/02 m.m. pavasario sem.</font></center>
+<font face="Courier New" size="2"><br><br>
+</font><p></p><center><font face="Courier New" size="2">Viešbučio DB, pavaizduota E-R diagrama:</font></center><p></p>
+<table align="center" bgcolor="#336699" border="0" cellpadding="1" cellspacing="0">
+<tbody><tr>
+    <td><img src="Hotel_files/er.gif"></td>
+</tr>
+</tbody></table>
+<font face="Courier New" size="2"><br><br>
+</font><p></p><center><font face="Courier New" size="2"><b>E-R modelio suvedimas į reliacinį duomenų modelį:</b></font></center><p></p>
+<ol>
+<font face="Courier New" size="2">	<li>Kiekvieną E-R modelio esybę reliaciniame modelyje atitinka lentelė. Taigi, gaunamos tokios lentelės:
+	<ul type="disc">
+	<li>DARBUOTOJAI
+	</li><li>PASLAUGOS
+	</li><li>KAMBARIAI
+	</li><li>KLIENTAI
+	</li><li>REZERVAVIMAS
+	</li></ul>
+	
+	</li><li>Kiekvienam
+esybės vienareikšmiam atributui atitinkamoje reliacinėje lentelėje
+įtraukiamas stulpelis. Išvestiniai (apskaičiuojami) atributai į lentelę
+neįtraukiami. Taigi, lentelės turės tokius stulpelius: <ul type="disc">
+	<li>DARBUOTOJAI (ID, Pavardė, Gimė, Telefonas, Kortelė, Kortelės_Nr, Pareigos, Alga, Dirba_Nuo)
+	</li><li>PASLAUGOS (Pavadinimas, Kaina)
+	</li><li>KAMBARIAI (Nr, Vietos, Kaina)
+	</li><li>KLIENTAI (ID, Pavardė, Kortelė, Kortelės_Nr, Telefonas, Šalis)
+	</li><li>REZERVAVIMAS (Vietos)
+	</li></ul>
+	
+	</li><li>Esybės raktas tampa lentelės pirminiu raktu. Taigi, lentelės turės tokius raktus:
+	<ul type="disc">
+	<li>DARBUOTOJAI (<u>ID</u>, Pavardė, Gimė, Telefonas, Kortelė, Kortelės_Nr, Pareigos, Alga, Dirba_Nuo)
+	</li><li>PASLAUGOS (<u>Pavadinimas</u>, Kaina)
+	</li><li>KAMBARIAI (<u>Nr</u>, Vietos, Kaina)
+	</li><li>KLIENTAI (<u>ID</u>, Pavardė, Kortelė, Kortelės_Nr, Telefonas, Šalis)
+	</li></ul>
+	
+	</li><li>Į
+lentelę REZERVAVIMAS, atitinkančią silpnąją esybę, įtraukiamas
+pagrindinę esybę KLIENTAS atitinkančios lentelės pirminis raktas ID.
+Šis atributas silpnąją esybę atitinkančioje lentelėje tampa išoriniu
+raktu į pagrindinę lentelę KLIENTAI: <ul type="disc">
+	<li>REZERVAVIMAS (<u>ID</u>, Vietos)
+	<br>Išorinis raktas: ID nurodo į KLIENTAI
+	</li></ul>
+	
+	</li><li>Ryšiui
+"gyvena" suformuojama atskira lentelė GYVENTOJAI, įtraukiant į ją
+abiejų ryšyje dalyvaujančių esybių raktus, kurie tampa lentelės
+išoriniais raktais. Į lentelę taip pat įtraukiami visi ryšio atributai:
+<ul type="disc">
+	<li>GYVENTOJAI (Kambarys, <u>ID</u>, <u>Nuo</u>, <u>Iki</u>, Sumokėta)
+	<br>Išoriniai raktai: Kambarys nurodo į KAMBARIAI
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID nurodo į KLIENTAI
+	</li></ul>
+	
+	</li><li>Kiekvienam
+1:N ryšiui į lentelę L, atitinkančią esybę, pažymėtą "N", įtraukiamas
+lentelės, atitinkančios esybę, pažymėtą "1", pirminis raktas ir jis
+tampa lentelės L išoriniu raktu. Į lentelę L įtraukiami visi ryšio
+atributai, jei tokie yra. Iš čia gauname: <ul type="disc">
+	<li>DARBUOTOJAI (<u>ID</u>, Pavardė, Gimė, Telefonas, Kortelė, Kortelės_Nr, Pareigos, Alga, Dirba_Nuo)
+	</li><li>PASLAUGOS (<u>Pavadinimas</u>, Kaina, Aptarnauja)
+	<br>Išorinis raktas: Aptarnauja nurodo į DARBUOTOJAI
+	</li><li>KAMBARIAI (<u>Nr</u>, Vietos, Kaina, Tvarko)
+	<br>Išorinis raktas: Tvarko nurodo į DARBUOTOJAI
+	</li><li>KLIENTAI (<u>ID</u>, Pavardė, Kortelė, Kortelės_Nr, Telefonas, Šalis, Registravo, Data)
+	<br>Išorinis raktas: Registravo nurodo į DARBUOTOJAI
+	</li><li>REZERVAVIMAS (<u>ID</u>, Vietos, <u>Nuo</u>, <u>Iki</u>, Rezervavo, Data)
+	<br>Išoriniai raktai: ID nurodo į KLIENTAI
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rezervavo
+nurodo į DARBUOTOJAI </li></ul>
+</li></font></ol>
+<p></p><center><font face="Courier New" size="2">Grafiškai reliacinė schema atrodo taip:</font></center><p></p>
+<table align="center" bgcolor="#336699" border="0" cellpadding="1" cellspacing="0">
+<tbody><tr>
+    <td><img src="Hotel_files/db.gif"></td>
+</tr>
+</tbody></table>
+<font face="Courier New" size="2"><br><br>
+</font><p></p><center><font face="Courier New" size="2"><b>Lentelės:</b></font></center><p></p>
+<font face="Courier New" size="2"><b>DARBUOTOJAI</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>ID</b></td>
+    <td><b>PAVARDE</b></td>
+    <td><b>GIME</b></td>
+    <td><b>TELEFONAS</b></td>
+    <td><b>KORTELE</b></td>
+    <td><b>KORTELES_NR</b></td>
+    <td><b>PAREIGOS</b></td>
+    <td><b>ALGA</b></td>
+    <td><b>DIRBA_NUO</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>1</td>
+    <td>Petraitis</td>
+    <td>1958.11.03</td>
+    <td>+37061120001</td>
+    <td>Visa Electron</td>
+    <td>1000100010001001</td>
+    <td>Direktorius</td>
+    <td>3000,00</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>2</td>
+    <td>Jonaitis</td>
+    <td>1970.08.12</td>
+    <td>+37061120002</td>
+    <td>Visa Electron</td>
+    <td>1000100010001002</td>
+    <td>Vadybininkas</td>
+    <td>2200,00</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>3</td>
+    <td>Adminiene</td>
+    <td>1967.07.26</td>
+    <td>+37061120003</td>
+    <td>Visa Electron</td>
+    <td>1000100010001003</td>
+    <td>Administratore</td>
+    <td>1900,00</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>4</td>
+    <td>Petraityte</td>
+    <td>1979.03.20</td>
+    <td>+37061120004</td>
+    <td>Visa Electron</td>
+    <td>1000100010001004</td>
+    <td>Sekretore</td>
+    <td>1500,00</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>5</td>
+    <td>Pastini</td>
+    <td>1968.10.30</td>
+    <td>+37061120005</td>
+    <td>Visa Electron</td>
+    <td>1000100010001005</td>
+    <td>Virejas</td>
+    <td>1800,00</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>6</td>
+    <td>Ajaksas</td>
+    <td>1960.05.17</td>
+    <td>+37061120006</td>
+    <td>Visa Electron</td>
+    <td>1000100010001006</td>
+    <td>Valytojas</td>
+    <td>1200,00</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>7</td>
+    <td>Properis</td>
+    <td>1962.01.09</td>
+    <td>+37061120007</td>
+    <td>Visa Electron</td>
+    <td>1000100010001007</td>
+    <td>Valytojas</td>
+    <td>1200,00</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>8</td>
+    <td>Kaminskas</td>
+    <td>1956.12.01</td>
+    <td>+37061120008</td>
+    <td>Visa Electron</td>
+    <td>1000100010001008</td>
+    <td>Ukvedys</td>
+    <td>800,00</td>
+    <td>2002.05.01</td>
+</tr>
+</tbody></table>
+<br>Ši lentelė skirta informacijai apie darbuotojus. Joje galioja f-sąryšis:
+<br>{ID}-&gt;{Pavardė, Gimė, Telefonas, Kortelė, Kortelės_Nr, Pareigos, Alga}
+<br>Lentelė yra 4-oje NF.
+<br>Ši lentelė turi unikalų indeksą atributams "Kortelė" ir
+"Kortelės_Nr" bei indeksą atributui "Pavardė". Darbuotojų ID bei
+įdarbinimo datas automatiškai įrašo sukurti trigeriai, kai tik į
+lentelę DARBUOTOJAI yra įvedamas naujas darbuotojas. Įdarbinimo datos
+keisti negalima.
+<br>NULL reikšmės galimos tik stulpelyje "Telefonas".
+
+<br><br>
+<b>PASLAUGOS</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>PAVADINIMAS</b></td>
+    <td><b>KAINA</b></td>
+    <td><b>APTARNAUJA</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>Informacija</td>
+    <td>0,00</td>
+    <td>4</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>Pusryciai</td>
+    <td>10,00</td>
+    <td>5</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>Pietus</td>
+    <td>20,00</td>
+    <td>5</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>Vakariene</td>
+    <td>10,00</td>
+    <td>5</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>Desertas</td>
+    <td>5,00</td>
+    <td>5</td>
+</tr>
+</tbody></table>
+<br>Ši lentelė skirta informacijai apie teikiamas paslaugas. Joje galioja f-sąryšis:
+<br>{Pavadinimas}-&gt;{Kaina, Aptarnauja}
+<br>Lentelė yra 4-oje NF.
+
+<br><br>
+<b>KAMBARIAI</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>NR</b></td>
+    <td><b>VIETOS</b></td>
+    <td><b>KAINA</b></td>
+    <td><b>TVARKO</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>21</td>
+    <td>1</td>
+    <td>50,00</td>
+    <td>6</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>22</td>
+    <td>2</td>
+    <td>45,00</td>
+    <td>6</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>23</td>
+    <td>3</td>
+    <td>40,00</td>
+    <td>6</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>24</td>
+    <td>4</td>
+    <td>35,00</td>
+    <td>6</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>31</td>
+    <td>1</td>
+    <td>50,00</td>
+    <td>7</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>32</td>
+    <td>2</td>
+    <td>45,00</td>
+    <td>7</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>33</td>
+    <td>3</td>
+    <td>40,00</td>
+    <td>7</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>34</td>
+    <td>4</td>
+    <td>35,00</td>
+    <td>7</td>
+</tr>
+</tbody></table>
+<br>Ši lentelė skirta informacijai apie kambarius. Joje galioja f-sąryšis:
+<br>{Nr}-&gt;{Vietos, Kaina, Tvarko}
+<br>Lentelė yra 4-oje NF.
+
+<br><br>
+<b>KLIENTAI</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>ID</b></td>
+    <td><b>PAVARDE</b></td>
+    <td><b>KORTELE</b></td>
+    <td><b>KORTELES_NR</b></td>
+    <td><b>TELEFONAS</b></td>
+    <td><b>SALIS</b></td>
+    <td><b>REGISTRAVO</b></td>
+    <td><b>DATA</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>1</td>
+    <td>Kazickas</td>
+    <td>Visa Electron</td>
+    <td>2000200020002001</td>
+    <td>+37061060001</td>
+    <td>Lietuva</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>2</td>
+    <td>Augunaite</td>
+    <td>Visa Electron</td>
+    <td>2000200020002002</td>
+    <td>+37061060002</td>
+    <td>Lietuva</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>3</td>
+    <td>Masiulionis</td>
+    <td>Visa Electron</td>
+    <td>2000200020002003</td>
+    <td>+37061060003</td>
+    <td>Lietuva</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>4</td>
+    <td>Saldziunas</td>
+    <td>Visa Electron</td>
+    <td>2000200020002004</td>
+    <td>+37061060004</td>
+    <td>Lietuva</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>5</td>
+    <td>Janciene</td>
+    <td>Visa Electron</td>
+    <td>2000200020002005</td>
+    <td>+37061060005</td>
+    <td>Lietuva</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>6</td>
+    <td>Usevicius</td>
+    <td>Visa Electron</td>
+    <td>2000200020002006</td>
+    <td>+37061060006</td>
+    <td>Lietuva</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>7</td>
+    <td>Malakauskaite</td>
+    <td>Visa Electron</td>
+    <td>2000200020002007</td>
+    <td>+37061060007</td>
+    <td>Lietuva</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+</tbody></table>
+<br>Ši lentelė skirta informacijai apie klientus. Joje galioja f-sąryšis:
+<br>{ID}-&gt;{Pavardė, Kortelė, Kortelės_Nr, Telefonas, Šalis, Registravo, Data}
+<br>Lentelė yra 4-oje NF.
+<br>Ši lentelė turi unikalų indeksą atributams "Kortelė" ir
+"Kortelės_Nr" bei indeksą atributui "Pavardė". Klientų ID bei
+registravimo datas automatiškai įrašo sukurti trigeriai, kai tik į
+lentelę KLIENTAI yra įvedamas naujas klientas. Registravimo datos
+keisti negalima.
+<br>NULL reikšmės galimos tik stulpelyje "Telefonas".
+
+<br><br>
+<b>GYVENTOJAI</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>KAMBARYS</b></td>
+    <td><b>ID</b></td>
+    <td><b>NUO</b></td>
+    <td><b>IKI</b></td>
+    <td><b>SUMOKETA</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>21</td>
+    <td>2</td>
+    <td>2002-05-01-10.51.51.610000</td>
+    <td>2002-05-06-10.51.51.610000</td>
+    <td>250,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>22</td>
+    <td>1</td>
+    <td>2002-05-01-10.51.51.720000</td>
+    <td>2002-05-04-10.51.51.720000</td>
+    <td>135,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>22</td>
+    <td>3</td>
+    <td>2002-05-01-10.51.51.830000</td>
+    <td>2002-05-04-10.51.51.830000</td>
+    <td>135,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>31</td>
+    <td>4</td>
+    <td>2002-05-01-10.51.51.890000</td>
+    <td>2002-05-02-10.51.51.890000</td>
+    <td>50,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>24</td>
+    <td>5</td>
+    <td>2002-05-01-10.51.51.940000</td>
+    <td>2002-05-03-10.51.51.940000</td>
+    <td>70,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>23</td>
+    <td>7</td>
+    <td>2002-05-01-10.51.52.000000</td>
+    <td>2002-05-08-10.51.52.000000</td>
+    <td>280,00</td>
+</tr>
+</tbody></table>
+<br>Ši lentelė skirta informacijai apie gyventojus (dabar gyvenančius ir gyvenusius anksčiau). Joje galioja f-sąryšis:
+<br>{ID, Nuo, Iki}-&gt;{Kambarys, Sumokėta}
+<br>Lentelė yra 4-oje NF.
+<br>Apgyvendinant klientą stulpelyje "Nuo" trigeris automatiškai įrašo
+tikslų laiką, esantį apgyvendinimo momentu. Atributo "Nuo" reikšmės
+keisti negalima. Taip pat negalima keisti atributo "Iki" reikšmės,
+jeigu klientas jau nebegyvena.
+<br><br>
+<b>REZERVAVIMAS</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>ID</b></td>
+    <td><b>VIETOS</b></td>
+    <td><b>NUO</b></td>
+    <td><b>IKI</b></td>
+    <td><b>REZERVAVO</b></td>
+    <td><b>DATA</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>4</td>
+    <td>3</td>
+    <td>2002.05.05</td>
+    <td>2002.05.09</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>5</td>
+    <td>2</td>
+    <td>2002.05.04</td>
+    <td>2002.05.11</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>6</td>
+    <td>4</td>
+    <td>2002.05.03</td>
+    <td>2002.05.10</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>1</td>
+    <td>2</td>
+    <td>2002.05.06</td>
+    <td>2002.05.11</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>3</td>
+    <td>1</td>
+    <td>2002.05.10</td>
+    <td>2002.05.15</td>
+    <td>3</td>
+    <td>2002.05.01</td>
+</tr>
+</tbody></table>
+<br>Ši lentelė skirta informacijai apie rezervuotas vietas. Joje galioja f-sąryšis:
+<br>{ID, Nuo, Iki}-&gt;{Vietos, Rezervavo, Data}
+<br>Lentelė yra 4-oje NF.
+<br>Rezervuojant vietas stulpelyje "Data" trigeris automatiškai įrašo
+datą, esančią rezervavimo momentu. Pakeitus tam tikrą rezervavimą,
+rezervavimo data keičiama automatiškai.
+<br><br>
+<b>SASKAITA</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>ID</b></td>
+    <td><b>PAVARDE</b></td>
+    <td><b>KORTELE</b></td>
+    <td><b>KORTELES_NR</b></td>
+    <td><b>KAMBARYS</b></td>
+    <td><b>NUO</b></td>
+    <td><b>IKI</b></td>
+    <td><b>DIENOS</b></td>
+    <td><b>MOKETI</b></td>
+    <td><b>SUMOKETA</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>2</td>
+    <td>Augunaite</td>
+    <td>Visa Electron</td>
+    <td>2000200020002002</td>
+    <td>21</td>
+    <td>2002-05-01-10.51.51.610000</td>
+    <td>2002-05-06-10.51.51.610000</td>
+    <td>5</td>
+    <td>250,00</td>
+    <td>250,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>1</td>
+    <td>Kazickas</td>
+    <td>Visa Electron</td>
+    <td>2000200020002001</td>
+    <td>22</td>
+    <td>2002-05-01-10.51.51.720000</td>
+    <td>2002-05-04-10.51.51.720000</td>
+    <td>3</td>
+    <td>135,00</td>
+    <td>135,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>3</td>
+    <td>Masiulionis</td>
+    <td>Visa Electron</td>
+    <td>2000200020002003</td>
+    <td>22</td>
+    <td>2002-05-01-10.51.51.830000</td>
+    <td>2002-05-04-10.51.51.830000</td>
+    <td>3</td>
+    <td>135,00</td>
+    <td>135,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>7</td>
+    <td>Malakauskaite</td>
+    <td>Visa Electron</td>
+    <td>2000200020002007</td>
+    <td>23</td>
+    <td>2002-05-01-10.51.52.000000</td>
+    <td>2002-05-08-10.51.52.000000</td>
+    <td>7</td>
+    <td>280,00</td>
+    <td>280,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>5</td>
+    <td>Janciene</td>
+    <td>Visa Electron</td>
+    <td>2000200020002005</td>
+    <td>24</td>
+    <td>2002-05-01-10.51.51.940000</td>
+    <td>2002-05-03-10.51.51.940000</td>
+    <td>2</td>
+    <td>70,00</td>
+    <td>70,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>4</td>
+    <td>Saldziunas</td>
+    <td>Visa Electron</td>
+    <td>2000200020002004</td>
+    <td>31</td>
+    <td>2002-05-01-10.51.51.890000</td>
+    <td>2002-05-02-10.51.51.890000</td>
+    <td>1</td>
+    <td>50,00</td>
+    <td>50,00</td>
+</tr>
+</tbody></table>
+<br>Tai virtuali lentelė, skirta klientų sąskaitų peržiūrai. Joje
+pateikiama informacija iš lentelių KAMBARIAI, KLIENTAI, GYVENTOJAI.
+Pagal lentelės GYVENTOJAI atributų "Nuo" ir "Iki" skirtumą
+apskaičiuojamas atributas "Dienos", pagal dienas ir kambario kainą
+apskaičiuojamas atributas "Mokėti".
+<br><br>
+<b>LAISVOS VIETOS</b>
+<table bgcolor="#336699" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr bgcolor="#99cccc">
+    <td><b>KAMBARYS</b></td>
+    <td><b>VIETOS</b></td>
+    <td><b>LAISVOS_VIETOS</b></td>
+	<td><b>KAINA</b></td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>21</td>
+    <td>1</td>
+    <td>0</td>
+	<td>50,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>22</td>
+    <td>2</td>
+    <td>0</td>
+	<td>45,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>23</td>
+    <td>3</td>
+    <td>2</td>
+	<td>40,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>24</td>
+    <td>4</td>
+    <td>3</td>
+	<td>35,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>31</td>
+    <td>1</td>
+    <td>0</td>
+	<td>50,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>32</td>
+    <td>2</td>
+    <td>2</td>
+	<td>45,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>33</td>
+    <td>3</td>
+    <td>3</td>
+	<td>40,00</td>
+</tr>
+<tr bgcolor="#e0ffff">
+    <td>34</td>
+    <td>4</td>
+    <td>4</td>
+	<td>35,00</td>
+</tr>
+</tbody></table>
+<br>Tai virtuali lentelė, skirta laisvų vietų kambariuose peržiūrai
+esamu laiko momentu. Joje pateikiama informacija iš lentelės KAMBARIAI.
+Atributas "Laisvos_Vietos" apskaičiuojamas iš kambario vietų skaičiaus
+atimant jame gyvenančių klientų skaičių.
+<br><br>
+</font><p></p><center><font face="Courier New" size="2"><b>Programa:</b></font></center><p></p>
+<font face="Courier New" size="2">Programa yra skirta viešbučio
+darbuotojams, klientams bei svečiams. Jei programos vartotojas yra
+darbuotojas arba klientas, jo paprašoma nurodyti kortelę ir kortelės
+numerį. Tada patikrinama ar toks darbuotojas/klientas iš tikrųjų yra.
+<br>Viešbučio klientai ir svečiai jiems leistiną informaciją gali tik
+peržiūrėti, jos negalėdami nei keisti, nei įvedinėti, nei šalinti.
+<br>Viešbučio darbuotojai, priklausomai nuo to, kokios yra jų pareigos, turi skirtingas teises operacijoms su duomenimis.
+</font><ul type="disc"><font face="Courier New" size="2"><u>Darbuotojų teisės:</u>
+	<li>direktoriui suteikiama teisė visos informacijos peržiūrėjimui, įvedimui, keitimui bei šalinimui be jokių apribojimų
+	</li><li>vadybininkui,
+administratorei, sekretorei nėra prieinama detali informacija apie
+darbuotojus, neleistinas darbuotojų įdarbinimas, keitimas, šalinimas.
+Visą kitą informaciją jie gali lygiai taip pat peržiūrinėti, įvedinėti,
+keisti bei šalinti kaip ir direktorius </li><li>visiems kitiems darbuotojams galima tik jiems leistinos informacijos peržiūra
+</li></font></ul>
+<ul type="disc"><font face="Courier New" size="2"><u>Duomenų paieška:</u>
+	<li>Lentelėje DARBUOTOJAI duomenų paieška vyksta arba pagal pirminį raktą (ID), arba pagal unikalų indeksą (Kortelė, Kortelės_Nr)
+	</li><li>Lentelėje PASLAUGOS duomenų paieška vyksta tik pagal pirminį raktą (Pavadinimas)
+	</li><li>Lentelėje KAMBARIAI duomenų paieška vyksta tik pagal pirminį raktą (Nr)
+	</li><li>Lentelėje KLIENTAI duomenų paieška vyksta arba pagal pirminį raktą (ID), arba pagal unikalų indeksą (Kortelė, Kortelės_Nr)
+	</li><li>Lentelėje
+GYVENTOJAI duomenų paieška vyksta arba pagal atributo "ID" (jei domina
+konkretaus kliento visi apgyvendinimai), arba pagal atributų "ID",
+"Nuo" ir "Iki" reikšmes (jei domina konkretus vienintelis
+apgyvendinimas) </li><li>Lentelėje REZERVAVIMAS duomenų paieška vyksta arba pagal
+atributo "ID" (jei domina konkretaus kliento visi rezervavimai), arba
+pagal atributų "ID", "Nuo" ir "Iki" reikšmes (jei domina konkretus
+vienintelis rezervavimas) </li><li>Lentelėje SĄSKAITA duomenų paieška vyksta pagal atributo "ID" reikšmę
+	</li><li>Lentelėje LAISVOS VIETOS duomenų paieška vyksta pagal atributo "Kambarys" reikšmę
+</li></font></ul>
+<ul type="disc"><font face="Courier New" size="2"><u>Duomenų įvedimas, keitimas, šalinimas:</u>
+	<li>Nauji
+įrašai į lenteles įtraukiami tik tais atvejais, kai yra nurodyta visa
+būtina informacija ir kai ta informacija yra korektiška </li><li>Duomenų keitimas yra atliekamas kiekvienam konkrečiam
+įrašui atskirai. Jei nurodytas įrašas egzistuoja, darbuotojui yra
+pateikiamas meniu, iš kurio jis gali pasirinkti kokią informaciją
+keisti, o kokios ne. Kai duomenų keitimas baigiamas, darbuotojo
+paklausiama ar jis nori išsaugoti pakeitimus. Jei atsakymas teigiamas,
+nauja informacija užfiksuojama sakiniu EXEC SQL COMMIT </li><li>Duomenų šalinimas yra atliekamas kiekvienam konkrečiam
+įrašui atskirai. Jei nurodytas įrašas egzistuoja, darbuotojo
+paklausiama ar jis tikrai nori pašalinti įrašą. Jei atsakymas
+teigiamas, įrašo pašalinimas užfiksuojamas sakiniu EXEC SQL COMMIT
+</li></font></ul>
+
+
+</body><script type="text/javascript"><!--
+function __RP_Callback_Helper(str, strCallbackEvent, splitSize, func){var event = null;if (strCallbackEvent){event = document.createEvent('Events');event.initEvent(strCallbackEvent, true, true);}if (str && str.length > 0){var splitList = str.split('|');var strCompare = str;if (splitList.length == splitSize)strCompare = splitList[splitSize-1];var pluginList = document.plugins;for (var count = 0; count < pluginList.length; count++){var sSrc = '';if (pluginList[count] && pluginList[count].src)sSrc = pluginList[count].src;if (strCompare.length >= sSrc.length){if (strCompare.indexOf(sSrc) != -1){func(str, count, pluginList, splitList);break;}}}}if (strCallbackEvent)document.body.dispatchEvent(event);}function __RP_Coord_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Coord_Callback = str;pluginList[index].__RP_Coord_Callback_Left = splitList[0];pluginList[index].__RP_Coord_Callback_Top = splitList[1];pluginList[index].__RP_Coord_Callback_Right = splitList[2];pluginList[index].__RP_Coord_Callback_Bottom = splitList[3];};__RP_Callback_Helper(str, 'rp-js-coord-callback', 5, func);}function __RP_Url_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Url_Callback = str;pluginList[index].__RP_Url_Callback_Vid = splitList[0];pluginList[index].__RP_Url_Callback_Parent = splitList[1];};__RP_Callback_Helper(str, 'rp-js-url-callback', 3, func);}function __RP_TotalBytes_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_TotalBytes_Callback = str;pluginList[index].__RP_TotalBytes_Callback_Bytes = splitList[0];};__RP_Callback_Helper(str, null, 2, func);}function __RP_Connection_Callback(str){var func = function(str, index, pluginList, splitList){pluginList[index].__RP_Connection_Callback = str;pluginList[index].__RP_Connection_Callback_Url = splitList[0];};__RP_Callback_Helper(str, null, 2, func);}
+//--></script></html>
