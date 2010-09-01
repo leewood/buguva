@@ -1,0 +1,91 @@
+#!/bin/bash
+#
+# USAGE:    ./javaview [options] [geometry-file]
+#           - the geometry-file is optional
+#           - each option pair must be enclosed in like "key=value"
+#
+# EXAMPLE:  switch to base of your JavaView installation, e.g. type
+#             cd ~/JavaView/
+#             bin/javaview sample.obj
+#           or use options like in
+#             bin/javaview "control=show" "panel=material" sample.obj
+#
+# NOTES:    - make sure that this script is executable: "chmod u+rwx javaview"
+#           - this script was edited under MS-DOS and must be converted to unix
+#             if you obtain the message: "Invalid Interpreter". Please, use
+#             "to_unix javaview > javaview" or "fromdos javaview"
+#           - you may have to edit the variables below
+#
+# VERSION:  2.10 revised (ep) Checking for bin/java in JAVA_HOME; new option for fast labels+zBuffer problem
+#           2.05 revised (kp) Shortened and doc.
+#           2.00 revised (ep) Full rewrite.
+#           1.00 created (sk)
+# PURPOSE:  launch JavaView, optionally with a 3d-geometry and command line args
+
+#
+# PLEASE EDIT FOLLOWING VARIABLES FOR YOUR ENVIRONMENT
+#
+
+## The following directory must contain the java executable "java".
+## It may be empty or commented out if "java" is found via your PATH variable.
+#JAVA_HOME=/usr/bin
+
+## Remove the comment char '#' from the line below (keep the underscore!), 
+## if you experience VERY slow performance of JavaView
+## when z-Buffer is active and Labels are shown:
+#_FAST_LABELS="-Dsun.java2d.pmoffscreen=false"
+
+## The following directory is the base of your JavaView installation.
+## Default setting: Location of this script then one directory back up.
+## You may set it to an absolute path like "/homes/myself/JavaView".
+JAVAVIEW_HOME=`dirname $0`/..
+
+## The following directory contains the files "javaview.jar",
+## and optionally "jvx.jar" and "vgpapp.jar".
+JAVAVIEW_JARS=$JAVAVIEW_HOME/jars
+
+## Set this variable to the preferred language (e.g. de, ru or fr).
+## Notice that this option is only available under java1.3.0 or above!
+## If JavaView is not available in your language the english version is used.
+JAVAVIEW_LANG=en
+
+## Remove the comment char '#' from the line below (keep the underscore!), 
+## By default the Java virtual machine has a lower upper memory limit of 64MB.
+## Use the following flag to increase memory if you get an "Out of Memory" error.
+## Adjust the number to your needs, such as -Xmx512m (= 512 MB).
+#JAVA_MEMORY=-Xmx256m
+
+#
+# PLEASE TRY NOT TO EDIT BELOW THIS LINE
+#
+
+# test whether "java" is found in path... if yes then $TEST is set to 1
+if [ -z $JAVA_HOME ]; then echo -n searching for java in PATH...
+  JAVA_SEARCHES=(${PATH//:/\ })
+  TEST=0
+  for NAME in ${JAVA_SEARCHES[@]}; do
+    if [ -x $NAME/java ]; then TEST=1; fi
+  done
+  if [ $TEST == 1 ]; then echo found!; else echo not found!; fi
+# make sure that $JAVA_HOME ends with a "/" (if set) and perhaps JAVA_HOME refers to the directory above bin/java
+else
+  JAVA_HOME=${JAVA_HOME%/}/
+  if [[ ! -f ${JAVA_HOME}java && -f ${JAVA_HOME}bin/java ]]; then 
+    JAVA_HOME="${JAVA_HOME}bin/"
+  fi
+  echo ${JAVA_HOME}java
+fi
+
+
+echo >&2 "You may have to edit the variables in this script if it doesn't start JavaView."
+
+if [[ ( -n $JAVA_HOME && -x ${JAVA_HOME}java ) || ( -z $JAVA_HOME && $TEST == 1 ) ]]
+then
+  CLASSPATH=$JAVAVIEW_HOME:$JAVAVIEW_JARS/javaview.jar:$JAVAVIEW_JARS/jvx.jar:$JAVAVIEW_JARS/vgpapp.jar
+  export CLASSPATH
+  exec ${JAVA_HOME}java $JAVA_MEMORY -Dlanguage=$JAVAVIEW_LANG $_FAST_LABELS javaview CodeBase=$JAVAVIEW_HOME "$@"
+else
+  echo >&2 No JRE has been found \(command \"${JAVA_HOME}bin/java\" not found\).
+  echo >&2 "Please modify the variables in this shell script, or set the environment variable JAVA_HOME to the jre's or jdk's root directory"
+  exit 1
+fi
