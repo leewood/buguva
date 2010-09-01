@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PSI2.ExtConsole.Decorators.AbstractDecorator" Collapsed="true">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAAAAAAACBAAgAgAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Decorators\AbstractDecorator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PSI2.ExtConsole.Decorators.Aligment" Collapsed="true">
+    <Position X="1" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAIIAAAAgAAgAAABAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Decorators\Aligment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PSI2.ExtConsole.Decorators.Border" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Decorators\Border.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PSI2.ExtConsole.Decorators.EncodedOutput" Collapsed="true">
+    <Position X="6.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Decorators\EncodedOutput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PSI2.ExtConsole.Decorators.Padding" Collapsed="true">
+    <Position X="4.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAQBCAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Decorators\Padding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PSI2.ExtConsole.Decorators.SourceDuplication" Collapsed="true">
+    <Position X="2.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Decorators\SourceDuplication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PSI2.ExtConsole.Items.SimpleOutput" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Items\SimpleOutput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.323" />
+  </Class>
+  <Class Name="PSI2.ExtConsole.Decorator" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAQAAAAAAAJAAAAAAAgACAAAAAAAAA=</HashCode>
+      <FileName>ExtConsole\Decorator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="owner" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="PSI2.ExtConsole.Printable" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ExtConsole\Printable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -1,0 +1,18 @@
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\obj\Debug\ResolveAssemblyReference.cache
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\obj\Debug\RecordsEditor.Form1.resources
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\obj\Debug\RecordsEditor.Properties.Resources.resources
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\obj\Debug\RecordsEditor.csproj.GenerateResource.Cache
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\bin\Debug\RecordsEditor.exe
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\bin\Debug\RecordsEditor.pdb
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\obj\Debug\RecordsEditor.exe
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\obj\Debug\RecordsEditor.pdb
+D:\My Documents\Visual Studio 2008\Projects\RecordsEditor\RecordsEditor\obj\Debug\RecordsEditor.EditorForm.Elements.Field.resources
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\obj\Debug\RecordsEditor.exe
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\obj\Debug\RecordsEditor.pdb
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\bin\Debug\RecordsEditor.exe
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\bin\Debug\RecordsEditor.pdb
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\obj\Debug\ResolveAssemblyReference.cache
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\obj\Debug\RecordsEditor.EditorForm.Elements.Field.resources
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\obj\Debug\RecordsEditor.Form1.resources
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\obj\Debug\RecordsEditor.Properties.Resources.resources
+C:\Studijos\PSI\PSI2\Rimvydo\RecordsEditor\obj\Debug\RecordsEditor.csproj.GenerateResource.Cache

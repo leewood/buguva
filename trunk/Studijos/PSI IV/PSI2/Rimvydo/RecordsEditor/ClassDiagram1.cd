@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="RecordsEditor.EditorForm.Decorators.AbstractDecorator">
+    <Position X="3.25" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AUAAgAAABAAAAAAAAAAAgAAIAAAEAAAAAAEAAAAEAAA=</HashCode>
+      <FileName>EditorForm\Decorators\AbstractDecorator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RecordsEditor.EditorForm.Decorators.Border">
+    <Position X="1.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EditorForm\Decorators\Border.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecordsEditor.EditorForm.Decorators.Header">
+    <Position X="3.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAEAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>EditorForm\Decorators\Header.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecordsEditor.EditorForm.Elements.Field" BaseTypeListCollapsed="true">
+    <Position X="6" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>EditorForm\Elements\Field.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RecordsEditor.Form1">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAA4AAAAEHAAAAAAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RecordsEditor.Program" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecordsEditor.Properties.Resources" Collapsed="true">
+    <Position X="11" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecordsEditor.Properties.Settings" Collapsed="true">
+    <Position X="11" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecordsEditor.EditorForm.Decorators.Question">
+    <Position X="6" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIAAAAAAQAAAAA=</HashCode>
+      <FileName>EditorForm\Decorators\Question.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecordsEditor.EditorForm.Decorator">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAIAAAAAAAgAAACCAAAAAAAAAACRAAAAAAAAAAAAA=</HashCode>
+      <FileName>EditorForm\Decorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RecordsEditor.EditorForm.Showable">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EditorForm\Showabe.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
