@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>rc/1.bmp</file>
+        <file>rc/2.bmp</file>
+        <file>rc/busy.bmp</file>
+        <file>rc/busy_mask.bmp</file>
+        <file>rc/empty.bmp</file>
+        <file>rc/empty_mask.bmp</file>
+        <file>rc/gmo.bmp</file>
+        <file>rc/gmo_mask.bmp</file>
+        <file>rc/hazard00.bmp</file>
+        <file>rc/hazard0.bmp</file>
+        <file>rc/hazard00_mask.bmp</file>
+        <file>rc/hazard0_mask.bmp</file>
+        <file>rc/hazard1.bmp</file>
+        <file>rc/hazard1_mask.bmp</file>
+        <file>rc/hazard2.bmp</file>
+        <file>rc/hazard2_mask.bmp</file>
+        <file>rc/hazard3.bmp</file>
+        <file>rc/hazard3_mask.bmp</file>
+        <file>rc/icon1.bmp</file>
+        <file>rc/icon1_mask.bmp</file>
+        <file>rc/icon2.bmp</file>
+        <file>rc/icon2_mask.bmp</file>
+        <file>rc/icon3.bmp</file>
+        <file>rc/icon3_mask.bmp</file>
+        <file>rc/icon.bmp</file>
+        <file>rc/icon_mask.bmp</file>
+        <file>rc/list_icon.bmp</file>
+        <file>rc/list_icon_mask.bmp</file>
+        <file>rc/mark_icon.bmp</file>
+        <file>rc/mark_icon_mask.bmp</file>
+        <file>rc/notvegan.bmp</file>
+        <file>rc/notvegan_mask.bmp</file>
+        <file>rc/logo_bottom.gif</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>Default.css</file>
+        <file>DefaultLandscape.css</file>
+    </qresource>
+</RCC>
