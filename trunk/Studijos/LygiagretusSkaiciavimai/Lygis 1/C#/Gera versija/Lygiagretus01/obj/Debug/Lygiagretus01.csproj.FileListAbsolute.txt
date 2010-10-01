@@ -1,0 +1,15 @@
+C:\Users\nku\Documents\Visual Studio 2008\Projects\Lygiagretus01\Lygiagretus01\bin\Debug\Lygiagretus01.exe
+C:\Users\nku\Documents\Visual Studio 2008\Projects\Lygiagretus01\Lygiagretus01\bin\Debug\Lygiagretus01.pdb
+C:\Users\nku\Documents\Visual Studio 2008\Projects\Lygiagretus01\Lygiagretus01\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\nku\Documents\Visual Studio 2008\Projects\Lygiagretus01\Lygiagretus01\obj\Debug\Lygiagretus01.exe
+C:\Users\nku\Documents\Visual Studio 2008\Projects\Lygiagretus01\Lygiagretus01\obj\Debug\Lygiagretus01.pdb
+C:\Studijos\Lygis 1\C#\Bloga versija\Lygiagretus01\obj\Debug\Lygiagretus01.exe
+C:\Studijos\Lygis 1\C#\Bloga versija\Lygiagretus01\obj\Debug\Lygiagretus01.pdb
+C:\Studijos\Lygis 1\C#\Bloga versija\Lygiagretus01\bin\Debug\Lygiagretus01.exe
+C:\Studijos\Lygis 1\C#\Bloga versija\Lygiagretus01\bin\Debug\Lygiagretus01.pdb
+C:\Studijos\Lygis 1\C#\Bloga versija\Lygiagretus01\obj\Debug\ResolveAssemblyReference.cache
+C:\Studijos\V3\Lygis 1\C#\Bloga versija\Lygiagretus01\obj\Debug\Lygiagretus01.exe
+C:\Studijos\V3\Lygis 1\C#\Bloga versija\Lygiagretus01\obj\Debug\Lygiagretus01.pdb
+C:\Studijos\V3\Lygis 1\C#\Bloga versija\Lygiagretus01\bin\Debug\Lygiagretus01.exe
+C:\Studijos\V3\Lygis 1\C#\Bloga versija\Lygiagretus01\bin\Debug\Lygiagretus01.pdb
+C:\Studijos\V3\Lygis 1\C#\Bloga versija\Lygiagretus01\obj\Debug\ResolveAssemblyReference.cache
