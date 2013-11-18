@@ -15,6 +15,7 @@ namespace CRestCompiler
     }
 
 
+	/*Block description*/
     struct BlockDesc
     {
         public const int MAX_VARS = 10;
@@ -23,6 +24,7 @@ namespace CRestCompiler
         public int lastPlace;
     }
 
+	/* Class for holding variables*/
     class Variables
     {
         public const int TYPE_INT = 0;
